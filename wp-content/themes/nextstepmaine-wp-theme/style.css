@@ -1,0 +1,119 @@
+	/*   
+		Theme Name: NextStepMaine Theme
+		Description: Custom WordPress theme for the NextStepMaine website
+		Author: Pica Design, LLC
+		Author URI: http://www.picadesign.com
+		Tags: NextStep, Maine, Custom Theme, Pica Design
+	*/
+	
+	/* Include our css equalizer to stabalize all browsers without just reseting */
+	@import "styles/browser-equalizer.css";
+	
+	/* ADMIN TEXT EDITOR STYLES ARE DECLARED WITHIN editor-style.css so they can be added to the WP WYSIWIG Editor */
+	@import "styles/global-styles.css";
+			
+	/**********************************************
+		BROWSER CORRECTIONS
+	***********************************************/	
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	
+	/* Apply a natural box layout model to all elements */
+	* { 
+		-moz-box-sizing: border-box; 
+		-webkit-box-sizing: border-box; 
+		box-sizing: border-box; 
+	}
+	
+	
+	/****************************************** 	
+		CSS TEXT SELECTION
+	******************************************/
+	*::-moz-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::-webkit-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::-o-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	
+	
+	/**********************************************
+		HTML COLORS
+	**********************************************/
+	/*  Light Gray  rgb(204,204,204) */
+	
+	
+	/**********************************************
+		CSS SPRITE COORDINATTES
+	**********************************************/
+	
+	
+	/**********************************************
+		COMMONLY USED DECLARATIONS 
+	**********************************************/
+	.clear {
+		clear: both ;
+	}
+	.alignleft {
+		float: left ;
+	}
+	.alignright {
+		float: right ;
+	}
+	
+	
+	/**********************************************
+		HTML DECLARATIONS 
+	**********************************************/
+	html {
+		margin: 0px ;
+		padding: 0px ;
+		height: 100% ;
+	}
+		body {
+			margin: 0px ;
+			font-family: Arial, Helvetica, sans-serif ;
+			font-size: 14px ;
+			min-height: 100% ;
+		}
+
+	
+	/**********************************************
+		LAYOUT DECLARATIONS 
+	**********************************************/
+	section.website-wrapper {
+		background-color: rgb(255,255,255) ;
+		position: relative ;
+		width: 100% ;
+	}
+		section.masthead {
+			width: 100% ;
+		}
+			.masthead nav {
+				width: 100% ;
+				background-color: rgb(204,204,204) ;
+			}
+			
+		section.content-wrapper {
+			position: relative ;
+		}
+	
+		.website-wrapper footer {
+			position: absolute ;
+			bottom: 0 ;
+			width: 100% ;
+			height: 200px ;
+			background-color: rgb(204,204,204) ;
+		}
