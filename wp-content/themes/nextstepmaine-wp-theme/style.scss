@@ -1,0 +1,271 @@
+	/*   
+		Theme Name: NextStepMaine Theme
+		Description: Custom WordPress theme for the NextStepMaine website
+		Author: Pica Design, LLC
+		Author URI: http://www.picadesign.com
+		Tags: NextStep, Maine, Custom Theme, Pica Design
+	*/
+	
+	
+	/****************************************** 	
+		MIXINS
+	******************************************/
+	@mixin centered {
+		width: 800px ;
+		margin: 0 auto 0 auto ;
+	}
+	
+	
+	/**********************************************
+		VARIABLES
+	**********************************************/
+	/* White */
+	$white: rgb(255,255,255) ;
+	
+	/*  Light Gray  */
+	$light-gray:  rgb(204,204,204) ;
+	
+	/* Dark Gray */
+	$dark-gray: rgb(95,96,98) ;
+	
+	/* Light Blue */
+	$light-blue: rgb(0,174,239) ;
+	
+	
+	/**********************************************
+		PARTIALS
+	**********************************************/
+	/* Include our css equalizer to stabalize all browsers without just reseting */
+	@import "styles/normalize.css";
+	
+	/* ADMIN TEXT EDITOR STYLES ARE DECLARED WITHIN editor-style.css so they can be added to the WP WYSIWIG Editor */
+	@import "styles/global-styles.css";
+	
+	
+	/**********************************************
+		BROWSER CORRECTIONS
+	***********************************************/	
+	
+	/* Apply a natural box layout model to all elements */
+	* { 
+		-moz-box-sizing: border-box; 
+		-webkit-box-sizing: border-box; 
+		box-sizing: border-box; 
+	}
+	
+	
+	/****************************************** 	
+		CSS TEXT SELECTION
+	******************************************/
+	*::-moz-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::-webkit-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::-o-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	
+
+	/**********************************************
+		CSS SPRITE COORDINATTES
+	**********************************************/
+	
+	
+	/**********************************************
+		COMMONLY USED DECLARATIONS 
+	**********************************************/
+	.clear {
+		clear: both ;
+	}
+	.alignleft {
+		float: left ;
+	}
+	.alignright {
+		float: right ;
+	}
+	
+	
+	/**********************************************
+		HTML DECLARATIONS 
+	**********************************************/
+	html {
+		margin: 0px ;
+		padding: 0px ;
+		height: 100% ;
+	}
+		body {
+			margin: 0px ;
+			font-family: Arial, Helvetica, sans-serif ;
+			font-size: 14px ;
+			height: 100% ;
+			min-width: 870px ;
+			color: $dark-gray ;
+		}
+
+	
+	/**********************************************
+		LAYOUT DECLARATIONS 
+	**********************************************/
+	section.website-wrapper {
+		background-color: $white ;
+		position: relative ;
+		width: 100% ;
+		min-height: 100% ;
+	}
+		section.masthead {
+			width: 800px ;
+			margin: 20px auto 20px auto ;
+			overflow: auto ;
+			
+			.website-logo {
+				float: left ;
+			}
+			.website-slogan {
+				float: left ;
+				color: $light-blue ;
+				font-family: 'AvenirLight';
+				font-size: 1.4em ;
+				margin: 30px 0 0 30px ;
+			}
+			.website-controls {
+				float: right ;
+				width: 215px ;
+				overflow: auto ;
+				
+				.website-quick-links {
+					ul {
+						display: inline-block ;
+						float: right ;
+						margin: 0 ;
+						padding: 0 ;
+					}	
+						li {
+							float: left ;
+							list-style: none ;
+							color: $light-blue ;
+							font-family: 'AvenirMedium';
+							
+							a {
+								color: $dark-gray ;
+								display: inline-block ;
+								margin: 0 5px 0 5px ;
+							}
+						}
+							li:after {
+								content: "/";
+							}
+							ul li.last:after {
+								content: "";
+								margin-right: 0 ;
+							}
+				}
+				.website-search {
+					float: right ;
+				}
+			}
+		}
+
+		.slideshow {
+			width: 870px ;
+			margin: 0 auto 0 auto ;
+			overflow: auto ;
+			
+			.slideshow-prev {
+				float: left ;
+				width: 35px ;
+				margin-top: 100px ;
+				
+				img {
+					float: left ;
+					margin-right: 10px ;
+				}
+			}
+				
+			.slides {
+				@include centered; 
+				float: left ;
+				
+				.slide {
+					
+				}
+			}
+			.slideshow-next {
+				float: left ;
+				width: 35px ;
+				margin-top: 100px ;
+				img {
+					float: right ;
+					margi-left: 10px ;
+				}
+			}
+		}
+
+		.next-step-header {
+			width: 800px ;
+			margin: 0 auto 0 auto ;
+			overflow: auto ;
+			padding: 10px 0 10px 0 ;
+			
+			h1 {
+				float: left ;
+				color: $light-blue ;
+				font-weight: bold ;
+				font-size: 2.4em ;
+			}
+			.caption {
+				diplay: inline-block ;
+				float: left ;
+				width: 200px ;	
+				margin: 8px 0 0 20px ;
+				font-size: 0.75em ;
+			}
+		}
+		
+		nav.next-step {
+			width: 100% ;
+			background-color: $light-gray ;
+			
+			.inner {
+				@include centered; 
+				padding: 20px 0 20px 0 ;
+				
+				ul {
+					margin: 0 ;
+					padding: 0 ;
+					overflow: auto ;
+					
+					li {
+						float: left ;
+						width: 190px ;
+						height: 75px ;
+						margin-right: 13px ;
+						background-color: $dark-gray ;
+					}
+						li.last {
+							margin-right: 0 ;
+						}
+				}
+			}
+		}
+			
+		section.content-wrapper {
+			position: relative ;
+			padding-bottom: 200px ;
+		}
+	
+		.website-wrapper footer {
+			position: absolute ;
+			bottom: 0 ;
+			width: 100% ;
+			height: 200px ;
+			background-color: $light-gray ;
+		}

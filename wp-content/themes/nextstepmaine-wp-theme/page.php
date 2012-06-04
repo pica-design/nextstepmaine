@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-            <div id="content-wrapper">
-            	
-            </div>          
+            <section class="content-wrapper">
+            	foo
+            </section>          
 <?php get_footer(); ?>

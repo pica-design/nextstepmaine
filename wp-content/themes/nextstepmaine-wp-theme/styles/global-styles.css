@@ -53,30 +53,21 @@ GLOBAL HTML STYLES
 ***************************************************************************/
 h1, h2, h3, h4 {
 	font-weight: normal ;
-	margin: 0px 0px 10px 0px ;
+	margin: 0 ;
 }
-	h1 {
-		font-size: 58px ;
-	}
-	h2 {
-		font-size: 22px ;
-	}
-	h3 {
-		font-size: 18px ;
-	}
-	h1 a, h2 a, h3 a {
-		font-size: 14px ;
-	}
+	
 p {
 	margin-top: 0px ;
 	color: rgb(114,114,114) ;
 }
+
 a {
 	color: rgb(122,193,66) ;
 	text-decoration: none ;
 	outline: none ;
 	font-size: 14px ;
 }
+
 a img {
 	border: 0px ;
 }

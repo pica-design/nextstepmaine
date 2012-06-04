@@ -29,18 +29,19 @@
 	function disable_stuff( $data ) { return false; }
 	
 	/* Pica Theme Setup Action */
-	add_action( 'init', 'boilerplate_theme_setup' );
+	add_action( 'init', 'nextstepmaine_theme_setup' );
 		
 		//Adding thumbnail images into Posts
 		add_theme_support( 'post-thumbnails', array('post', 'page'));
 		
-		function boilerplate_theme_setup() {
+		function nextstepmaine_theme_setup() {
 			// This theme styles the visual editor with editor-style.css to match the theme style.
 			add_editor_style('styles/global-styles.css');		
 			// This theme uses wp_nav_menu() in one location.
 			register_nav_menus( array(
-				'primary' => __( 'Masthead Navigation', 'FreeLandInMaine' ),
-				'secondary' => __( 'Footer Navigation', 'FreeLandInMaine' ),
+				'primary' => __( 'Masthead Navigation', 'nextstepmaine' ),
+				'secondary' => __( 'Next Step', 'nextstepmaine' ),
+				'tertiary' => __( 'Footer Navigation', 'nextstepmaine' )
 			) );
 		}
 ?>
