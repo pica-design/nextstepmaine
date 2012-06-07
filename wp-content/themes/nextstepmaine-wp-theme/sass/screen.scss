@@ -1,0 +1,319 @@
+	/****************************************** 	
+		MIXINS
+	******************************************/
+	@mixin centered {
+		width: 800px ;
+		margin: 0 auto 0 auto ;
+	}
+	
+	@mixin slideshow-nav-item ($image-path) {
+		float: left ;
+		width: 35px ;
+		height: 81px ;
+		margin-top: 100px ;
+		background: url($image-path) no-repeat ;
+		cursor: pointer ;
+	}
+	
+	
+	/**********************************************
+		VARIABLES
+	**********************************************/
+	/* White */
+	$white: rgb(255,255,255) ;
+	
+	/*  Light Gray  */
+	$light-gray:  rgb(204,204,204) ;
+	
+	/* Medium Gray */
+	$medium-gray: rgb(150,150,150) ;
+	
+	/* Dark Gray */
+	$dark-gray: rgb(95,96,98) ;
+	
+	/* Light Blue */
+	$light-blue: rgb(124,218,253) ;
+	
+	/* Medium Blue */
+	$medium-blue: rgb(0,174,239) ;
+	
+	/* Dark Blue */
+	$dark-blue: rgb(2,139,190) ;
+	
+	/* Darkest Blue */
+	$darkest-blue: rgb(7,147,200) ;
+	
+	/**********************************************
+		PARTIALS
+	**********************************************/
+	/* Include our css equalizer to stabalize all browsers without just reseting */
+	@import "normalize.css";
+	
+	/* ADMIN TEXT EDITOR STYLES ARE DECLARED WITHIN editor-style.css so they can be added to the WP WYSIWIG Editor */
+	@import "global-styles.css";
+	
+	@import "compass";
+	
+	/**********************************************
+		BROWSER CORRECTIONS
+	***********************************************/	
+	
+	/* Apply a natural box layout model to all elements */
+	* { 
+		-moz-box-sizing: border-box; 
+		-webkit-box-sizing: border-box; 
+		box-sizing: border-box; 
+	}
+	
+	
+	/****************************************** 	
+		CSS TEXT SELECTION
+	******************************************/
+	*::-moz-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::-webkit-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::-o-selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	*::selection {
+		background-color: rgb(50,50,50) ;
+		color: #ffffff ;
+	}
+	
+
+	/**********************************************
+		CSS SPRITE COORDINATTES
+	**********************************************/
+	
+	
+	/**********************************************
+		COMMONLY USED DECLARATIONS 
+	**********************************************/
+	.clear {
+		clear: both ;
+	}
+	.alignleft {
+		float: left ;
+	}
+	.alignright {
+		float: right ;
+	}
+	
+	
+	/**********************************************
+		HTML DECLARATIONS 
+	**********************************************/
+	html {
+		margin: 0px ;
+		padding: 0px ;
+		height: 100% ;
+	}
+		body {
+			margin: 0px ;
+			font-family: Arial, Helvetica, sans-serif ;
+			font-size: 14px ;
+			height: 100% ;
+			min-width: 870px ;
+			color: $dark-gray ;
+		}
+
+	
+	/**********************************************
+		LAYOUT DECLARATIONS 
+	**********************************************/
+	section.website-wrapper {
+		background-color: $white ;
+		position: relative ;
+		width: 100% ;
+		min-height: 100% ;
+	}
+		section.masthead {
+			width: 800px ;
+			margin: 20px auto 20px auto ;
+			overflow: auto ;
+			
+			.website-logo {
+				float: left ;
+			}
+			.website-slogan {
+				float: left ;
+				color: $medium-blue ;
+				font-family: 'AvenirLight';
+				font-size: 1.4em ;
+				margin: 30px 0 0 30px ;
+			}
+			.website-controls {
+				float: right ;
+				width: 215px ;
+				overflow: auto ;
+				
+				.website-quick-links {
+					ul {
+						display: inline-block ;
+						float: right ;
+						margin: 0 ;
+						padding: 0 ;
+					}	
+						li {
+							float: left ;
+							list-style: none ;
+							color: $medium-blue ;
+							font-family: 'AvenirMedium';
+							
+							a {
+								color: $dark-gray ;
+								display: inline-block ;
+								margin: 0 5px 0 5px ;
+							}
+						}
+							li:after {
+								content: "/";
+							}
+							ul li.last:after {
+								content: "";
+								margin-right: 0 ;
+							}
+				}
+				.website-search {
+					float: right ;
+				}
+			}
+		}
+
+		.slideshow {
+			width: 880px ;
+			margin: 0 auto 0 auto ;
+			overflow: auto ;
+			
+			
+			.slideshow-prev {
+				@include slideshow-nav-item('../images/slideshow-prev.png');
+			}
+			
+			.slides {
+				/*@include centered; */
+				float: left ;
+				margin-right: 10px ;
+				
+				.slide {
+					display: none ;
+					width: 800px ;
+					height: 287px ;
+				}
+					.slide.first {
+						display: block ;
+					}
+			}
+			
+			.slideshow-next {
+				@include slideshow-nav-item('../images/slideshow-next.png');
+			}
+		}
+
+		.next-step-header {
+			width: 800px ;
+			margin: 0 auto 0 auto ;
+			overflow: auto ;
+			padding: 10px 0 10px 0 ;
+			
+			h1 {
+				float: left ;
+				color: $medium-blue ;
+				font-weight: bold ;
+				font-size: 2.4em ;
+			}
+			.caption {
+				diplay: inline-block ;
+				float: left ;
+				width: 200px ;	
+				margin: 8px 0 0 20px ;
+				font-size: 0.75em ;
+			}
+		}
+		
+		nav.next-step {
+			width: 100% ;
+			background-color: $light-gray ;
+			
+			.inner {
+				@include centered; 
+				padding: 20px 0 20px 0 ;
+				
+				
+				li.backLava {
+					top: 0px !important ;
+					background: url(../images/lava-menu-arrow.jpg) no-repeat top center ;
+				}
+				
+				ul {
+					margin: 0 ;
+					padding: 4px ;
+					overflow: auto ;
+					
+					li {
+						float: left ;
+						display: inline-block ;
+						line-height: 65px ;	 /* This is slightly ghetto for vertical centering */					
+						width: 189px ;
+						height: 75px ;
+						margin: 0 10px 0 0 ;
+						padding: 0 20px 0 20px ;
+						overflow: auto ;
+						
+						/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+						background-color: $dark-blue; /* Fallback */
+						@include filter-gradient($light-blue, $dark-blue, vertical);  /*IE6-8 */
+						
+						/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+						$experimental-support-for-svg: true;
+						@include background-image(linear-gradient(top, $light-blue 0%, $dark-blue 100%));
+					}
+						
+						li.last {
+							margin-right: 0 ;
+							line-height: 50px ; /* This is really ghetto for vertical centering two lines of text */		
+						}
+						
+						li.selectedLava, li:hover {
+							@include single-box-shadow($medium-gray, 0, 0, 5px, false, false);
+						}
+							li h2 a {
+								display: inline-block ;
+								position: relative ;
+								z-index: 5 ;
+								width: 100% ;
+								height: 16px ;
+								font: italic normal normal 1.05em/1.0em 'AvenirBlack' ;
+								color: rgb(255,255,255) ;
+								text-align: center ;
+								$default-text-shadow-color: $darkest-blue ;
+								$default-text-shadow-blur: 3px ;
+								$default-text-shadow-v-offset: 1px ;
+								@include single-text-shadow;
+							}
+								
+								
+				}
+			}
+		}
+		
+		
+			
+		section.content-wrapper {
+			position: relative ;
+			padding-bottom: 200px ;
+		}
+	
+		.website-wrapper footer {
+			position: absolute ;
+			bottom: 0 ;
+			width: 100% ;
+			height: 200px ;
+			background-color: $light-gray ;
+		}

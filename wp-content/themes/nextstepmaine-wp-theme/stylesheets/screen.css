@@ -1,0 +1,321 @@
+@import url(normalize.css);
+@import url(global-styles.css);
+/****************************************** 	
+	MIXINS
+******************************************/
+/**********************************************
+	VARIABLES
+**********************************************/
+/* White */
+/*  Light Gray  */
+/* Medium Gray */
+/* Dark Gray */
+/* Light Blue */
+/* Medium Blue */
+/* Dark Blue */
+/* Darkest Blue */
+/**********************************************
+	PARTIALS
+**********************************************/
+/* Include our css equalizer to stabalize all browsers without just reseting */
+/* ADMIN TEXT EDITOR STYLES ARE DECLARED WITHIN editor-style.css so they can be added to the WP WYSIWIG Editor */
+/**********************************************
+	BROWSER CORRECTIONS
+***********************************************/
+/* Apply a natural box layout model to all elements */
+/* line 62, ../sass/screen.scss */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/****************************************** 	
+	CSS TEXT SELECTION
+******************************************/
+/* line 72, ../sass/screen.scss */
+*::-moz-selection {
+  background-color: #323232;
+  color: #ffffff;
+}
+
+/* line 76, ../sass/screen.scss */
+*::-webkit-selection {
+  background-color: #323232;
+  color: #ffffff;
+}
+
+/* line 80, ../sass/screen.scss */
+*::-o-selection {
+  background-color: #323232;
+  color: #ffffff;
+}
+
+/* line 84, ../sass/screen.scss */
+*::selection {
+  background-color: #323232;
+  color: #ffffff;
+}
+
+/**********************************************
+	CSS SPRITE COORDINATTES
+**********************************************/
+/**********************************************
+	COMMONLY USED DECLARATIONS 
+**********************************************/
+/* line 98, ../sass/screen.scss */
+.clear {
+  clear: both;
+}
+
+/* line 101, ../sass/screen.scss */
+.alignleft {
+  float: left;
+}
+
+/* line 104, ../sass/screen.scss */
+.alignright {
+  float: right;
+}
+
+/**********************************************
+	HTML DECLARATIONS 
+**********************************************/
+/* line 112, ../sass/screen.scss */
+html {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+
+/* line 117, ../sass/screen.scss */
+body {
+  margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  height: 100%;
+  min-width: 870px;
+  color: #5f6062;
+}
+
+/**********************************************
+	LAYOUT DECLARATIONS 
+**********************************************/
+/* line 130, ../sass/screen.scss */
+section.website-wrapper {
+  background-color: white;
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* line 136, ../sass/screen.scss */
+section.masthead {
+  width: 800px;
+  margin: 20px auto 20px auto;
+  overflow: auto;
+}
+/* line 141, ../sass/screen.scss */
+section.masthead .website-logo {
+  float: left;
+}
+/* line 144, ../sass/screen.scss */
+section.masthead .website-slogan {
+  float: left;
+  color: #00aeef;
+  font-family: 'AvenirLight';
+  font-size: 1.4em;
+  margin: 30px 0 0 30px;
+}
+/* line 151, ../sass/screen.scss */
+section.masthead .website-controls {
+  float: right;
+  width: 215px;
+  overflow: auto;
+}
+/* line 157, ../sass/screen.scss */
+section.masthead .website-controls .website-quick-links ul {
+  display: inline-block;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+/* line 163, ../sass/screen.scss */
+section.masthead .website-controls .website-quick-links li {
+  float: left;
+  list-style: none;
+  color: #00aeef;
+  font-family: 'AvenirMedium';
+}
+/* line 169, ../sass/screen.scss */
+section.masthead .website-controls .website-quick-links li a {
+  color: #5f6062;
+  display: inline-block;
+  margin: 0 5px 0 5px;
+}
+/* line 175, ../sass/screen.scss */
+section.masthead .website-controls .website-quick-links li:after {
+  content: "/";
+}
+/* line 178, ../sass/screen.scss */
+section.masthead .website-controls .website-quick-links ul li.last:after {
+  content: "";
+  margin-right: 0;
+}
+/* line 183, ../sass/screen.scss */
+section.masthead .website-controls .website-search {
+  float: right;
+}
+
+/* line 189, ../sass/screen.scss */
+.slideshow {
+  width: 880px;
+  margin: 0 auto 0 auto;
+  overflow: auto;
+}
+/* line 195, ../sass/screen.scss */
+.slideshow .slideshow-prev {
+  float: left;
+  width: 35px;
+  height: 81px;
+  margin-top: 100px;
+  background: url("../images/slideshow-prev.png") no-repeat;
+  cursor: pointer;
+}
+/* line 199, ../sass/screen.scss */
+.slideshow .slides {
+  /*@include centered; */
+  float: left;
+  margin-right: 10px;
+}
+/* line 204, ../sass/screen.scss */
+.slideshow .slides .slide {
+  display: none;
+  width: 800px;
+  height: 287px;
+}
+/* line 209, ../sass/screen.scss */
+.slideshow .slides .slide.first {
+  display: block;
+}
+/* line 214, ../sass/screen.scss */
+.slideshow .slideshow-next {
+  float: left;
+  width: 35px;
+  height: 81px;
+  margin-top: 100px;
+  background: url("../images/slideshow-next.png") no-repeat;
+  cursor: pointer;
+}
+
+/* line 219, ../sass/screen.scss */
+.next-step-header {
+  width: 800px;
+  margin: 0 auto 0 auto;
+  overflow: auto;
+  padding: 10px 0 10px 0;
+}
+/* line 225, ../sass/screen.scss */
+.next-step-header h1 {
+  float: left;
+  color: #00aeef;
+  font-weight: bold;
+  font-size: 2.4em;
+}
+/* line 231, ../sass/screen.scss */
+.next-step-header .caption {
+  diplay: inline-block;
+  float: left;
+  width: 200px;
+  margin: 8px 0 0 20px;
+  font-size: 0.75em;
+}
+
+/* line 240, ../sass/screen.scss */
+nav.next-step {
+  width: 100%;
+  background-color: #cccccc;
+}
+/* line 244, ../sass/screen.scss */
+nav.next-step .inner {
+  width: 800px;
+  margin: 0 auto 0 auto;
+  padding: 20px 0 20px 0;
+}
+/* line 249, ../sass/screen.scss */
+nav.next-step .inner li.backLava {
+  top: 0px !important;
+  background: url(../images/lava-menu-arrow.jpg) no-repeat top center;
+}
+/* line 254, ../sass/screen.scss */
+nav.next-step .inner ul {
+  margin: 0;
+  padding: 4px;
+  overflow: auto;
+}
+/* line 259, ../sass/screen.scss */
+nav.next-step .inner ul li {
+  float: left;
+  display: inline-block;
+  line-height: 65px;
+  /* This is slightly ghetto for vertical centering */
+  width: 189px;
+  height: 75px;
+  margin: 0 10px 0 0;
+  padding: 0 20px 0 20px;
+  overflow: auto;
+  /* The following requires the latest Compass, add '@import "compass"' the top of this file */
+  background-color: #028bbe;
+  /* Fallback */
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF7CDAFD', endColorstr='#FF028BBE');
+  /*IE6-8 */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzdjZGFmZCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyOGJiZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7cdafd), color-stop(100%, #028bbe));
+  background-image: -webkit-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: -moz-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: -o-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: -ms-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+}
+/* line 278, ../sass/screen.scss */
+nav.next-step .inner ul li.last {
+  margin-right: 0;
+  line-height: 50px;
+  /* This is really ghetto for vertical centering two lines of text */
+}
+/* line 283, ../sass/screen.scss */
+nav.next-step .inner ul li.selectedLava, nav.next-step .inner ul li:hover {
+  -webkit-box-shadow: 0 0 5px #969696;
+  -moz-box-shadow: 0 0 5px #969696;
+  box-shadow: 0 0 5px #969696;
+}
+/* line 286, ../sass/screen.scss */
+nav.next-step .inner ul li h2 a {
+  display: inline-block;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 16px;
+  font: italic normal normal 1.05em/1em "AvenirBlack";
+  color: white;
+  text-align: center;
+  text-shadow: #0793c8 0px 1px 3px;
+}
+
+/* line 308, ../sass/screen.scss */
+section.content-wrapper {
+  position: relative;
+  padding-bottom: 200px;
+}
+
+/* line 313, ../sass/screen.scss */
+.website-wrapper footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  background-color: #cccccc;
+}
