@@ -14,11 +14,9 @@
 	*/
 	
 	
-	/***********************************************************
-		
-		WORDPRESS CORE CUSTOMIZATIONS
-		
-	***********************************************************/
+	/************************
+			OVERRIDES
+	************************/
 	remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
 	remove_action( 'wp_head', 'feed_links', 2 ); // Display the links to the general feeds: Post and Comment Feed
 	remove_action( 'wp_head', 'rsd_link' ); // Display the link to the Really Simple Discovery service endpoint, EditURI link
@@ -34,11 +32,9 @@
 	
 	
 	
-	/***********************************************************
-		
-		THEME SETUP
-		
-	***********************************************************/
+	/************************
+			SETUP
+	************************/
 	add_action( 'init', 'nextstepmaine_theme_setup' );
 		
 		//Adding thumbnail images into Posts
@@ -60,11 +56,9 @@
 	
 	
 	
-	/***********************************************************
-		
-		WORDPRESS GALLERY CUSTOMIZATIONS
-		
-	***********************************************************/
+	/************************
+			GALLERY
+	************************/
 	/* Adding custom attachment fields */
 	add_filter("attachment_fields_to_edit", "post_attachment_new_fields", null, 2);
 	/* Save custom attachment fields on update */
@@ -90,54 +84,51 @@
 		return $post;
 	}
 	
-	//The Post Gallery class issues objects containing an post's attachment 'gallery' and returns an array of that data
-	class Post_Gallery {
-		public function __construct ($post_id) {
-			//Make the current post global - !!!! This should be passed in, or at least the option to do so !!!!
-			if (empty($post_id)) : global $post; $post_id = $post->ID ; endif;
-			
-			$this->attachments = new WP_Query( 
-				array (
-					'post_parent' => $post_id, 
-					'post_status' => 'inherit', 
-					'post_type' => 'attachment',
-					'order' => 'ASC', 
-					'orderby' => 'menu_order',
-					'posts_per_page' => -1,
-					'meta_query' => array(
-						array(				
-							'key' => '_attachment-exclude-from-gallery',
-							'value' => 'off',
-							'compare' => '='
-						)
-					)
-				), ARRAY_A
-			);
-
-			//Make the attachments object a little cleaner by only using the data we want, the posts.
-			//This also ensures our ->attachments variable holds and array (so we can easily display a random attachment on the website homepage
-			$this->attachments = $this->attachments->posts;
-			
-			////Merge some additional attachment data into our main object
-			foreach ($this->attachments as &$attachment) :
-				//Grab the attachment's meta data
-				$attachment->meta_data = get_post_custom($attachment->ID);
-				//Some of our meta data needs to be unserialized to use it
-				$attachment->meta_data['_wp_attachment_metadata'] = @unserialize($attachment->meta_data['_wp_attachment_metadata'][0]);
-			endforeach;
-			
-			//Remove the array indecies (they do not help us)
-			$this->attachments = array_values($this->attachments);
-		}//End __construct
-		
-		
-		public function has_attachments () {
-			if (empty($this->attachments)) :
-				return false;
-			else :
-				return true;
-			endif;
-		}
-	}
-		
+	
+	
+	/************************
+			CLASSES
+	************************/
+	include('inc/nextstep-classes.php') ;
+	
+	
+	/************************
+			SIDEBARS
+	************************/
+	
+	//Homepage Sidebar
+	register_sidebar(array(
+		'name' => __('Homepage'),
+		'id' => 'homepage-sidebar',
+		'description' => __('Widgets in this sidebar will display on the website homepage'),
+		'before_title' => '',
+		'after_title' => ''
+	));
+	
+	//Page Sidebar
+	register_sidebar(array(
+		'name' => __('Page'),
+		'id' => 'page-sidebar',
+		'description' => __('Widgets in this sidebar will display in the right-hand sidebar on pages'),
+		'before_title' => '',
+		'after_title' => ''
+	));
+	
+	
+	/************************
+			WIDGETS
+	************************/
+	//Include our widgets
+	include('inc/nextstep-widgets.php') ;
+	
+	//Register our widgets
+	add_action( 'widgets_init', 'register_widgets');
+	
+	function register_widgets () {
+		register_widget( "NEXTSTEP_Financial_Aid_Widget" );
+		register_widget( "NEXTSTEP_Jobs_in_Demand_Widget" );
+		register_widget( "NEXTSTEP_Programs_Types_Widget" );
+	};
+	
+	
 ?>

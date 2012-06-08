@@ -130,6 +130,7 @@
 		text-align: center ;
 		font: normal normal normal 0.8em/1.0em 'AvenirBlack' ;
 		letter-spacing: 1px ;
+		@include single-transition(all, 0.2s, linear) ;
 		
 		&.gray {
 			@include gray-gradient ;
@@ -145,7 +146,7 @@
 			color: $dark-gray ;
 			font-size: inherit ;
 		}
-	}
+	} /* .button */
 	.uppercase {
 		text-transform: uppercase ;
 	}
@@ -153,6 +154,10 @@
 		display: block ;
 		width: 100% ;
 		height: 100% ;
+	}
+	
+	.blue-text {
+		color: $medium-blue ;
 	}
 		
 	
@@ -233,8 +238,8 @@
 				.website-search {
 					float: right ;
 				}
-			}
-		}
+			} /* .website.controls */
+		} /* section.masthead */
 
 		.slideshow {
 			width: 880px ;
@@ -259,12 +264,12 @@
 					.slide.first {
 						display: block ;
 					}
-			}
+			} /* .slides */
 			
 			.slideshow-next {
 				@include slideshow-nav-item('../images/slideshow-next.png');
 			}
-		}
+		} /* .slideshow */
 
 		.next-step-header {
 			width: 800px ;
@@ -285,7 +290,7 @@
 				margin: 8px 0 0 20px ;
 				font-size: 0.75em ;
 			}
-		}
+		} /* .next-step-header */
 		
 		nav.next-step {
 			width: 100% ;
@@ -295,12 +300,10 @@
 				@include centered; 
 				padding: 20px 0 20px 0 ;
 				
-				
 				li.backLava {
 					top: 0px !important ;
 					background: url(../images/lava-menu-arrow.jpg) no-repeat top center ;
 				}
-				
 				ul {
 					margin: 0 ;
 					padding: 4px ;
@@ -315,16 +318,14 @@
 						margin: 0 10px 0 0 ;
 						padding: 0 20px 0 20px ;
 						overflow: auto ;
-						
+						@include single-transition(all, 0.2s, linear) ;
 						@include blue-gradient ;
 					}
-						
 						li.last {
 							margin-right: 0 ;
 							padding-top: 12px ;
 							line-height: 50px ; /* This is really ghetto for vertical centering two lines of text */		
 						}
-						
 						li.selectedLava, li:hover {
 							@include single-box-shadow($medium-gray, 0, 0, 8px, false, false);
 						}
@@ -333,7 +334,6 @@
 								position: relative ;
 								z-index: 5 ;
 								width: 100% ;
-								
 								font: italic normal normal 1.05em/1.0em 'AvenirBlack' ;
 								color: rgb(255,255,255) ;
 								text-align: center ;
@@ -342,29 +342,115 @@
 								$default-text-shadow-v-offset: 1px ;
 								@include single-text-shadow;
 							}
-								
-								
-				}
-			}
-		}
+				} /* ul */
+			} /* .inner */
+		} /* nav.next-step */
 		
 		
 			
 		section.content-wrapper {
 			position: relative ;
-			padding-bottom: 200px ;
+			padding: 30px 0 225px 0 ;
+
+			overflow: auto ;
 			@include centered ;
-		}
+			
+			.page-content {
+				float: left ;
+				width: 600px ;
+			}
+			
+			/* SIDEBARS & WIDGETS */
+			.aside {
+				&.horizontal {
+					margin: 20px 0 0 0 ;
+					overflow: auto ;
+					width: 100% ;
+					
+					.widget {
+						float: left ;
+						width: 33% ;
+						height: 220px ;
+						padding: 0 0 0 15px ;
+						
+						@include single-box-shadow($medium-gray, -3px, -1px , 9px, -2px, false);
+						
+						&:first-child {
+							border-left: 0px ;
+							padding: 0 ;
+						}
+					} /* widget */
+				} /* .horizontal */
+				
+				&.vertical {
+					float: right ;
+					width: 190px ;
+					padding: 0 0 0 13px ;
+					@include single-box-shadow($medium-gray, -3px, 0px , 9px, -2px, false);
+					
+					.widget {
+						border-bottom: 1px solid $medium-blue ;
+						font-size: 0.75em ;
+						padding-bottom: 25px ;
+						margin-bottom: 25px ;
+						
+						&:last-child {
+							border-bottom: 0px ;
+							padding-bottom: 0 ;
+							margin-bottom: 0 ;
+						}
+					} /* .widget */
+				} /* .vertical */
+				
+				.widget {
+					h3 {
+						font: normal normal normal 1.7em/1.2em 'AvenirBlack' ;
+						text-transform: lowercase ;
+						margin-bottom: 25px ;
+					}
+					p.slogan {
+						font: normal normal normal 1.8em/1.0em 'AvenirLight' ;
+						margin: 0 0 15px 0 ;
+						padding: 0 ;
+					}
+					p.tooltip {
+						font: normal normal normal 1.0em/1.0em 'Arial' ;
+						color: $medium-blue ;
+					}
+					ul {
+						margin: 0 ;
+						padding: 0 ;
+						
+						li {
+							list-style: none ;
+							margin-bottom: 12px ;
+							font-weight: bold ;
+						}
+					} /* ul */
+					
+					&#program-types p {
+						font-size: 0.85em ;
+						text-transform: uppercase ;
+						line-height: 1.2em ;
+					}
+				} /* .widget */
+			} /* .aside */
+		} /* section.content-wrapper */
+		
+		
+		
+		
+		
 	
 		.website-wrapper footer {
 			position: absolute ;
 			bottom: 0 ;
 			width: 100% ;
-			height: 200px ;
 			background-color: $light-gray ;
 			
 			.inner {
 				@include centered;
+				overflow: auto ;
 				
 				.column {
 					float: left ;
@@ -402,13 +488,48 @@
 								text-transform: uppercase ;
 							}	
 						}
-					}
-				}
-					.column:first-child {
+					} /* ul */
+					
+					&.first { /* First Column */
 						width: 265px ;
 					}
-					.column:last-child {
+			
+					&.last { /* Last Column */
 						margin-right: 0 ;
 					}
-			}
-		}
+					
+				} /* .column */
+					
+				.row {
+					
+					&.copyright {
+						padding: 45px 0 10px 0 ;
+						font-size: 0.7em ;
+						color: $dark-gray ;
+						overflow: auto ;
+						
+						a {
+							font-size: inherit ;
+							color: inherit ;
+							
+							&:hover {
+								text-decoration: underline ;
+							}
+						} /* a */
+						
+						.pica {
+							float: right ;
+							background: url(../images/pica-mark-small.png) no-repeat ;
+							width: 20px ;
+							height: 20px ;
+							@include opacity(0.5) ;
+							@include single-transition(all, 0.2s, linear) ;
+							
+							&:hover {
+								@include opacity(1.0) ;
+							}
+						} /* .pica */
+					} /* .copyright */
+				} /* .row */
+			} /* .inner */
+		} /* .website-wrapper footer */
