@@ -311,43 +311,52 @@
 					
 					li {
 						float: left ;
-						display: inline-block ;
-						line-height: 70px ;	 /* This is slightly ghetto for vertical centering */					
 						width: 189px ;
 						height: 75px ;
 						margin: 0 10px 0 0 ;
-						padding: 0 20px 0 20px ;
-						overflow: auto ;
+						text-align: center ;
 						@include single-transition(all, 0.2s, linear) ;
 						@include blue-gradient ;
-					}
-						li.last {
-							margin-right: 0 ;
-							padding-top: 12px ;
-							line-height: 50px ; /* This is really ghetto for vertical centering two lines of text */		
+						
+						&:before {
+							content: '';
+							display: inline-block;
+							height: 100%; 
+							vertical-align: middle;
+							margin-right: -0.25em;
 						}
-						li.selectedLava, li:hover {
+						
+						&.last {
+							margin-right: 0 ;
+						}
+						
+						&.selectedLava, &:hover {
 							@include single-box-shadow($medium-gray, 0, 0, 8px, false, false);
 						}
-							li h2 a {
-								display: inline-block ;
-								position: relative ;
+						
+						h2 {
+							display: inline-block ;
+							vertical-align: middle;
+							margin: 0 ;
+							padding: 10px 15px;
+							
+							a {
 								z-index: 5 ;
-								width: 100% ;
 								font: italic normal normal 1.05em/1.0em 'AvenirBlack' ;
 								color: rgb(255,255,255) ;
-								text-align: center ;
 								$default-text-shadow-color: $darkest-blue ;
 								$default-text-shadow-blur: 3px ;
 								$default-text-shadow-v-offset: 1px ;
 								@include single-text-shadow;
 							}
+						}
+						
+						
+					} /* li */
 				} /* ul */
 			} /* .inner */
 		} /* nav.next-step */
 		
-		
-			
 		section.content-wrapper {
 			position: relative ;
 			padding: 30px 0 225px 0 ;
@@ -358,13 +367,14 @@
 			.page-content {
 				float: left ;
 				width: 600px ;
+				padding: 0 15px 0 0 ;
 			}
 			
 			/* SIDEBARS & WIDGETS */
 			.aside {
 				&.horizontal {
 					margin: 20px 0 0 0 ;
-					overflow: auto ;
+					
 					width: 100% ;
 					
 					.widget {
@@ -373,7 +383,7 @@
 						height: 220px ;
 						padding: 0 0 0 15px ;
 						
-						@include single-box-shadow($medium-gray, -3px, -1px , 9px, -2px, false);
+						@include single-box-shadow($medium-gray, -5px, 0px , 7px, -5px, false);
 						
 						&:first-child {
 							border-left: 0px ;
@@ -386,12 +396,12 @@
 					float: right ;
 					width: 190px ;
 					padding: 0 0 0 13px ;
-					@include single-box-shadow($medium-gray, -3px, 0px , 9px, -2px, false);
+					@include single-box-shadow($medium-gray, -5px, 0px , 7px, -5px, false);
 					
 					.widget {
-						border-bottom: 1px solid $medium-blue ;
+						border-bottom: 1px solid $light-blue ;
 						font-size: 0.75em ;
-						padding-bottom: 25px ;
+						padding-bottom: 15px ;
 						margin-bottom: 25px ;
 						
 						&:last-child {
