@@ -15,12 +15,34 @@
 		cursor: pointer ;
 	}
 	
+	@mixin blue-gradient {
+		/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+		background-color: $dark-blue; /* Fallback */
+		@include filter-gradient($light-blue, $dark-blue, vertical);  /*IE6-8 */
+		
+		/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+		$experimental-support-for-svg: true;
+		@include background-image(linear-gradient(top, $light-blue 0%, $dark-blue 100%));
+	}
+	
+	@mixin gray-gradient {
+		/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+		background-color: $medium-gray; /* Fallback */
+		@include filter-gradient($lightest-gray, $medium-gray, vertical);  /*IE6-8 */
+		
+		/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+		$experimental-support-for-svg: true;
+		@include background-image(linear-gradient(top, $lightest-gray 0%, $medium-gray 100%));
+	}
 	
 	/**********************************************
 		VARIABLES
 	**********************************************/
 	/* White */
 	$white: rgb(255,255,255) ;
+	
+	/*  Lightest Gray  */
+	$lightest-gray:  rgb(217,217,217) ;
 	
 	/*  Light Gray  */
 	$light-gray:  rgb(204,204,204) ;
@@ -104,7 +126,35 @@
 	.alignright {
 		float: right ;
 	}
-	
+	.button {
+		text-align: center ;
+		font: normal normal normal 0.8em/1.0em 'AvenirBlack' ;
+		letter-spacing: 1px ;
+		
+		&.gray {
+			@include gray-gradient ;
+		}
+		&.blue {
+			@include blue-gradient ;
+		}
+		&:hover {
+			@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
+		}
+		a {
+			@extend .link-fill-container ;
+			color: $dark-gray ;
+			font-size: inherit ;
+		}
+	}
+	.uppercase {
+		text-transform: uppercase ;
+	}
+	.link-fill-container {
+		display: block ;
+		width: 100% ;
+		height: 100% ;
+	}
+		
 	
 	/**********************************************
 		HTML DECLARATIONS 
@@ -259,36 +309,31 @@
 					li {
 						float: left ;
 						display: inline-block ;
-						line-height: 65px ;	 /* This is slightly ghetto for vertical centering */					
+						line-height: 70px ;	 /* This is slightly ghetto for vertical centering */					
 						width: 189px ;
 						height: 75px ;
 						margin: 0 10px 0 0 ;
 						padding: 0 20px 0 20px ;
 						overflow: auto ;
 						
-						/* The following requires the latest Compass, add '@import "compass"' the top of this file */
-						background-color: $dark-blue; /* Fallback */
-						@include filter-gradient($light-blue, $dark-blue, vertical);  /*IE6-8 */
-						
-						/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-						$experimental-support-for-svg: true;
-						@include background-image(linear-gradient(top, $light-blue 0%, $dark-blue 100%));
+						@include blue-gradient ;
 					}
 						
 						li.last {
 							margin-right: 0 ;
+							padding-top: 12px ;
 							line-height: 50px ; /* This is really ghetto for vertical centering two lines of text */		
 						}
 						
 						li.selectedLava, li:hover {
-							@include single-box-shadow($medium-gray, 0, 0, 5px, false, false);
+							@include single-box-shadow($medium-gray, 0, 0, 8px, false, false);
 						}
 							li h2 a {
 								display: inline-block ;
 								position: relative ;
 								z-index: 5 ;
 								width: 100% ;
-								height: 16px ;
+								
 								font: italic normal normal 1.05em/1.0em 'AvenirBlack' ;
 								color: rgb(255,255,255) ;
 								text-align: center ;
@@ -308,6 +353,7 @@
 		section.content-wrapper {
 			position: relative ;
 			padding-bottom: 200px ;
+			@include centered ;
 		}
 	
 		.website-wrapper footer {
@@ -316,4 +362,53 @@
 			width: 100% ;
 			height: 200px ;
 			background-color: $light-gray ;
+			
+			.inner {
+				@include centered;
+				
+				.column {
+					float: left ;
+					margin: 30px 50px 0 0 ;
+					
+					.button {
+						float: left ;
+						width: 120px ;
+						height: 30px ;
+						margin: 0 12px 15px 0 ;
+						padding: 9px 0 0 0 ;
+					}
+					
+					h4 {
+						font: normal normal normal 0.90em/1.0em 'AvenirBlack' ;
+						margin-bottom: 10px ;
+					}
+					
+					ul {
+						margin: 0 ;
+						padding: 0 ;
+						
+						li {
+							list-style: none ;
+							font-size: 0.8em ;
+							line-height: 1.3em ;
+							
+							a {
+								color: $dark-gray ;
+								font-size: inherit ;
+							}
+						}
+						&#menu-quick-menu-1 {
+							li a {
+								text-transform: uppercase ;
+							}	
+						}
+					}
+				}
+					.column:first-child {
+						width: 265px ;
+					}
+					.column:last-child {
+						margin-right: 0 ;
+					}
+			}
 		}

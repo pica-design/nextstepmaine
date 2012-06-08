@@ -7,6 +7,7 @@
 	VARIABLES
 **********************************************/
 /* White */
+/*  Lightest Gray  */
 /*  Light Gray  */
 /* Medium Gray */
 /* Dark Gray */
@@ -23,7 +24,7 @@
 	BROWSER CORRECTIONS
 ***********************************************/
 /* Apply a natural box layout model to all elements */
-/* line 62, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -33,25 +34,25 @@
 /****************************************** 	
 	CSS TEXT SELECTION
 ******************************************/
-/* line 72, ../sass/screen.scss */
+/* line 94, ../sass/screen.scss */
 *::-moz-selection {
   background-color: #323232;
   color: #ffffff;
 }
 
-/* line 76, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 *::-webkit-selection {
   background-color: #323232;
   color: #ffffff;
 }
 
-/* line 80, ../sass/screen.scss */
+/* line 102, ../sass/screen.scss */
 *::-o-selection {
   background-color: #323232;
   color: #ffffff;
 }
 
-/* line 84, ../sass/screen.scss */
+/* line 106, ../sass/screen.scss */
 *::selection {
   background-color: #323232;
   color: #ffffff;
@@ -63,32 +64,98 @@
 /**********************************************
 	COMMONLY USED DECLARATIONS 
 **********************************************/
-/* line 98, ../sass/screen.scss */
+/* line 120, ../sass/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 101, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 .alignleft {
   float: left;
 }
 
-/* line 104, ../sass/screen.scss */
+/* line 126, ../sass/screen.scss */
 .alignright {
   float: right;
+}
+
+/* line 129, ../sass/screen.scss */
+.button {
+  text-align: center;
+  font: normal normal normal 0.8em/1em "AvenirBlack";
+  letter-spacing: 1px;
+}
+/* line 134, ../sass/screen.scss */
+.button.gray {
+  /* The following requires the latest Compass, add '@import "compass"' the top of this file */
+  background-color: #969696;
+  /* Fallback */
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFD9D9D9', endColorstr='#FF969696');
+  /*IE6-8 */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Q5ZDlkOSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d9d9d9), color-stop(100%, #969696));
+  background-image: -webkit-linear-gradient(top, #d9d9d9 0%, #969696 100%);
+  background-image: -moz-linear-gradient(top, #d9d9d9 0%, #969696 100%);
+  background-image: -o-linear-gradient(top, #d9d9d9 0%, #969696 100%);
+  background-image: -ms-linear-gradient(top, #d9d9d9 0%, #969696 100%);
+  background-image: linear-gradient(top, #d9d9d9 0%, #969696 100%);
+}
+/* line 137, ../sass/screen.scss */
+.button.blue {
+  /* The following requires the latest Compass, add '@import "compass"' the top of this file */
+  background-color: #028bbe;
+  /* Fallback */
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF7CDAFD', endColorstr='#FF028BBE');
+  /*IE6-8 */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzdjZGFmZCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyOGJiZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7cdafd), color-stop(100%, #028bbe));
+  background-image: -webkit-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: -moz-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: -o-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: -ms-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+  background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%);
+}
+/* line 140, ../sass/screen.scss */
+.button:hover {
+  -webkit-box-shadow: 0 0 8px #969696;
+  -moz-box-shadow: 0 0 8px #969696;
+  box-shadow: 0 0 8px #969696;
+}
+/* line 143, ../sass/screen.scss */
+.button a {
+  color: #5f6062;
+  font-size: inherit;
+}
+
+/* line 149, ../sass/screen.scss */
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* line 152, ../sass/screen.scss */
+.link-fill-container, .button a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /**********************************************
 	HTML DECLARATIONS 
 **********************************************/
-/* line 112, ../sass/screen.scss */
+/* line 162, ../sass/screen.scss */
 html {
   margin: 0px;
   padding: 0px;
   height: 100%;
 }
 
-/* line 117, ../sass/screen.scss */
+/* line 167, ../sass/screen.scss */
 body {
   margin: 0px;
   font-family: Arial, Helvetica, sans-serif;
@@ -101,7 +168,7 @@ body {
 /**********************************************
 	LAYOUT DECLARATIONS 
 **********************************************/
-/* line 130, ../sass/screen.scss */
+/* line 180, ../sass/screen.scss */
 section.website-wrapper {
   background-color: white;
   position: relative;
@@ -109,17 +176,17 @@ section.website-wrapper {
   min-height: 100%;
 }
 
-/* line 136, ../sass/screen.scss */
+/* line 186, ../sass/screen.scss */
 section.masthead {
   width: 800px;
   margin: 20px auto 20px auto;
   overflow: auto;
 }
-/* line 141, ../sass/screen.scss */
+/* line 191, ../sass/screen.scss */
 section.masthead .website-logo {
   float: left;
 }
-/* line 144, ../sass/screen.scss */
+/* line 194, ../sass/screen.scss */
 section.masthead .website-slogan {
   float: left;
   color: #00aeef;
@@ -127,53 +194,53 @@ section.masthead .website-slogan {
   font-size: 1.4em;
   margin: 30px 0 0 30px;
 }
-/* line 151, ../sass/screen.scss */
+/* line 201, ../sass/screen.scss */
 section.masthead .website-controls {
   float: right;
   width: 215px;
   overflow: auto;
 }
-/* line 157, ../sass/screen.scss */
+/* line 207, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links ul {
   display: inline-block;
   float: right;
   margin: 0;
   padding: 0;
 }
-/* line 163, ../sass/screen.scss */
+/* line 213, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links li {
   float: left;
   list-style: none;
   color: #00aeef;
   font-family: 'AvenirMedium';
 }
-/* line 169, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links li a {
   color: #5f6062;
   display: inline-block;
   margin: 0 5px 0 5px;
 }
-/* line 175, ../sass/screen.scss */
+/* line 225, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links li:after {
   content: "/";
 }
-/* line 178, ../sass/screen.scss */
+/* line 228, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links ul li.last:after {
   content: "";
   margin-right: 0;
 }
-/* line 183, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 section.masthead .website-controls .website-search {
   float: right;
 }
 
-/* line 189, ../sass/screen.scss */
+/* line 239, ../sass/screen.scss */
 .slideshow {
   width: 880px;
   margin: 0 auto 0 auto;
   overflow: auto;
 }
-/* line 195, ../sass/screen.scss */
+/* line 245, ../sass/screen.scss */
 .slideshow .slideshow-prev {
   float: left;
   width: 35px;
@@ -182,23 +249,23 @@ section.masthead .website-controls .website-search {
   background: url("../images/slideshow-prev.png") no-repeat;
   cursor: pointer;
 }
-/* line 199, ../sass/screen.scss */
+/* line 249, ../sass/screen.scss */
 .slideshow .slides {
   /*@include centered; */
   float: left;
   margin-right: 10px;
 }
-/* line 204, ../sass/screen.scss */
+/* line 254, ../sass/screen.scss */
 .slideshow .slides .slide {
   display: none;
   width: 800px;
   height: 287px;
 }
-/* line 209, ../sass/screen.scss */
+/* line 259, ../sass/screen.scss */
 .slideshow .slides .slide.first {
   display: block;
 }
-/* line 214, ../sass/screen.scss */
+/* line 264, ../sass/screen.scss */
 .slideshow .slideshow-next {
   float: left;
   width: 35px;
@@ -208,21 +275,21 @@ section.masthead .website-controls .website-search {
   cursor: pointer;
 }
 
-/* line 219, ../sass/screen.scss */
+/* line 269, ../sass/screen.scss */
 .next-step-header {
   width: 800px;
   margin: 0 auto 0 auto;
   overflow: auto;
   padding: 10px 0 10px 0;
 }
-/* line 225, ../sass/screen.scss */
+/* line 275, ../sass/screen.scss */
 .next-step-header h1 {
   float: left;
   color: #00aeef;
   font-weight: bold;
   font-size: 2.4em;
 }
-/* line 231, ../sass/screen.scss */
+/* line 281, ../sass/screen.scss */
 .next-step-header .caption {
   diplay: inline-block;
   float: left;
@@ -231,33 +298,33 @@ section.masthead .website-controls .website-search {
   font-size: 0.75em;
 }
 
-/* line 240, ../sass/screen.scss */
+/* line 290, ../sass/screen.scss */
 nav.next-step {
   width: 100%;
   background-color: #cccccc;
 }
-/* line 244, ../sass/screen.scss */
+/* line 294, ../sass/screen.scss */
 nav.next-step .inner {
   width: 800px;
   margin: 0 auto 0 auto;
   padding: 20px 0 20px 0;
 }
-/* line 249, ../sass/screen.scss */
+/* line 299, ../sass/screen.scss */
 nav.next-step .inner li.backLava {
   top: 0px !important;
   background: url(../images/lava-menu-arrow.jpg) no-repeat top center;
 }
-/* line 254, ../sass/screen.scss */
+/* line 304, ../sass/screen.scss */
 nav.next-step .inner ul {
   margin: 0;
   padding: 4px;
   overflow: auto;
 }
-/* line 259, ../sass/screen.scss */
+/* line 309, ../sass/screen.scss */
 nav.next-step .inner ul li {
   float: left;
   display: inline-block;
-  line-height: 65px;
+  line-height: 70px;
   /* This is slightly ghetto for vertical centering */
   width: 189px;
   height: 75px;
@@ -280,42 +347,95 @@ nav.next-step .inner ul li {
   background-image: -ms-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
   background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%);
 }
-/* line 278, ../sass/screen.scss */
+/* line 322, ../sass/screen.scss */
 nav.next-step .inner ul li.last {
   margin-right: 0;
+  padding-top: 12px;
   line-height: 50px;
   /* This is really ghetto for vertical centering two lines of text */
 }
-/* line 283, ../sass/screen.scss */
+/* line 328, ../sass/screen.scss */
 nav.next-step .inner ul li.selectedLava, nav.next-step .inner ul li:hover {
-  -webkit-box-shadow: 0 0 5px #969696;
-  -moz-box-shadow: 0 0 5px #969696;
-  box-shadow: 0 0 5px #969696;
+  -webkit-box-shadow: 0 0 8px #969696;
+  -moz-box-shadow: 0 0 8px #969696;
+  box-shadow: 0 0 8px #969696;
 }
-/* line 286, ../sass/screen.scss */
+/* line 331, ../sass/screen.scss */
 nav.next-step .inner ul li h2 a {
   display: inline-block;
   position: relative;
   z-index: 5;
   width: 100%;
-  height: 16px;
   font: italic normal normal 1.05em/1em "AvenirBlack";
   color: white;
   text-align: center;
   text-shadow: #0793c8 0px 1px 3px;
 }
 
-/* line 308, ../sass/screen.scss */
+/* line 353, ../sass/screen.scss */
 section.content-wrapper {
   position: relative;
   padding-bottom: 200px;
+  width: 800px;
+  margin: 0 auto 0 auto;
 }
 
-/* line 313, ../sass/screen.scss */
+/* line 359, ../sass/screen.scss */
 .website-wrapper footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 200px;
   background-color: #cccccc;
+}
+/* line 366, ../sass/screen.scss */
+.website-wrapper footer .inner {
+  width: 800px;
+  margin: 0 auto 0 auto;
+}
+/* line 369, ../sass/screen.scss */
+.website-wrapper footer .inner .column {
+  float: left;
+  margin: 30px 50px 0 0;
+}
+/* line 373, ../sass/screen.scss */
+.website-wrapper footer .inner .column .button {
+  float: left;
+  width: 120px;
+  height: 30px;
+  margin: 0 12px 15px 0;
+  padding: 9px 0 0 0;
+}
+/* line 381, ../sass/screen.scss */
+.website-wrapper footer .inner .column h4 {
+  font: normal normal normal 0.9em/1em "AvenirBlack";
+  margin-bottom: 10px;
+}
+/* line 386, ../sass/screen.scss */
+.website-wrapper footer .inner .column ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 390, ../sass/screen.scss */
+.website-wrapper footer .inner .column ul li {
+  list-style: none;
+  font-size: 0.8em;
+  line-height: 1.3em;
+}
+/* line 395, ../sass/screen.scss */
+.website-wrapper footer .inner .column ul li a {
+  color: #5f6062;
+  font-size: inherit;
+}
+/* line 401, ../sass/screen.scss */
+.website-wrapper footer .inner .column ul#menu-quick-menu-1 li a {
+  text-transform: uppercase;
+}
+/* line 407, ../sass/screen.scss */
+.website-wrapper footer .inner .column:first-child {
+  width: 265px;
+}
+/* line 410, ../sass/screen.scss */
+.website-wrapper footer .inner .column:last-child {
+  margin-right: 0;
 }

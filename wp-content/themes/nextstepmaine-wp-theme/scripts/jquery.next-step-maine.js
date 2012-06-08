@@ -23,7 +23,9 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 	var steps = $('nav.next-step .inner ul li')
 	var index = steps.index(steps.filter('.current_page_item'))
 	
-	console.log(+index)
+	console.log(index)
+	
+	if (index == -1) { index = 0 } 
 	
 	$('nav.next-step .inner').lavaLamp({
 		fx: 'linear',
