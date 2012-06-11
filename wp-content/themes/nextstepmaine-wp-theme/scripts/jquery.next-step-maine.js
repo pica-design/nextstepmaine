@@ -34,10 +34,11 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 	});
 	
 	$('.slideshow .slides').cycle({
-		fx:		'scrollHorz', 
-		speed: 	700,
-		prev:   '.slideshow-prev', 
-		next:   '.slideshow-next'
+		timeout: 0, //Disable auto-advance
+		fx:		'scrollHorz',  //Enable the horizontal scrolling effect for changing slides
+		speed: 	700, //Set the slide transition to a speed of .7 seconds
+		prev:   '.slideshow-prev', //Bind the previous slide link to our prev arrow icon
+		next:   '.slideshow-next' //Bind the next slide link to our next arrow icon
 	})
 	
 })(jQuery)

@@ -59,13 +59,13 @@
                 <h3>Jobs In Demand</h3>
                 
                 <ul>
-                	<li>Advertising Sales Agents</li>
-					<li>Bill and Account Collectors</li>
-					<li>Bookkeeping, Accounting, and Auditing Clerks</li>
-					<li>Cabinetmakers and Bench Carpenters</li>
+                	<li><a href="">Advertising Sales Agents</a></li>
+					<li><a href="">Bill and Account Collectors</a></li>
+					<li><a href="">Bookkeeping, Accounting, and Auditing Clerks</a></li>
+					<li><a href="">Cabinetmakers and Bench Carpenters</a></li>
                 </ul>
                 
-                <p class="tooltip">See more jobs</p>
+                <p class="tooltip"><a href="" title="View all jobs in demand in Maine">See more jobs</a></p>
             </section>
             <?php
 		}
@@ -95,7 +95,7 @@
 			?>
             <section class="widget" id="program-types">
                 <h3>Programs &amp; Institutions</h3>
-                <p>(Choose from one of the<br />options in the drop down menu<br /><span class="blue-text"><strong>to search for program types and schools)</strong></span></p>
+                <p>(Choose from one of the<br />options in the drop down menu<br /><span class="blue-text"><strong>to search for program types<br />and schools)</strong></span></p>
                 PROGRAM TYPE DROPDOWN
             </section>
             <?php

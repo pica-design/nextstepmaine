@@ -41,6 +41,9 @@
 	/* White */
 	$white: rgb(255,255,255) ;
 	
+	/* Off White */
+	$off-white: rgb(236,236,236) ;
+	
 	/*  Lightest Gray  */
 	$lightest-gray:  rgb(217,217,217) ;
 	
@@ -205,8 +208,6 @@
 			}
 			.website-controls {
 				float: right ;
-				width: 215px ;
-				overflow: auto ;
 				
 				.website-quick-links {
 					ul {
@@ -219,12 +220,15 @@
 							float: left ;
 							list-style: none ;
 							color: $medium-blue ;
-							font-family: 'AvenirMedium';
+							font-family: 'AvenirLight';
+							font-size: 0.8em ;
 							
 							a {
 								color: $dark-gray ;
 								display: inline-block ;
 								margin: 0 5px 0 5px ;
+								text-transform: uppercase ;
+								letter-spacing: 0.1em ;
 							}
 						}
 							li:after {
@@ -236,7 +240,42 @@
 							}
 				}
 				.website-search {
+					position: relative ;
+					margin-top: 13px ;
 					float: right ;
+					width: 200px ;
+					
+					.search-form {
+						.field {
+							position: absolute ;
+							top: 3px ;
+							left: 0 ;
+							width: 166px ;
+							background-color: $light-gray ;
+							border: 1px solid $medium-gray ;
+							color: $dark-gray ;
+							padding: 6px ;
+							font-size: 0.85em ;
+							
+							&::-webkit-input-placeholder {
+							   color: $dark-gray ;
+							}
+							&:-moz-placeholder {
+							   color: $dark-gray ;
+							}
+						}
+						.submit {
+							position: absolute ;
+							top: 0 ;
+							right: 0 ;
+							padding: 7px 7px 8px 7px ;
+							color: $white ;
+							border: 1px solid $off-white ;
+							border-left: 0px ;
+							font: italic normal normal 1.2em/1.0em 'AvenirBlack' ;
+							@include blue-gradient ;
+						}
+					}
 				}
 			} /* .website.controls */
 		} /* section.masthead */
@@ -299,6 +338,7 @@
 				
 				li.backLava {
 					top: 0px !important ;
+					z-index: 1 ;
 					background: url(../images/lava-menu-arrow.jpg) no-repeat top center ;
 				}
 				ul {
@@ -312,6 +352,7 @@
 						height: 75px ;
 						margin: 0 10px 0 0 ;
 						text-align: center ;
+						z-index: 1 ;
 						@include single-transition(all, 0.2s, linear) ;
 						@include blue-gradient ;
 						
@@ -332,13 +373,16 @@
 						}
 						
 						h2 {
+							position: relative ;
+							z-index: 2 ;
 							display: inline-block ;
 							vertical-align: middle;
 							margin: 0 ;
 							padding: 10px 15px;
 							
 							a {
-								z-index: 5 ;
+								position: relative ;
+								z-index: 3 ;
 								font: italic normal normal 1.05em/1.0em 'AvenirBlack' ;
 								color: rgb(255,255,255) ;
 								$default-text-shadow-color: $darkest-blue ;
@@ -442,6 +486,14 @@
 					}
 				} /* .widget */
 			} /* .aside */
+			
+			&.search-results {
+				.entry-summary {
+					.query {
+						background-color: $light-blue ;
+					}
+				}
+			}
 		} /* section.content-wrapper */
 		
 		
