@@ -247,14 +247,13 @@ section.masthead .website-controls .website-search {
 }
 
 /* section.masthead */
-/* line 244, ../sass/screen.scss */
+/* line 245, ../sass/screen.scss */
 .slideshow {
   width: 880px;
   margin: 0 auto 0 auto;
-  overflow: auto;
   /* .slides */
 }
-/* line 250, ../sass/screen.scss */
+/* line 249, ../sass/screen.scss */
 .slideshow .slideshow-prev {
   float: left;
   width: 35px;
@@ -263,23 +262,20 @@ section.masthead .website-controls .website-search {
   background: url("../images/slideshow-prev.png") no-repeat;
   cursor: pointer;
 }
-/* line 254, ../sass/screen.scss */
+/* line 253, ../sass/screen.scss */
 .slideshow .slides {
-  /*@include centered; */
   float: left;
-  margin-right: 10px;
+  width: 800px;
 }
-/* line 259, ../sass/screen.scss */
+/* line 257, ../sass/screen.scss */
 .slideshow .slides .slide {
   display: none;
-  width: 800px;
-  height: 287px;
 }
-/* line 264, ../sass/screen.scss */
+/* line 260, ../sass/screen.scss */
 .slideshow .slides .slide.first {
   display: block;
 }
-/* line 269, ../sass/screen.scss */
+/* line 265, ../sass/screen.scss */
 .slideshow .slideshow-next {
   float: left;
   width: 35px;
@@ -287,24 +283,25 @@ section.masthead .website-controls .website-search {
   margin-top: 100px;
   background: url("../images/slideshow-next.png") no-repeat;
   cursor: pointer;
+  background-position: top right;
 }
 
 /* .slideshow */
-/* line 274, ../sass/screen.scss */
+/* line 271, ../sass/screen.scss */
 .next-step-header {
   width: 800px;
   margin: 0 auto 0 auto;
   overflow: auto;
   padding: 10px 0 10px 0;
 }
-/* line 280, ../sass/screen.scss */
+/* line 277, ../sass/screen.scss */
 .next-step-header h1 {
   float: left;
   color: #00aeef;
   font-weight: bold;
   font-size: 2.4em;
 }
-/* line 286, ../sass/screen.scss */
+/* line 283, ../sass/screen.scss */
 .next-step-header .caption {
   diplay: inline-block;
   float: left;
@@ -314,32 +311,32 @@ section.masthead .website-controls .website-search {
 }
 
 /* .next-step-header */
-/* line 295, ../sass/screen.scss */
+/* line 292, ../sass/screen.scss */
 nav.next-step {
   width: 100%;
   background-color: #cccccc;
   /* .inner */
 }
-/* line 299, ../sass/screen.scss */
+/* line 296, ../sass/screen.scss */
 nav.next-step .inner {
   width: 800px;
   margin: 0 auto 0 auto;
   padding: 20px 0 20px 0;
   /* ul */
 }
-/* line 303, ../sass/screen.scss */
+/* line 300, ../sass/screen.scss */
 nav.next-step .inner li.backLava {
   top: 0px !important;
   background: url(../images/lava-menu-arrow.jpg) no-repeat top center;
 }
-/* line 307, ../sass/screen.scss */
+/* line 304, ../sass/screen.scss */
 nav.next-step .inner ul {
   margin: 0;
   padding: 4px;
   overflow: auto;
   /* li */
 }
-/* line 312, ../sass/screen.scss */
+/* line 309, ../sass/screen.scss */
 nav.next-step .inner ul li {
   float: left;
   width: 189px;
@@ -367,7 +364,7 @@ nav.next-step .inner ul li {
   background-image: -ms-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
   background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%);
 }
-/* line 321, ../sass/screen.scss */
+/* line 318, ../sass/screen.scss */
 nav.next-step .inner ul li:before {
   content: '';
   display: inline-block;
@@ -375,24 +372,24 @@ nav.next-step .inner ul li:before {
   vertical-align: middle;
   margin-right: -0.25em;
 }
-/* line 329, ../sass/screen.scss */
+/* line 326, ../sass/screen.scss */
 nav.next-step .inner ul li.last {
   margin-right: 0;
 }
-/* line 333, ../sass/screen.scss */
+/* line 330, ../sass/screen.scss */
 nav.next-step .inner ul li.selectedLava, nav.next-step .inner ul li:hover {
   -webkit-box-shadow: 0 0 8px #969696;
   -moz-box-shadow: 0 0 8px #969696;
   box-shadow: 0 0 8px #969696;
 }
-/* line 337, ../sass/screen.scss */
+/* line 334, ../sass/screen.scss */
 nav.next-step .inner ul li h2 {
   display: inline-block;
   vertical-align: middle;
   margin: 0;
   padding: 10px 15px;
 }
-/* line 343, ../sass/screen.scss */
+/* line 340, ../sass/screen.scss */
 nav.next-step .inner ul li h2 a {
   z-index: 5;
   font: italic normal normal 1.05em/1em "AvenirBlack";
@@ -401,7 +398,7 @@ nav.next-step .inner ul li h2 a {
 }
 
 /* nav.next-step */
-/* line 360, ../sass/screen.scss */
+/* line 357, ../sass/screen.scss */
 section.content-wrapper {
   position: relative;
   padding: 30px 0 225px 0;
@@ -411,25 +408,25 @@ section.content-wrapper {
   /* SIDEBARS & WIDGETS */
   /* .aside */
 }
-/* line 367, ../sass/screen.scss */
+/* line 364, ../sass/screen.scss */
 section.content-wrapper .page-content {
   float: left;
   width: 600px;
   padding: 0 15px 0 0;
 }
-/* line 374, ../sass/screen.scss */
+/* line 371, ../sass/screen.scss */
 section.content-wrapper .aside {
   /* .horizontal */
   /* .vertical */
   /* .widget */
 }
-/* line 375, ../sass/screen.scss */
+/* line 372, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal {
   margin: 20px 0 0 0;
   width: 100%;
   /* widget */
 }
-/* line 380, ../sass/screen.scss */
+/* line 377, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget {
   float: left;
   width: 33%;
@@ -439,12 +436,12 @@ section.content-wrapper .aside.horizontal .widget {
   -moz-box-shadow: -5px 0px 7px -5px #969696;
   box-shadow: -5px 0px 7px -5px #969696;
 }
-/* line 388, ../sass/screen.scss */
+/* line 385, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget:first-child {
   border-left: 0px;
   padding: 0;
 }
-/* line 395, ../sass/screen.scss */
+/* line 392, ../sass/screen.scss */
 section.content-wrapper .aside.vertical {
   float: right;
   width: 190px;
@@ -454,52 +451,52 @@ section.content-wrapper .aside.vertical {
   box-shadow: -5px 0px 7px -5px #969696;
   /* .widget */
 }
-/* line 401, ../sass/screen.scss */
+/* line 398, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget {
   border-bottom: 1px solid #7cdafd;
   font-size: 0.75em;
   padding-bottom: 15px;
   margin-bottom: 25px;
 }
-/* line 407, ../sass/screen.scss */
+/* line 404, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget:last-child {
   border-bottom: 0px;
   padding-bottom: 0;
   margin-bottom: 0;
 }
-/* line 415, ../sass/screen.scss */
+/* line 412, ../sass/screen.scss */
 section.content-wrapper .aside .widget {
   /* ul */
 }
-/* line 416, ../sass/screen.scss */
+/* line 413, ../sass/screen.scss */
 section.content-wrapper .aside .widget h3 {
   font: normal normal normal 1.7em/1.2em "AvenirBlack";
   text-transform: lowercase;
   margin-bottom: 25px;
 }
-/* line 421, ../sass/screen.scss */
+/* line 418, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.slogan {
   font: normal normal normal 1.8em/1em "AvenirLight";
   margin: 0 0 15px 0;
   padding: 0;
 }
-/* line 426, ../sass/screen.scss */
+/* line 423, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.tooltip {
   font: normal normal normal 1em/1em "Arial";
   color: #00aeef;
 }
-/* line 430, ../sass/screen.scss */
+/* line 427, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul {
   margin: 0;
   padding: 0;
 }
-/* line 434, ../sass/screen.scss */
+/* line 431, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul li {
   list-style: none;
   margin-bottom: 12px;
   font-weight: bold;
 }
-/* line 441, ../sass/screen.scss */
+/* line 438, ../sass/screen.scss */
 section.content-wrapper .aside .widget#program-types p {
   font-size: 0.85em;
   text-transform: uppercase;
@@ -507,7 +504,7 @@ section.content-wrapper .aside .widget#program-types p {
 }
 
 /* section.content-wrapper */
-/* line 455, ../sass/screen.scss */
+/* line 452, ../sass/screen.scss */
 .website-wrapper footer {
   position: absolute;
   bottom: 0;
@@ -515,7 +512,7 @@ section.content-wrapper .aside .widget#program-types p {
   background-color: #cccccc;
   /* .inner */
 }
-/* line 461, ../sass/screen.scss */
+/* line 458, ../sass/screen.scss */
 .website-wrapper footer .inner {
   width: 800px;
   margin: 0 auto 0 auto;
@@ -523,13 +520,13 @@ section.content-wrapper .aside .widget#program-types p {
   /* .column */
   /* .row */
 }
-/* line 465, ../sass/screen.scss */
+/* line 462, ../sass/screen.scss */
 .website-wrapper footer .inner .column {
   float: left;
   margin: 30px 50px 0 0;
   /* ul */
 }
-/* line 469, ../sass/screen.scss */
+/* line 466, ../sass/screen.scss */
 .website-wrapper footer .inner .column .button {
   float: left;
   width: 120px;
@@ -537,46 +534,46 @@ section.content-wrapper .aside .widget#program-types p {
   margin: 0 12px 15px 0;
   padding: 9px 0 0 0;
 }
-/* line 477, ../sass/screen.scss */
+/* line 474, ../sass/screen.scss */
 .website-wrapper footer .inner .column h4 {
   font: normal normal normal 0.9em/1em "AvenirBlack";
   margin-bottom: 10px;
 }
-/* line 482, ../sass/screen.scss */
+/* line 479, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul {
   margin: 0;
   padding: 0;
 }
-/* line 486, ../sass/screen.scss */
+/* line 483, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li {
   list-style: none;
   font-size: 0.8em;
   line-height: 1.3em;
 }
-/* line 491, ../sass/screen.scss */
+/* line 488, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li a {
   color: #5f6062;
   font-size: inherit;
 }
-/* line 497, ../sass/screen.scss */
+/* line 494, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul#menu-quick-menu-1 li a {
   text-transform: uppercase;
 }
-/* line 503, ../sass/screen.scss */
+/* line 500, ../sass/screen.scss */
 .website-wrapper footer .inner .column.first {
   /* First Column */
   width: 265px;
 }
-/* line 507, ../sass/screen.scss */
+/* line 504, ../sass/screen.scss */
 .website-wrapper footer .inner .column.last {
   /* Last Column */
   margin-right: 0;
 }
-/* line 513, ../sass/screen.scss */
+/* line 510, ../sass/screen.scss */
 .website-wrapper footer .inner .row {
   /* .copyright */
 }
-/* line 515, ../sass/screen.scss */
+/* line 512, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright {
   padding: 45px 0 10px 0;
   font-size: 0.7em;
@@ -585,16 +582,16 @@ section.content-wrapper .aside .widget#program-types p {
   /* a */
   /* .pica */
 }
-/* line 521, ../sass/screen.scss */
+/* line 518, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a {
   font-size: inherit;
   color: inherit;
 }
-/* line 525, ../sass/screen.scss */
+/* line 522, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a:hover {
   text-decoration: underline;
 }
-/* line 530, ../sass/screen.scss */
+/* line 527, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica {
   float: right;
   background: url(../images/pica-mark-small.png) no-repeat;
@@ -608,7 +605,7 @@ section.content-wrapper .aside .widget#program-types p {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-/* line 538, ../sass/screen.scss */
+/* line 535, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;

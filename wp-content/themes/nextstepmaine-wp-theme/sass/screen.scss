@@ -241,25 +241,21 @@
 			} /* .website.controls */
 		} /* section.masthead */
 
+
 		.slideshow {
 			width: 880px ;
 			margin: 0 auto 0 auto ;
-			overflow: auto ;
-			
 			
 			.slideshow-prev {
 				@include slideshow-nav-item('../images/slideshow-prev.png');
 			}
 			
 			.slides {
-				/*@include centered; */
 				float: left ;
-				margin-right: 10px ;
+				width: 800px ;
 				
 				.slide {
 					display: none ;
-					width: 800px ;
-					height: 287px ;
 				}
 					.slide.first {
 						display: block ;
@@ -268,6 +264,7 @@
 			
 			.slideshow-next {
 				@include slideshow-nav-item('../images/slideshow-next.png');
+				background-position: top right ;
 			}
 		} /* .slideshow */
 
