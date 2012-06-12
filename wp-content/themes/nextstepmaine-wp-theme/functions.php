@@ -131,4 +131,18 @@
 	};
 	
 	
+	/************************
+			SHORTCODES
+	************************/
+	add_shortcode('accordian', 'generate_accordian_content');
+	function generate_accordian_content ($atts, $content) {
+		
+		$html_str  = "<div class='accordian'>\n";
+		$html_str .= "<span class='title'>{$atts['title']}</span>\n";
+		$html_str .= "<div class='content'>$content</div>\n";
+		$html_str .= "</div>";
+		
+		return $html_str;
+	}
+	
 ?>

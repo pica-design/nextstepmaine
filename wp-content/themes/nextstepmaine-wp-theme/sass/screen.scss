@@ -56,6 +56,9 @@
 	/* Dark Gray */
 	$dark-gray: rgb(95,96,98) ;
 	
+	/* Darkest Gray */
+	$darkest-gray: rgb(42,42,42) ;
+	
 	/* Light Blue */
 	$light-blue: rgb(124,218,253) ;
 	
@@ -404,6 +407,10 @@
 
 			overflow: auto ;
 			@include centered ;
+			
+			h1 {
+				color: rgb(0,174,239) ;
+			}
 			
 			.page-content {
 				float: left ;
