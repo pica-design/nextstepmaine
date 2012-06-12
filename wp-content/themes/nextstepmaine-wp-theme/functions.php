@@ -30,6 +30,7 @@
 	add_filter( 'next_post_rel_link', 'disable_stuff' );
 	function disable_stuff( $data ) { return false; }
 	
+	remove_filter( 'the_content', 'wpautop' );
 	
 	
 	/************************
@@ -134,12 +135,12 @@
 	/************************
 			SHORTCODES
 	************************/
-	add_shortcode('accordian', 'generate_accordian_content');
-	function generate_accordian_content ($atts, $content) {
+	add_shortcode('accordion', 'generate_accordion_content');
+	function generate_accordion_content ($atts, $content) {
 		
-		$html_str  = "<div class='accordian'>\n";
-		$html_str .= "<span class='title'>{$atts['title']}</span>\n";
-		$html_str .= "<div class='content'>$content</div>\n";
+		$html_str  = "<div class='accordion closed'>";
+		$html_str .= "<div class='title'>{$atts['title']}</div>";
+		$html_str .= "<div class='content'>$content</div>";
 		$html_str .= "</div>";
 		
 		return $html_str;

@@ -20,25 +20,48 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 
 	//do work
 	
-	var steps = $('nav.next-step .inner ul li')
-	var index = steps.index(steps.filter('.current_page_item'))
-	
-	console.log(index)
-	
-	if (index == -1) { index = 0 } 
-	
-	$('nav.next-step .inner').lavaLamp({
-		fx: 'linear',
-		speed: 200,
-		startItem: +index
-	});
-	
+	/* PAGE SLIDESHOW */
 	$('.slideshow .slides').cycle({
 		timeout: 0, //Disable auto-advance
 		fx:		'scrollHorz',  //Enable the horizontal scrolling effect for changing slides
 		speed: 	700, //Set the slide transition to a speed of .7 seconds
 		prev:   '.slideshow-prev', //Bind the previous slide link to our prev arrow icon
 		next:   '.slideshow-next' //Bind the next slide link to our next arrow icon
+	})
+	
+	/* NEXT STEP LAVA MENU */
+	var steps = $('nav.next-step .inner ul li')
+	var index = steps.index(steps.filter('.current_page_item'))
+	if (index == -1) { index = 0 } 
+	$('nav.next-step .inner').lavaLamp({
+		fx: 'linear',
+		speed: 200,
+		startItem: +index
+	});
+	
+	
+	/* CONTENT ACCORDIANS */
+	$('.accordion .title').click(function(){
+		
+		//If the accordian is open let's go ahead and close it
+		if ($(this).parent().is('.open')) {
+			$(this)
+				.parent()
+					.find('.content')
+						.slideUp()
+						.parent()
+				.removeClass('open')
+				.addClass('closed')
+		} else {
+			//Whereas if the menu is currently closed, let's open it
+			$(this)
+				.parent()
+					.find('.content')
+						.slideDown()
+						.parent()
+					.removeClass('closed')
+					.addClass('open')
+		}
 	})
 	
 })(jQuery)

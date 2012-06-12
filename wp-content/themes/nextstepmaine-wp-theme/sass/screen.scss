@@ -35,6 +35,16 @@
 		@include background-image(linear-gradient(top, $lightest-gray 0%, $medium-gray 100%));
 	}
 	
+	@mixin dark-gray-gradient {
+		/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+		background-color: $medium-gray; /* Fallback */
+		@include filter-gradient($medium-gray, $dark-gray, vertical);  /*IE6-8 */
+		
+		/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+		$experimental-support-for-svg: true;
+		@include background-image(linear-gradient(top, $medium-gray 0%, $dark-gray 100%));
+	}
+	
 	/**********************************************
 		VARIABLES
 	**********************************************/
@@ -416,7 +426,87 @@
 				float: left ;
 				width: 600px ;
 				padding: 0 15px 0 0 ;
-			}
+				font: normal normal normal 1.0em/1.4em 'AvenirRoman' ;
+				
+				ul {
+					
+					margin: 0 ;
+					padding: 0 ;
+					
+					
+					li {
+						list-style: none ;
+						padding: 0 ;
+						margin: 0 0 20px 0 ;
+						
+						h1 {
+							font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+							color: $medium-blue ;
+							text-transform: uppercase ;
+							span {
+								color: $dark-gray ;
+								padding-right: 5px ;
+							} /* span */
+						} /* h1 */
+						
+						h2 {
+							font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+							color: $dark-gray ;
+							text-transform: uppercase ;
+						}
+						
+						ul {
+							padding: 10px 0 0 35px;
+							
+							li {
+								position: relative ;
+								list-style: url(../images/blue-bullet.png) ;
+								margin: 0 ;
+								
+								a {
+									position: absolute ;
+									display: inline-block ;
+									top: 2px ;
+								}
+							} /* li */
+						} /* ul */
+					} /* li */
+				} /* ul */
+				
+				.accordion {
+					margin: 10px 0 10px 0 ;
+					
+					.title {
+						cursor: pointer ;
+						background-color: $light-gray ;
+						padding: 9px 15px 9px 15px ;
+						margin-bottom: 10px ;
+						font: normal normal normal 1.05em/1.0em 'AvenirBlack' ;
+						letter-spacing: 0.1em ;
+						color: rgb(255,255,255) ;
+						/*@include single-transition(all, 0.2s, linear) ;*/
+					}
+						&.open .title {
+							@include dark-gray-gradient ;
+						}
+					
+					.content {
+						width: 545px ;
+						font-size: 0.85em ;
+					}
+					
+					&.closed .content {
+						display: none ;
+					}
+				} /* accordian */
+				
+				
+				a {
+					font-family: 'AvenirBlack' ;
+					letter-spacing: 0.1em ;
+				}
+				
+			} /* .page-content */
 			
 			/* SIDEBARS & WIDGETS */
 			.aside {
