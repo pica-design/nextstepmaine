@@ -1,3 +1,8 @@
+AuthUserFile /Applications/MAMP/.htpasswd
+AuthType Basic
+AuthName "Pica Design Testing Server: Please log in"
+require user picadesign
+require user mdf
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
