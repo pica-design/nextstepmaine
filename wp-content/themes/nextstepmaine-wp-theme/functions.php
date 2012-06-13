@@ -53,8 +53,23 @@
 				'secondary' => __( 'Next Step', 'nextstepmaine' ),
 				'tertiary' => __( 'Footer Navigation', 'nextstepmaine' )
 			) );
+			
+			/************************
+				CUSTOM POST TYPES
+			************************/
+			include('inc/nextstep-post-types.php') ;
+			
+			/************************
+				CUSTOM ADMIN PAGES
+			************************/
+			include('inc/nextstep-admin-pages.php') ;
 		}
-	
+		
+		
+	/************************
+			CLASSES
+	************************/
+	include('inc/nextstep-classes.php') ;
 	
 	
 	/************************
@@ -86,17 +101,9 @@
 	}
 	
 	
-	
-	/************************
-			CLASSES
-	************************/
-	include('inc/nextstep-classes.php') ;
-	
-	
 	/************************
 			SIDEBARS
 	************************/
-	
 	//Homepage Sidebar
 	register_sidebar(array(
 		'name' => __('Homepage'),
