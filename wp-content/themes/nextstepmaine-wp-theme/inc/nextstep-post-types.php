@@ -18,7 +18,7 @@
 			'public' => true,
 			'hierarchical' => true,
 			'supports' => array('title','editor','thumbnail','gallery'),
-			'rewrite' => array('slug' => 'jobs', 'with_front' => false)
+			'rewrite' => array('slug' => 'resources/jobs', 'with_front' => true)
 		)	
 	);
 				

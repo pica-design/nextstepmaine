@@ -57,15 +57,16 @@
 			?>
             <section class="widget" id="jobs-in-demand">
                 <h3>Jobs In Demand</h3>
-                
                 <ul>
-                	<li><a href="">Advertising Sales Agents</a></li>
-					<li><a href="">Bill and Account Collectors</a></li>
-					<li><a href="">Bookkeeping, Accounting, and Auditing Clerks</a></li>
-					<li><a href="">Cabinetmakers and Bench Carpenters</a></li>
+                    <?php
+						$jobs = new WP_Query('post_type=nsm_job&posts_per_page=4&orderby=rand');
+						while ($jobs->have_posts()) : $jobs->the_post(); ?>
+                        
+							<li><a href="<?php the_permalink() ?>"><?php the_title() ?></a></li>
+					
+					<?php endwhile ?>
                 </ul>
-                
-                <p class="tooltip"><a href="" title="View all jobs in demand in Maine">See more jobs</a></p>
+                <p class="tooltip"><a href="<?php bloginfo('url') ?>/resources/jobs" title="View all jobs in demand in Maine">See more jobs</a></p>
             </section>
             <?php
 		}
