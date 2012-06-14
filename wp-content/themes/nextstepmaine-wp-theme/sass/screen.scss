@@ -434,6 +434,7 @@
 					padding: 0 ;
 					
 					
+					
 					li {
 						list-style: none ;
 						padding: 0 ;
@@ -471,6 +472,17 @@
 							} /* li */
 						} /* ul */
 					} /* li */
+					
+					&.show-bullets {
+					
+						padding-left: 18px ;					
+
+						li {
+							list-style: disc ;
+							margin-bottom: 5px ;
+						}
+					}
+					
 				} /* ul */
 				
 				.accordion {
@@ -492,7 +504,7 @@
 					
 					.content {
 						width: 545px ;
-						font-size: 0.85em ;
+						font-size: 0.9em ;
 					}
 					
 					&.closed .content {

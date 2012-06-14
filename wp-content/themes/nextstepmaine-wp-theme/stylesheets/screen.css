@@ -485,7 +485,7 @@ section.content-wrapper .page-content ul {
   padding: 0;
   /* li */
 }
-/* line 437, ../sass/screen.scss */
+/* line 438, ../sass/screen.scss */
 section.content-wrapper .page-content ul li {
   list-style: none;
   padding: 0;
@@ -493,46 +493,55 @@ section.content-wrapper .page-content ul li {
   /* h1 */
   /* ul */
 }
-/* line 442, ../sass/screen.scss */
+/* line 443, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h1 {
   font: normal normal normal 1.6em/1em "AvenirBlack";
   color: #00aeef;
   text-transform: uppercase;
   /* span */
 }
-/* line 446, ../sass/screen.scss */
+/* line 447, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h1 span {
   color: #5f6062;
   padding-right: 5px;
 }
-/* line 452, ../sass/screen.scss */
+/* line 453, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h2 {
   font: normal normal normal 1.6em/1em "AvenirBlack";
   color: #5f6062;
   text-transform: uppercase;
 }
-/* line 458, ../sass/screen.scss */
+/* line 459, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul {
   padding: 10px 0 0 35px;
   /* li */
 }
-/* line 461, ../sass/screen.scss */
+/* line 462, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul li {
   position: relative;
   list-style: url(../images/blue-bullet.png);
   margin: 0;
 }
-/* line 466, ../sass/screen.scss */
+/* line 467, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul li a {
   position: absolute;
   display: inline-block;
   top: 2px;
 }
 /* line 476, ../sass/screen.scss */
+section.content-wrapper .page-content ul.show-bullets {
+  padding-left: 18px;
+}
+/* line 480, ../sass/screen.scss */
+section.content-wrapper .page-content ul.show-bullets li {
+  list-style: disc;
+  margin-bottom: 5px;
+}
+/* line 488, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion {
   margin: 10px 0 10px 0;
 }
-/* line 479, ../sass/screen.scss */
+/* line 491, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion .title {
   cursor: pointer;
   background-color: #cccccc;
@@ -543,7 +552,7 @@ section.content-wrapper .page-content .accordion .title {
   color: white;
   /*@include single-transition(all, 0.2s, linear) ;*/
 }
-/* line 489, ../sass/screen.scss */
+/* line 501, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion.open .title {
   /* The following requires the latest Compass, add '@import "compass"' the top of this file */
   background-color: #969696;
@@ -561,33 +570,33 @@ section.content-wrapper .page-content .accordion.open .title {
   background-image: -ms-linear-gradient(top, #969696 0%, #5f6062 100%);
   background-image: linear-gradient(top, #969696 0%, #5f6062 100%);
 }
-/* line 493, ../sass/screen.scss */
+/* line 505, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion .content {
   width: 545px;
-  font-size: 0.85em;
+  font-size: 0.9em;
 }
-/* line 498, ../sass/screen.scss */
+/* line 510, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion.closed .content {
   display: none;
 }
-/* line 504, ../sass/screen.scss */
+/* line 516, ../sass/screen.scss */
 section.content-wrapper .page-content a {
   font-family: 'AvenirBlack';
   letter-spacing: 0.1em;
 }
-/* line 512, ../sass/screen.scss */
+/* line 524, ../sass/screen.scss */
 section.content-wrapper .aside {
   /* .horizontal */
   /* .vertical */
   /* .widget */
 }
-/* line 513, ../sass/screen.scss */
+/* line 525, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal {
   margin: 20px 0 0 0;
   width: 100%;
   /* widget */
 }
-/* line 518, ../sass/screen.scss */
+/* line 530, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget {
   float: left;
   width: 33%;
@@ -597,12 +606,12 @@ section.content-wrapper .aside.horizontal .widget {
   -moz-box-shadow: -5px 0px 7px -5px #969696;
   box-shadow: -5px 0px 7px -5px #969696;
 }
-/* line 526, ../sass/screen.scss */
+/* line 538, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget:first-child {
   border-left: 0px;
   padding: 0;
 }
-/* line 533, ../sass/screen.scss */
+/* line 545, ../sass/screen.scss */
 section.content-wrapper .aside.vertical {
   float: right;
   width: 190px;
@@ -612,64 +621,64 @@ section.content-wrapper .aside.vertical {
   box-shadow: -5px 0px 7px -5px #969696;
   /* .widget */
 }
-/* line 539, ../sass/screen.scss */
+/* line 551, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget {
   border-bottom: 1px solid #7cdafd;
   font-size: 0.75em;
   padding-bottom: 15px;
   margin-bottom: 25px;
 }
-/* line 545, ../sass/screen.scss */
+/* line 557, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget:last-child {
   border-bottom: 0px;
   padding-bottom: 0;
   margin-bottom: 0;
 }
-/* line 553, ../sass/screen.scss */
+/* line 565, ../sass/screen.scss */
 section.content-wrapper .aside .widget {
   /* ul */
 }
-/* line 554, ../sass/screen.scss */
+/* line 566, ../sass/screen.scss */
 section.content-wrapper .aside .widget h3 {
   font: normal normal normal 1.7em/1.2em "AvenirBlack";
   text-transform: lowercase;
   margin-bottom: 25px;
 }
-/* line 559, ../sass/screen.scss */
+/* line 571, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.slogan {
   font: normal normal normal 1.8em/1em "AvenirLight";
   margin: 0 0 15px 0;
   padding: 0;
 }
-/* line 564, ../sass/screen.scss */
+/* line 576, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.tooltip {
   font: normal normal normal 1em/1em "Arial";
   color: #00aeef;
 }
-/* line 568, ../sass/screen.scss */
+/* line 580, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul {
   margin: 0;
   padding: 0;
 }
-/* line 572, ../sass/screen.scss */
+/* line 584, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul li {
   list-style: none;
   margin-bottom: 12px;
   font-weight: bold;
 }
-/* line 579, ../sass/screen.scss */
+/* line 591, ../sass/screen.scss */
 section.content-wrapper .aside .widget#program-types p {
   font-size: 0.85em;
   text-transform: uppercase;
   line-height: 1.2em;
 }
-/* line 589, ../sass/screen.scss */
+/* line 601, ../sass/screen.scss */
 section.content-wrapper.search-results .entry-summary .query {
   background-color: #7cdafd;
 }
 
 /* section.content-wrapper */
-/* line 601, ../sass/screen.scss */
+/* line 613, ../sass/screen.scss */
 .website-wrapper footer {
   position: absolute;
   bottom: 0;
@@ -677,7 +686,7 @@ section.content-wrapper.search-results .entry-summary .query {
   background-color: #cccccc;
   /* .inner */
 }
-/* line 607, ../sass/screen.scss */
+/* line 619, ../sass/screen.scss */
 .website-wrapper footer .inner {
   width: 800px;
   margin: 0 auto 0 auto;
@@ -685,13 +694,13 @@ section.content-wrapper.search-results .entry-summary .query {
   /* .column */
   /* .row */
 }
-/* line 611, ../sass/screen.scss */
+/* line 623, ../sass/screen.scss */
 .website-wrapper footer .inner .column {
   float: left;
   margin: 30px 50px 0 0;
   /* ul */
 }
-/* line 615, ../sass/screen.scss */
+/* line 627, ../sass/screen.scss */
 .website-wrapper footer .inner .column .button {
   float: left;
   width: 120px;
@@ -699,46 +708,46 @@ section.content-wrapper.search-results .entry-summary .query {
   margin: 0 12px 15px 0;
   padding: 9px 0 0 0;
 }
-/* line 623, ../sass/screen.scss */
+/* line 635, ../sass/screen.scss */
 .website-wrapper footer .inner .column h4 {
   font: normal normal normal 0.9em/1em "AvenirBlack";
   margin-bottom: 10px;
 }
-/* line 628, ../sass/screen.scss */
+/* line 640, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul {
   margin: 0;
   padding: 0;
 }
-/* line 632, ../sass/screen.scss */
+/* line 644, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li {
   list-style: none;
   font-size: 0.8em;
   line-height: 1.3em;
 }
-/* line 637, ../sass/screen.scss */
+/* line 649, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li a {
   color: #5f6062;
   font-size: inherit;
 }
-/* line 643, ../sass/screen.scss */
+/* line 655, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul#menu-quick-menu-1 li a {
   text-transform: uppercase;
 }
-/* line 649, ../sass/screen.scss */
+/* line 661, ../sass/screen.scss */
 .website-wrapper footer .inner .column.first {
   /* First Column */
   width: 265px;
 }
-/* line 653, ../sass/screen.scss */
+/* line 665, ../sass/screen.scss */
 .website-wrapper footer .inner .column.last {
   /* Last Column */
   margin-right: 0;
 }
-/* line 659, ../sass/screen.scss */
+/* line 671, ../sass/screen.scss */
 .website-wrapper footer .inner .row {
   /* .copyright */
 }
-/* line 661, ../sass/screen.scss */
+/* line 673, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright {
   padding: 45px 0 10px 0;
   font-size: 0.7em;
@@ -747,16 +756,16 @@ section.content-wrapper.search-results .entry-summary .query {
   /* a */
   /* .pica */
 }
-/* line 667, ../sass/screen.scss */
+/* line 679, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a {
   font-size: inherit;
   color: inherit;
 }
-/* line 671, ../sass/screen.scss */
+/* line 683, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a:hover {
   text-decoration: underline;
 }
-/* line 676, ../sass/screen.scss */
+/* line 688, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica {
   float: right;
   background: url(../images/pica-mark-small.png) no-repeat;
@@ -770,7 +779,7 @@ section.content-wrapper.search-results .entry-summary .query {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-/* line 684, ../sass/screen.scss */
+/* line 696, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
