@@ -3,9 +3,9 @@
 	/*********************************************************
 	NEXT STEP MAINE DOL JOBS IN DEMAND - IMPORT PAGE
 	*********************************************************/
-	add_action('admin_menu', 'register_import_dol_excel_file_submenu_page');
+	add_action('admin_menu', 'register_subpage_menus');
 	
-	function register_import_dol_excel_file_submenu_page () {
+	function register_subpage_menus () {
 		add_submenu_page(
 			'edit.php?post_type=nsm_job',
 			'Import DOL Excel File',
@@ -14,7 +14,24 @@
 			'import-dol-excel-file',
 			'import_dol_excel_file_page_contents'
 		);
+		add_submenu_page(
+			'edit.php?post_type=nsm_institution',
+			'Import Institutions Excel File',
+			'Import',
+			'manage_options',
+			'import-insitutions-excel-file',
+			'import_insitutions_excel_file_page_contents'
+		);
+		add_submenu_page(
+			'edit.php?post_type=nsm_program',
+			'Import Programs Excel File',
+			'Import',
+			'manage_options',
+			'import-programs-excel-file',
+			'import_programs_excel_file_page_contents'
+		);
 	} /* END register_import_dol_excel_file_submenu_page */
+	
 	
 	function import_dol_excel_file_page_contents () {
 		
@@ -111,4 +128,12 @@
         <?php
 	} /* END import_dol_excel_file_page_contents */
 	
+	
+	
+	function import_insitutions_excel_file_page_contents () {
+	}
+	
+	
+	function import_programs_excel_file_page_contents () {
+	}
 ?>

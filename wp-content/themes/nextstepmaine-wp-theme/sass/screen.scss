@@ -1,6 +1,6 @@
-	/****************************************** 	
-		MIXINS
-	******************************************/
+	//
+	//	MIXINS
+	//
 	@mixin centered {
 		width: 800px ;
 		margin: 0 auto 0 auto ;
@@ -45,51 +45,52 @@
 		@include background-image(linear-gradient(top, $medium-gray 0%, $dark-gray 100%));
 	}
 	
-	/**********************************************
-		VARIABLES
-	**********************************************/
-	/* White */
+	//
+	//	VARIABLES
+	//
+	// White 
 	$white: rgb(255,255,255) ;
 	
-	/* Off White */
+	// Off White
 	$off-white: rgb(236,236,236) ;
 	
-	/*  Lightest Gray  */
+	// Lightest Gray
 	$lightest-gray:  rgb(217,217,217) ;
 	
-	/*  Light Gray  */
+	// Light Gray
 	$light-gray:  rgb(204,204,204) ;
 	
-	/* Medium Gray */
+	// Medium Gray
 	$medium-gray: rgb(150,150,150) ;
 	
-	/* Dark Gray */
+	// Dark Gray
 	$dark-gray: rgb(95,96,98) ;
 	
-	/* Darkest Gray */
+	// Darkest Gray
 	$darkest-gray: rgb(42,42,42) ;
 	
-	/* Light Blue */
+	// Light Blue
 	$light-blue: rgb(124,218,253) ;
 	
-	/* Medium Blue */
+	// Medium Blue
 	$medium-blue: rgb(0,174,239) ;
 	
-	/* Dark Blue */
+	// Dark Blue
 	$dark-blue: rgb(2,139,190) ;
 	
-	/* Darkest Blue */
+	// Darkest Blue
 	$darkest-blue: rgb(7,147,200) ;
 	
-	/**********************************************
-		PARTIALS
-	**********************************************/
+	//
+	//	PARTIALS
+	//
 	/* Include our css equalizer to stabalize all browsers without just reseting */
 	@import "normalize.css";
 	
 	/* ADMIN TEXT EDITOR STYLES ARE DECLARED WITHIN editor-style.css so they can be added to the WP WYSIWIG Editor */
 	@import "global-styles.css";
 	
+	/* The Compass Library */
 	@import "compass";
 	
 	/**********************************************
@@ -235,7 +236,6 @@
 							color: $medium-blue ;
 							font-family: 'AvenirLight';
 							font-size: 0.8em ;
-							
 							a {
 								color: $dark-gray ;
 								display: inline-block ;
@@ -243,14 +243,14 @@
 								text-transform: uppercase ;
 								letter-spacing: 0.1em ;
 							}
-						}
-							li:after {
+							&:after {
 								content: "/";
 							}
-							ul li.last:after {
+							&.last:after {
 								content: "";
 								margin-right: 0 ;
 							}
+						}
 				}
 				.website-search {
 					position: relative ;
@@ -428,12 +428,42 @@
 				padding: 0 15px 0 0 ;
 				font: normal normal normal 1.0em/1.4em 'AvenirRoman' ;
 				
-				ul {
-					
+				ul.breadcrumbs {
+					display: inline-block ;
+					float: left ;
 					margin: 0 ;
 					padding: 0 ;
-					
-					
+				
+					li {
+						float: left ;
+						list-style: none ;
+						color: $medium-blue ;
+						font-family: 'AvenirLight';
+						font-size: 0.8em ;
+						a, & span.current-post {
+							color: $dark-gray ;
+							display: inline-block ;
+							margin: 0 5px 0 5px ;
+							text-transform: uppercase ;
+							letter-spacing: 0.1em ;
+						}
+						&.first a, &.first span.current-post {
+							margin-left: 0 ;
+						}
+						&:after {
+							content: "/";
+						}
+						&.last:after {
+							content: "";
+							margin-right: 0 ;
+						}
+					}
+				}
+			
+				
+				ul {
+					margin: 0 ;
+					padding: 0 ;
 					
 					li {
 						list-style: none ;
@@ -474,7 +504,6 @@
 					} /* li */
 					
 					&.show-bullets {
-					
 						padding-left: 18px ;					
 
 						li {
@@ -522,6 +551,7 @@
 			
 			/* SIDEBARS & WIDGETS */
 			.aside {
+				/* The horizontal aside section is used on the website homepage */
 				&.horizontal {
 					margin: 20px 0 0 0 ;
 					
@@ -531,7 +561,7 @@
 						float: left ;
 						width: 33% ;
 						height: 220px ;
-						padding: 0 0 0 15px ;
+						padding: 0 15px 0 15px ;
 						
 						@include single-box-shadow($medium-gray, -5px, 0px , 7px, -5px, false);
 						
@@ -541,7 +571,7 @@
 						}
 					} /* widget */
 				} /* .horizontal */
-				
+				/* The vertical aside section is used on the website pages - as a sidebar */
 				&.vertical {
 					float: right ;
 					width: 190px ;
@@ -563,6 +593,7 @@
 				} /* .vertical */
 				
 				.widget {
+				
 					h3 {
 						font: normal normal normal 1.7em/1.2em 'AvenirBlack' ;
 						text-transform: lowercase ;

@@ -1,32 +1,13 @@
 @import url(normalize.css);
 @import url(global-styles.css);
-/****************************************** 	
-	MIXINS
-******************************************/
-/**********************************************
-	VARIABLES
-**********************************************/
-/* White */
-/* Off White */
-/*  Lightest Gray  */
-/*  Light Gray  */
-/* Medium Gray */
-/* Dark Gray */
-/* Darkest Gray */
-/* Light Blue */
-/* Medium Blue */
-/* Dark Blue */
-/* Darkest Blue */
-/**********************************************
-	PARTIALS
-**********************************************/
 /* Include our css equalizer to stabalize all browsers without just reseting */
 /* ADMIN TEXT EDITOR STYLES ARE DECLARED WITHIN editor-style.css so they can be added to the WP WYSIWIG Editor */
+/* The Compass Library */
 /**********************************************
 	BROWSER CORRECTIONS
 ***********************************************/
 /* Apply a natural box layout model to all elements */
-/* line 100, ../sass/screen.scss */
+/* line 101, ../sass/screen.scss */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -36,25 +17,25 @@
 /****************************************** 	
 	CSS TEXT SELECTION
 ******************************************/
-/* line 110, ../sass/screen.scss */
+/* line 111, ../sass/screen.scss */
 *::-moz-selection {
   background-color: #323232;
   color: #ffffff;
 }
 
-/* line 114, ../sass/screen.scss */
+/* line 115, ../sass/screen.scss */
 *::-webkit-selection {
   background-color: #323232;
   color: #ffffff;
 }
 
-/* line 118, ../sass/screen.scss */
+/* line 119, ../sass/screen.scss */
 *::-o-selection {
   background-color: #323232;
   color: #ffffff;
 }
 
-/* line 122, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 *::selection {
   background-color: #323232;
   color: #ffffff;
@@ -66,22 +47,22 @@
 /**********************************************
 	COMMONLY USED DECLARATIONS 
 **********************************************/
-/* line 136, ../sass/screen.scss */
+/* line 137, ../sass/screen.scss */
 .clear {
   clear: both;
 }
 
-/* line 139, ../sass/screen.scss */
+/* line 140, ../sass/screen.scss */
 .alignleft {
   float: left;
 }
 
-/* line 142, ../sass/screen.scss */
+/* line 143, ../sass/screen.scss */
 .alignright {
   float: right;
 }
 
-/* line 145, ../sass/screen.scss */
+/* line 146, ../sass/screen.scss */
 .button {
   text-align: center;
   font: normal normal normal 0.8em/1em "AvenirBlack";
@@ -92,7 +73,7 @@
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-/* line 151, ../sass/screen.scss */
+/* line 152, ../sass/screen.scss */
 .button.gray {
   /* The following requires the latest Compass, add '@import "compass"' the top of this file */
   background-color: #969696;
@@ -110,7 +91,7 @@
   background-image: -ms-linear-gradient(top, #d9d9d9 0%, #969696 100%);
   background-image: linear-gradient(top, #d9d9d9 0%, #969696 100%);
 }
-/* line 154, ../sass/screen.scss */
+/* line 155, ../sass/screen.scss */
 .button.blue {
   /* The following requires the latest Compass, add '@import "compass"' the top of this file */
   background-color: #028bbe;
@@ -128,32 +109,32 @@
   background-image: -ms-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
   background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%);
 }
-/* line 157, ../sass/screen.scss */
+/* line 158, ../sass/screen.scss */
 .button:hover {
   -webkit-box-shadow: 0 0 8px #969696;
   -moz-box-shadow: 0 0 8px #969696;
   box-shadow: 0 0 8px #969696;
 }
-/* line 160, ../sass/screen.scss */
+/* line 161, ../sass/screen.scss */
 .button a {
   color: #5f6062;
   font-size: inherit;
 }
 
 /* .button */
-/* line 166, ../sass/screen.scss */
+/* line 167, ../sass/screen.scss */
 .uppercase {
   text-transform: uppercase;
 }
 
-/* line 169, ../sass/screen.scss */
+/* line 170, ../sass/screen.scss */
 .link-fill-container, .button a {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-/* line 175, ../sass/screen.scss */
+/* line 176, ../sass/screen.scss */
 .blue-text {
   color: #00aeef;
 }
@@ -161,14 +142,14 @@
 /**********************************************
 	HTML DECLARATIONS 
 **********************************************/
-/* line 183, ../sass/screen.scss */
+/* line 184, ../sass/screen.scss */
 html {
   margin: 0px;
   padding: 0px;
   height: 100%;
 }
 
-/* line 188, ../sass/screen.scss */
+/* line 189, ../sass/screen.scss */
 body {
   margin: 0px;
   font-family: Arial, Helvetica, sans-serif;
@@ -181,7 +162,7 @@ body {
 /**********************************************
 	LAYOUT DECLARATIONS 
 **********************************************/
-/* line 201, ../sass/screen.scss */
+/* line 202, ../sass/screen.scss */
 section.website-wrapper {
   background-color: white;
   position: relative;
@@ -189,18 +170,18 @@ section.website-wrapper {
   min-height: 100%;
 }
 
-/* line 207, ../sass/screen.scss */
+/* line 208, ../sass/screen.scss */
 section.masthead {
   width: 800px;
   margin: 20px auto 20px auto;
   overflow: auto;
   /* .website.controls */
 }
-/* line 212, ../sass/screen.scss */
+/* line 213, ../sass/screen.scss */
 section.masthead .website-logo {
   float: left;
 }
-/* line 215, ../sass/screen.scss */
+/* line 216, ../sass/screen.scss */
 section.masthead .website-slogan {
   float: left;
   color: #00aeef;
@@ -208,18 +189,18 @@ section.masthead .website-slogan {
   font-size: 1.4em;
   margin: 30px 0 0 30px;
 }
-/* line 222, ../sass/screen.scss */
+/* line 223, ../sass/screen.scss */
 section.masthead .website-controls {
   float: right;
 }
-/* line 226, ../sass/screen.scss */
+/* line 227, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links ul {
   display: inline-block;
   float: right;
   margin: 0;
   padding: 0;
 }
-/* line 232, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links li {
   float: left;
   list-style: none;
@@ -235,12 +216,12 @@ section.masthead .website-controls .website-quick-links li a {
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
-/* line 247, ../sass/screen.scss */
+/* line 246, ../sass/screen.scss */
 section.masthead .website-controls .website-quick-links li:after {
   content: "/";
 }
-/* line 250, ../sass/screen.scss */
-section.masthead .website-controls .website-quick-links ul li.last:after {
+/* line 249, ../sass/screen.scss */
+section.masthead .website-controls .website-quick-links li.last:after {
   content: "";
   margin-right: 0;
 }
@@ -480,12 +461,48 @@ section.content-wrapper .page-content {
   /* accordian */
 }
 /* line 431, ../sass/screen.scss */
+section.content-wrapper .page-content ul.breadcrumbs {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+/* line 437, ../sass/screen.scss */
+section.content-wrapper .page-content ul.breadcrumbs li {
+  float: left;
+  list-style: none;
+  color: #00aeef;
+  font-family: 'AvenirLight';
+  font-size: 0.8em;
+}
+/* line 443, ../sass/screen.scss */
+section.content-wrapper .page-content ul.breadcrumbs li a, section.content-wrapper .page-content ul.breadcrumbs li span.current-post {
+  color: #5f6062;
+  display: inline-block;
+  margin: 0 5px 0 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+/* line 450, ../sass/screen.scss */
+section.content-wrapper .page-content ul.breadcrumbs li.first a, section.content-wrapper .page-content ul.breadcrumbs li.first span.current-post {
+  margin-left: 0;
+}
+/* line 453, ../sass/screen.scss */
+section.content-wrapper .page-content ul.breadcrumbs li:after {
+  content: "/";
+}
+/* line 456, ../sass/screen.scss */
+section.content-wrapper .page-content ul.breadcrumbs li.last:after {
+  content: "";
+  margin-right: 0;
+}
+/* line 464, ../sass/screen.scss */
 section.content-wrapper .page-content ul {
   margin: 0;
   padding: 0;
   /* li */
 }
-/* line 438, ../sass/screen.scss */
+/* line 468, ../sass/screen.scss */
 section.content-wrapper .page-content ul li {
   list-style: none;
   padding: 0;
@@ -493,55 +510,55 @@ section.content-wrapper .page-content ul li {
   /* h1 */
   /* ul */
 }
-/* line 443, ../sass/screen.scss */
+/* line 473, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h1 {
   font: normal normal normal 1.6em/1em "AvenirBlack";
   color: #00aeef;
   text-transform: uppercase;
   /* span */
 }
-/* line 447, ../sass/screen.scss */
+/* line 477, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h1 span {
   color: #5f6062;
   padding-right: 5px;
 }
-/* line 453, ../sass/screen.scss */
+/* line 483, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h2 {
   font: normal normal normal 1.6em/1em "AvenirBlack";
   color: #5f6062;
   text-transform: uppercase;
 }
-/* line 459, ../sass/screen.scss */
+/* line 489, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul {
   padding: 10px 0 0 35px;
   /* li */
 }
-/* line 462, ../sass/screen.scss */
+/* line 492, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul li {
   position: relative;
   list-style: url(../images/blue-bullet.png);
   margin: 0;
 }
-/* line 467, ../sass/screen.scss */
+/* line 497, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul li a {
   position: absolute;
   display: inline-block;
   top: 2px;
 }
-/* line 476, ../sass/screen.scss */
+/* line 506, ../sass/screen.scss */
 section.content-wrapper .page-content ul.show-bullets {
   padding-left: 18px;
 }
-/* line 480, ../sass/screen.scss */
+/* line 509, ../sass/screen.scss */
 section.content-wrapper .page-content ul.show-bullets li {
   list-style: disc;
   margin-bottom: 5px;
 }
-/* line 488, ../sass/screen.scss */
+/* line 517, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion {
   margin: 10px 0 10px 0;
 }
-/* line 491, ../sass/screen.scss */
+/* line 520, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion .title {
   cursor: pointer;
   background-color: #cccccc;
@@ -552,7 +569,7 @@ section.content-wrapper .page-content .accordion .title {
   color: white;
   /*@include single-transition(all, 0.2s, linear) ;*/
 }
-/* line 501, ../sass/screen.scss */
+/* line 530, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion.open .title {
   /* The following requires the latest Compass, add '@import "compass"' the top of this file */
   background-color: #969696;
@@ -570,48 +587,50 @@ section.content-wrapper .page-content .accordion.open .title {
   background-image: -ms-linear-gradient(top, #969696 0%, #5f6062 100%);
   background-image: linear-gradient(top, #969696 0%, #5f6062 100%);
 }
-/* line 505, ../sass/screen.scss */
+/* line 534, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion .content {
   width: 545px;
   font-size: 0.9em;
 }
-/* line 510, ../sass/screen.scss */
+/* line 539, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion.closed .content {
   display: none;
 }
-/* line 516, ../sass/screen.scss */
+/* line 545, ../sass/screen.scss */
 section.content-wrapper .page-content a {
   font-family: 'AvenirBlack';
   letter-spacing: 0.1em;
 }
-/* line 524, ../sass/screen.scss */
+/* line 553, ../sass/screen.scss */
 section.content-wrapper .aside {
+  /* The horizontal aside section is used on the website homepage */
   /* .horizontal */
+  /* The vertical aside section is used on the website pages - as a sidebar */
   /* .vertical */
   /* .widget */
 }
-/* line 525, ../sass/screen.scss */
+/* line 555, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal {
   margin: 20px 0 0 0;
   width: 100%;
   /* widget */
 }
-/* line 530, ../sass/screen.scss */
+/* line 560, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget {
   float: left;
   width: 33%;
   height: 220px;
-  padding: 0 0 0 15px;
+  padding: 0 15px 0 15px;
   -webkit-box-shadow: -5px 0px 7px -5px #969696;
   -moz-box-shadow: -5px 0px 7px -5px #969696;
   box-shadow: -5px 0px 7px -5px #969696;
 }
-/* line 538, ../sass/screen.scss */
+/* line 568, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget:first-child {
   border-left: 0px;
   padding: 0;
 }
-/* line 545, ../sass/screen.scss */
+/* line 575, ../sass/screen.scss */
 section.content-wrapper .aside.vertical {
   float: right;
   width: 190px;
@@ -621,64 +640,64 @@ section.content-wrapper .aside.vertical {
   box-shadow: -5px 0px 7px -5px #969696;
   /* .widget */
 }
-/* line 551, ../sass/screen.scss */
+/* line 581, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget {
   border-bottom: 1px solid #7cdafd;
   font-size: 0.75em;
   padding-bottom: 15px;
   margin-bottom: 25px;
 }
-/* line 557, ../sass/screen.scss */
+/* line 587, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget:last-child {
   border-bottom: 0px;
   padding-bottom: 0;
   margin-bottom: 0;
 }
-/* line 565, ../sass/screen.scss */
+/* line 595, ../sass/screen.scss */
 section.content-wrapper .aside .widget {
   /* ul */
 }
-/* line 566, ../sass/screen.scss */
+/* line 597, ../sass/screen.scss */
 section.content-wrapper .aside .widget h3 {
   font: normal normal normal 1.7em/1.2em "AvenirBlack";
   text-transform: lowercase;
   margin-bottom: 25px;
 }
-/* line 571, ../sass/screen.scss */
+/* line 602, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.slogan {
   font: normal normal normal 1.8em/1em "AvenirLight";
   margin: 0 0 15px 0;
   padding: 0;
 }
-/* line 576, ../sass/screen.scss */
+/* line 607, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.tooltip {
   font: normal normal normal 1em/1em "Arial";
   color: #00aeef;
 }
-/* line 580, ../sass/screen.scss */
+/* line 611, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul {
   margin: 0;
   padding: 0;
 }
-/* line 584, ../sass/screen.scss */
+/* line 615, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul li {
   list-style: none;
   margin-bottom: 12px;
   font-weight: bold;
 }
-/* line 591, ../sass/screen.scss */
+/* line 622, ../sass/screen.scss */
 section.content-wrapper .aside .widget#program-types p {
   font-size: 0.85em;
   text-transform: uppercase;
   line-height: 1.2em;
 }
-/* line 601, ../sass/screen.scss */
+/* line 632, ../sass/screen.scss */
 section.content-wrapper.search-results .entry-summary .query {
   background-color: #7cdafd;
 }
 
 /* section.content-wrapper */
-/* line 613, ../sass/screen.scss */
+/* line 644, ../sass/screen.scss */
 .website-wrapper footer {
   position: absolute;
   bottom: 0;
@@ -686,7 +705,7 @@ section.content-wrapper.search-results .entry-summary .query {
   background-color: #cccccc;
   /* .inner */
 }
-/* line 619, ../sass/screen.scss */
+/* line 650, ../sass/screen.scss */
 .website-wrapper footer .inner {
   width: 800px;
   margin: 0 auto 0 auto;
@@ -694,13 +713,13 @@ section.content-wrapper.search-results .entry-summary .query {
   /* .column */
   /* .row */
 }
-/* line 623, ../sass/screen.scss */
+/* line 654, ../sass/screen.scss */
 .website-wrapper footer .inner .column {
   float: left;
   margin: 30px 50px 0 0;
   /* ul */
 }
-/* line 627, ../sass/screen.scss */
+/* line 658, ../sass/screen.scss */
 .website-wrapper footer .inner .column .button {
   float: left;
   width: 120px;
@@ -708,46 +727,46 @@ section.content-wrapper.search-results .entry-summary .query {
   margin: 0 12px 15px 0;
   padding: 9px 0 0 0;
 }
-/* line 635, ../sass/screen.scss */
+/* line 666, ../sass/screen.scss */
 .website-wrapper footer .inner .column h4 {
   font: normal normal normal 0.9em/1em "AvenirBlack";
   margin-bottom: 10px;
 }
-/* line 640, ../sass/screen.scss */
+/* line 671, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul {
   margin: 0;
   padding: 0;
 }
-/* line 644, ../sass/screen.scss */
+/* line 675, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li {
   list-style: none;
   font-size: 0.8em;
   line-height: 1.3em;
 }
-/* line 649, ../sass/screen.scss */
+/* line 680, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li a {
   color: #5f6062;
   font-size: inherit;
 }
-/* line 655, ../sass/screen.scss */
+/* line 686, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul#menu-quick-menu-1 li a {
   text-transform: uppercase;
 }
-/* line 661, ../sass/screen.scss */
+/* line 692, ../sass/screen.scss */
 .website-wrapper footer .inner .column.first {
   /* First Column */
   width: 265px;
 }
-/* line 665, ../sass/screen.scss */
+/* line 696, ../sass/screen.scss */
 .website-wrapper footer .inner .column.last {
   /* Last Column */
   margin-right: 0;
 }
-/* line 671, ../sass/screen.scss */
+/* line 702, ../sass/screen.scss */
 .website-wrapper footer .inner .row {
   /* .copyright */
 }
-/* line 673, ../sass/screen.scss */
+/* line 704, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright {
   padding: 45px 0 10px 0;
   font-size: 0.7em;
@@ -756,16 +775,16 @@ section.content-wrapper.search-results .entry-summary .query {
   /* a */
   /* .pica */
 }
-/* line 679, ../sass/screen.scss */
+/* line 710, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a {
   font-size: inherit;
   color: inherit;
 }
-/* line 683, ../sass/screen.scss */
+/* line 714, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a:hover {
   text-decoration: underline;
 }
-/* line 688, ../sass/screen.scss */
+/* line 719, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica {
   float: right;
   background: url(../images/pica-mark-small.png) no-repeat;
@@ -779,7 +798,7 @@ section.content-wrapper.search-results .entry-summary .query {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-/* line 696, ../sass/screen.scss */
+/* line 727, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;

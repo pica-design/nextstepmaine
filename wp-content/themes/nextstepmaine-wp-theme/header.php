@@ -20,25 +20,16 @@
                                                                              /\____/       
                                                                              \_/__/
                                                                                                                                                          
-            Graphic Design & Marketing | www.picadesign.com
+            Design + Marketing | www.picadesign.com
         -->
         <meta charset="UTF-8">
         <title><?php wp_title() ?></title>
         <link rel="stylesheet" media="screen" href="<?php echo get_bloginfo('template_directory');?>/stylesheets/screen.css" />
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-        <!--[if gte IE 9]>
-          <style type="text/css">
-            .gradient {
-               filter: none;
-            }
-          </style>
-        <![endif]-->
-        <?php //wp_head() ?>
+        <!--[if gte IE 9]><style type="text/css">.gradient { filter: none; }</style><![endif]-->
     </head>
-    
     <body>
     	<section class="website-wrapper">
-        	
             <section class="masthead">
             	<figure class="website-logo">
                 	<a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">

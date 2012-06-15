@@ -53,4 +53,43 @@
 			endif;
 		}
 	}
+	
+	
+	/********************************************
+	BREADCRUMB GENERATION CLASS
+	********************************************/
+	class Breadcrumbs {
+	
+		public function __construct () {
+			global $post ; 
+			?>
+            <ul class="breadcrumbs">
+            <?php
+				//Generate the hierarchical page breadcrumbs
+				if ($post->post_type == "page") :
+					?>
+						<li class="first"><a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">Home</a></li>
+						<?php foreach ($post->ancestors as $ancestor) : ?>
+						<li><a href="<?php echo get_permalink($ancestor) ?>" title="<?php echo get_the_title($ancestor) ?>"><?php echo get_the_title($ancestor) ?></a></li>
+						<?php endforeach ?>
+						<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
+					<?php
+				endif;
+				
+				//Generate the single post type breadcrumbs
+				if ($post->post_type == "nsm_job") : 
+					if (is_single()) : 
+						?>
+						<li class="first"><a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">Home</a></li>
+						<li><a href="<?php bloginfo('url') ?>/jobs" title="Jobs in Demand in Maine">Jobs</a></li>
+						<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
+						<?
+					endif;
+				endif;
+			?>
+            </ul>
+            <div class="clear"></div>
+            <?php
+		}
+	}
 ?>
