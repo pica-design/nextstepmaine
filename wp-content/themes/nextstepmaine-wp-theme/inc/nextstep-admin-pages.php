@@ -1,7 +1,6 @@
 <?php 
-
 	/*********************************************************
-	NEXT STEP MAINE DOL JOBS IN DEMAND - IMPORT PAGE
+	NEXT STEP MAINE REGISTER IMPORT PAGES
 	*********************************************************/
 	add_action('admin_menu', 'register_subpage_menus');
 	
@@ -33,25 +32,25 @@
 	} /* END register_import_dol_excel_file_submenu_page */
 	
 	
+	/*********************************************************
+	NEXT STEP MAINE DOL JOBS IN DEMAND - IMPORT PAGE
+	*********************************************************/
 	function import_dol_excel_file_page_contents () {
-		
+		$nsm_update_notice = "";
 		//A form has been submitted
 		if ($_POST) :
-			
 			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
 			$file_name = $_FILES['file-upload']['name'];
-			
 			//Move the uploaded file to it's final resting place
 			move_uploaded_file($_FILES['file-upload']['tmp_name'], $filepath . $file_name);
-		
 			//Open the uploaded csv	
 			if (($uploaded_csv = fopen($filepath . $file_name, "r")) !== false) :
-				
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
-				while (($job_row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
+				$row_count = 0;
+				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
 					//DEBUGGING
-					//echo "<pre>" . print_r($job_row, true) . "</pre>";
+					//echo "<pre>" . print_r($row, true) . "</pre>";
 					/*
 					Array
 					(
@@ -75,33 +74,34 @@
 					$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
 					
 					//Select some information about the current occupation
-					$occupation = $onet->get_results("SELECT description FROM occupation_data WHERE onetsoc_code LIKE '%{$job_row[0]}%'");
+					$occupation = $onet->get_results("SELECT description FROM occupation_data WHERE onetsoc_code LIKE '%{$row[0]}%'");
 					
 					//Create a custom post for each row
-					$job_post_id = wp_insert_post(array(
+					$post_id = wp_insert_post(array(
 						'post_type'	  => 'nsm_job',
 						'post_status' => 'publish',
-						'post_title'  => $job_row[1],
+						'post_title'  => $row[1],
 						'post_content' => $occupation[0]->description
 					));	
 					
 					//Add the category term to the post
-					wp_set_object_terms($job_post_id, $job_row[10], 'nsm_job_category');
+					wp_set_object_terms($post_id, $row[10], 'nsm_job_category');
 						
 					//Add the remaining data as post meta
-					update_post_meta($job_post_id, '_soc_code', $job_row[0]);
-					update_post_meta($job_post_id, '_employment_2008', $job_row[2]);
-					update_post_meta($job_post_id, '_employment_2018', $job_row[3]);
-					update_post_meta($job_post_id, '_growth_rate', $job_row[4]);
-					update_post_meta($job_post_id, '_annual_openings', $job_row[5]);
-					update_post_meta($job_post_id, '_entry_wage', $job_row[6]);
-					update_post_meta($job_post_id, '_median_wage', $job_row[7]);
-					update_post_meta($job_post_id, '_onet_link', $job_row[8]);
-					
+					update_post_meta($post_id, '_nsm_job_soc_code', $row[0]);
+					update_post_meta($post_id, '_nsm_job_employment_2008', $row[2]);
+					update_post_meta($post_id, '_nsm_job_employment_2018', $row[3]);
+					update_post_meta($post_id, '_nsm_job_growth_rate', $row[4]);
+					update_post_meta($post_id, '_nsm_job_annual_openings', $row[5]);
+					update_post_meta($post_id, '_nsm_job_entry_wage', $row[6]);
+					update_post_meta($post_id, '_nsm_job_median_wage', $row[7]);
+					update_post_meta($post_id, '_nsm_job_onet_link', $row[8]);
+					$row_count++;
 				endwhile;
-				
 				//Close the opened file
 				fclose($uploaded_csv);
+				//Set an update notice
+				$nsm_update_notice = "Inserted $row_count rows";
 			endif;
 		endif;
 	
@@ -110,8 +110,10 @@
             	<div class="wrap">
                 	<div id="icon-edit-pages" class="icon32"></div>
 	            	<h2>Jobs in Demand in Maine</h2>
+                    <?php if (!empty($nsm_update_notice)) : ?>
+                    <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
+                    <?php endif ?>
                     <h3>Import a list of jobs via the 'Download Excel' link on Maine DOL</h3>
-                    
                     <form method="POST" action="<?php echo $_SERVER['REQUEST_URI'] ?>" enctype="multipart/form-data">
                     	<ul>
                         	<li>
@@ -131,9 +133,198 @@
 	
 	
 	function import_insitutions_excel_file_page_contents () {
+		$nsm_update_notice = "";
+		//A form has been submitted
+		if ($_POST) :		
+			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
+			$file_name = $_FILES['file-upload']['name'];
+			
+			//Move the uploaded file to it's final resting place
+			move_uploaded_file($_FILES['file-upload']['tmp_name'], $filepath . $file_name);
+		
+			//Open the uploaded csv	
+			if (($uploaded_csv = fopen($filepath . $file_name, "r")) !== false) :
+				
+				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
+				$row_count = 0;
+				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
+					
+					if ($row > 0) :
+					
+						//DEBUGGING
+						//echo "<pre>" . print_r($row, true) . "</pre>";
+						
+						/*
+						Array
+						(
+							[0] => Institution Name
+							[1] => Title IV School Code
+							[2] => Institution Website URL
+							[3] => Institution Logo URL
+							[4] => Institution Physical Address
+							[5] => Institution Phone Number
+							[6] => Financial Aid Contact
+							[7] => Admissions Contact
+							[8] => Category
+							[9] => Description
+						)
+						*/
+						
+						//Create a custom post for each row
+						$post_id = wp_insert_post(array(
+							'post_type'	  => 'nsm_institution',
+							'post_status' => 'publish',
+							'post_title'  => $row[0],
+							'post_content' => $row[9]
+						));	
+						
+						//Add the category term to the post
+						wp_set_object_terms($post_id, $row[8], 'nsm_institution_category');
+							
+						//Add the remaining data as post meta
+						update_post_meta($post_id, '_nsm_institution_title_iv_code', $row[1]);
+						update_post_meta($post_id, '_nsm_institution_website_url', $row[2]);
+						update_post_meta($post_id, '_nsm_institution_logo', $row[3]);
+						update_post_meta($post_id, '_nsm_institution_address', $row[4]);
+						update_post_meta($post_id, '_nsm_institution_phone', $row[5]);
+						update_post_meta($post_id, '_nsm_institution_finaid_contact', $row[6]);
+						update_post_meta($post_id, '_nsm_institution_admission_contact', $row[7]);
+						
+					endif;
+					
+					$row_count++;
+				endwhile;
+				//Close the opened file
+				fclose($uploaded_csv);
+				//Set an update notice
+				$nsm_update_notice = "Inserted $row_count rows";
+			endif;
+		endif;
+	
+		?>
+        <div id="wpbody-content">
+            <div class="wrap">
+                <div id="icon-edit-pages" class="icon32"></div>
+                <h2>Maine Institutions</h2>
+                <?php if (!empty($nsm_update_notice)) : ?>
+                <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
+                <?php endif ?>
+                <h3>Import a list of insititutions</h3>
+                <form method="POST" action="<?php echo $_SERVER['REQUEST_URI'] ?>" enctype="multipart/form-data">
+                    <ul>
+                        <li>
+                            <label for="file-upload">Select a comma-separated values (.CSV) version of your Excel file</label>
+                            <input type="file" name="file-upload" />
+                        </li>
+                        <li>
+                            <input class="button-primary" type="submit" name="upload" value="<?php _e('Upload') ?>" id="submitbutton" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <?php
 	}
 	
 	
 	function import_programs_excel_file_page_contents () {
+		$nsm_update_notice = "";
+		//A form has been submitted
+		if ($_POST) :
+			
+			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
+			$file_name = $_FILES['file-upload']['name'];
+			
+			//Move the uploaded file to it's final resting place
+			move_uploaded_file($_FILES['file-upload']['tmp_name'], $filepath . $file_name);
+		
+			//Open the uploaded csv	
+			if (($uploaded_csv = fopen($filepath . $file_name, "r")) !== false) :
+				
+				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
+				$row_count = 0;
+				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
+					
+					//DEBUGGING
+					//echo "<pre>" . print_r($row, true) . "</pre>";
+					
+					/*
+					Array
+					(
+						[0] => Institution Name
+						[1] => Title IV School Code
+						[2] => Program Title
+						[3] => Program Type
+						[4] => Program Format 
+						[5] => Location
+						[6] => Schedule (if possible)
+						[7] => Program URL
+						[8] => Avg Timeframe to Complete
+						[9] => Avg Cost
+						[10] => Program Category 
+						[11] => Program Description
+					)
+					*/
+					
+					//Omit the first 'headings' row			
+					if ($row > 0) :
+					
+						//Create a custom post for each row
+						$post_id = wp_insert_post(array(
+							'post_type'	  => 'nsm_program',
+							'post_status' => 'publish',
+							'post_title'  => $row[2],
+							'post_content' => $row[11]
+						));	
+						
+						//Add the category term to the post
+						wp_set_object_terms($post_id, $row[10], 'nsm_program_category');
+							
+						//Add the category term to the post
+						wp_set_object_terms($post_id, $row[0], 'nsm_program_institution');
+						
+						//Add the remaining data as post meta
+						update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
+						update_post_meta($post_id, '_nsm_program_type', $row[3]);
+						update_post_meta($post_id, '_nsm_program_format', $row[4]);
+						update_post_meta($post_id, '_nsm_program_location', $row[5]);
+						update_post_meta($post_id, '_nsm_program_schedule', $row[6]);
+						update_post_meta($post_id, '_nsm_program_url', $row[7]);
+						update_post_meta($post_id, '_nsm_program_timeframe', $row[8]);
+						update_post_meta($post_id, '_nsm_program_cost', $row[9]);
+
+					endif;
+					
+					$row_count++;
+				endwhile;
+				//Close the opened file
+				fclose($uploaded_csv);
+				//Set an update notice
+				$nsm_update_notice = "Inserted $row_count rows";
+			endif;
+		endif;
+		?>
+        <div id="wpbody-content">
+            <div class="wrap">
+                <div id="icon-edit-pages" class="icon32"></div>
+                <h2>Maine Institution Programs</h2>
+                <?php if (!empty($nsm_update_notice)) : ?>
+                <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
+                <?php endif ?>
+                <h3>Import a list of Programs</h3>
+                <form method="POST" action="<?php echo $_SERVER['REQUEST_URI'] ?>" enctype="multipart/form-data">
+                    <ul>
+                        <li>
+                            <label for="file-upload">Select a comma-separated values (.CSV) version of your Excel file</label>
+                            <input type="file" name="file-upload" />
+                        </li>
+                        <li>
+                            <input class="button-primary" type="submit" name="upload" value="<?php _e('Upload') ?>" id="submitbutton" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <?php
 	}
 ?>

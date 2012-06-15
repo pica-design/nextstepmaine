@@ -169,7 +169,9 @@
 	//We want to tap in and add a column for the location ID and a column for the location region taxonomy term
 	function manage_nsm_institution_admin_columns ($columns) {
 		$new_columns['cb'] = '<input type="checkbox" />';
-		$new_columns['title'] = _x('Institution Name', 'column name');			
+		$new_columns['title'] = _x('Institution Name', 'column name');	
+		$new_columns['nsm_institution_phone'] = _x('Phone', 'column name');		
+		$new_columns['nsm_institution_address'] = _x('Phone', 'column name');		
 		$new_columns['nsm_institution_category'] = __('Category');
 		$new_columns['author'] = __('Author');
 		$new_columns['date'] = _x('Date', 'column name');
@@ -179,6 +181,8 @@
 	// Register the new 'Location' columns as sortable
 	function nsm_institution_category_column_register_sortable( $columns ) {
 		$columns['nsm_institution_category'] = 'nsm_institution_category';
+		$columns['nsm_institution_phone'] = 'nsm_institution_phone';
+		$columns['nsm_institution_address'] = 'nsm_institution_phone';
 		return $columns;
 	}//end function nsm_institution_category_column_register_sortable
 	
@@ -198,6 +202,12 @@
 						$count++;
 					endforeach;
 				endif;
+			break;
+			case 'nsm_institution_phone':
+				echo get_post_meta($post->ID, '_nsm_institution_phone', true);
+			break;
+			case 'nsm_institution_address':
+				echo get_post_meta($post->ID, '_nsm_institution_address', true);
 			break;
 		endswitch;
 	}//end function manage_nsm_institution_admin_columns_content
