@@ -68,6 +68,11 @@
 				CUSTOM ADMIN PAGES
 			************************/
 			include('inc/nextstep-admin-pages.php') ;
+			
+			/************************
+				CUSTOM META BOXES
+			************************/
+			include('inc/nextstep-meta-boxes.php') ;
 		}
 		
 		
@@ -140,7 +145,7 @@
 	function register_widgets () {
 		register_widget( "NEXTSTEP_Financial_Aid_Widget" );
 		register_widget( "NEXTSTEP_Jobs_in_Demand_Widget" );
-		register_widget( "NEXTSTEP_Programs_Types_Widget" );
+		register_widget( "NEXTSTEP_Institutions_Widget" );
 	};
 	
 	
@@ -149,12 +154,10 @@
 	************************/
 	add_shortcode('accordion', 'generate_accordion_content');
 	function generate_accordion_content ($atts, $content) {
-		
 		$html_str  = "<div class='accordion closed'>";
 		$html_str .= "<div class='title'>{$atts['title']}</div>";
 		$html_str .= "<div class='content'>$content</div>";
 		$html_str .= "</div>";
-		
 		return $html_str;
 	}
 	

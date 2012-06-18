@@ -31,7 +31,7 @@
                     
                     <section class="row copyright">
                     	<figure class="pica">
-                        	<a href="http://www.picadesign.com" title="Crafted by Pica Design + Marketing" class="link-fill-container"></a>
+                        	<a href="http://www.picadesign.com" title="Crafted by Pica Design + Marketing" class="link-fill-container" target="_blank"></a>
                         </figure>
                         2012 &copy; Maine Development Foundation. All Rights Reserved.
                         <br />
@@ -41,8 +41,8 @@
             </footer>
         </section><!-- .website-wrapper -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script src="<?php bloginfo('template_directory') ?>/scripts/jquery-ui-1.8.11.custom.min.js"></script>
-        
+        <!--<script src="<?php bloginfo('template_directory') ?>/scripts/jquery-ui-1.8.11.custom.min.js"></script>-->
+        <script src="http://select-box.googlecode.com/svn/trunk/jquery.selectbox-0.1.3.min.js"></script>
     	<script src="http://malsup.github.com/jquery.cycle.all.js"></script>
         <script src="<?php bloginfo('template_directory') ?>/scripts/jquery.next-step-maine.js"></script>
     </body>

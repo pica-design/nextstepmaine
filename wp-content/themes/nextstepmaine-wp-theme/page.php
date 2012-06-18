@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header() ?>
     <section class="content-wrapper">
         <div class="page-content">
         	<?php $breadcrumbs = new Breadcrumbs ?>

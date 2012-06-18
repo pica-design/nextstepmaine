@@ -86,6 +86,17 @@
 						<?
 					endif;
 				endif;
+				
+				//Generate the single post type breadcrumbs
+				if ($post->post_type == "nsm_institution") : 
+					if (is_single()) : 
+						?>
+						<li class="first"><a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">Home</a></li>
+						<li><a href="<?php bloginfo('url') ?>/jobs" title="Institutions in Maine">Institutions</a></li>
+						<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
+						<?
+					endif;
+				endif;
 			?>
             </ul>
             <div class="clear"></div>

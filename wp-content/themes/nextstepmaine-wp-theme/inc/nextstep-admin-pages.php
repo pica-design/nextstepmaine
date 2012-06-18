@@ -85,7 +85,7 @@
 					));	
 					
 					//Add the category term to the post
-					wp_set_object_terms($post_id, $row[10], 'nsm_job_category');
+					wp_set_object_terms($post_id, $row[10], 'nsm_job_education_requirement');
 						
 					//Add the remaining data as post meta
 					update_post_meta($post_id, '_nsm_job_soc_code', $row[0]);
@@ -181,6 +181,7 @@
 						//Add the category term to the post
 						wp_set_object_terms($post_id, $row[8], 'nsm_institution_category');
 							
+							
 						//Add the remaining data as post meta
 						update_post_meta($post_id, '_nsm_institution_title_iv_code', $row[1]);
 						update_post_meta($post_id, '_nsm_institution_website_url', $row[2]);
@@ -237,9 +238,13 @@
 			
 			//Move the uploaded file to it's final resting place
 			move_uploaded_file($_FILES['file-upload']['tmp_name'], $filepath . $file_name);
-		
+			
+			
+			
 			//Open the uploaded csv	
 			if (($uploaded_csv = fopen($filepath . $file_name, "r")) !== false) :
+				
+				ini_set("auto_detect_line_endings", true);
 				
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
 				$row_count = 0;
@@ -267,35 +272,48 @@
 					*/
 					
 					//Omit the first 'headings' row			
-					if ($row > 0) :
-					
-						//Create a custom post for each row
-						$post_id = wp_insert_post(array(
-							'post_type'	  => 'nsm_program',
-							'post_status' => 'publish',
-							'post_title'  => $row[2],
-							'post_content' => $row[11]
-						));	
-						
-						//Add the category term to the post
-						wp_set_object_terms($post_id, $row[10], 'nsm_program_category');
+					if ($row_count > 0) :
+						//if ($row_count < 5) :
 							
-						//Add the category term to the post
-						wp_set_object_terms($post_id, $row[0], 'nsm_program_institution');
-						
-						//Add the remaining data as post meta
-						update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
-						update_post_meta($post_id, '_nsm_program_type', $row[3]);
-						update_post_meta($post_id, '_nsm_program_format', $row[4]);
-						update_post_meta($post_id, '_nsm_program_location', $row[5]);
-						update_post_meta($post_id, '_nsm_program_schedule', $row[6]);
-						update_post_meta($post_id, '_nsm_program_url', $row[7]);
-						update_post_meta($post_id, '_nsm_program_timeframe', $row[8]);
-						update_post_meta($post_id, '_nsm_program_cost', $row[9]);
-
+							//Create a custom post for each row
+							$post_id = wp_insert_post(array(
+								'post_type'	  => 'nsm_program',
+								'post_status' => 'publish',
+								'post_title'  => $row[2],
+								'post_content' => $row[11]
+							));	
+							
+							//Add the category term to the post
+							wp_set_object_terms($post_id, $row[10], 'nsm_program_category');
+								
+							//Add the category term to the post
+							//wp_set_object_terms($post_id, $row[0], 'nsm_program_institution');
+							
+							//Add the remaining data as post meta
+							update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
+							update_post_meta($post_id, '_nsm_program_type', $row[3]);
+							update_post_meta($post_id, '_nsm_program_format', $row[4]);
+							update_post_meta($post_id, '_nsm_program_location', $row[5]);
+							update_post_meta($post_id, '_nsm_program_schedule', $row[6]);
+							update_post_meta($post_id, '_nsm_program_url', $row[7]);
+							update_post_meta($post_id, '_nsm_program_timeframe', $row[8]);
+							update_post_meta($post_id, '_nsm_program_cost', $row[9]);
+							
+							//Select the institution that this program belongs to based on the Title IV Code
+							$institution = new WP_Query(array(
+								'post_type'	 => 'nsm_institution',						
+								'meta_key' 	 => '_nsm_institution_title_iv_code',
+								'meta_value' => $row[1]
+							));
+							
+							//Connect this program with the parent institution 
+							p2p_type('Program Institution')->connect($post_id, $institution->posts[0]->ID, array(
+								'date' => current_time('mysql')
+							));
+								
+						//endif;
 					endif;
-					
-					$row_count++;
+					$row_count++;	
 				endwhile;
 				//Close the opened file
 				fclose($uploaded_csv);

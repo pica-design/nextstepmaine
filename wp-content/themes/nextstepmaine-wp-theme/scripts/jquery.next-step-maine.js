@@ -64,4 +64,23 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 		}
 	})
 	
+	
+	/* Institution Widget Dropdown Menu 
+
+	$('#blog-categories').selectbox({
+		onChange: function (val, inst) {
+			window.location = val
+		}
+	})
+	
+	*/
+	$('.widget#institutions select').selectbox({
+		onChange: function (val, inst) {
+			if (val != "") {
+				window.location = val
+			}
+		}
+	})
+	
+	
 })(jQuery)

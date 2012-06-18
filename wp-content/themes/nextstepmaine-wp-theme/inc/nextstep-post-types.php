@@ -43,12 +43,12 @@
 	);
 				
 	//Create the 'Type' taxonomy for the 'Work' post type
-	register_taxonomy('nsm_job_category', 'nsm_job',
+	register_taxonomy('nsm_job_education_requirement', 'nsm_job',
 		array(
 			'hierarchical' => true,
-			'label' => 'Categories',	// the human-readable taxonomy name
+			'label' => 'Education Requirements',	// the human-readable taxonomy name
 			'query_var' => true,	// enable taxonomy-specific querying
-			'rewrite' => array( 'slug' => 'job-categories', 'with_front' => false),	// pretty permalinks for your taxonomy?
+			'rewrite' => array( 'slug' => 'job-education-requirement', 'with_front' => false),	// pretty permalinks for your taxonomy?
 		)
 	);
 	
@@ -65,7 +65,7 @@
 	function manage_nsm_job_admin_columns ($columns) {
 		$new_columns['cb'] = '<input type="checkbox" />';
 		$new_columns['title'] = _x('Job Name', 'column name');			
-		$new_columns['nsm_job_category'] = __('Category');
+		$new_columns['nsm_job_education_requirement'] = __('Education Requierment');
 		$new_columns['author'] = __('Author');
 		$new_columns['date'] = _x('Date', 'column name');
 		return $new_columns;
@@ -73,7 +73,7 @@
 	
 	// Register the new 'Location' columns as sortable
 	function nsm_job_category_column_register_sortable( $columns ) {
-		$columns['nsm_job_category'] = 'nsm_job_category';
+		$columns['nsm_job_education_requirement'] = 'nsm_job_education_requirement';
 		return $columns;
 	}//end function nsm_job_category_column_register_sortable
 	
@@ -81,12 +81,12 @@
 	function manage_nsm_job_admin_columns_content ($column) {
 		global $post;
 		switch ($column) :
-			case 'nsm_job_category':
-				$terms = get_the_terms( $post->ID, 'nsm_job_category');
+			case 'nsm_job_education_requirement':
+				$terms = get_the_terms( $post->ID, 'nsm_job_education_requirement');
 				if ($terms) :
 					$count = 0;
 					foreach ($terms as $term) :
-						echo '<a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?action=edit&taxonomy=nsm_job_category&post_type=nsm_job&tag_ID='.$term->term_id.'">'.$term->name.'</a>';
+						echo '<a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?action=edit&taxonomy=nsm_job_education_requirement&post_type=nsm_job&tag_ID='.$term->term_id.'">'.$term->name.'</a>';
 						if ($count != (count($terms) - 1)) :
 							echo ", ";
 						endif;
@@ -271,6 +271,7 @@
 		)
 	);
 	
+	/*
 	//Create the 'Type' taxonomy for the 'Work' post type
 	register_taxonomy('nsm_program_institution', 'nsm_program',
 		array(
@@ -280,6 +281,7 @@
 			'rewrite' => array( 'slug' => 'program-institutions', 'with_front' => false),	// pretty permalinks for your taxonomy?
 		)
 	);
+	*/
 	
 	//Create a new column 'Type' on the admin 'Work' page to display the types of each work item
 	add_filter('manage_edit-nsm_program_columns', 'manage_nsm_program_admin_columns');
@@ -294,7 +296,7 @@
 	function manage_nsm_program_admin_columns ($columns) {
 		$new_columns['cb'] = '<input type="checkbox" />';
 		$new_columns['title'] = _x('Program Name', 'column name');			
-		$new_columns['nsm_program_institution'] = __('Institution');
+		//$new_columns['nsm_program_institution'] = __('Institution');
 		$new_columns['nsm_program_category'] = __('Category');
 		$new_columns['author'] = __('Author');
 		$new_columns['date'] = _x('Date', 'column name');
@@ -304,7 +306,7 @@
 	// Register the new 'Location' columns as sortable
 	function nsm_program_category_column_register_sortable( $columns ) {
 		$columns['nsm_program_category'] = 'nsm_program_category';
-		$columns['nsm_program_institution'] = 'nsm_program_institution';
+		//$columns['nsm_program_institution'] = 'nsm_program_institution';
 		return $columns;
 	}//end function nsm_program_category_column_register_sortable
 	
@@ -324,8 +326,9 @@
 						$count++;
 					endforeach;
 				endif;
-			break;
+			break;/*
 			case 'nsm_program_institution':
+				
 				$terms = get_the_terms( $post->ID, 'nsm_program_institution');
 				if ($terms) :
 					$count = 0;
@@ -337,7 +340,9 @@
 						$count++;
 					endforeach;
 				endif;
+				
 			break;
+			*/
 		endswitch;
 	}//end function manage_nsm_program_admin_columns_content
 	

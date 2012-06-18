@@ -85,7 +85,7 @@
 	/********************************************
 	PROGRAMS & INSTITUTIONS WIDGET
 	********************************************/
-	class NEXTSTEP_Programs_Types_Widget extends WP_Widget {
+	class NEXTSTEP_Institutions_Widget extends WP_Widget {
 		
 		public function __construct () {
 			parent::__construct(
@@ -103,10 +103,22 @@
 		
 		public function widget ($args, $instance) {
 			?>
-            <section class="widget" id="program-types">
+            <section class="widget" id="institutions">
                 <h3>Programs &amp; Institutions</h3>
                 <p>(Choose from one of the<br />options in the drop down menu<br /><span class="blue-text"><strong>to search for program types<br />and schools)</strong></span></p>
-                PROGRAM TYPE DROPDOWN
+                
+                <select>
+                	<option value="">Institutions</option>
+                <?php
+					$institutions = new WP_Query(array(
+						'post_type' => 'nsm_institution',
+						'posts_per_page' => -1
+					));
+					
+					while ($institutions->have_posts()) : $institutions->the_post(); ?>
+						<option value="<?php the_permalink() ?>"><?php the_title() ?></option>
+					<?php endwhile ?>
+                 </select>
             </section>
             <?php
 		}

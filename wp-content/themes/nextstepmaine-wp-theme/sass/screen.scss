@@ -305,6 +305,7 @@
 			.slides {
 				float: left ;
 				width: 800px ;
+				height: 287px ;
 				
 				.slide {
 					display: none ;
@@ -428,18 +429,35 @@
 				padding: 0 15px 0 0 ;
 				font: normal normal normal 1.0em/1.4em 'AvenirRoman' ;
 				
+				
+				strong {
+					font-family: 'AvenirMedium';
+				}
+				
+				
+				a {
+					font-family: 'AvenirBlack' ;
+					letter-spacing: 0.1em ;
+				}
+				
+				
 				ul.breadcrumbs {
 					display: inline-block ;
 					float: left ;
 					margin: 0 ;
 					padding: 0 ;
-				
+					
+					
+					
 					li {
 						float: left ;
 						list-style: none ;
 						color: $medium-blue ;
 						font-family: 'AvenirLight';
 						font-size: 0.8em ;
+						a {
+							font-family: 'AvenirBlack' ;
+						}
 						a, & span.current-post {
 							color: $dark-gray ;
 							display: inline-block ;
@@ -542,10 +560,12 @@
 				} /* accordian */
 				
 				
-				a {
-					font-family: 'AvenirBlack' ;
-					letter-spacing: 0.1em ;
+				.institution-image {
+					max-height: 100px ;
+					float: left ;
+					margin: 0 10px 5px 0 ;
 				}
+				
 				
 			} /* .page-content */
 			
@@ -619,11 +639,121 @@
 						}
 					} /* ul */
 					
-					&#program-types p {
-						font-size: 0.85em ;
-						text-transform: uppercase ;
-						line-height: 1.2em ;
+					&#institutions {
+						p {
+							font-size: 0.85em ;
+							text-transform: uppercase ;
+							line-height: 1.2em ;
+						}
+						
+						/****************************************** 			
+							JQUERY PLUGIN STYLE OVERRIDES
+						******************************************/
+						
+						/* Custom Dropdown Menu Plugin - Lives in the blog sidebar */
+						.sbHolder{
+							background-color: #f6f6f6 ;
+							border: 1px solid #e2e2e2 ;
+							font-weight: normal;
+							height: 22px;
+							position: relative;
+							width: 160px ;
+							margin: 5px 0 0 0 ;
+						}
+						.sbSelector{
+							display: block;
+							height: 25px;
+							left: 0;
+							outline: none;
+							overflow: hidden;
+							position: absolute;
+							font-size: 10px ;
+							top: 0;
+							width: 160px;
+							padding: 4px 5px 2px 5px ;
+						}
+						.sbSelector:link, .sbSelector:visited, .sbSelector:hover{
+							color: #989898 ;
+							outline: none;
+							text-decoration: none;
+						}
+						.sbToggle {
+							background-image: url(images/image-sprite.png) ;
+							background-repeat: no-repeat ;
+							background-position: 0 0 ;
+							display: block;
+							height: 17px;
+							width: 17px;
+							outline: none;
+							position: absolute;
+							right: 2px;
+							top: 2px;
+							z-index: 20 ;
+							transition: none ;
+							-o-transition: none ;
+							-moz-transition: none ;
+							-webkit-transition: none ;
+						}
+							.sbHolder:hover .sbToggle {
+								background-position: -18px 0 ;
+							}
+								
+						.sbToggleOpen {
+							background-image: url(images/image-sprite.png) ;
+							background-repeat: no-repeat ;
+							background-position: -36px 0;
+						}
+							.sbHolder:hover .sbToggleOpen {
+								background-position: -54px 0 ;
+							}
+						.sbOptions {
+							background-color: #f6f6f6 ;
+							border: 1px solid #e2e2e2 ;
+							list-style: none;
+							left: -1px;
+							margin: 0;
+							padding: 0;
+							position: absolute;
+							top: 30px;
+							width: 160px ;
+							z-index: 1;
+							overflow-y: auto;
+						}
+						.sbOptions li {
+							padding: 0 0 0 4px ;
+						}
+							.sbOptions li:hover {
+								background-color: #e9e9e9 ;
+							}	
+						.sbOptions a {
+							display: block;
+							outline: none;
+							padding-top: 3px !important ;
+							font-size: 10px !important ;
+							color: #ddd ;
+							text-decoration: none !important ;
+							transition: none ;
+							-o-transition: none ;
+							-moz-transition: none ;
+							-webkit-transition: none ;
+						}
+							.sbOptions a:link, .sbOptions a:visited{
+							}
+							.sbOptions a:hover {
+							}
+							
+						.sbOptions li.last a{
+							border-bottom: none;
+						}
+						/* END Custom Scroll Bar Plugin */
 					}
+					
+					
+					
+					
+					
+					
+					
 				} /* .widget */
 			} /* .aside */
 			
