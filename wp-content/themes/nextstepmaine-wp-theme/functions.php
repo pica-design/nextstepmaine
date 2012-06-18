@@ -60,6 +60,11 @@
 			include('inc/nextstep-post-types.php') ;
 			
 			/************************
+				Posts 2 Posts Connection Types
+			************************/
+			include('inc/nextstep-connection-types.php') ;
+			
+			/************************
 				CUSTOM ADMIN PAGES
 			************************/
 			include('inc/nextstep-admin-pages.php') ;
