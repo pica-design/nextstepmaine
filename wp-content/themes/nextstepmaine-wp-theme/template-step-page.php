@@ -1,4 +1,11 @@
-<?php get_header() ?>
+<?php
+	/* Template Name: Step Page */
+	
+	
+	//Define a session variable indicating what step the user is currently on
+	
+	get_header() ;
+?>
     <section class="content-wrapper">
         <div class="page-content">
         	<?php $breadcrumbs = new Breadcrumbs ?>
@@ -6,11 +13,9 @@
         	<?php if (have_posts()) : ?>
             	<?php while (have_posts()) : the_post() ?>
                 	<?php 
-						
 						$content = get_the_content($post->ID);
-						/*$content = do_shortcode($content);*/
-						echo wpautop($content);
-						
+						$content = do_shortcode($content);
+						echo nl2br($content);
 					?>
                 <?php endwhile ?>
             <?php endif ?>

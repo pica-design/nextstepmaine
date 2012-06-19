@@ -30,7 +30,30 @@
 	add_filter( 'next_post_rel_link', 'disable_stuff' );
 	function disable_stuff( $data ) { return false; }
 	
+	
+	//THIS SHOULD ONLY BE ON THE STEP PAGES?!
+		//Would rather sort out why autop is messing up my shortcodes
 	remove_filter( 'the_content', 'wpautop' );
+	
+	
+	//Register our _GET query var for use in wp
+	add_action('query_vars', 'nsm_query_vars');
+	function nsm_query_vars ($query_vars) {
+		$query_vars[] = 'prog_edu_lvl';
+		return $query_vars;
+	}
+	
+	//Catch our _GET query var when it's been set
+	add_action('template_redirect', 'catch_redirect');
+	function catch_redirect () {
+		echo get_query_var('prog_edu_lvl');
+	}
+	
+	//Prettyify our _GET query var
+	add_action('generate_rewrite_rules', 'nsm_program_edu_level_rewrite_rules');
+	function nsm_program_edu_level_rewrite_rules () {
+	}
+	
 	
 	
 	/************************

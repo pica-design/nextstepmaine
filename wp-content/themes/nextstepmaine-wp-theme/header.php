@@ -24,7 +24,7 @@
         -->
         <meta charset="UTF-8">
         <title><?php wp_title() ?></title>
-        <link rel="stylesheet" media="screen" href="<?php echo get_bloginfo('template_directory');?>/stylesheets/screen.css" />
+        <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory');?>/stylesheets/screen.css" />
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         <!--[if gte IE 9]><style type="text/css">.gradient { filter: none; }</style><![endif]-->
     </head>

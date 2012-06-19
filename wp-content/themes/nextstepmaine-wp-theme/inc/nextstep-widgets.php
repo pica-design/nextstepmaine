@@ -90,7 +90,7 @@
 		public function __construct () {
 			parent::__construct(
 				'nextstep-programs-types-widget', // Base ID
-				'Programs Types Widget', // Name
+				'Institutions Widget', // Name
 				array( 'description' => __( 'Display a quick menu of program types.', 'nextstepmaine' ), ) // Args
 			);
 		}
@@ -104,7 +104,7 @@
 		public function widget ($args, $instance) {
 			?>
             <section class="widget" id="institutions">
-                <h3>Programs &amp; Institutions</h3>
+                <h3>Institutions</h3>
                 <p>(Choose from one of the<br />options in the drop down menu<br /><span class="blue-text"><strong>to search for program types<br />and schools)</strong></span></p>
                 
                 <select>
