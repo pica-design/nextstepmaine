@@ -465,24 +465,29 @@ section.content-wrapper .page-content {
   font: normal normal normal 1em/1.4em "AvenirRoman";
   /* ul */
   /* accordian */
+  /* Tables are used for data grids of job, institution, and program information in grid stuctures */
 }
-/* line 435, ../sass/screen.scss */
+/* line 434, ../sass/screen.scss */
+section.content-wrapper .page-content.full-width {
+  width: 800px;
+}
+/* line 438, ../sass/screen.scss */
 section.content-wrapper .page-content strong {
   font-family: 'AvenirMedium';
 }
-/* line 440, ../sass/screen.scss */
+/* line 443, ../sass/screen.scss */
 section.content-wrapper .page-content a {
   font-family: 'AvenirBlack';
   letter-spacing: 0.1em;
 }
-/* line 446, ../sass/screen.scss */
+/* line 449, ../sass/screen.scss */
 section.content-wrapper .page-content ul.breadcrumbs {
   display: inline-block;
   float: left;
   margin: 0;
   padding: 0;
 }
-/* line 454, ../sass/screen.scss */
+/* line 457, ../sass/screen.scss */
 section.content-wrapper .page-content ul.breadcrumbs li {
   float: left;
   list-style: none;
@@ -490,11 +495,11 @@ section.content-wrapper .page-content ul.breadcrumbs li {
   font-family: 'AvenirLight';
   font-size: 0.8em;
 }
-/* line 460, ../sass/screen.scss */
+/* line 463, ../sass/screen.scss */
 section.content-wrapper .page-content ul.breadcrumbs li a {
   font-family: 'AvenirBlack';
 }
-/* line 463, ../sass/screen.scss */
+/* line 466, ../sass/screen.scss */
 section.content-wrapper .page-content ul.breadcrumbs li a, section.content-wrapper .page-content ul.breadcrumbs li span.current-post {
   color: #5f6062;
   display: inline-block;
@@ -502,26 +507,26 @@ section.content-wrapper .page-content ul.breadcrumbs li a, section.content-wrapp
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
-/* line 470, ../sass/screen.scss */
+/* line 473, ../sass/screen.scss */
 section.content-wrapper .page-content ul.breadcrumbs li.first a, section.content-wrapper .page-content ul.breadcrumbs li.first span.current-post {
   margin-left: 0;
 }
-/* line 473, ../sass/screen.scss */
+/* line 476, ../sass/screen.scss */
 section.content-wrapper .page-content ul.breadcrumbs li:after {
   content: "/";
 }
-/* line 476, ../sass/screen.scss */
+/* line 479, ../sass/screen.scss */
 section.content-wrapper .page-content ul.breadcrumbs li.last:after {
   content: "";
   margin-right: 0;
 }
-/* line 484, ../sass/screen.scss */
+/* line 487, ../sass/screen.scss */
 section.content-wrapper .page-content ul {
   margin: 0;
   padding: 0;
   /* li */
 }
-/* line 488, ../sass/screen.scss */
+/* line 491, ../sass/screen.scss */
 section.content-wrapper .page-content ul li {
   list-style: none;
   padding: 0;
@@ -529,55 +534,55 @@ section.content-wrapper .page-content ul li {
   /* h1 */
   /* ul */
 }
-/* line 493, ../sass/screen.scss */
+/* line 496, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h1 {
   font: normal normal normal 1.6em/1em "AvenirBlack";
   color: #00aeef;
   text-transform: uppercase;
   /* span */
 }
-/* line 497, ../sass/screen.scss */
+/* line 500, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h1 span {
   color: #5f6062;
   padding-right: 5px;
 }
-/* line 503, ../sass/screen.scss */
+/* line 506, ../sass/screen.scss */
 section.content-wrapper .page-content ul li h2 {
   font: normal normal normal 1.6em/1em "AvenirBlack";
   color: #5f6062;
   text-transform: uppercase;
 }
-/* line 509, ../sass/screen.scss */
+/* line 512, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul {
   padding: 10px 0 0 35px;
   /* li */
 }
-/* line 512, ../sass/screen.scss */
+/* line 515, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul li {
   position: relative;
   list-style: url(../images/blue-bullet.png);
   margin: 0;
 }
-/* line 517, ../sass/screen.scss */
+/* line 520, ../sass/screen.scss */
 section.content-wrapper .page-content ul li ul li a {
   position: absolute;
   display: inline-block;
   top: 2px;
 }
-/* line 526, ../sass/screen.scss */
+/* line 529, ../sass/screen.scss */
 section.content-wrapper .page-content ul.show-bullets {
   padding-left: 18px;
 }
-/* line 529, ../sass/screen.scss */
+/* line 532, ../sass/screen.scss */
 section.content-wrapper .page-content ul.show-bullets li {
   list-style: disc;
   margin-bottom: 5px;
 }
-/* line 537, ../sass/screen.scss */
+/* line 540, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion {
   margin: 10px 0 10px 0;
 }
-/* line 540, ../sass/screen.scss */
+/* line 543, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion .title {
   cursor: pointer;
   background-color: #cccccc;
@@ -588,7 +593,7 @@ section.content-wrapper .page-content .accordion .title {
   color: white;
   /*@include single-transition(all, 0.2s, linear) ;*/
 }
-/* line 550, ../sass/screen.scss */
+/* line 553, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion.open .title {
   /* The following requires the latest Compass, add '@import "compass"' the top of this file */
   background-color: #969696;
@@ -606,22 +611,30 @@ section.content-wrapper .page-content .accordion.open .title {
   background-image: -ms-linear-gradient(top, #969696 0%, #5f6062 100%);
   background-image: linear-gradient(top, #969696 0%, #5f6062 100%);
 }
-/* line 554, ../sass/screen.scss */
+/* line 557, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion .content {
   width: 545px;
   font-size: 0.9em;
 }
-/* line 559, ../sass/screen.scss */
+/* line 562, ../sass/screen.scss */
 section.content-wrapper .page-content .accordion.closed .content {
   display: none;
 }
-/* line 565, ../sass/screen.scss */
+/* line 568, ../sass/screen.scss */
 section.content-wrapper .page-content .institution-image {
   max-height: 100px;
   float: left;
   margin: 0 10px 5px 0;
 }
-/* line 575, ../sass/screen.scss */
+/* line 577, ../sass/screen.scss */
+section.content-wrapper .page-content table tr:nth-child(even) {
+  background-color: #cccccc;
+}
+/* line 582, ../sass/screen.scss */
+section.content-wrapper .page-content table tr td {
+  padding: 5px;
+}
+/* line 591, ../sass/screen.scss */
 section.content-wrapper .aside {
   /* The horizontal aside section is used on the website homepage */
   /* .horizontal */
@@ -629,13 +642,13 @@ section.content-wrapper .aside {
   /* .vertical */
   /* .widget */
 }
-/* line 577, ../sass/screen.scss */
+/* line 593, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal {
   margin: 20px 0 0 0;
   width: 100%;
   /* widget */
 }
-/* line 582, ../sass/screen.scss */
+/* line 598, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget {
   float: left;
   width: 33%;
@@ -645,12 +658,12 @@ section.content-wrapper .aside.horizontal .widget {
   -moz-box-shadow: -5px 0px 7px -5px #969696;
   box-shadow: -5px 0px 7px -5px #969696;
 }
-/* line 590, ../sass/screen.scss */
+/* line 606, ../sass/screen.scss */
 section.content-wrapper .aside.horizontal .widget:first-child {
   border-left: 0px;
   padding: 0;
 }
-/* line 597, ../sass/screen.scss */
+/* line 613, ../sass/screen.scss */
 section.content-wrapper .aside.vertical {
   float: right;
   width: 190px;
@@ -660,52 +673,52 @@ section.content-wrapper .aside.vertical {
   box-shadow: -5px 0px 7px -5px #969696;
   /* .widget */
 }
-/* line 603, ../sass/screen.scss */
+/* line 619, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget {
   border-bottom: 1px solid #7cdafd;
   font-size: 0.75em;
   padding-bottom: 15px;
   margin-bottom: 25px;
 }
-/* line 609, ../sass/screen.scss */
+/* line 625, ../sass/screen.scss */
 section.content-wrapper .aside.vertical .widget:last-child {
   border-bottom: 0px;
   padding-bottom: 0;
   margin-bottom: 0;
 }
-/* line 617, ../sass/screen.scss */
+/* line 633, ../sass/screen.scss */
 section.content-wrapper .aside .widget {
   /* ul */
 }
-/* line 619, ../sass/screen.scss */
+/* line 635, ../sass/screen.scss */
 section.content-wrapper .aside .widget h3 {
   font: normal normal normal 1.7em/1.2em "AvenirBlack";
   text-transform: lowercase;
   margin-bottom: 25px;
 }
-/* line 624, ../sass/screen.scss */
+/* line 640, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.slogan {
   font: normal normal normal 1.8em/1em "AvenirLight";
   margin: 0 0 15px 0;
   padding: 0;
 }
-/* line 629, ../sass/screen.scss */
+/* line 645, ../sass/screen.scss */
 section.content-wrapper .aside .widget p.tooltip {
   font: normal normal normal 1em/1em "Arial";
   color: #00aeef;
 }
-/* line 633, ../sass/screen.scss */
+/* line 649, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul {
   margin: 0;
   padding: 0;
 }
-/* line 637, ../sass/screen.scss */
+/* line 653, ../sass/screen.scss */
 section.content-wrapper .aside .widget ul li {
   list-style: none;
   margin-bottom: 12px;
   font-weight: bold;
 }
-/* line 644, ../sass/screen.scss */
+/* line 660, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions {
   /****************************************** 			
   	JQUERY PLUGIN STYLE OVERRIDES
@@ -713,13 +726,13 @@ section.content-wrapper .aside .widget#institutions {
   /* Custom Dropdown Menu Plugin - Lives in the blog sidebar */
   /* END Custom Scroll Bar Plugin */
 }
-/* line 645, ../sass/screen.scss */
+/* line 661, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions p {
   font-size: 0.85em;
   text-transform: uppercase;
   line-height: 1.2em;
 }
-/* line 656, ../sass/screen.scss */
+/* line 672, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbHolder {
   background-color: #f6f6f6;
   border: 1px solid #e2e2e2;
@@ -729,7 +742,7 @@ section.content-wrapper .aside .widget#institutions .sbHolder {
   width: 160px;
   margin: 5px 0 0 0;
 }
-/* line 665, ../sass/screen.scss */
+/* line 681, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbSelector {
   display: block;
   height: 25px;
@@ -742,13 +755,13 @@ section.content-wrapper .aside .widget#institutions .sbSelector {
   width: 160px;
   padding: 4px 5px 2px 5px;
 }
-/* line 677, ../sass/screen.scss */
+/* line 693, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbSelector:link, section.content-wrapper .aside .widget#institutions .sbSelector:visited, section.content-wrapper .aside .widget#institutions .sbSelector:hover {
   color: #989898;
   outline: none;
   text-decoration: none;
 }
-/* line 682, ../sass/screen.scss */
+/* line 698, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbToggle {
   background-image: url(images/image-sprite.png);
   background-repeat: no-repeat;
@@ -766,21 +779,21 @@ section.content-wrapper .aside .widget#institutions .sbToggle {
   -moz-transition: none;
   -webkit-transition: none;
 }
-/* line 699, ../sass/screen.scss */
+/* line 715, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbHolder:hover .sbToggle {
   background-position: -18px 0;
 }
-/* line 703, ../sass/screen.scss */
+/* line 719, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbToggleOpen {
   background-image: url(images/image-sprite.png);
   background-repeat: no-repeat;
   background-position: -36px 0;
 }
-/* line 708, ../sass/screen.scss */
+/* line 724, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbHolder:hover .sbToggleOpen {
   background-position: -54px 0;
 }
-/* line 711, ../sass/screen.scss */
+/* line 727, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbOptions {
   background-color: #f6f6f6;
   border: 1px solid #e2e2e2;
@@ -794,15 +807,15 @@ section.content-wrapper .aside .widget#institutions .sbOptions {
   z-index: 1;
   overflow-y: auto;
 }
-/* line 724, ../sass/screen.scss */
+/* line 740, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbOptions li {
   padding: 0 0 0 4px;
 }
-/* line 727, ../sass/screen.scss */
+/* line 743, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbOptions li:hover {
   background-color: #e9e9e9;
 }
-/* line 730, ../sass/screen.scss */
+/* line 746, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbOptions a {
   display: block;
   outline: none;
@@ -815,17 +828,17 @@ section.content-wrapper .aside .widget#institutions .sbOptions a {
   -moz-transition: none;
   -webkit-transition: none;
 }
-/* line 747, ../sass/screen.scss */
+/* line 763, ../sass/screen.scss */
 section.content-wrapper .aside .widget#institutions .sbOptions li.last a {
   border-bottom: none;
 }
-/* line 764, ../sass/screen.scss */
+/* line 780, ../sass/screen.scss */
 section.content-wrapper.search-results .entry-summary .query {
   background-color: #7cdafd;
 }
 
 /* section.content-wrapper */
-/* line 776, ../sass/screen.scss */
+/* line 792, ../sass/screen.scss */
 .website-wrapper footer {
   position: absolute;
   bottom: 0;
@@ -833,7 +846,7 @@ section.content-wrapper.search-results .entry-summary .query {
   background-color: #cccccc;
   /* .inner */
 }
-/* line 782, ../sass/screen.scss */
+/* line 798, ../sass/screen.scss */
 .website-wrapper footer .inner {
   width: 800px;
   margin: 0 auto 0 auto;
@@ -841,13 +854,13 @@ section.content-wrapper.search-results .entry-summary .query {
   /* .column */
   /* .row */
 }
-/* line 786, ../sass/screen.scss */
+/* line 802, ../sass/screen.scss */
 .website-wrapper footer .inner .column {
   float: left;
   margin: 30px 50px 0 0;
   /* ul */
 }
-/* line 790, ../sass/screen.scss */
+/* line 806, ../sass/screen.scss */
 .website-wrapper footer .inner .column .button {
   float: left;
   width: 120px;
@@ -855,46 +868,46 @@ section.content-wrapper.search-results .entry-summary .query {
   margin: 0 12px 15px 0;
   padding: 9px 0 0 0;
 }
-/* line 798, ../sass/screen.scss */
+/* line 814, ../sass/screen.scss */
 .website-wrapper footer .inner .column h4 {
   font: normal normal normal 0.9em/1em "AvenirBlack";
   margin-bottom: 10px;
 }
-/* line 803, ../sass/screen.scss */
+/* line 819, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul {
   margin: 0;
   padding: 0;
 }
-/* line 807, ../sass/screen.scss */
+/* line 823, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li {
   list-style: none;
   font-size: 0.8em;
   line-height: 1.3em;
 }
-/* line 812, ../sass/screen.scss */
+/* line 828, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul li a {
   color: #5f6062;
   font-size: inherit;
 }
-/* line 818, ../sass/screen.scss */
+/* line 834, ../sass/screen.scss */
 .website-wrapper footer .inner .column ul#menu-quick-menu-1 li a {
   text-transform: uppercase;
 }
-/* line 824, ../sass/screen.scss */
+/* line 840, ../sass/screen.scss */
 .website-wrapper footer .inner .column.first {
   /* First Column */
   width: 265px;
 }
-/* line 828, ../sass/screen.scss */
+/* line 844, ../sass/screen.scss */
 .website-wrapper footer .inner .column.last {
   /* Last Column */
   margin-right: 0;
 }
-/* line 834, ../sass/screen.scss */
+/* line 850, ../sass/screen.scss */
 .website-wrapper footer .inner .row {
   /* .copyright */
 }
-/* line 836, ../sass/screen.scss */
+/* line 852, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright {
   padding: 45px 0 10px 0;
   font-size: 0.7em;
@@ -903,16 +916,16 @@ section.content-wrapper.search-results .entry-summary .query {
   /* a */
   /* .pica */
 }
-/* line 842, ../sass/screen.scss */
+/* line 858, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a {
   font-size: inherit;
   color: inherit;
 }
-/* line 846, ../sass/screen.scss */
+/* line 862, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright a:hover {
   text-decoration: underline;
 }
-/* line 851, ../sass/screen.scss */
+/* line 867, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica {
   float: right;
   background: url(../images/pica-mark-small.png) no-repeat;
@@ -926,7 +939,7 @@ section.content-wrapper.search-results .entry-summary .query {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-/* line 859, ../sass/screen.scss */
+/* line 875, ../sass/screen.scss */
 .website-wrapper footer .inner .row.copyright .pica:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;

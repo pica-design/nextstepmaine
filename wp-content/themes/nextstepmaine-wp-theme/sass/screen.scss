@@ -431,6 +431,9 @@
 				padding: 0 15px 0 0 ;
 				font: normal normal normal 1.0em/1.4em 'AvenirRoman' ;
 				
+				&.full-width {
+					width: 800px ;
+				}
 				
 				strong {
 					font-family: 'AvenirMedium';
@@ -568,6 +571,19 @@
 					margin: 0 10px 5px 0 ;
 				}
 				
+				/* Tables are used for data grids of job, institution, and program information in grid stuctures */
+				table {
+					tr {
+						&:nth-child(even) {
+							background-color: $light-gray ;
+						}
+						&:nth-child(odd) {
+						}
+						td {
+							padding: 5px ;
+						}
+					}
+				}
 				
 			} /* .page-content */
 			
