@@ -36,26 +36,6 @@
 	remove_filter( 'the_content', 'wpautop' );
 	
 	
-	//Register our _GET query var for use in wp
-	add_action('query_vars', 'nsm_query_vars');
-	function nsm_query_vars ($query_vars) {
-		$query_vars[] = 'prog_edu_lvl';
-		return $query_vars;
-	}
-	
-	//Catch our _GET query var when it's been set
-	add_action('template_redirect', 'catch_redirect');
-	function catch_redirect () {
-		echo get_query_var('prog_edu_lvl');
-	}
-	
-	//Prettyify our _GET query var
-	add_action('generate_rewrite_rules', 'nsm_program_edu_level_rewrite_rules');
-	function nsm_program_edu_level_rewrite_rules () {
-	}
-	
-	
-	
 	/************************
 			SETUP
 	************************/
@@ -66,6 +46,14 @@
 		
 		//Additional attachment dimensions
 		add_image_size('slideshow', 800, 287, true);
+		
+		/************************
+   		 CUSTOM QUERY VARIABLES
+		************************/
+		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo
+		add_rewrite_tag('%prog_edu_lvl%', '([^&]+)');
+		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 
+		add_rewrite_rule('^programs/([^/]*)/?', 'index.php?pagename=programs&prog_edu_lvl=$matches[1]', 'top');
 		
 		function nextstepmaine_theme_setup() {
 			// This theme styles the visual editor with editor-style.css to match the theme style.
