@@ -59,7 +59,6 @@
 	BREADCRUMB GENERATION CLASS
 	********************************************/
 	class Breadcrumbs {
-	
 		public function __construct () {
 			global $post ; 
 			?>
@@ -72,7 +71,17 @@
 						<?php foreach ($post->ancestors as $ancestor) : ?>
 						<li><a href="<?php echo get_permalink($ancestor) ?>" title="<?php echo get_the_title($ancestor) ?>"><?php echo get_the_title($ancestor) ?></a></li>
 						<?php endforeach ?>
-						<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
+						<?php 
+							//The program pages use a query_var for page display, so we want to incorporate that into the breadcrumbs
+							$program_type = get_query_var('program_type');
+							//If we're on the programs page AND the query var has been set
+								//If no query var is set the default page breadcrumb will suffice
+							if (is_page('programs') && isset($program_type) && !empty($program_type)) : ?>
+								<li><a href="<?php echo get_permalink($post->ID) ?>" title="<?php echo get_the_title($post->ID) ?>"><?php echo get_the_title($post->ID) ?></a></li>
+								<li class="last"><span class="current-post"><?php echo get_query_var('program_type') ?></span></li>
+							<?php else : /* DEFAULT */ ?>
+								<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
+						<?php endif ?>
 					<?php
 				endif;
 				

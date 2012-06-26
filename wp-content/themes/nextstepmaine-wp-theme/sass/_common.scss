@@ -1,0 +1,45 @@
+.clear {
+	clear: both ;
+}
+.alignleft {
+	float: left ;
+}
+.alignright {
+	float: right ;
+}
+.button {
+	text-align: center ;
+	font: normal normal normal 0.8em/1.0em 'AvenirBlack' ;
+	letter-spacing: 1px ;
+	@include single-transition(all, 0.2s, linear) ;
+	
+	&.gray {
+		@include gray-gradient ;
+	}
+	&.blue {
+		@include blue-gradient ;
+	}
+	&:hover {
+		@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
+	}
+	a {
+		@extend .link-fill-container ;
+		color: $dark-gray ;
+		font-size: inherit ;
+	}
+} /* .button */
+.uppercase {
+	text-transform: uppercase ;
+}
+.link-fill-container {
+	display: block ;
+	width: 100% ;
+	height: 100% ;
+}
+
+.blue-text {
+	color: $medium-blue ;
+}
+.annotation {
+	color: $medium-blue ;
+}
