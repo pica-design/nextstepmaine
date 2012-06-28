@@ -76,7 +76,7 @@
 								//If no query var is set the default page breadcrumb will suffice
 							if (is_page('programs') && isset($program_type) && !empty($program_type)) : ?>
 								<li><a href="<?php echo get_permalink($post->ID) ?>" title="<?php echo get_the_title($post->ID) ?>"><?php echo get_the_title($post->ID) ?></a></li>
-								<li class="last"><span class="current-post"><?php echo get_query_var('program_type') ?></span></li>
+								<li class="last"><span class="current-post"><?php echo get_query_var('program_type') ?> Programs</span></li>
 							<?php else : /* DEFAULT */ ?>
 								<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
 						<?php endif ?>

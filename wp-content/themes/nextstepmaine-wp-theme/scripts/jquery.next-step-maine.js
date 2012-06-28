@@ -98,5 +98,10 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 		}
 	})
 	
+
+	$('table.tablesorter').tablesorter({
+		sortList: [[1,0]],
+		headers: {2:{sorter: false}}
+	}); 
 	
 })(jQuery)

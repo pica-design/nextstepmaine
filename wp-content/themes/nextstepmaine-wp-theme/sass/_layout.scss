@@ -368,45 +368,6 @@ section.website-wrapper {
 				margin: 0 10px 5px 0 ;
 			}
 			
-			/* Tables are used for data grids of job, institution, and program information in grid stuctures */
-			table {
-				th {
-					text-align: left ;
-					padding-right: 10px ;
-
-					strong {
-						display: block ;
-						float: left ;
-					}
-
-					.sort-direction {
-						float: left ;
-
-						.up, .down {
-							width: 7px ;
-							height: 4px ;
-						}
-						.up {
-							background: url(../images/ascending-icon.png);
-							margin-bottom: 5px ;
-						}
-						.down {
-							background: url(../images/descending-icon.png);
-						}
-					}
-				}
-				tr {
-					&:nth-child(even) {
-						background-color: $light-gray ;
-					}
-					&:nth-child(odd) {
-					}
-					td {
-						padding: 5px ;
-					}
-				}
-			}
-			
 		} /* .page-content */
 		
 		/* SIDEBARS & WIDGETS */

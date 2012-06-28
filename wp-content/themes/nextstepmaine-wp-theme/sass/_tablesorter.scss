@@ -1,0 +1,49 @@
+/* Tables are used for data grids of job, institution, and program information in grid stuctures */
+table.tablesorter {
+	font-size: 0.7em ;
+	text-align: left;
+
+	thead {
+		tr {
+			@include gray-gradient ;
+
+			th {
+				text-align: left ;
+				/*background-color: $light-blue;*/
+				border: 1px solid #FFF;
+				padding: 4px;
+				
+
+				&.header {
+					background-image: url(../images/bg.gif);
+					background-repeat: no-repeat;
+					background-position: center right;
+					cursor: pointer;
+				}
+				&.headerSortUp, &.headerSortDown {
+					background-color: $medium-gray ;
+
+				}
+				&.headerSortUp {
+					background-image: url(../images/asc.gif);
+				}
+				&.headerSortDown {
+					background-image: url(../images/desc.gif);
+				}
+			}
+		}
+	}
+	tbody {
+		tr {
+			&:nth-child(even) {
+				background-color: $light-gray ;
+			}
+			&:nth-child(odd) {
+				background-color: $white ;
+			}
+			td {
+				padding: 5px ;
+			}
+		}
+	}
+}

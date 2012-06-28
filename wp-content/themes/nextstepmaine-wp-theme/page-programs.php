@@ -14,42 +14,48 @@
 						echo wpautop($content);
 					?>
                     
-                    <table cellpadding="0" cellspacing="0" border="0">
-                    	<tr>
-                        	<th><strong><a href="" title="Sort by Program Category">CATEGORY</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
-                            <th><strong><a href="" title="Sort by Program Title">PROGRAM TITLE</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
-                            <th><strong><a href="" title="Sort by Program Type">TYPE</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
-                            <th><strong><a href="" title="Sort by Program Format">FORMAT</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
-                            <th><strong><a href="" title="Sort by Program Cost">COST</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
-                            <th><strong><a href="" title="Sort by Program Institution">INSTITUTION</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
-                        </tr>
-                    <?php 
-						//By default we want to pull all programs 
-						if (empty($program_type)) : 
-							$programs = new WP_Query('post_type=nsm_program&posts_per_page=-1&orderby=title&order=asc');
-						else :
-							//However, if the program_type query var has been set via GET we want to only show programs of that type
-							//Note, the query var is set like site.com/programs/associate which is internally translated to ?program_type=associate
-							//and accessed via get_query_var('program_type'); above
-							$programs = new WP_Query(array(
-								'post_type' => 'nsm_program',
-								'posts_per_page' => '-1',
-								'orderby' => 'title',
-								'order' => 'asc',
-								'meta_query' => array(
-									array(
-										'key' => '_nsm_program_type',
-										'value' => "$program_type",
-										'compare' => 'LIKE'
+                    <table cellpadding="0" cellspacing="0" border="0" class="tablesorter">
+                    	<thead>
+	                    	<tr>
+	                        	<th><strong>CATEGORY</strong><div class="sort-direction"></div></th>
+	                        	<th><strong>PROGRAM TITLE</strong></th>
+	                        	<th><strong>TYPE</strong></th>
+	                        	<th><strong>FORMAT</strong></th>
+	                        	<th><strong>COST</strong></th>
+	                        	<th><strong>INSTITUTION</strong></th>
+	                            <!--<th><strong><a href="" title="Sort by Program Title">PROGRAM TITLE</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
+	                            <th><strong><a href="" title="Sort by Program Type">TYPE</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
+	                            <th><strong><a href="" title="Sort by Program Format">FORMAT</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
+	                            <th><strong><a href="" title="Sort by Program Cost">COST</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>
+	                            <th><strong><a href="" title="Sort by Program Institution">INSTITUTION</a></strong><div class="sort-direction"><div class="up"></div><div class="down"></div></div></th>-->
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+                    	<?php 
+							//By default we want to pull all programs 
+							if (empty($program_type)) : 
+								$programs = new WP_Query('post_type=nsm_program&posts_per_page=-1&orderby=title&order=asc');
+							else :
+								//However, if the program_type query var has been set via GET we want to only show programs of that type
+								//Note, the query var is set like site.com/programs/associate which is internally translated to ?program_type=associate
+								//and accessed via get_query_var('program_type'); above
+								$programs = new WP_Query(array(
+									'post_type' => 'nsm_program',
+									'posts_per_page' => '-1',
+									'orderby' => 'title',
+									'order' => 'asc',
+									'meta_query' => array(
+										array(
+											'key' => '_nsm_program_type',
+											'value' => "$program_type",
+											'compare' => 'LIKE'
+										)
 									)
-								)
-							));	
-						endif;
+								));	
+							endif;
 						
-						//print_r($programs);
-
-						while ($programs->have_posts()) : $programs->the_post(); ?>
-						
+							//print_r($programs);
+							while ($programs->have_posts()) : $programs->the_post(); ?>
                         	<tr>
                                 <td>
 									<?php 
@@ -62,7 +68,7 @@
 										endforeach;
 									?>
                                 </td>
-                                <td><?php the_title() ?></td>
+                                <td><a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a></td>
                                 <td><?php echo get_post_meta($post->ID, '_nsm_program_type', true) ?></td>
                                 <td><?php echo get_post_meta($post->ID, '_nsm_program_format', true) ?></td>
                                 <td><?php echo get_post_meta($post->ID, '_nsm_program_cost', true) ?></td>
@@ -79,8 +85,8 @@
 									?>
                                 </td>
                             </tr>
-						
-					<?php endwhile ; wp_reset_postdata(); ?>
+							<?php endwhile ; wp_reset_postdata(); ?>
+						</tbody>
                     </table>
                 <?php endwhile ?>
             <?php endif ?>
