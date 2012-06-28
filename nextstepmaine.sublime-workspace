@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"ali",
+				"text-align"
+			],
+			[
+				"program",
+				"program_type"
+			],
+			[
 				"background",
 				"background-color"
 			]
@@ -11,6 +19,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
+			"settings":
+			{
+				"buffer_size": 13857,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+			"settings":
+			{
+				"buffer_size": 4349,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/functions.php",
+			"settings":
+			{
+				"buffer_size": 6521,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
+			"settings":
+			{
+				"buffer_size": 4469,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -52,6 +92,23 @@
 	},
 	"file_history":
 	[
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-includes/functions.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/config.rb",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/editor.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_editor.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_selection.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_normalize.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/editor.css",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_fonts.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/normalize.css",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/screen.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/.htaccess",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-post-types.php",
@@ -83,6 +140,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\"",
 			"files"
 		],
 		"highlight": true,
@@ -91,6 +149,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"'"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -101,8 +160,122 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
+					"settings":
+					{
+						"buffer_size": 13857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7303,
+								7303
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5262.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+					"settings":
+					{
+						"buffer_size": 4349,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								658,
+								658
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 25.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/functions.php",
+					"settings":
+					{
+						"buffer_size": 6521,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5712,
+								5712
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 10.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
+					"settings":
+					{
+						"buffer_size": 4469,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2048,
+								2048
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 805.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -112,7 +285,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 31.0
 	},
 	"layout":
 	{
@@ -143,7 +316,7 @@
 	},
 	"replace":
 	{
-		"height": 0.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -170,6 +343,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 242.0,
+	"side_bar_width": 289.0,
 	"status_bar_visible": true
 }

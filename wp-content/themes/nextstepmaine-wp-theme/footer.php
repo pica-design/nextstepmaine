@@ -44,6 +44,15 @@
         <!--<script src="<?php bloginfo('template_directory') ?>/scripts/jquery-ui-1.8.11.custom.min.js"></script>-->
         <script src="http://select-box.googlecode.com/svn/trunk/jquery.selectbox-0.1.3.min.js"></script>
     	<script src="http://malsup.github.com/jquery.cycle.all.js"></script>
+        <script src="<?php bloginfo('template_directory') ?>/scripts/jquery.cookie.js"></script>
+
+        <script type="text/javascript">
+            <?php if (isset($_SESSION['nextstep']) && !empty($_SESSION['nextstep'])) : ?>
+            var step = $_SESSION['nextstep'];
+            <?php else : ?>
+
+            <?php endif ?>
+        </script>
         <script src="<?php bloginfo('template_directory') ?>/scripts/jquery.next-step-maine.js"></script>
     </body>
 </html>

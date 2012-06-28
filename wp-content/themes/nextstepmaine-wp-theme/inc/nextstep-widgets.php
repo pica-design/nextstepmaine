@@ -54,6 +54,7 @@
 		}
 		
 		public function widget ($args, $instance) {
+			global $post;
 			?>
             <section class="widget" id="jobs-in-demand">
                 <h3>Jobs In Demand</h3>

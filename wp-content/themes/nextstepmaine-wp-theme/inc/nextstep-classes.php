@@ -1,13 +1,11 @@
 <?php
-	
-	
 	/********************************************
 	WORDPRESS GALLERY ADDITIONS CLASS
 	********************************************/
 	//The Post Gallery class issues objects containing an post's attachment 'gallery' and returns an array of that data
 	class Post_Gallery {
 		public function __construct ($post_id) {
-			//Make the current post global - !!!! This should be passed in, or at least the option to do so !!!!
+			//If no post was passed in grab the current post
 			if (empty($post_id)) : global $post; $post_id = $post->ID ; endif;
 			
 			$this->attachments = new WP_Query( 

@@ -1,9 +1,6 @@
 <?php
 	/* Template Name: Step Page */
-	
-	
-	//Define a session variable indicating what step the user is currently on
-	
+    
 	get_header() ;
 ?>
     <section class="content-wrapper">

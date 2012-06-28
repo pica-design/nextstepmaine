@@ -29,10 +29,27 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 		next:   '.slideshow-next' //Bind the next slide link to our next arrow icon
 	})
 	
-	/* NEXT STEP LAVA MENU */
+	/* 
+		NEXT STEP LAVA MENU 
+			- Position the lava arrow image above the user's current step
+	*/
+	//The first thing we try to do is see if the user is on a step page 
+		//If they are we want to use the index of the current page to position the arrow
 	var steps = $('nav.next-step .inner ul li')
 	var index = steps.index(steps.filter('.current_page_item'))
-	if (index == -1) { index = 0 } 
+
+	//However, if the user is not on one of these pages (index == -1) then let's attempt to grab the nextstep cookie
+		//The cookie is set in header.php on each of the 4 step pages so the user can navigate around the site and the arrow stays on their step
+	if (index == -1) { 
+		index = $.cookie('nextstep')
+	} 
+
+	//However, if the user has not yet visited one of these pages OR the user's browser does not accept cookies we use 0 as a fallback 
+	if (index == null) {
+		index = 0 
+	}
+
+	//Enable the lavalamp using the index decided on above
 	$('nav.next-step .inner').lavaLamp({
 		fx: 'linear',
 		speed: 200,
@@ -42,7 +59,6 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 	
 	/* CONTENT ACCORDIANS */
 	$('.accordion .title').click(function(){
-		
 		//If the accordian is open let's go ahead and close it
 		if ($(this).parent().is('.open')) {
 			$(this)
