@@ -33,8 +33,17 @@
 	
 	//THIS SHOULD ONLY BE ON THE STEP PAGES?!
 		//Would rather sort out why autop is messing up my shortcodes
-	remove_filter( 'the_content', 'wpautop' );
+	//remove_filter( 'the_content', 'wpautop' );
 	
+	//add_filter('the_content', 'remove_empty_p', 20, 1);
+	
+	function remove_empty_p($content){
+
+	    // clean up p tags around divs
+	    $content = str_replace(array('<p><div', '</div></p>'), array('<div', '</div>'), $content);
+	    $content = force_balance_tags($content);
+	    return preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
+	}
 	
 	/************************
 			SETUP
@@ -54,6 +63,11 @@
 		add_rewrite_tag('%program_type%', '([^&]+)');
 		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 
 		add_rewrite_rule('^programs/([^/]*)/?', 'index.php?pagename=programs&program_type=$matches[1]', 'top');
+
+		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo
+		add_rewrite_tag('%education_requirement%', '([^&]+)');
+		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 
+		add_rewrite_rule('^jobs/([^/]*)/?', 'index.php?pagename=jobs&education_requirement=$matches[1]', 'top');
 		
 		function nextstepmaine_theme_setup() {
 			// This theme styles the visual editor with editor-style.css to match the theme style.

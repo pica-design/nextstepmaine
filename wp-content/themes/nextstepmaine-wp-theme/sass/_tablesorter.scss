@@ -1,18 +1,25 @@
 /* Tables are used for data grids of job, institution, and program information in grid stuctures */
+.filter-options {
+	margin: 0 0 20px 0 ;
+	overflow: auto ;
+	.title {
+		float: left ;
+		margin-right: 10px ;
+		padding-top: 3px ;
+	}
+}
 table.tablesorter {
 	font-size: 0.7em ;
 	text-align: left;
 
 	thead {
 		tr {
-			@include gray-gradient ;
+			background-color: $lightest-gray ;
 
 			th {
 				text-align: left ;
-				/*background-color: $light-blue;*/
 				border: 1px solid #FFF;
-				padding: 4px;
-				
+				padding: 4px 20px 4px 5px ;
 
 				&.header {
 					background-image: url(../images/bg.gif);
@@ -21,8 +28,12 @@ table.tablesorter {
 					cursor: pointer;
 				}
 				&.headerSortUp, &.headerSortDown {
-					background-color: $medium-gray ;
+					background-color: $lighter-than-medium-gray ;
 
+					strong {
+						
+						color: $darkest-gray ;
+					}
 				}
 				&.headerSortUp {
 					background-image: url(../images/asc.gif);

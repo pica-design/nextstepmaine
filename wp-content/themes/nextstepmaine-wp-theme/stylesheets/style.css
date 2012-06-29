@@ -467,39 +467,65 @@ html {
   margin: 0px;
   padding: 0px;
   height: 100%; }
-
-body {
-  margin: 0px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  height: 100%;
-  min-width: 870px;
-  color: #5f6062; }
-
-h1, h2, h3, h4 {
-  font-weight: normal;
-  margin: 0;
-  letter-spacing: 1px;
-  line-height: 1.2em; }
-
-p {
-  margin-top: 0px;
-  color: inherit; }
-
-p a {
-  font-weight: bold;
-  text-decoration: underline; }
-
-a {
-  font: inherit;
-  color: inherit;
-  text-decoration: none;
-  font-weight: inherit;
-  outline: none;
-  font-size: inherit; }
-
-a img {
-  border: 0px; }
+  html body {
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    height: 100%;
+    min-width: 870px;
+    color: #5f6062; }
+    html body ul {
+      margin: 0;
+      padding: 0; }
+      html body ul li {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+        color: #5f6062; }
+        html body ul li ul {
+          padding: 10px 0 0 35px; }
+          html body ul li ul li {
+            position: relative;
+            list-style: url(http://picadesign.ath.cx/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/images/blue-bullet.png);
+            margin: 0; }
+            html body ul li ul li a {
+              position: absolute;
+              display: inline-block;
+              top: 2px; }
+    html body h1, html body h2, html body h3, html body h4 {
+      font-weight: normal;
+      margin: 0;
+      letter-spacing: 1px;
+      line-height: 1.2em; }
+    html body h1 {
+      font: normal normal normal 1.6em/1em "AvenirBlack";
+      color: #00aeef;
+      text-transform: uppercase; }
+      html body h1 span {
+        color: #5f6062;
+        padding-right: 5px; }
+    html body h2 {
+      font: normal normal normal 1.6em/1em "AvenirBlack";
+      color: #5f6062;
+      text-transform: uppercase; }
+    html body a {
+      font: inherit;
+      color: inherit;
+      text-decoration: none;
+      font-weight: inherit;
+      outline: none;
+      font-size: inherit;
+      font-family: 'AvenirBlack';
+      letter-spacing: 0.1em; }
+    html body a img {
+      border: 0px; }
+    html body p {
+      margin-top: 0px;
+      color: inherit; }
+    html body p a {
+      font-weight: bold; }
+    html body strong {
+      font-family: 'AvenirMedium'; }
 
 /****************************************** 	
 	CSS TEXT SELECTION
@@ -541,7 +567,13 @@ a img {
   -ms-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear; }
+  .button a {
+    font-size: inherit; }
   .button.gray {
+    background-color: #cccccc; }
+    .button.gray a {
+      color: #5f6062; }
+  .button.gray.gradient {
     /* The following requires the latest Compass, add '@import "compass"' the top of this file */
     background-color: #969696;
     /* Fallback */
@@ -557,7 +589,31 @@ a img {
     background-image: -o-linear-gradient(top, #d9d9d9 0%, #969696 100%);
     background-image: -ms-linear-gradient(top, #d9d9d9 0%, #969696 100%);
     background-image: linear-gradient(top, #d9d9d9 0%, #969696 100%); }
+  .button.active.gray {
+    background-color: #afafaf; }
+    .button.active.gray a {
+      color: #2a2a2a; }
+  .button.active.gray.gradient {
+    /* The following requires the latest Compass, add '@import "compass"' the top of this file */
+    background-color: #969696;
+    /* Fallback */
+    *zoom: 1;
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFAFAFAF', endColorstr='#FF969696');
+    /*IE6-8 */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2FmYWZhZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #afafaf), color-stop(100%, #969696));
+    background-image: -webkit-linear-gradient(top, #afafaf 0%, #969696 100%);
+    background-image: -moz-linear-gradient(top, #afafaf 0%, #969696 100%);
+    background-image: -o-linear-gradient(top, #afafaf 0%, #969696 100%);
+    background-image: -ms-linear-gradient(top, #afafaf 0%, #969696 100%);
+    background-image: linear-gradient(top, #afafaf 0%, #969696 100%); }
   .button.blue {
+    background-color: #7cdafd; }
+    .button.blue a {
+      color: #5f6062; }
+  .button.blue.gradient {
     /* The following requires the latest Compass, add '@import "compass"' the top of this file */
     background-color: #028bbe;
     /* Fallback */
@@ -573,13 +629,41 @@ a img {
     background-image: -o-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
     background-image: -ms-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
     background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%); }
-  .button:hover {
+  .button.active.blue {
+    background-color: #969696; }
+    .button.active.blue a {
+      color: #2a2a2a; }
+  .button.active.blue.gradient {
+    /* The following requires the latest Compass, add '@import "compass"' the top of this file */
+    background-color: #028bbe;
+    /* Fallback */
+    *zoom: 1;
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF00AEEF', endColorstr='#FF028BBE');
+    /*IE6-8 */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwYWVlZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyOGJiZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00aeef), color-stop(100%, #028bbe));
+    background-image: -webkit-linear-gradient(top, #00aeef 0%, #028bbe 100%);
+    background-image: -moz-linear-gradient(top, #00aeef 0%, #028bbe 100%);
+    background-image: -o-linear-gradient(top, #00aeef 0%, #028bbe 100%);
+    background-image: -ms-linear-gradient(top, #00aeef 0%, #028bbe 100%);
+    background-image: linear-gradient(top, #00aeef 0%, #028bbe 100%); }
+  .button.inline {
+    float: left;
+    margin-right: 5px; }
+  .button.padded {
+    padding: 8px; }
+  .button.rounded {
+    -webkit-border-radius: 4px 4px;
+    -moz-border-radius: 4px / 4px;
+    -ms-border-radius: 4px / 4px;
+    -o-border-radius: 4px / 4px;
+    border-radius: 4px / 4px; }
+  .button.hover:hover {
     -webkit-box-shadow: 0 0 8px #969696;
     -moz-box-shadow: 0 0 8px #969696;
     box-shadow: 0 0 8px #969696; }
-  .button a {
-    color: #5f6062;
-    font-size: inherit; }
 
 /* .button */
 .uppercase {
@@ -797,7 +881,8 @@ nav.next-step {
           display: inline-block;
           vertical-align: middle;
           margin: 0;
-          padding: 10px 15px; }
+          padding: 10px 15px;
+          text-transform: none; }
           nav.next-step .inner ul li h2 a {
             position: relative;
             z-index: 3;
@@ -822,15 +907,66 @@ section.content-wrapper {
     width: 600px;
     padding: 0 15px 0 0;
     font: normal normal normal 1em/1.4em "AvenirRoman";
+    /*
+    strong {
+    	font-family: 'AvenirMedium';
+    }
+    a {
+    	font-family: 'AvenirBlack' ;
+    	letter-spacing: 0.1em ;
+    }
+    */
+    			/*
+    			ul {
+    				margin: 0 ;
+    				padding: 0 ;
+    				
+    				li {
+    					list-style: none ;
+    					padding: 0 ;
+    					margin: 0 0 20px 0 ;
+    					
+    					h1 {
+    						
+    						font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+    						color: $medium-blue ;
+    						text-transform: uppercase ;
+    
+    						span {
+    							color: $dark-gray ;
+    							padding-right: 5px ;
+    						} 
+    						
+    					}
+    					
+    					
+    					h2 {
+    						font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+    						color: $dark-gray ;
+    						text-transform: uppercase ;
+    					}
+    					
+    					ul {
+    						padding: 10px 0 0 35px;
+    						
+    						li {
+    							position: relative ;
+    							list-style: url(../images/blue-bullet.png) ;
+    							margin: 0 ;
+    							
+    							a {
+    								position: absolute ;
+    								display: inline-block ;
+    								top: 2px ;
+    							}
+    						}
+    					} 
+    				} 
+    				*/
     /* ul */
     /* accordian */ }
     section.content-wrapper .page-content.full-width {
       width: 800px; }
-    section.content-wrapper .page-content strong {
-      font-family: 'AvenirMedium'; }
-    section.content-wrapper .page-content a {
-      font-family: 'AvenirBlack';
-      letter-spacing: 0.1em; }
     section.content-wrapper .page-content ul.breadcrumbs {
       display: inline-block;
       float: left;
@@ -857,44 +993,11 @@ section.content-wrapper {
         section.content-wrapper .page-content ul.breadcrumbs li.last:after {
           content: "";
           margin-right: 0; }
-    section.content-wrapper .page-content ul {
-      margin: 0;
-      padding: 0;
-      /* li */ }
-      section.content-wrapper .page-content ul li {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 20px 0;
-        /* h1 */
-        /* ul */ }
-        section.content-wrapper .page-content ul li h1 {
-          font: normal normal normal 1.6em/1em "AvenirBlack";
-          color: #00aeef;
-          text-transform: uppercase;
-          /* span */ }
-          section.content-wrapper .page-content ul li h1 span {
-            color: #5f6062;
-            padding-right: 5px; }
-        section.content-wrapper .page-content ul li h2 {
-          font: normal normal normal 1.6em/1em "AvenirBlack";
-          color: #5f6062;
-          text-transform: uppercase; }
-        section.content-wrapper .page-content ul li ul {
-          padding: 10px 0 0 35px;
-          /* li */ }
-          section.content-wrapper .page-content ul li ul li {
-            position: relative;
-            list-style: url(../images/blue-bullet.png);
-            margin: 0; }
-            section.content-wrapper .page-content ul li ul li a {
-              position: absolute;
-              display: inline-block;
-              top: 2px; }
-      section.content-wrapper .page-content ul.show-bullets {
-        padding-left: 18px; }
-        section.content-wrapper .page-content ul.show-bullets li {
-          list-style: disc;
-          margin-bottom: 5px; }
+    section.content-wrapper .page-content ul.show-bullets {
+      padding-left: 18px; }
+      section.content-wrapper .page-content ul.show-bullets li {
+        list-style: disc;
+        margin-bottom: 5px; }
     section.content-wrapper .page-content .accordion {
       margin: 10px 0 10px 0; }
       section.content-wrapper .page-content .accordion .title {
@@ -911,17 +1014,17 @@ section.content-wrapper {
         background-color: #969696;
         /* Fallback */
         *zoom: 1;
-        filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF969696', endColorstr='#FF5F6062');
+        filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFAFAFAF', endColorstr='#FF969696');
         /*IE6-8 */
         /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-        background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzVmNjA2MiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+        background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2FmYWZhZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
         background-size: 100%;
-        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #969696), color-stop(100%, #5f6062));
-        background-image: -webkit-linear-gradient(top, #969696 0%, #5f6062 100%);
-        background-image: -moz-linear-gradient(top, #969696 0%, #5f6062 100%);
-        background-image: -o-linear-gradient(top, #969696 0%, #5f6062 100%);
-        background-image: -ms-linear-gradient(top, #969696 0%, #5f6062 100%);
-        background-image: linear-gradient(top, #969696 0%, #5f6062 100%); }
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #afafaf), color-stop(100%, #969696));
+        background-image: -webkit-linear-gradient(top, #afafaf 0%, #969696 100%);
+        background-image: -moz-linear-gradient(top, #afafaf 0%, #969696 100%);
+        background-image: -o-linear-gradient(top, #afafaf 0%, #969696 100%);
+        background-image: -ms-linear-gradient(top, #afafaf 0%, #969696 100%);
+        background-image: linear-gradient(top, #afafaf 0%, #969696 100%); }
       section.content-wrapper .page-content .accordion .content {
         width: 545px;
         font-size: 0.9em; }
@@ -1110,7 +1213,8 @@ section.content-wrapper {
         .website-wrapper footer .inner .column ul li {
           list-style: none;
           font-size: 0.8em;
-          line-height: 1.3em; }
+          line-height: 1.3em;
+          margin-bottom: 0; }
           .website-wrapper footer .inner .column ul li a {
             color: #5f6062;
             font-size: inherit; }
@@ -1157,37 +1261,32 @@ section.content-wrapper {
 	TABLESORTER jQUERY DECLARATIONS 
 **********************************************/
 /* Tables are used for data grids of job, institution, and program information in grid stuctures */
+.filter-options {
+  margin: 0 0 20px 0;
+  overflow: auto; }
+  .filter-options .title {
+    float: left;
+    margin-right: 10px;
+    padding-top: 3px; }
+
 table.tablesorter {
   font-size: 0.7em;
   text-align: left; }
   table.tablesorter thead tr {
-    /* The following requires the latest Compass, add '@import "compass"' the top of this file */
-    background-color: #969696;
-    /* Fallback */
-    *zoom: 1;
-    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFD9D9D9', endColorstr='#FF969696');
-    /*IE6-8 */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Q5ZDlkOSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
-    background-size: 100%;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d9d9d9), color-stop(100%, #969696));
-    background-image: -webkit-linear-gradient(top, #d9d9d9 0%, #969696 100%);
-    background-image: -moz-linear-gradient(top, #d9d9d9 0%, #969696 100%);
-    background-image: -o-linear-gradient(top, #d9d9d9 0%, #969696 100%);
-    background-image: -ms-linear-gradient(top, #d9d9d9 0%, #969696 100%);
-    background-image: linear-gradient(top, #d9d9d9 0%, #969696 100%); }
+    background-color: #d9d9d9; }
     table.tablesorter thead tr th {
       text-align: left;
-      /*background-color: $light-blue;*/
       border: 1px solid #FFF;
-      padding: 4px; }
+      padding: 4px 20px 4px 5px; }
       table.tablesorter thead tr th.header {
         background-image: url(../images/bg.gif);
         background-repeat: no-repeat;
         background-position: center right;
         cursor: pointer; }
       table.tablesorter thead tr th.headerSortUp, table.tablesorter thead tr th.headerSortDown {
-        background-color: #969696; }
+        background-color: #afafaf; }
+        table.tablesorter thead tr th.headerSortUp strong, table.tablesorter thead tr th.headerSortDown strong {
+          color: #2a2a2a; }
       table.tablesorter thead tr th.headerSortUp {
         background-image: url(../images/asc.gif); }
       table.tablesorter thead tr th.headerSortDown {

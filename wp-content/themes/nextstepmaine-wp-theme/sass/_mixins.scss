@@ -32,6 +32,16 @@
 	@include background-image(linear-gradient(top, $medium-blue 0%, $dark-blue 100%));
 }
 
+@mixin light-gray-gradient {
+	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+	background-color: $medium-gray; /* Fallback */
+	@include filter-gradient($light-gray, $lightest-gray, vertical);  /*IE6-8 */
+	
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	$experimental-support-for-svg: true;
+	@include background-image(linear-gradient(top, $light-gray 0%, $lightest-gray 100%));
+}
+
 @mixin gray-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $medium-gray; /* Fallback */
@@ -43,6 +53,16 @@
 }
 
 @mixin dark-gray-gradient {
+	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+	background-color: $medium-gray; /* Fallback */
+	@include filter-gradient($lighter-than-medium-gray, $medium-gray, vertical);  /*IE6-8 */
+	
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	$experimental-support-for-svg: true;
+	@include background-image(linear-gradient(top, $lighter-than-medium-gray 0%, $medium-gray 100%));
+}
+
+@mixin darkest-gray-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $medium-gray; /* Fallback */
 	@include filter-gradient($medium-gray, $dark-gray, vertical);  /*IE6-8 */

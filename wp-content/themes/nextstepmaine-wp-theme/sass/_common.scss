@@ -13,20 +13,58 @@
 	letter-spacing: 1px ;
 	@include single-transition(all, 0.2s, linear) ;
 	
-	&.gray {
-		@include gray-gradient ;
-	}
-	&.blue {
-		@include blue-gradient ;
-	}
-	&:hover {
-		@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
-	}
 	a {
 		@extend .link-fill-container ;
-		color: $dark-gray ;
 		font-size: inherit ;
 	}
+
+	&.gray {
+		background-color: $light-gray ;
+		a { color: $dark-gray ; }
+	}
+		&.gray.gradient {
+			@include gray-gradient ;
+		}
+			&.active.gray {
+				background-color: $lighter-than-medium-gray ;
+				a { color: $darkest-gray ; }
+			}
+			&.active.gray.gradient {
+				@include dark-gray-gradient ;
+			} 
+	
+
+	&.blue {
+		background-color: $light-blue ;
+		a { color: $dark-gray ; }
+	}
+		&.blue.gradient {
+			@include blue-gradient ;
+		}
+			&.active.blue {
+				background-color: $medium-gray ;
+				a { color: $darkest-gray ; }
+			}
+			&.active.blue.gradient {
+				@include dark-blue-gradient ;
+			} 
+
+	
+	&.inline {
+		float: left ;
+		margin-right: 5px ;
+	}
+	&.padded {
+		padding: 8px ;
+	}
+	&.rounded {
+		@include border-radius(4px, 4px);
+	}
+	
+	&.hover:hover {
+		@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
+	}
+
 } /* .button */
 .uppercase {
 	text-transform: uppercase ;

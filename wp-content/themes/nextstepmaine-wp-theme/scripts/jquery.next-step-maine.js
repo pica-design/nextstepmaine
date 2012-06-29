@@ -99,9 +99,13 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 	})
 	
 
-	$('table.tablesorter').tablesorter({
+	$('table.tablesorter.programs').tablesorter({
 		sortList: [[1,0]],
 		headers: {2:{sorter: false}}
+	}); 
+
+	$('table.tablesorter.jobs').tablesorter({
+		sortList: [[1,0]]
 	}); 
 	
 })(jQuery)

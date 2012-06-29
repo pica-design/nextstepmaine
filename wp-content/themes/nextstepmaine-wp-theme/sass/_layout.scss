@@ -192,6 +192,7 @@ section.website-wrapper {
 						vertical-align: middle;
 						margin: 0 ;
 						padding: 10px 15px;
+						text-transform: none ;
 						
 						a {
 							position: relative ;
@@ -231,25 +232,21 @@ section.website-wrapper {
 			&.full-width {
 				width: 800px ;
 			}
-			
+			/*
 			strong {
 				font-family: 'AvenirMedium';
 			}
-			
-			
 			a {
 				font-family: 'AvenirBlack' ;
 				letter-spacing: 0.1em ;
 			}
-			
-			
+			*/
+
 			ul.breadcrumbs {
 				display: inline-block ;
 				float: left ;
 				margin: 0 ;
 				padding: 0 ;
-				
-				
 				
 				li {
 					float: left ;
@@ -279,8 +276,7 @@ section.website-wrapper {
 					}
 				}
 			}
-		
-			
+			/*
 			ul {
 				margin: 0 ;
 				padding: 0 ;
@@ -291,14 +287,18 @@ section.website-wrapper {
 					margin: 0 0 20px 0 ;
 					
 					h1 {
+						
 						font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
 						color: $medium-blue ;
 						text-transform: uppercase ;
+
 						span {
 							color: $dark-gray ;
 							padding-right: 5px ;
-						} /* span */
-					} /* h1 */
+						} 
+						
+					}
+					
 					
 					h2 {
 						font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
@@ -319,10 +319,11 @@ section.website-wrapper {
 								display: inline-block ;
 								top: 2px ;
 							}
-						} /* li */
-					} /* ul */
-				} /* li */
-				
+						}
+					} 
+				} 
+				*/
+			ul {
 				&.show-bullets {
 					padding-left: 18px ;					
 
@@ -607,7 +608,8 @@ section.website-wrapper {
 						list-style: none ;
 						font-size: 0.8em ;
 						line-height: 1.3em ;
-						
+						margin-bottom: 0 ;
+
 						a {
 							color: $dark-gray ;
 							font-size: inherit ;

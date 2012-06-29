@@ -1,10 +1,10 @@
 			<footer>
             	<div class="inner">
                 	<section class="column first">
-                    	<figure class="button gray uppercase"><a href="" title="Give Next Step Maine Your Feedback">Feedback</a></figure>
-                        <figure class="button gray uppercase"><a href="" title="Signup for the Next Step Maine Newsletter">Newsletter</a></figure>
-                        <figure class="button gray uppercase"><a href="" title="Invite your friends to Next Step maine">Tell a Friend</a></figure>
-                        <figure class="button gray uppercase"><a href="" title="Find Next Step Maine on Facebook">Facebook</a></figure>
+                    	<figure class="button gray gradient hover uppercase"><a href="" title="Give Next Step Maine Your Feedback">Feedback</a></figure>
+                        <figure class="button gray gradient hover uppercase"><a href="" title="Signup for the Next Step Maine Newsletter">Newsletter</a></figure>
+                        <figure class="button gray gradient hover uppercase"><a href="" title="Invite your friends to Next Step maine">Tell a Friend</a></figure>
+                        <figure class="button gray gradient hover uppercase"><a href="" title="Find Next Step Maine on Facebook">Facebook</a></figure>
                     </section>
                 	<section class="column">
                     	<h4 class="uppercase">Contact</h4>
@@ -41,11 +41,10 @@
             </footer>
         </section><!-- .website-wrapper -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <!--<script src="<?php bloginfo('template_directory') ?>/scripts/jquery-ui-1.8.11.custom.min.js"></script>-->
         <script src="http://select-box.googlecode.com/svn/trunk/jquery.selectbox-0.1.3.min.js"></script>
     	<script src="http://malsup.github.com/jquery.cycle.all.js"></script>
         <script src="<?php bloginfo('template_directory') ?>/scripts/jquery.cookie.js"></script>
-        <script type="text/javascript" src="<?php bloginfo('template_directory') ?>/scripts/jquery.tablesorter/jquery.tablesorter.min.js"></script> 
+        <script type="text/javascript" src="<?php bloginfo('template_directory') ?>/scripts/jquery.tablesorter.min.js"></script> 
         <script src="<?php bloginfo('template_directory') ?>/scripts/jquery.next-step-maine.js"></script>
     </body>
 </html>

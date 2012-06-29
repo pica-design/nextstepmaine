@@ -7,7 +7,7 @@ html {
 	margin: 0px ;
 	padding: 0px ;
 	height: 100% ;
-}
+
 	body {
 		margin: 0px ;
 		font-family: Arial, Helvetica, sans-serif ;
@@ -15,23 +15,55 @@ html {
 		height: 100% ;
 		min-width: 870px ;
 		color: $dark-gray ;
-	}
+
+		ul {
+			margin: 0 ;
+			padding: 0 ;
+			
+			li {
+				list-style: none ;
+				padding: 0 ;
+				margin: 0 0 20px 0 ;
+				color: $dark-gray ;
+
+				ul {
+					padding: 10px 0 0 35px;
+					
+					li {
+						position: relative ;
+						list-style: url(http://picadesign.ath.cx/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/images/blue-bullet.png) ;
+						margin: 0 ;
+						
+						a {
+							position: absolute ;
+							display: inline-block ;
+							top: 2px ;
+						}
+					} 
+				} 
+			}
+		}
 		h1, h2, h3, h4 {
 			font-weight: normal ;
 			margin: 0 ;
 			letter-spacing: 1px ;
 			line-height: 1.2em ;
 		}
-			
-		p {
-			margin-top: 0px ;
-			color: inherit ;
-		}
-			p a {
-				font-weight: bold ;
-				text-decoration: underline ;
-			}
+			h1 {
+				font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+				color: $medium-blue ;
+				text-transform: uppercase ;
 
+				span {
+					color: $dark-gray ;
+					padding-right: 5px ;
+				}
+			}
+			h2 {
+				font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+				color: $dark-gray ;
+				text-transform: uppercase ;
+			}
 		a {
 			font: inherit ;
 			color: inherit ;
@@ -39,7 +71,23 @@ html {
 			font-weight: inherit ;
 			outline: none ;
 			font-size: inherit ;
+			font-family: 'AvenirBlack' ;
+			letter-spacing: 0.1em ;
 		}
 			a img {
 				border: 0px ;
 			}
+		p {
+			margin-top: 0px ;
+			color: inherit ;
+		}
+			p a {
+				font-weight: bold ;
+			}
+		
+
+		strong {
+			font-family: 'AvenirMedium';
+		}
+	}//Body
+}//HTML
