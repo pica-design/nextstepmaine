@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"medium",
+				"medium-gray"
+			],
+			[
 				"ali",
 				"text-align"
 			],
@@ -23,15 +27,7 @@
 			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
 			"settings":
 			{
-				"buffer_size": 13857,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
-			"settings":
-			{
-				"buffer_size": 4349,
+				"buffer_size": 13167,
 				"line_ending": "Unix"
 			}
 		},
@@ -39,15 +35,82 @@
 			"file": "wp-content/themes/nextstepmaine-wp-theme/functions.php",
 			"settings":
 			{
-				"buffer_size": 6521,
+				"buffer_size": 7233,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
 			"settings":
 			{
-				"buffer_size": 4469,
+				"buffer_size": 1353,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+			"settings":
+			{
+				"buffer_size": 1629,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+			"settings":
+			{
+				"buffer_size": 4508,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+			"settings":
+			{
+				"buffer_size": 4700,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
+			"settings":
+			{
+				"buffer_size": 7451,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
+			"settings":
+			{
+				"buffer_size": 5650,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
+			"settings":
+			{
+				"buffer_size": 1100,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n	/********************************************\n	WORDPRESS GALLERY ADDITIONS CLASS\n	********************************************/\n	//The Post Gallery class issues objects containing an post's attachment 'gallery' and returns an array of that data\n	class Post_Gallery {\n		public function __construct ($post_id) {\n			//If no post was passed in grab the current post\n			if (empty($post_id)) : global $post; $post_id = $post->ID ; endif;\n			\n			$this->attachments = new WP_Query( \n				array (\n					'post_parent' => $post_id, \n					'post_status' => 'inherit', \n					'post_type' => 'attachment',\n					'order' => 'ASC', \n					'orderby' => 'menu_order',\n					'posts_per_page' => -1,\n					'meta_query' => array(\n						array(				\n							'key' => '_attachment-exclude-from-gallery',\n							'value' => 'off',\n							'compare' => '='\n						)\n					)\n				), ARRAY_A\n			);\n\n			//Make the attachments object a little cleaner by only using the data we want, the posts.\n			//This also ensures our ->attachments variable holds and array (so we can easily display a random attachment on the website homepage\n			$this->attachments = $this->attachments->posts;\n			\n			////Merge some additional attachment data into our main object\n			foreach ($this->attachments as &$attachment) :\n				//Grab the attachment's meta data\n				$attachment->meta_data = get_post_custom($attachment->ID);\n				//Some of our meta data needs to be unserialized to use it\n				$attachment->meta_data['_wp_attachment_metadata'] = @unserialize($attachment->meta_data['_wp_attachment_metadata'][0]);\n			endforeach;\n			\n			//Remove the array indecies (they do not help us)\n			$this->attachments = array_values($this->attachments);\n		}//End __construct\n		\n		\n		public function has_attachments () {\n			if (empty($this->attachments)) :\n				return false;\n			else :\n				return true;\n			endif;\n		}\n	}\n	\n	\n	/********************************************\n	BREADCRUMB GENERATION CLASS\n	********************************************/\n	class Breadcrumbs {\n		public function __construct () {\n			global $post ; \n			?>\n            <ul class=\"breadcrumbs\">\n            <?php\n				//Generate the hierarchical page breadcrumbs\n				if ($post->post_type == \"page\") :\n					?>\n						<li class=\"first\"><a href=\"<?php bloginfo('url') ?>\" title=\"Next Step Maine Homepage\">Home</a></li>\n						<?php foreach ($post->ancestors as $ancestor) : ?>\n						<li><a href=\"<?php echo get_permalink($ancestor) ?>\" title=\"<?php echo get_the_title($ancestor) ?>\"><?php echo get_the_title($ancestor) ?></a></li>\n						<?php endforeach ?>\n						\n						<?php \n							//The program pages use a query_var for page display, so we want to incorporate that into the breadcrumbs\n							$program_type = get_query_var('program_type');\n							//If we're on the programs page AND the query var has been set\n								//If no query var is set the default page breadcrumb will suffice\n							if (is_page('programs') && isset($program_type) && !empty($program_type)) : ?>\n								<li><a href=\"<?php echo get_permalink($post->ID) ?>\" title=\"<?php echo get_the_title($post->ID) ?>\"><?php echo get_the_title($post->ID) ?></a></li>\n								<li class=\"last\"><span class=\"current-post\"><?php echo get_query_var('program_type') ?> Programs</span></li>\n							<?php else : /* DEFAULT */ ?>\n								<li class=\"last\"><span class=\"current-post\"><?php echo $post->post_title ?></span></li>\n						<?php endif ?>\n						\n					<?php\n				endif;\n				\n				//Generate the single post type breadcrumbs\n				if ($post->post_type == \"nsm_job\") : \n					if (is_single()) : \n						?>\n						<li class=\"first\"><a href=\"<?php bloginfo('url') ?>\" title=\"Next Step Maine Homepage\">Home</a></li>\n						<li><a href=\"<?php bloginfo('url') ?>/jobs\" title=\"Jobs in Demand in Maine\">Jobs</a></li>\n						<li class=\"last\"><span class=\"current-post\"><?php echo $post->post_title ?></span></li>\n						<?\n					endif;\n				endif;\n				\n				//Generate the single post type breadcrumbs\n				if ($post->post_type == \"nsm_institution\") : \n					if (is_single()) : \n						?>\n						<li class=\"first\"><a href=\"<?php bloginfo('url') ?>\" title=\"Next Step Maine Homepage\">Home</a></li>\n						<li><a href=\"<?php bloginfo('url') ?>/jobs\" title=\"Institutions in Maine\">Institutions</a></li>\n						<li class=\"last\"><span class=\"current-post\"><?php echo $post->post_title ?></span></li>\n						<?\n					endif;\n				endif;\n			?>\n            </ul>\n            <div class=\"clear\"></div>\n            <?php\n		}\n	}\n?>",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
+			"file_size": 4422,
+			"file_write_time": 1340916062000000,
+			"settings":
+			{
+				"buffer_size": 4436,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/footer.php",
+			"settings":
+			{
+				"buffer_size": 3618,
 				"line_ending": "Unix"
 			}
 		}
@@ -92,22 +155,33 @@
 	},
 	"file_history":
 	[
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/editor.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/template-step-page.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter/jquery.tablesorter.js",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter/jquery.tablesorter.min.js",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_fonts.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/finish-college.html",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/get-ged.html",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/start-college.html",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/change-career-html",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-includes/functions.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/config.rb",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/editor.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_editor.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_selection.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_normalize.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/editor.css",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_fonts.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/normalize.css",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/screen.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/.htaccess",
@@ -133,6 +207,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"<open files>"
 		]
 	},
 	"find_state":
@@ -140,6 +215,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"less-than",
 			"\"",
 			"files"
 		],
@@ -149,6 +225,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"lighter-than",
 			"'"
 		],
 		"reverse": false,
@@ -160,7 +237,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -168,42 +245,131 @@
 					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
 					"settings":
 					{
-						"buffer_size": 13857,
+						"buffer_size": 13167,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7303,
-								7303
+								6222,
+								6222
 							]
 						],
 						"settings":
 						{
+							"remote_loading": false,
+							"synced": false,
 							"syntax": "Packages/SCSS/SCSS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5262.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+					"file": "wp-content/themes/nextstepmaine-wp-theme/functions.php",
 					"settings":
 					{
-						"buffer_size": 4349,
+						"buffer_size": 7233,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								658,
-								658
+								3516,
+								3516
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+					"settings":
+					{
+						"buffer_size": 1353,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								911,
+								911
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+					"settings":
+					{
+						"buffer_size": 1629,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								96,
+								96
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+					"settings":
+					{
+						"buffer_size": 4508,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								422,
+								422
 							]
 						],
 						"settings":
@@ -213,54 +379,139 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 25.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/functions.php",
+					"buffer": 5,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
 					"settings":
 					{
-						"buffer_size": 6521,
+						"buffer_size": 4700,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5712,
-								5712
+								364,
+								364
 							]
 						],
 						"settings":
 						{
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 10.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 6,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
+					"settings":
+					{
+						"buffer_size": 7451,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								887,
+								1648
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
+					"settings":
+					{
+						"buffer_size": 5650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5462,
+								5462
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 941.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
+					"settings":
+					{
+						"buffer_size": 1100,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								157,
+								157
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
 					"file": "wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
 					"settings":
 					{
-						"buffer_size": 4469,
+						"buffer_size": 4436,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2048,
-								2048
+								2089,
+								2089
 							]
 						],
 						"settings":
@@ -271,7 +522,37 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 805.0,
+						"translation.y": 758.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/footer.php",
+					"settings":
+					{
+						"buffer_size": 3618,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3598,
+								3598
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
