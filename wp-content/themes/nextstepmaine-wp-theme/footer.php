@@ -35,7 +35,9 @@
                         </figure>
                         2012 &copy; Maine Development Foundation. All Rights Reserved.
                         <br />
-                        <a href="<?php bloginfo('url') ?>/site-requirements" title="Website Requirements">Site Requirements</a> / <a href="mailto: web@picadesign.com?subject=Bug Submission: <?php bloginfo('name')?> Website - Page: <?php echo $post->post_title ?>&body=Please detail the bug you've found and how to repeat it. Please let us know what web browser &amp; version you are using. Thank You! - Team Pica" title="Submit a problem with this website">Submit a Bug</a>
+                        <a href="<?php bloginfo('url') ?>/site-requirements" title="Website Requirements">Site Requirements</a> 
+                        / 
+                        <a href="mailto:web@picadesign.com?subject=Bug Submission: <?php bloginfo('name')?> Website - Page: <?php echo $post->post_title ?>&body=Please detail the bug you've found and how to repeat it. Please let us know what web browser &amp; version you are using. Thank You! - Team Pica" title="Submit a problem with this website">Submit a Bug</a>
                     </section>                                                      
                 </div>
             </footer>

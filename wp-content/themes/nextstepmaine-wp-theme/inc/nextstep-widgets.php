@@ -66,8 +66,8 @@
 							<li><a href="<?php the_permalink() ?>">
 								<?php 
 									$title = get_the_title($post->ID) ;
-									if (strlen($title) > 30) : 
-										echo substr($title, 0, 30) . "...";
+									if (strlen($title) > 20) : 
+										echo substr($title, 0, 20) . "...";
 									else :
 										echo $title;
 									endif;
