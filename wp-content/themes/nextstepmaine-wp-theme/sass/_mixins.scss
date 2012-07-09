@@ -12,6 +12,16 @@
 	cursor: pointer ;
 }
 
+@mixin light-blue-gradient {
+	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+	background-color: $dark-blue; /* Fallback */
+	@include filter-gradient($lightest-blue, $medium-blue, vertical);  /*IE6-8 */
+	
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	$experimental-support-for-svg: true;
+	@include background-image(linear-gradient(top, $lightest-blue 0%, $medium-blue 100%));
+}
+
 @mixin blue-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $dark-blue; /* Fallback */

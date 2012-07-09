@@ -100,8 +100,8 @@ if(a.returnDelay){h&&clearTimeout(h);h=setTimeout(function(){g(c)},a.returnDelay
 	
 
 	$('table.tablesorter.programs').tablesorter({
-		sortList: [[1,0]],
-		headers: {2:{sorter: false}}
+		sortList: [[1,0]]/*,
+		headers: {2:{sorter: false}}*/
 	}); 
 
 	$('table.tablesorter.jobs').tablesorter({

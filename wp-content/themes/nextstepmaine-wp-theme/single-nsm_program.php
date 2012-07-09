@@ -15,6 +15,7 @@
 							$institution_internal_url = get_permalink($post->ID); 
 						?>
 							<img class="institution-image" src="<?php echo get_post_meta($post->ID, '_nsm_institution_logo', true) ?>" alt="<?php the_title() ?> Logo" />
+                            <div class="clear"></div>
 							<h2><?php echo $institution_title ?></h2>
                             
 					<?php endwhile; wp_reset_postdata(); ?>

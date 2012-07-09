@@ -66,8 +66,8 @@
 							<li><a href="<?php the_permalink() ?>">
 								<?php 
 									$title = get_the_title($post->ID) ;
-									if (strlen($title) > 40) : 
-										echo substr($title, 0, 40) . "...";
+									if (strlen($title) > 30) : 
+										echo substr($title, 0, 30) . "...";
 									else :
 										echo $title;
 									endif;
@@ -103,6 +103,7 @@
 		}
 		
 		public function widget ($args, $instance) {
+			global $post;
 			?>
             <section class="widget" id="institutions">
                 <h3>Institutions</h3>
@@ -116,8 +117,24 @@
 						'posts_per_page' => -1
 					));
 					
-					while ($institutions->have_posts()) : $institutions->the_post(); ?>
-						<option value="<?php the_permalink() ?>"><?php the_title() ?></option>
+					$current_page = $post;
+
+					while ($institutions->have_posts()) : $institutions->the_post(); 
+						$institution = p2p_type( 'Program Institution' )->get_connected( $post );
+						
+						/*
+						while ( $institution->have_posts() ) : $institution->the_post(); 
+							$institution_slug = $post->post_name ;
+						endwhile ; wp_reset_query() ;
+						*/
+						
+						if ($current_page->post_name == $post->post_name || $institution_slug == $post->post_name) : 
+							$selected = "selected='selected'";
+						else :
+							$selected = "";
+						endif;
+					?>
+						<option value="<?php the_permalink() ?>" <?php echo $selected ?>><?php the_title() ?></option>
 					<?php endwhile ?>
                  </select>
             </section>

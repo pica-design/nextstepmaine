@@ -6,6 +6,7 @@
         	<?php if (have_posts()) : ?>
             	<?php while (have_posts()) : the_post() ?>
 					<img class="institution-image" src="<?php echo get_post_meta($post->ID, '_nsm_institution_logo', true) ?>" alt="<?php the_title() ?> Logo" />
+                    <div class="clear"></div>
                     <h2><?php the_title() ?></h2>
                     <br />
                     <?php $content = get_the_content() ;

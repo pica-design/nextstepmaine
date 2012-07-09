@@ -2,6 +2,7 @@
 	get_header() ;
 
 	//Capture the new query var for use, i.e. with site.com/programs/foo the following will output 'foo'
+	$program_type = "";
 	$program_type = get_query_var('program_type');
 ?>
     <section class="content-wrapper">
@@ -13,17 +14,19 @@
         		<?php the_content() ?>
             <?php endwhile ?>
         	<?php 
-            	if (!empty($program_type)) : 
+            	//if (!empty($program_type)) : 
             		switch ($program_type) : 
             			case 'associate' : $associate_active = "active" ; break;
             			case 'bachelor' : $bachelor_active = "active" ; break;
             			case 'master' : $master_active = "active" ; break;
             			case 'certificate' : $certificate_active = "active" ; break;
+            			default : $all_programs_active = "active" ; break;
             		endswitch ;
-            	endif ;
+            	//endif ;
         	?>
         	<div class="filter-options">
-        		<div class="title">View by level:</div>
+        		<div class="title">View: </div>
+        		<div class="button gray inline padded rounded <?php echo $all_programs_active ?>"><a href="<?php echo get_permalink($post->ID) ?>" title="All Programs">All</a></div>
 	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/associate" title="Associate Programs">Associate Programs (2 Years)</a></div>
 	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/bachelor" title="Bachelor Programs">Bachelor Programs (4 Years)</a></div>
 	        	<div class="button gray inline padded rounded <?php echo $master_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/master" title="Master Programs">Master Programs</a></div>

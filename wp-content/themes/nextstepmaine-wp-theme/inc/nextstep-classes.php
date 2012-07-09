@@ -89,7 +89,16 @@
 						?>
 						<li class="first"><a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">Home</a></li>
 						<li><a href="<?php bloginfo('url') ?>/jobs" title="Jobs in Demand in Maine">Jobs</a></li>
-						<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
+						<li class="last"><span class="current-post">
+							<?php 
+								$title = get_the_title($post->ID) ;
+								if (strlen($title) > 30) : 
+									echo substr($title, 0, 30) . "...";
+								else :
+									echo $title;
+								endif;
+							?>
+						</span></li>
 						<?
 					endif;
 				endif;
