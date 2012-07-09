@@ -47,7 +47,7 @@
             <section class="masthead">
             	<figure class="website-logo">
                 	<a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">
-	                	<img src="<?php bloginfo('template_directory') ?>/images/nextstepmaine-logo.jpg" alt="Next Step Maine Logo" />
+	                	<img src="<?php bloginfo('template_directory') ?>/images/content/nextstepmaine-logo.jpg" alt="Next Step Maine Logo" />
                     </a>
                 </figure>
                 <article class="website-slogan">opportunities for the<br /> non-traditional student</article>

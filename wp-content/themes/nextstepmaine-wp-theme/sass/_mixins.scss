@@ -3,12 +3,11 @@
 	margin: 0 auto 0 auto ;
 }
 
-@mixin slideshow-nav-item ($image-path) {
+@mixin slideshow-nav-item {
 	float: left ;
-	width: 35px ;
+	width: 25px ;
 	height: 81px ;
 	margin-top: 100px ;
-	background: url($image-path) no-repeat ;
 	cursor: pointer ;
 }
 

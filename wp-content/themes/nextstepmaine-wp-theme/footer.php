@@ -23,7 +23,7 @@
                 	<section class="column last">
                     	<h4 class="uppercase">Brought to you by</h4>
                         <a href="http://mdf.org/" title="Maine Development Foundation Website">
-                        	<img src="<?php bloginfo('template_directory') ?>/images/mdf-logo.png" alt="Maine Development Foundation Logo" />
+                        	<img src="<?php bloginfo('template_directory') ?>/images/content/mdf-logo.jpg" alt="Maine Development Foundation Logo" />
                         </a>
                     </section>
                    	
@@ -43,10 +43,7 @@
             </footer>
         </section><!-- .website-wrapper -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script src="http://select-box.googlecode.com/svn/trunk/jquery.selectbox-0.1.3.min.js"></script>
-    	<script src="http://malsup.github.com/jquery.cycle.all.js"></script>
-        <script src="<?php bloginfo('template_directory') ?>/scripts/jquery.cookie.js"></script>
-        <script type="text/javascript" src="<?php bloginfo('template_directory') ?>/scripts/jquery.tablesorter.min.js"></script> 
+    	<script src="<?php bloginfo('template_directory') ?>/scripts/jquery.cycle.all.js"></script>
         <script src="<?php bloginfo('template_directory') ?>/scripts/jquery.next-step-maine.js"></script>
     </body>
 </html>
