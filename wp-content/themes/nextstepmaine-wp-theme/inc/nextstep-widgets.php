@@ -107,7 +107,9 @@
 			?>
             <section class="widget" id="institutions">
                 <h3>Institutions</h3>
-                <p>(Choose from one of the<br />options in the drop down menu<br /><span class="blue-text"><strong>to search for program types<br />and schools)</strong></span></p>
+                <?php if (is_page('home')) : ?>
+                	<p>(Choose from one of the<br />options in the drop down menu<br /><span class="blue-text"><strong>to search for program types<br />and schools)</strong></span></p>
+                <?php endif ?>
                 <select>
                 	<option value="">Institutions</option>
                 <?php

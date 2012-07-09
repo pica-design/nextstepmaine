@@ -391,6 +391,12 @@ section.website-wrapper {
 						border-left: 0px ;
 						padding: 0 ;
 					}
+
+					h3 {
+						font: normal normal normal 1.7em/1.2em 'AvenirBlack' ;
+						text-transform: lowercase ;
+						margin-bottom: 25px ;
+					}
 				} /* widget */
 			} /* .horizontal */
 			/* The vertical aside section is used on the website pages - as a sidebar */
@@ -411,16 +417,16 @@ section.website-wrapper {
 						padding-bottom: 0 ;
 						margin-bottom: 0 ;
 					}
+
+					h3 {
+						font: normal normal normal 1.7em/1.2em 'AvenirBlack' ;
+						text-transform: lowercase ;
+						margin-bottom: 15px ;
+					}
 				} /* .widget */
 			} /* .vertical */
 			
 			.widget {
-			
-				h3 {
-					font: normal normal normal 1.7em/1.2em 'AvenirBlack' ;
-					text-transform: lowercase ;
-					margin-bottom: 25px ;
-				}
 				p.slogan {
 					font: normal normal normal 1.8em/1.0em 'AvenirLight' ;
 					margin: 0 0 15px 0 ;

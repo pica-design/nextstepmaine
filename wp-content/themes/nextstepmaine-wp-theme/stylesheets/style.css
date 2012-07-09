@@ -1055,6 +1055,10 @@ section.content-wrapper {
         section.content-wrapper .aside.horizontal .widget:first-child {
           border-left: 0px;
           padding: 0; }
+        section.content-wrapper .aside.horizontal .widget h3 {
+          font: normal normal normal 1.7em/1.2em "AvenirBlack";
+          text-transform: lowercase;
+          margin-bottom: 25px; }
     section.content-wrapper .aside.vertical {
       float: right;
       width: 190px;
@@ -1072,13 +1076,13 @@ section.content-wrapper {
           border-bottom: 0px;
           padding-bottom: 0;
           margin-bottom: 0; }
+        section.content-wrapper .aside.vertical .widget h3 {
+          font: normal normal normal 1.7em/1.2em "AvenirBlack";
+          text-transform: lowercase;
+          margin-bottom: 15px; }
     section.content-wrapper .aside .widget {
       /* ul */
       /* #institutions */ }
-      section.content-wrapper .aside .widget h3 {
-        font: normal normal normal 1.7em/1.2em "AvenirBlack";
-        text-transform: lowercase;
-        margin-bottom: 25px; }
       section.content-wrapper .aside .widget p.slogan {
         font: normal normal normal 1.8em/1em "AvenirLight";
         margin: 0 0 15px 0;
