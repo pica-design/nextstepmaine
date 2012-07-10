@@ -6,12 +6,13 @@
         case 'start-college' : $nextstep = 1 ; break;
         case 'finish-college' : $nextstep = 2 ; break;
         case 'change-my-career' : $nextstep = 3 ; break;
+        case 'home' : $nextstep = -1 ; break;
         default : $nextstep = false ; break;
     endswitch;
 
     //If they are we'll set a cookie with the step value (so we can keep the menu positioned on their step)
         //e.g. Viewed 'Change my Career' and then clicked around the website, we want to keep 'Change my Career' highlighted
-    if ($nextstep != false) : setcookie("nextstep", $nextstep, time() + 3600, "/nextstepmaine/", "picadesign.ath.cx"); endif ;
+    if ($nextstep !== false) : setcookie("nextstep", $nextstep, time() + 3600, "/nextstepmaine/", "picadesign.ath.cx"); endif ;
 
     //Pull our post gallery if one exists
 	$gallery = new Post_Gallery($post->ID);
@@ -38,6 +39,9 @@
         -->
         <meta charset="UTF-8">
         <title><?php wp_title() ?></title>
+        <meta property="og:title" content="<?php bloginfo('name') ?>" />
+        <meta property="og:description" content="<?php bloginfo('description') ?>" />
+        <meta property="og:image" content="<?php bloginfo('template_directory') ?>/images/content/nextstepmaine-logo.jpg" />
         <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory');?>/stylesheets/style.css" />
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         <!--[if gte IE 9]><style type="text/css">.gradient { filter: none; }</style><![endif]-->

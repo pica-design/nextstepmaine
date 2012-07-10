@@ -208,7 +208,7 @@ section.website-wrapper {
 						a {
 							position: relative ;
 							z-index: 3 ;
-							font: italic normal normal 1.05em/1.0em 'AvenirBlack' ;
+							font: italic normal normal 0.95em/1.0em 'AvenirBlack' ;
 							color: rgb(255,255,255) ;
 							$default-text-shadow-color: $darkest-blue ;
 							$default-text-shadow-blur: 3px ;
@@ -226,7 +226,6 @@ section.website-wrapper {
 	section.content-wrapper {
 		position: relative ;
 		padding: 30px 0 225px 0 ;
-
 		overflow: auto ;
 		@include centered ;
 		
@@ -552,9 +551,47 @@ section.website-wrapper {
 						border: 1px solid $lighter-than-medium-gray ;
 						font-size: 0.8em ;
 						@include single-transition(all, 0.2s, linear) ;
+
+						.icon {
+							height: 16px ;
+							float: left ;
+							margin-top: 6px ;
+
+							&.email {
+								width: 21px ;
+								margin-left: 10px ;
+								@include layout-sprite(email-icon);
+							}
+							&.twitter {
+								width: 20px ;
+								margin-left: 13px ;
+								margin-right: 13px ;
+								@include layout-sprite(twitter-bird-icon);
+							}
+							&.facebook {
+								width: 17px ;
+								//Display our own FB Icon - pulled from the FB Brand Standards so it's still compliant 
+								@include layout-sprite(facebook-f-icon);
+								
+								//Hide the default FB Icon - it's ugly and too small
+								.FBConnectButton_Simple {
+									background-image: none !important ;
+								}
+							}
+							a {
+								@extend .link-fill-container ;
+							}
+						}
+
+						&.facebook-like {
+							iframe {
+								margin: 4px 0 0 17px ;
+							}
+						}
 					}
 
 					&:hover {
+						//Slide the button tab down from behind the button
 						.button-tab {
 							top: 30px ;
 						}

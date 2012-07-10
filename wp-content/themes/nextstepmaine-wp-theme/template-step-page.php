@@ -10,10 +10,6 @@
         	<?php if (have_posts()) : ?>
             	<?php while (have_posts()) : the_post() ?>
                 	<?php 
-						//$content = get_the_content($post->ID);
-						/*$content = do_shortcode($content);
-						echo nl2br($content);*/
-                       // echo $content;
                         the_content();
 					?>
                 <?php endwhile ?>
