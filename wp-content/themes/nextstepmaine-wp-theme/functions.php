@@ -166,7 +166,6 @@
 	
 	//Register our widgets
 	add_action( 'widgets_init', 'register_widgets');
-	
 	function register_widgets () {
 		register_widget( "NEXTSTEP_Financial_Aid_Widget" );
 		register_widget( "NEXTSTEP_Jobs_in_Demand_Widget" );
@@ -183,6 +182,18 @@
 		$html_str .= "<div class='title'>{$atts['title']}</div>";
 		$html_str .= "<div class='content'>$content</div>";
 		$html_str .= "</div>";
+		return $html_str;
+	}
+
+	add_shortcode('display-browser-icons', 'generate_browser_icons');
+	function generate_browser_icons () {
+		$html_str  = "<div class='browser-icons'>\n";
+		$html_str .= "	<figure class='chrome'><a href='https://www.google.com/intl/en/chrome/browser/' title='Download Google Chrome' target='_blank'></a></figure>\n";
+		$html_str .= "	<figure class='firefox'><a href='http://www.mozilla.org/en-US/firefox/new/' title='Download Mozilla Firefox' target='_blank'></a></figure>\n";
+		$html_str .= "	<figure class='safari'><a href='http://www.apple.com/safari/download/' title='Apple Safari' target='_blank'></a></figure>\n";
+		$html_str .= "	<figure class='opera'><a href='http://www.opera.com/download/' title='Opera' target='_blank'></a></figure>\n";		
+		$html_str .= "	<figure class='internet-explorer'><a href='http://windows.microsoft.com/en-US/internet-explorer/downloads/ie/' title='Microsoft Internet Explorer' target='_blank'></a></figure>\n";
+		$html_str .= "</div>\n";
 		return $html_str;
 	}
 	

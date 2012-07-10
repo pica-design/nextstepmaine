@@ -54,6 +54,8 @@
                         </figure>
                         2012 &copy; Maine Development Foundation. All Rights Reserved.
                         <br />
+                        <a href="<?php bloginfo('url') ?>/disclaimer" title="Website Disclaimer">Disclaimer</a> 
+                        /
                         <a href="<?php bloginfo('url') ?>/site-requirements" title="Website Requirements">Site Requirements</a> 
                         / 
                         <a href="mailto:web@picadesign.com?subject=Bug Submission: <?php bloginfo('name')?> Website - Page: <?php echo $post->post_title ?>&body=Please detail the issue you've found and how to repeat it. Please let us know what web browser/version you are using. Thank You! - Team Pica" title="Submit a problem with this website">Submit an issue with this website</a>
