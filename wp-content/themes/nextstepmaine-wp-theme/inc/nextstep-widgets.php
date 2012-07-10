@@ -63,11 +63,11 @@
 						$jobs = new WP_Query('post_type=nsm_job&posts_per_page=4&orderby=rand');
 						while ($jobs->have_posts()) : $jobs->the_post(); ?>
                         
-							<li><a href="<?php the_permalink() ?>">
+							<li><a href="<?php the_permalink() ?>" title="Learn about <?php the_title() ?>">
 								<?php 
 									$title = get_the_title($post->ID) ;
-									if (strlen($title) > 20) : 
-										echo substr($title, 0, 20) . "...";
+									if (strlen($title) > 25) : 
+										echo substr($title, 0, 25) . "..";
 									else :
 										echo $title;
 									endif;

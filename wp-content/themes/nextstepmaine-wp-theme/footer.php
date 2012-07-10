@@ -3,8 +3,18 @@
                 	<section class="column first">
                     	<figure class="button gray gradient hover uppercase"><a href="<?php bloginfo('url') ?>/feedback" title="Give Next Step Maine Your Feedback">Feedback</a></figure>
                         <figure class="button gray gradient hover uppercase"><a href="" title="Signup for the Next Step Maine Newsletter">Newsletter</a></figure>
-                        <figure class="button gray gradient hover uppercase"><a href="" title="Invite your friends to Next Step maine">Tell a Friend</a></figure>
-                        <figure class="button gray gradient hover uppercase"><a href="" title="Find Next Step Maine on Facebook">Facebook</a></figure>
+                        <figure class="button-w-tab">
+                            <figure class="button gray gradient hover uppercase"><a href="" title="Invite your friends to Next Step maine">Tell a Friend</a></figure>
+                            <figure class="button-tab">
+                                Email Tweet Share
+                            </figure>
+                        </figure>
+                        <figure class="button-w-tab">
+                            <figure class="button gray gradient hover uppercase"><a href="" title="Find Next Step Maine on Facebook">Facebook</a></figure>
+                            <figure class="button-tab">
+                                Like
+                            </figure>
+                        </figure>
                     </section>
                 	<section class="column">
                     	<h4 class="uppercase">Contact</h4>
