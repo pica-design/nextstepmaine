@@ -594,7 +594,9 @@ section.website-wrapper {
 							height: 16px ;
 							float: left ;
 							margin-top: 6px ;
-
+							@include opacity(0.5) ;
+							@include single-transition(all, 0.2s, linear) ;
+							
 							&.email {
 								width: 21px ;
 								margin-left: 10px ;
@@ -618,6 +620,9 @@ section.website-wrapper {
 							}
 							a {
 								@extend .link-fill-container ;
+							}
+							&:hover {
+								@include opacity(1.0) ;
 							}
 						}
 

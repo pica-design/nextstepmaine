@@ -4,16 +4,16 @@
                     	<figure class="button gray gradient hover uppercase"><a href="<?php bloginfo('url') ?>/feedback" title="Give Next Step Maine Your Feedback">Feedback</a></figure>
                         <figure class="button gray gradient hover uppercase"><a href="<?php bloginfo('url') ?>/newsletter" title="Signup for the Next Step Maine Newsletter">Newsletter</a></figure>
                         <div class="button-w-tab">
-                            <figure class="button gray gradient hover uppercase"><a href="" title="Invite your friends to Next Step maine">Tell a Friend</a></figure>
+                            <figure class="button gray gradient hover uppercase">Tell a Friend</figure>
                             <div class="button-tab">
                                 <figure class="icon email">
                                     <a title="Email this website to a friend" href="mailto:?subject=I thought you would like Next Step Maine" target="_blank"></a>
                                 </figure>
                                 <figure class="icon twitter">
-                                    <a title="Share this site on Twitter" href="https://twitter.com/share?url=<?php bloginfo('url') ?>" target="_blank"></a>
+                                    <a title="Share this website on Twitter" href="https://twitter.com/share?url=<?php bloginfo('url') ?>" target="_blank"></a>
                                 </figure>
                                 <figure class="icon facebook">
-                                    <a name="fb_share" type="icon" share_url="<?php bloginfo('url') ?>"></a> 
+                                    <a name="fb_share" title="Share this website on Facebook" type="icon" share_url="<?php bloginfo('url') ?>"></a> 
                                     <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
                                 </figure>
                             </div>
