@@ -60,7 +60,6 @@
 	&.rounded {
 		@include border-radius(4px, 4px);
 	}
-	
 	&.hover:hover {
 		@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
 	}

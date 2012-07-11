@@ -23,14 +23,12 @@
 				endwhile;
 			?>
 			<?php
-				//if (!empty($education_requirement)) : 
-            		switch ($education_requirement) : 
-            			case 'high-school' : $high_school_active = "active" ; break;
-            			case 'associate' : $associate_active = "active" ; break;
-            			case 'bachelor' : $bachelor_active = "active" ; break;
-            			default: $all_jobs_active = "active" ; break;
-            		endswitch ;
-            	//endif ;
+        		switch ($education_requirement) : 
+        			case 'high-school' : $high_school_active = "active" ; break;
+        			case 'associate' : $associate_active = "active" ; break;
+        			case 'bachelor' : $bachelor_active = "active" ; break;
+        			default: $all_jobs_active = "active" ; break;
+        		endswitch ;
 			?>
             <div class="filter-options">
 	            <div class="title">View by education requirement:</div>

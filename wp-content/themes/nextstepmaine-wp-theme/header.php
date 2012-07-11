@@ -45,6 +45,7 @@
         <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory');?>/stylesheets/style.css" />
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         <!--[if gte IE 9]><style type="text/css">.gradient { filter: none; }</style><![endif]-->
+        <?php //wp_head() ?>
     </head>
     <body>
     	<section class="website-wrapper">
