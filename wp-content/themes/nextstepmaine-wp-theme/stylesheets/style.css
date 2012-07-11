@@ -516,7 +516,7 @@ html {
       outline: none;
       font-size: inherit;
       font-family: 'AvenirBlack';
-      letter-spacing: 0.1em; }
+      letter-spacing: 0em; }
     html body a img {
       border: 0px; }
     html body p {
@@ -896,6 +896,7 @@ nav.next-step {
             position: relative;
             z-index: 3;
             font: italic normal normal 0.95em/1em "AvenirBlack";
+            letter-spacing: 0.1em;
             color: white;
             text-shadow: #0793c8 0px 1px 3px; }
 
