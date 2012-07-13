@@ -55,7 +55,7 @@ table.tablesorter {
 	}
 
 	thead.tableFloatingHeader {
-		@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
+		@include single-box-shadow($darkest-gray, 0, 0, 20px, false, false) ;
 	}
 
 	tbody {
@@ -69,6 +69,11 @@ table.tablesorter {
 			td {
 				padding: 5px ;
 				font-family: 'HelveticaCondensed';
+
+				a {
+					font-family: 'HelveticaCondensed';
+					font-weight: bold ;
+				}
 			}
 		}
 	}

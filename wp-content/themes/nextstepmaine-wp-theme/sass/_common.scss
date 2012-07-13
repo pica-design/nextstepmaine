@@ -130,16 +130,24 @@ section.accordion {
 	}
 } /* accordian */
 
+/* Back to Top Elements */
 .back-to-top {
 	position: fixed ;
-	bottom: 200px ;
+	top: 200px ;
 	right: 0px ;
-	width: 49px ;
-	height: 43px ;
+	width: 45px ;
+	height: 45px ;
 	color: rgb(255,255,255) ;
 	display: none ;
 	cursor: pointer ;
-	@include layout-sprite(back-to-top-arrow) ;
+	background-color: $medium-gray ;
+
+	div {
+		width: 33px ;
+		height: 19px ;
+		margin: 13px auto 0 auto ;
+		@include layout-sprite(up-arrow-big) ;
+	}
 }
 	.back-to-top.active {
 		display: block ;

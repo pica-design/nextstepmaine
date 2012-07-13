@@ -34,7 +34,7 @@
         			default: $all_jobs_active = "active" ; break;
         		endswitch ;
 			?>
-			<div class="back-to-top"></div>
+			<figure class="back-to-top"><div></div></figure>
             <div class="filter-options">
 	            <div class="title">View by education requirement:</div>
 	            <div class="button gray inline padded rounded <?php echo $all_jobs_active ?>"><a href="<?php echo get_permalink($post->ID) ?>" title="All Jobs">All</a></div>

@@ -285,12 +285,56 @@ section.website-wrapper {
 				}
 			} /* ul */
 			
+
+			/* The .program-types list is a horizontal list of buttons */
+			ul.program-types {
+				overflow: auto ;
+				padding: 0 ; margin: 0 0 20px 0 ;
+				height: 80px ;
+				li {
+					width: 135px ;
+					height: 60px ;
+					list-style: none ;
+					float: left ;
+					margin: 0 10px 0 0 ;
+					padding: 0 ;
+					text-align: center ;
+					display: inline-block ;
+					vertical-align: middle;
+
+					@include single-transition(all, 0.2s, linear) ;
+					@include blue-gradient ;
+					
+					&:before {
+						content: '';
+						display: inline-block;
+						height: 100%; 
+						vertical-align: middle;
+						margin-right: -0.25em;
+					}
+					
+					&.last {
+						margin-right: 0 ;
+					}
+					
+					&:hover {
+						@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
+					}
+
+					a {
+						color: $white ;
+						margin: 0 ; padding: 5px 10px 10px 10px ;
+						
+						@extend .link-fill-container ;
+					}
+				}
+			}
+
 			.institution-image {
 				max-height: 100px ;
 				float: left ;
 				margin: 0 10px 5px 0 ;
 			}
-
 			
 			/* The following is rendered via a shortcode on the site requirements page */
 			.browser-icons {
@@ -501,6 +545,13 @@ section.website-wrapper {
 						}
 					} /* .sbHolder */
 				} /* #institutions */
+
+				&#jobs-in-demand {
+					a {
+						font-weight: normal ;
+					}
+				}
+
 			} /* .widget */
 		} /* .aside */
 		
