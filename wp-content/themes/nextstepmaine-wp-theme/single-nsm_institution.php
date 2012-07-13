@@ -36,16 +36,19 @@
 						
 						
 						?>
-						<div class='accordion open'>
-                            <div class='title'>Programs at <?php the_title() ?></div>
-                            <div class='content'>
+						<section class='accordion closed'>
+                            <header>
+                                <figcaption>Programs at <?php the_title() ?></figcaption>
+                                <figure></figure>
+                            </header>
+                            <article>
 								<?php while ( $programs->have_posts() ) : $programs->the_post(); ?>
                                 <a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a>
                                 - <em><?php echo get_post_meta($post->ID, '_nsm_program_type', true) ?></em>
                                 <br />
                                 <?php endwhile; wp_reset_postdata(); ?>
-                        	</div>
-                        </div>
+                        	</article>
+                        </section>
                 <?php 
 					endwhile;
 	            endif;

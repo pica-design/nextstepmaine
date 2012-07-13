@@ -57,7 +57,7 @@
 			global $post;
 			?>
             <section class="widget" id="jobs-in-demand">
-                <h3>Jobs In Demand</h3>
+                <h3>Jobs In Demand<br />In Maine</h3>
                 <ul>
                     <?php
 						$jobs = new WP_Query('post_type=nsm_job&posts_per_page=4&orderby=rand');

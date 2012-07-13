@@ -98,32 +98,11 @@
 	}//end function manage_nsm_job_admin_columns_content
 	
 	function nsm_job_cpt_taxonomy_filters() {
-		global $typenow;
-		// an array of all the taxonomyies you want to display. Use the taxonomy name or slug
-		$taxonomies = array('nsm_job_category');
-		// must set this to the post type you want the filter(s) displayed on
-		if($typenow == 'nsm_job') :
-			foreach ($taxonomies as $tax_slug) :
-				$tax_obj = get_taxonomy($tax_slug);
-				$tax_name = $tax_obj->labels->name;
-				$terms = get_terms($tax_slug);
-				if(count($terms) > 0) :
-					echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
-					echo "<option value=''>Show All $tax_name</option>";
-					foreach ($terms as $term) :
-						echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
-					endforeach;
-					echo "</select>";
-				endif;
-			endforeach;
-		endif;
+		generate_html_taxonomy_filter('nsm_job', 'nsm_job_education_requirement');
 	}//end function nsm_job_cpt_taxonomy_filters
 	
 	/* END NEXT STEP MAINE DOL JOBS IN DEMAND CPT
 	*********************************************************/
-	
-	
-	
 	
 	/*********************************************************
 	NEXT STEP MAINE INSTITUTIONS CPT
@@ -213,25 +192,7 @@
 	}//end function manage_nsm_institution_admin_columns_content
 	
 	function nsm_institution_cpt_taxonomy_filters() {
-		global $typenow;
-		// an array of all the taxonomyies you want to display. Use the taxonomy name or slug
-		$taxonomies = array('nsm_institution_category');
-		// must set this to the post type you want the filter(s) displayed on
-		if($typenow == 'nsm_institution') :
-			foreach ($taxonomies as $tax_slug) :
-				$tax_obj = get_taxonomy($tax_slug);
-				$tax_name = $tax_obj->labels->name;
-				$terms = get_terms($tax_slug);
-				if(count($terms) > 0) :
-					echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
-					echo "<option value=''>Show All $tax_name</option>";
-					foreach ($terms as $term) :
-						echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
-					endforeach;
-					echo "</select>";
-				endif;
-			endforeach;
-		endif;
+		generate_html_taxonomy_filter ('nsm_institution', 'nsm_institution_category');
 	}//end function nsm_institution_cpt_taxonomy_filters
 	
 	/* END NEXT STEP INSTITUTIONS CPT
@@ -270,18 +231,6 @@
 			'rewrite' => array( 'slug' => 'program-categories', 'with_front' => false),	// pretty permalinks for your taxonomy?
 		)
 	);
-	
-	/*
-	//Create the 'Type' taxonomy for the 'Work' post type
-	register_taxonomy('nsm_program_institution', 'nsm_program',
-		array(
-			'hierarchical' => true,
-			'label' => 'Institutions',	// the human-readable taxonomy name
-			'query_var' => true,	// enable taxonomy-specific querying
-			'rewrite' => array( 'slug' => 'program-institutions', 'with_front' => false),	// pretty permalinks for your taxonomy?
-		)
-	);
-	*/
 	
 	//Create a new column 'Type' on the admin 'Work' page to display the types of each work item
 	add_filter('manage_edit-nsm_program_columns', 'manage_nsm_program_admin_columns');
@@ -326,32 +275,25 @@
 						$count++;
 					endforeach;
 				endif;
-			break;/*
-			case 'nsm_program_institution':
-				
-				$terms = get_the_terms( $post->ID, 'nsm_program_institution');
-				if ($terms) :
-					$count = 0;
-					foreach ($terms as $term) :
-						echo '<a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?action=edit&taxonomy=nsm_program_institution&post_type=nsm_program&tag_ID='.$term->term_id.'">'.$term->name.'</a>';
-						if ($count != (count($terms) - 1)) :
-							echo ", ";
-						endif;
-						$count++;
-					endforeach;
-				endif;
-				
 			break;
-			*/
 		endswitch;
 	}//end function manage_nsm_program_admin_columns_content
 	
 	function nsm_program_cpt_taxonomy_filters() {
+		generate_html_taxonomy_filter ('nsm_program', 'nsm_program_category');
+	}//end function nsm_program_cpt_taxonomy_filters
+	
+	/* END NEXT STEP PROGRAMS CPT
+	*********************************************************/
+
+
+
+	function generate_html_taxonomy_filter ($cpt, $taxonomy) {
 		global $typenow;
 		// an array of all the taxonomyies you want to display. Use the taxonomy name or slug
-		$taxonomies = array('nsm_program_category');
+		$taxonomies = array($taxonomy);
 		// must set this to the post type you want the filter(s) displayed on
-		if($typenow == 'nsm_program') :
+		if($typenow == $cpt) :
 			foreach ($taxonomies as $tax_slug) :
 				$tax_obj = get_taxonomy($tax_slug);
 				$tax_name = $tax_obj->labels->name;
@@ -360,14 +302,18 @@
 					echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
 					echo "<option value=''>Show All $tax_name</option>";
 					foreach ($terms as $term) :
-						echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
+						if (isset($_GET['tax_slug'])) : 
+							if ($_GET[$tax_slug] == $term->slug) :
+								$is_selected = ' selected="selected"' ;
+							endif;
+						else :
+							$is_selected = ""; 
+						endif;
+						echo '<option value='. $term->slug, $is_selected,'>' . $term->name .' (' . $term->count .')</option>'; 
 					endforeach;
 					echo "</select>";
 				endif;
 			endforeach;
 		endif;
-	}//end function nsm_program_cpt_taxonomy_filters
-	
-	/* END NEXT STEP PROGRAMS CPT
-	*********************************************************/
+	}
 ?>

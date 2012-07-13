@@ -4,6 +4,8 @@
 	
 	//Connect to our O*NET database
 	$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
+
+	//$onet = new wpdb('root', '1309jamM@', 'onet', 'localhost');
 	
 	//Grab the current occupation soc code
 	$onetsoc_code = get_post_meta($post->ID, '_nsm_job_soc_code', true);
@@ -19,7 +21,7 @@
                     <?php $content = get_the_content() ;
 					if (!empty($content)) : echo $content ; ?><br /><br />
 					<?php endif ?>
-                    <a href="<?php echo get_post_meta($post->ID, '_nsm_job_onet_link', true) ?>" title="<?php echo $post->post_title ?>" target="_blank">More Information</a> 
+                    <a class="button gray rounded padded" href="<?php echo get_post_meta($post->ID, '_nsm_job_onet_link', true) ?>" title="<?php echo $post->post_title ?>" target="_blank">Learn more about this job</a> 
                     <br /><br />
 					<strong>Number of Jobs in 2008:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_employment_2008', true) ?><br />
 					<strong>Number of Jobs in 2018:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_employment_2018', true) ?><br />
@@ -42,9 +44,12 @@
 						if (count($tasks) > 0) : 
 					?>
                     <br />
-                    <div class='accordion closed'>
-                        <div class='title'>Job Tasks</div>
-                        <div class='content'>
+                    <section class='accordion closed'>
+                        <header>
+                        	<figcaption>Job Tasks</figcaption>
+                        	<figure></figure>
+                        </header>
+                        <article>
                             <ul class="show-bullets">
                             <?php    
                                 foreach ($tasks as $task) :
@@ -52,8 +57,8 @@
                                 endforeach;
                             ?>
                             </ul>
-                        </div>
-                    </div>
+                        </article>
+                    </section>
                     <?php endif ?>
                     
                     <!--
@@ -106,9 +111,12 @@
 						
 						if (count($related_occupations) > 0) : 
 					?>
-                    <div class='accordion closed'>
-                        <div class='title'>Related Jobs</div>
-                        <div class='content'>
+                    <section class='accordion closed'>
+                        <header>
+                        	<figcaption>Related Jobs</figcaption>
+                        	<figure></figure>
+                       	</header>
+                        <article>
                             <ul class="show-bullets">
                             <?php  
 								$show_annotation = false;
@@ -148,8 +156,8 @@
                             <br />
                             <em><span class="annotation">*</span> The related job mentioned is not listed as 'In-Demand' or 'High-growth' in Maine.</em>
                             <?php endif ?>
-                        </div>
-                    </div>
+                        </article>
+                    </section>
                     <?php endif ?>
                 <?php endwhile ?>
             <?php endif ?>

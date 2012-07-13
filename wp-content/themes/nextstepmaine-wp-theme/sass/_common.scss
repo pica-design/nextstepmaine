@@ -1,3 +1,5 @@
+
+
 .clear {
 	clear: both ;
 }
@@ -80,3 +82,65 @@
 .annotation {
 	color: $medium-blue ;
 }
+
+section.accordion {
+	margin: 10px 0 10px 0 ;
+	
+	header {
+		
+		overflow: auto ;
+		margin-bottom: 10px ;
+		cursor: pointer ;
+	    background-color: $light-gray ;
+		@include single-transition(all, 0.2s, linear) ;
+
+		figcaption {
+			float: left ;
+			display: block ;
+			padding: 9px 15px 9px 15px ;
+			font: normal normal normal 1.05em/1.0em 'AvenirBlack' ;
+			letter-spacing: 0.1em ;
+			color: rgb(255,255,255) ;
+		}
+
+		figure {
+			float: right ;
+			width: 30px ; height: 32px ;
+			border-left: 4px solid $white ;
+			@include layout-sprite(down-arrow);
+		}
+
+		&:hover {
+			background-color: $lighter-than-medium-gray ;
+		}
+	}
+	article {
+		width: 545px ;
+		font-size: 0.9em ;
+	}
+	&.open header {
+		background-color: $medium-gray ;
+
+		figure {
+			@include layout-sprite(up-arrow);
+		}
+	}
+	&.closed article {
+		display: none ;
+	}
+} /* accordian */
+
+.back-to-top {
+	position: fixed ;
+	bottom: 200px ;
+	right: 0px ;
+	width: 49px ;
+	height: 43px ;
+	color: rgb(255,255,255) ;
+	display: none ;
+	cursor: pointer ;
+	@include layout-sprite(back-to-top-arrow) ;
+}
+	.back-to-top.active {
+		display: block ;
+	}

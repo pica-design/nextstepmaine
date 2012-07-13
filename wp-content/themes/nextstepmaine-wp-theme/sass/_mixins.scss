@@ -72,11 +72,5 @@
 }
 
 @mixin darkest-gray-gradient {
-	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
-	background-color: $medium-gray; /* Fallback */
-	@include filter-gradient($medium-gray, $dark-gray, vertical);  /*IE6-8 */
-	
-	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-	$experimental-support-for-svg: true;
-	@include background-image(linear-gradient(top, $medium-gray 0%, $dark-gray 100%));
+	@include background-image(linear-gradient(bottom, $medium-gray, $dark-gray)) ;
 }

@@ -23,6 +23,10 @@
 				endwhile;
 			?>
 			<?php
+				$high_school_active = "";
+				$associate_active = "";
+				$bachelor_active  = "";
+				$all_jobs_active = "";
         		switch ($education_requirement) : 
         			case 'high-school' : $high_school_active = "active" ; break;
         			case 'associate' : $associate_active = "active" ; break;
@@ -30,11 +34,12 @@
         			default: $all_jobs_active = "active" ; break;
         		endswitch ;
 			?>
+			<div class="back-to-top"></div>
             <div class="filter-options">
 	            <div class="title">View by education requirement:</div>
 	            <div class="button gray inline padded rounded <?php echo $all_jobs_active ?>"><a href="<?php echo get_permalink($post->ID) ?>" title="All Jobs">All</a></div>
 	            <div class="button gray inline padded rounded <?php echo $high_school_active ?>"><a href="<?php echo get_permalink($post->ID) ?>high-school" title="High School Only Jobs">High School Diploma</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>associate" title="Associate Degree Only Jobs">Associate Degress</a></div>
+	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>associate" title="Associate Degree Only Jobs">Associate Degree</a></div>
 	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>"><a href="<?php echo get_permalink($post->ID) ?>bachelor" title="Bachelor Degree Only Programs">Bachelor Degree</a></div>
         	</div>
             <table cellpadding="0" cellspacing="0" border="0" class="tablesorter jobs">
@@ -93,6 +98,7 @@
 			</table>
 			<br /><br />
             <em>Data obtained from the <a href="http://www.maine.gov/labor/cwri/data/oes/hwid.html" title="Maine Department of Labor" target="_blank">Maine Department of Labor</a> and <a href="http://www.onetcenter.org/" title="O*NET Resoruce Center" target="_blank">O*NET</a></em>
+            <br /><br />
         </div>
         <!--
         <div class="aside vertical">

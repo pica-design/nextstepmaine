@@ -3,13 +3,13 @@
 // These items do not print to the rendered .css files
 
 //---------------------------
-//	SASS MIXINS
-//---------------------------
-@import 'mixins' ;
-//---------------------------
 //	COMPASS CORE
 //---------------------------
 @import 'compass';
+//---------------------------
+//	SASS MIXINS
+//---------------------------
+@import 'mixins' ;
 //---------------------------
 //	SASS VARIABLES
 //---------------------------
@@ -25,6 +25,15 @@
 	FONTS
 ***********************************************/	
 @import 'fonts';
+
+
+/* Generate our sprite image with Compass */
+$layout-layout: vertical ;
+@import "layout/*.png";
+
+/* Generate our sprite image with Compass */
+$browser-icons-layout: vertical ;
+@import "content/browser-icons/*.png";
 
 /**********************************************
 	HTML DECLARATIONS 

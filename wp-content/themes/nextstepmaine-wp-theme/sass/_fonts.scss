@@ -39,3 +39,13 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'HelveticaCondensed';
+    src: url('../fonts/HelveticaLTStd-Cond.eot');
+    src: url('../fonts/HelveticaLTStd-Cond.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/HelveticaLTStd-Cond.woff') format('woff'),
+         url('../fonts/HelveticaLTStd-Cond.ttf') format('truetype'),
+         url('../fonts/HelveticaLTStd-Cond.svg#HelveticaCondensed') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

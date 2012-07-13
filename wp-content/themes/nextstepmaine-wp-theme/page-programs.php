@@ -14,16 +14,21 @@
         		<?php the_content() ?>
             <?php endwhile ?>
         	<?php 
-            	//if (!empty($program_type)) : 
-            		switch ($program_type) : 
-            			case 'associate' : $associate_active = "active" ; break;
-            			case 'bachelor' : $bachelor_active = "active" ; break;
-            			case 'master' : $master_active = "active" ; break;
-            			case 'certificate' : $certificate_active = "active" ; break;
-            			default : $all_programs_active = "active" ; break;
-            		endswitch ;
-            	//endif ;
+        		$associate_active  = "";
+        		$bachelor_active = "";
+        		$master_active = "";
+        		$certificate_active  = "";
+        		$all_programs_active = "";
+
+        		switch ($program_type) : 
+        			case 'associate' : $associate_active = "active" ; break;
+        			case 'bachelor' : $bachelor_active = "active" ; break;
+        			case 'master' : $master_active = "active" ; break;
+        			case 'certificate' : $certificate_active = "active" ; break;
+        			default : $all_programs_active = "active" ; break;
+        		endswitch ;
         	?>
+        	<div class="back-to-top"></div>
         	<div class="filter-options">
         		<div class="title">View: </div>
         		<div class="button gray inline padded rounded <?php echo $all_programs_active ?>"><a href="<?php echo get_permalink($post->ID) ?>" title="All Programs">All</a></div>
@@ -86,13 +91,18 @@
                         <td>
                         	<?php
 								// Find connected pages
+                        		$previous_post = $post;
 								$institution = p2p_type( 'Program Institution' )->get_connected( $post );
-								
 								while ( $institution->have_posts() ) : $institution->the_post(); 
-									
 									the_title();
-									
 								endwhile; wp_reset_postdata(); 
+								$post = $previous_post;
+								
+								$location = get_post_meta($post->ID, '_nsm_program_location', true);
+
+								if (strtolower($location) != 'n/a') : 
+									echo " - " . $location ;
+								endif;
 							?>
                         </td>
                     </tr>

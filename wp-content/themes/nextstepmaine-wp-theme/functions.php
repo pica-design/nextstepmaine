@@ -31,27 +31,13 @@
 	function disable_stuff( $data ) { return false; }
 	
 	
-	//THIS SHOULD ONLY BE ON THE STEP PAGES?!
-		//Would rather sort out why autop is messing up my shortcodes
-	//remove_filter( 'the_content', 'wpautop' );
-	
-	//add_filter('the_content', 'remove_empty_p', 20, 1);
-	
-	function remove_empty_p($content){
-
-	    // clean up p tags around divs
-	    $content = str_replace(array('<p><div', '</div></p>'), array('<div', '</div>'), $content);
-	    $content = force_balance_tags($content);
-	    return preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
-	}
-	
 	/************************
 			SETUP
 	************************/
 	add_action( 'init', 'nextstepmaine_theme_setup' );
 		
 		//Adding thumbnail images into Posts
-		add_theme_support( 'post-thumbnails', array('post', 'page'));
+		add_theme_support( 'post-thumbnails', array('nsm_institution'));
 		
 		//Additional attachment dimensions
 		add_image_size('slideshow', 800, 287, true);
@@ -178,10 +164,13 @@
 	************************/
 	add_shortcode('accordion', 'generate_accordion_content');
 	function generate_accordion_content ($atts, $content) {
-		$html_str  = "<div class='accordion closed'>";
-		$html_str .= "<div class='title'>{$atts['title']}</div>";
-		$html_str .= "<div class='content'>$content</div>";
-		$html_str .= "</div>";
+		$html_str  = "<section class='accordion closed'>";
+		$html_str .= "	<header>";
+		$html_str .= "		<figcaption>{$atts['title']}</figcaption>";
+		$html_str .= "		<figure></figure>";
+		$html_str .= "	</header>";
+		$html_str .= "	<article>$content</article>";
+		$html_str .= "</section>";
 		return $html_str;
 	}
 

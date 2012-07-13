@@ -1,11 +1,3 @@
-/* Generate our sprite image with Compass */
-$layout-layout: vertical ;
-@import "layout/*.png";
-
-/* Generate our sprite image with Compass */
-$browser-icons-layout: vertical ;
-@import "content/browser-icons/*.png";
-
 section.website-wrapper {
 	background-color: $white ;
 	position: relative ;
@@ -293,29 +285,6 @@ section.website-wrapper {
 				}
 			} /* ul */
 			
-			.accordion {
-				margin: 10px 0 10px 0 ;
-				
-				.title {
-					cursor: pointer ;
-					background-color: $light-gray ;
-					padding: 9px 15px 9px 15px ;
-					margin-bottom: 10px ;
-					font: normal normal normal 1.05em/1.0em 'AvenirBlack' ;
-					letter-spacing: 0.1em ;
-					color: rgb(255,255,255) ;
-				}
-					&.open .title {
-						@include dark-gray-gradient ;
-					}
-				.content {
-					width: 545px ;
-					font-size: 0.9em ;
-				}
-				&.closed .content {
-					display: none ;
-				}
-			} /* accordian */
 			.institution-image {
 				max-height: 100px ;
 				float: left ;

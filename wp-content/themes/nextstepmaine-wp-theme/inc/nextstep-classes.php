@@ -99,7 +99,7 @@
 								endif;
 							?>
 						</span></li>
-						<?
+						<?php
 					endif;
 				endif;
 				
@@ -110,8 +110,17 @@
 						<li class="first"><a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">Home</a></li>
 						<li><a href="<?php bloginfo('url') ?>/jobs" title="Institutions in Maine">Institutions</a></li>
 						<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
-						<?
+						<?php
 					endif;
+				endif;
+
+
+				if ($post->post_type == "nsm_program") : 
+					?>
+						<li class="first"><a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">Home</a></li>
+						<li><a href="<?php bloginfo('url') ?>/programs" title="Programs in Maine">Programs</a></li>
+						<li class="last"><span class="current-post"><?php echo $post->post_title ?></span></li>
+					<?php
 				endif;
 			?>
             </ul>
