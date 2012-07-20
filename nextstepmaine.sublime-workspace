@@ -32,18 +32,34 @@
 	"buffers":
 	[
 		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
 			"settings":
 			{
-				"buffer_size": 14666,
+				"buffer_size": 2146,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
 			"settings":
 			{
-				"buffer_size": 1240,
+				"buffer_size": 4575,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
+			"settings":
+			{
+				"buffer_size": 15271,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
+			"settings":
+			{
+				"buffer_size": 609,
 				"line_ending": "Unix"
 			}
 		},
@@ -51,15 +67,23 @@
 			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
 			"settings":
 			{
-				"buffer_size": 1351,
+				"buffer_size": 2718,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/stylesheets/style.css",
 			"settings":
 			{
-				"buffer_size": 4865,
+				"buffer_size": 63248,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/functions.php",
+			"settings":
+			{
+				"buffer_size": 7824,
 				"line_ending": "Unix"
 			}
 		},
@@ -67,24 +91,23 @@
 			"file": "wp-content/themes/nextstepmaine-wp-theme/header.php",
 			"settings":
 			{
-				"buffer_size": 5040,
+				"buffer_size": 5257,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_formidable.scss",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/footer.php",
 			"settings":
 			{
-				"buffer_size": 6918,
-				"line_ending": "Unix",
-				"name": ".with_frm_style label{font-size:12px;float:none;te"
+				"buffer_size": 5178,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
 			"settings":
 			{
-				"buffer_size": 1517,
+				"buffer_size": 35860,
 				"line_ending": "Unix"
 			}
 		}
@@ -129,27 +152,32 @@
 	},
 	"file_history":
 	[
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/style.css",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/style.css",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_formidable.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/images/layout-s401003e54c.png",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-widgets.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/template-step-page.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/config.rb",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/editor.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-config.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.min.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter.min.js",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter/jquery.tablesorter.js",
@@ -160,7 +188,6 @@
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/start-college.html",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/change-career-html",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-includes/functions.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_editor.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_selection.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_normalize.scss",
@@ -183,7 +210,7 @@
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 54.0
 	},
 	"find_in_files":
 	{
@@ -220,52 +247,50 @@
 	"groups":
 	[
 		{
-			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
 					"settings":
 					{
-						"buffer_size": 14666,
+						"buffer_size": 2146,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5980,
-								5983
+								1108,
+								1108
 							]
 						],
 						"settings":
 						{
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/SCSS/SCSS.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/SCSS/SCSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1471.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
 					"settings":
 					{
-						"buffer_size": 1240,
+						"buffer_size": 4575,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								412,
-								412
+								0,
+								0
 							]
 						],
 						"settings":
@@ -283,18 +308,18 @@
 				},
 				{
 					"buffer": 2,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
 					"settings":
 					{
-						"buffer_size": 1351,
+						"buffer_size": 15271,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								616,
-								616
+								3615,
+								3615
 							]
 						],
 						"settings":
@@ -305,32 +330,32 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 2543.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
 					"settings":
 					{
-						"buffer_size": 4865,
+						"buffer_size": 609,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								714,
-								714
+								257,
+								257
 							]
 						],
 						"settings":
 						{
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/SCSS/SCSS.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -340,18 +365,106 @@
 				},
 				{
 					"buffer": 4,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/header.php",
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
 					"settings":
 					{
-						"buffer_size": 5040,
+						"buffer_size": 2718,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2601,
-								2601
+								1520,
+								1567
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1090.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/stylesheets/style.css",
+					"settings":
+					{
+						"buffer_size": 63248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8405.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/functions.php",
+					"settings":
+					{
+						"buffer_size": 7824,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5410,
+								5410
+							]
+						],
+						"settings":
+						{
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1783.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/header.php",
+					"settings":
+					{
+						"buffer_size": 5257,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1037,
+								1037
 							]
 						],
 						"settings":
@@ -362,65 +475,66 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 56.0,
-						"translation.y": 8.0,
+						"translation.x": 0.0,
+						"translation.y": 315.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_formidable.scss",
+					"buffer": 8,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/footer.php",
 					"settings":
 					{
-						"buffer_size": 6918,
+						"buffer_size": 5178,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6918,
-								6918
+								5052,
+								4957
 							]
 						],
 						"settings":
 						{
-							"auto_name": ".with_frm_style label{font-size:12px;float:none;te",
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/SCSS/SCSS.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 328.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
+					"buffer": 9,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
 					"settings":
 					{
-						"buffer_size": 1517,
+						"buffer_size": 35860,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1514,
-								1514
+								29652,
+								29652
 							]
 						],
 						"settings":
 						{
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/SCSS/SCSS.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1612.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

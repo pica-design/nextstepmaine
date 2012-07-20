@@ -62,6 +62,7 @@
                 <article class="website-slogan">opportunities for the<br /> non-traditional student</article>
                 <section class="website-controls">
                     <div class="website-quick-links"><?php wp_nav_menu(array('menu' => 'Quick Menu', 'container' => '')) ?></div>
+                    <div class="clear"></div>
                     <div class="website-search"><?php get_search_form(); ?></div>
                 </section>
             </section><!-- .masthead -->

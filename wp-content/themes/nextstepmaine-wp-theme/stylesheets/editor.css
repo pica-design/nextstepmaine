@@ -83,7 +83,7 @@ html {
     html body h2 {
       font: normal normal normal 1.6em/1em "AvenirBlack";
       color: #5f6062;
-      text-transform: uppercase; }
+      /*text-transform: uppercase ;*/ }
     html body a {
       font: inherit;
       color: inherit;

@@ -26,12 +26,16 @@
 ***********************************************/	
 @import 'fonts';
 
-
-/* Generate our sprite image with Compass */
+/**********************************************
+	IMAGE SPRITES
+***********************************************/
+//The layout sprite is created with a reference to $layout-sprite, 
+//so we can have more control with it, like calling the image with coordinates in a single declaration
+//This is mostly so we can use sprite images in background() for laying backgrounds, like gradients + images
 $layout-layout: vertical ;
-@import "layout/*.png";
+$layout-sprite: sprite-map("layout/*.png") ;
 
-/* Generate our sprite image with Compass */
+//The browser icon sprite does not require so much control so we'll use the simple method
 $browser-icons-layout: vertical ;
 @import "content/browser-icons/*.png";
 

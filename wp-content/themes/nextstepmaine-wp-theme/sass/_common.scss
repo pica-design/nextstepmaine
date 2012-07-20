@@ -32,7 +32,7 @@
 				a { color: $darkest-gray ; }
 			}
 			&.active.gray.gradient {
-				@include dark-gray-gradient ;
+				@include darkest-gray-gradient ;
 			} 
 	
 
@@ -87,7 +87,6 @@ section.accordion {
 	margin: 10px 0 10px 0 ;
 	
 	header {
-		
 		overflow: auto ;
 		margin-bottom: 10px ;
 		cursor: pointer ;
@@ -102,14 +101,14 @@ section.accordion {
 			letter-spacing: 0.1em ;
 			color: rgb(255,255,255) ;
 		}
-
 		figure {
+			position: relative ;
 			float: right ;
-			width: 30px ; height: 32px ;
+			width: 30px ; min-height: 100% ;
 			border-left: 4px solid $white ;
-			@include layout-sprite(down-arrow);
+			
+			@include background(sprite($layout-sprite, down-arrow) no-repeat, $gray-gradient);
 		}
-
 		&:hover {
 			background-color: $lighter-than-medium-gray ;
 		}
@@ -122,7 +121,7 @@ section.accordion {
 		background-color: $medium-gray ;
 
 		figure {
-			@include layout-sprite(up-arrow);
+			@include background(sprite($layout-sprite, up-arrow) no-repeat, $darkest-gray-gradient);
 		}
 	}
 	&.closed article {
@@ -146,7 +145,7 @@ section.accordion {
 		width: 33px ;
 		height: 19px ;
 		margin: 13px auto 0 auto ;
-		@include layout-sprite(up-arrow-big) ;
+		background: sprite($layout-sprite, up-arrow-big) ;
 	}
 }
 	.back-to-top.active {

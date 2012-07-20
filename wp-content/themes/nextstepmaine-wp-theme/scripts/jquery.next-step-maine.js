@@ -55,7 +55,6 @@
 	//Scroll to an element
 	$.fn.scrollHere = function (adjustment) {
 		var offset = $(this).offset().top;
-		console.log(offset)
 		$('html, body').animate({scrollTop:offset + adjustment}, 500);
 	}
 

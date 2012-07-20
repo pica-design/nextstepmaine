@@ -1,3 +1,5 @@
+@import 'colors'; 
+
 @mixin centered {
 	width: 800px ;
 	margin: 0 auto 0 auto ;
@@ -11,6 +13,8 @@
 	cursor: pointer ;
 }
 
+//-----------------------------------------------
+//LIGHT BLUE GRADIENT: lightest blue -> medium blue
 @mixin light-blue-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $dark-blue; /* Fallback */
@@ -20,7 +24,10 @@
 	$experimental-support-for-svg: true;
 	@include background-image(linear-gradient(top, $lightest-blue 0%, $medium-blue 100%));
 }
+$light-blue-gradient: linear-gradient(top, $lightest-blue 0%, $medium-blue 100%) ;
 
+//-----------------------------------------------
+//BLUE GRADIENT: light blue -> dark blue
 @mixin blue-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $dark-blue; /* Fallback */
@@ -30,7 +37,11 @@
 	$experimental-support-for-svg: true;
 	@include background-image(linear-gradient(top, $light-blue 0%, $dark-blue 100%));
 }
+$blue-gradient: linear-gradient(top, $light-blue 0%, $dark-blue 100%) ;
 
+
+//-----------------------------------------------
+//DARK BLUE GRADIENT: medium blue -> dark blue;
 @mixin dark-blue-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $dark-blue; /* Fallback */
@@ -40,27 +51,39 @@
 	$experimental-support-for-svg: true;
 	@include background-image(linear-gradient(top, $medium-blue 0%, $dark-blue 100%));
 }
+$dark-blue-gradient: linear-gradient(top, $medium-blue 0%, $dark-blue 100%) ;
 
+
+//-----------------------------------------------
+//LIGHT GRAY GRADIENT: light gray -> lightest gray;
 @mixin light-gray-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
-	background-color: $medium-gray; /* Fallback */
-	@include filter-gradient($light-gray, $lightest-gray, vertical);  /*IE6-8 */
+	background-color: $light-gray; /* Fallback */
+	@include filter-gradient($lightest-gray, $light-gray, vertical);  /*IE6-8 */
 	
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	$experimental-support-for-svg: true;
-	@include background-image(linear-gradient(top, $light-gray 0%, $lightest-gray 100%));
+	@include background-image(linear-gradient(top, $lightest-gray 0%, $light-gray 100%));
 }
+$light-gray-gradient: linear-gradient(top, $lightest-gray 0%, $light-gray 100%);
 
+
+//-----------------------------------------------
+//GRAY GRADIENT: light gray -> lighter than medium gray;
 @mixin gray-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $medium-gray; /* Fallback */
-	@include filter-gradient($lightest-gray, $medium-gray, vertical);  /*IE6-8 */
+	@include filter-gradient($light-gray, $medium-gray, vertical);  /*IE6-8 */
 	
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	$experimental-support-for-svg: true;
-	@include background-image(linear-gradient(top, $lightest-gray 0%, $medium-gray 100%));
+	@include background-image(linear-gradient(top, $light-gray 0%, $medium-gray 100%)) ;
 }
+$gray-gradient: linear-gradient(top, $light-gray 0%, $medium-gray 100%);
 
+
+//-----------------------------------------------
+//DARK GRAY GRADIENT: lighter than medium gray -> medium gray;
 @mixin dark-gray-gradient {
 	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
 	background-color: $medium-gray; /* Fallback */
@@ -68,9 +91,20 @@
 	
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	$experimental-support-for-svg: true;
-	@include background-image(linear-gradient(top, $lighter-than-medium-gray 0%, $medium-gray 100%));
+	@include background-image(linear-gradient(top, $lighter-than-medium-gray 0%, $medium-gray 100%)) ;
 }
+$dark-gray-gradient: linear-gradient(top, $lighter-than-medium-gray 0%, $medium-gray 100%);
 
+
+//-----------------------------------------------
+//DARKEST GRAY GRADIENT: medium gray -> dark gray;
 @mixin darkest-gray-gradient {
-	@include background-image(linear-gradient(bottom, $medium-gray, $dark-gray)) ;
+	/* The following requires the latest Compass, add '@import "compass"' the top of this file */
+	background-color: $dark-gray; /* Fallback */
+	@include filter-gradient($medium-gray, $dark-gray, vertical);  /*IE6-8 */
+	
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	$experimental-support-for-svg: true;
+	@include background-image(linear-gradient(top, $medium-gray 0%, $dark-gray 100%)) ;
 }
+$darkest-gray-gradient: linear-gradient(top, $medium-gray 0%, $dark-gray 100%) ;

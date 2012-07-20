@@ -101,7 +101,7 @@ section.website-wrapper {
 			//Bring in our default for the slideshow nav item
 			@include slideshow-nav-item ;
 			//Using our compass-generated sprite, output the background image coordinates
-			@include layout-sprite(slideshow-prev);
+			background: sprite($layout-sprite, slideshow-prev) ;
 			margin-right: 10px ;
 		}
 		
@@ -122,7 +122,7 @@ section.website-wrapper {
 			//Bring in our default for the slideshow nav item
 			@include slideshow-nav-item ;
 			//Using our compass-generated sprite, output the background image coordinates
-			@include layout-sprite(slideshow-next);
+			background: sprite($layout-sprite, slideshow-next) ;
 			margin-left: 10px ;
 		}
 	} /* .slideshow */
@@ -159,7 +159,7 @@ section.website-wrapper {
 			li.backLava {
 				top: 0px !important ;
 				z-index: 1 ;
-				@include layout-sprite(lava-lamp-menu-arrow);
+				background: sprite($layout-sprite, lava-lamp-menu-arrow) ;
 			}
 			ul {
 				margin: 0 ;
@@ -291,16 +291,16 @@ section.website-wrapper {
 				overflow: auto ;
 				padding: 0 ; margin: 0 0 20px 0 ;
 				height: 80px ;
+				
 				li {
-					width: 135px ;
+					width: 138px ;
 					height: 60px ;
 					list-style: none ;
 					float: left ;
 					margin: 0 10px 0 0 ;
 					padding: 0 ;
 					text-align: center ;
-					display: inline-block ;
-					vertical-align: middle;
+					
 
 					@include single-transition(all, 0.2s, linear) ;
 					@include blue-gradient ;
@@ -322,10 +322,14 @@ section.website-wrapper {
 					}
 
 					a {
+						position: relative ;
+						display: inline-block ;
+						vertical-align: middle;
 						color: $white ;
-						margin: 0 ; padding: 5px 10px 10px 10px ;
+						margin: 0 ; 
+						padding: 0 10px 0 10px ;
 						
-						@extend .link-fill-container ;
+						//@extend .link-fill-container ;
 					}
 				}
 			}
@@ -482,10 +486,10 @@ section.website-wrapper {
 							height: 34px;
 							width: 30px;
 							z-index: 20 ;
-							@include layout-sprite(dropdown-arrow-inactive);
+							background: sprite($layout-sprite, dropdown-arrow-inactive) ;
 
 							&.sbToggleOpen {
-								@include layout-sprite(dropdown-arrow-active);
+								background: sprite($layout-sprite, dropdown-arrow-active) ;
 							}
 						}
 
@@ -620,19 +624,19 @@ section.website-wrapper {
 							&.email {
 								width: 21px ;
 								margin-left: 10px ;
-								@include layout-sprite(email-icon);
+								background: sprite($layout-sprite, email-icon) ;
 							}
 							&.twitter {
 								width: 20px ;
 								margin-left: 13px ;
 								margin-right: 13px ;
-								@include layout-sprite(twitter-bird-icon);
+								background: sprite($layout-sprite, twitter-bird-icon) ;
 							}
 							&.facebook {
 								width: 17px ;
 								//Display our own FB Icon - pulled from the FB Brand Standards so it's still compliant 
-								@include layout-sprite(facebook-f-icon);
-								
+								background: sprite($layout-sprite, facebook-f-icon) ;
+
 								//Hide the default FB Icon - it's ugly and too small
 								.FBConnectButton_Simple {
 									background-image: none !important ;
@@ -719,7 +723,7 @@ section.website-wrapper {
 						float: right ;
 						width: 20px ;
 						height: 20px ;
-						@include layout-sprite(pica-mark-small);
+						background: sprite($layout-sprite, pica-mark-small) ;
 						@include opacity(0.5) ;
 						@include single-transition(all, 0.2s, linear) ;
 						

@@ -45,9 +45,7 @@
                         	<img src="<?php bloginfo('template_directory') ?>/images/content/mdf-logo.jpg" alt="Maine Development Foundation Logo" />
                         </a>
                     </section>
-                   	
                     <div class="clear"></div>
-                    
                     <section class="row copyright">
                     	<figure class="pica">
                         	<a href="http://www.picadesign.com" title="Crafted by Pica Design + Marketing" class="link-fill-container" target="_blank"></a>

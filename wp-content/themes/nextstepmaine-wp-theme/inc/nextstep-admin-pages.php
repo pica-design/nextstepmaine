@@ -157,16 +157,19 @@
 						/*
 						Array
 						(
-							[0] => Institution Name
-							[1] => Title IV School Code
-							[2] => Institution Website URL
-							[3] => Institution Logo URL
-							[4] => Institution Physical Address
-							[5] => Institution Phone Number
-							[6] => Financial Aid Contact
-							[7] => Admissions Contact
-							[8] => Category
-							[9] => Description
+						    [0] => Institution Name
+						    [1] => Title IV School Code
+						    [2] => Institution Website URL
+						    [3] => Institution Logo URL
+						    [4] => Institution Physical Address
+						    [5] => Institution Phone Number
+						    [6] => Financial Aid Phone
+						    [7] => Financial Aid Email
+						    [8] => Financial Aid Website
+						    [9] => Admissions Contact Phone
+						    [10] => Admissions Contact Email
+						    [11] => Category
+						    [12] => Description
 						)
 						*/
 						
@@ -175,12 +178,11 @@
 							'post_type'	  => 'nsm_institution',
 							'post_status' => 'publish',
 							'post_title'  => $row[0],
-							'post_content' => $row[9]
+							'post_content' => $row[12]
 						));	
 						
 						//Add the category term to the post
-						wp_set_object_terms($post_id, $row[8], 'nsm_institution_category');
-							
+						wp_set_object_terms($post_id, $row[11], 'nsm_institution_category');
 							
 						//Add the remaining data as post meta
 						update_post_meta($post_id, '_nsm_institution_title_iv_code', $row[1]);
@@ -188,8 +190,11 @@
 						update_post_meta($post_id, '_nsm_institution_logo', $row[3]);
 						update_post_meta($post_id, '_nsm_institution_address', $row[4]);
 						update_post_meta($post_id, '_nsm_institution_phone', $row[5]);
-						update_post_meta($post_id, '_nsm_institution_finaid_contact', $row[6]);
-						update_post_meta($post_id, '_nsm_institution_admission_contact', $row[7]);
+						update_post_meta($post_id, '_nsm_institution_finaid_phone', $row[6]);
+						update_post_meta($post_id, '_nsm_institution_finaid_email', $row[7]);
+						update_post_meta($post_id, '_nsm_institution_finaid_website', $row[8]);
+						update_post_meta($post_id, '_nsm_institution_admission_phone', $row[9]);
+						update_post_meta($post_id, '_nsm_institution_admission_email', $row[10]);
 						
 					endif;
 					
@@ -256,18 +261,20 @@
 					/*
 					Array
 					(
-						[0] => Institution Name
-						[1] => Title IV School Code
-						[2] => Program Title
-						[3] => Program Type
-						[4] => Program Format 
-						[5] => Location
-						[6] => Schedule (if possible)
-						[7] => Program URL
-						[8] => Avg Timeframe to Complete
-						[9] => Avg Cost
-						[10] => Program Category 
-						[11] => Program Description
+					    [0] => Institution Name
+					    [1] => Title IV School Code
+					    [2] => Program Title
+					    [3] => Program Type
+					    [4] => Discipline
+					    [5] => Program Level
+					    [6] => Program Format 
+					    [7] => Location
+					    [8] => Schedule (if possible)
+					    [9] => Program URL
+					    [10] => Avg Timeframe to Complete in Hours
+					    [11] => Avg Cost Per Credit Hour
+					    [12] => Program Category 
+					    [13] => Program Description
 					)
 					*/
 					
@@ -280,11 +287,14 @@
 								'post_type'	  => 'nsm_program',
 								'post_status' => 'publish',
 								'post_title'  => $row[2],
-								'post_content' => $row[11]
+								'post_content' => $row[13]
 							));	
 							
-							//Add the category term to the post
-							wp_set_object_terms($post_id, $row[10], 'nsm_program_category');
+							//Add the category terms to the post
+							$terms = explode(',', $row[12]);
+							foreach ($terms as $term) :
+								wp_set_object_terms($post_id, $term, 'nsm_program_category');
+							endforeach;
 								
 							//Add the category term to the post
 							//wp_set_object_terms($post_id, $row[0], 'nsm_program_institution');
@@ -292,12 +302,14 @@
 							//Add the remaining data as post meta
 							update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
 							update_post_meta($post_id, '_nsm_program_type', $row[3]);
-							update_post_meta($post_id, '_nsm_program_format', $row[4]);
-							update_post_meta($post_id, '_nsm_program_location', $row[5]);
-							update_post_meta($post_id, '_nsm_program_schedule', $row[6]);
-							update_post_meta($post_id, '_nsm_program_url', $row[7]);
-							update_post_meta($post_id, '_nsm_program_timeframe', $row[8]);
-							update_post_meta($post_id, '_nsm_program_cost', $row[9]);
+							update_post_meta($post_id, '_nsm_program_discipline', $row[4]);
+							update_post_meta($post_id, '_nsm_program_level', $row[5]);
+							update_post_meta($post_id, '_nsm_program_format', $row[6]);
+							update_post_meta($post_id, '_nsm_program_location', $row[7]);
+							update_post_meta($post_id, '_nsm_program_schedule', $row[8]);
+							update_post_meta($post_id, '_nsm_program_url', $row[9]);
+							update_post_meta($post_id, '_nsm_program_timeframe', $row[10]);
+							update_post_meta($post_id, '_nsm_program_cost', $row[11]);
 							
 							//Select the institution that this program belongs to based on the Title IV Code
 							$institution = new WP_Query(array(
