@@ -104,7 +104,7 @@ section.accordion {
 		figure {
 			position: relative ;
 			float: right ;
-			width: 30px ; min-height: 100% ;
+			width: 30px ; height: 32px ;
 			border-left: 4px solid $white ;
 			
 			@include background(sprite($layout-sprite, down-arrow) no-repeat, $gray-gradient);
@@ -128,6 +128,56 @@ section.accordion {
 		display: none ;
 	}
 } /* accordian */
+
+
+section.accordion-tall {
+	margin: 10px 0 10px 0 ;
+	
+	header {
+		overflow: auto ;
+		margin-bottom: 10px ;
+		cursor: pointer ;
+	    background-color: $light-gray ;
+		@include single-transition(all, 0.2s, linear) ;
+
+		figcaption {
+			float: left ;
+			display: block ;
+			padding: 9px 15px 9px 15px ;
+			font: normal normal normal 1.05em/1.0em 'AvenirBlack' ;
+			letter-spacing: 0.1em ;
+			color: rgb(255,255,255) ;
+		}
+		figure {
+			position: relative ;
+			float: right ;
+			width: 30px ; height: 32px ;
+			border-left: 4px solid $white ;
+			
+			@include background(sprite($layout-sprite, down-arrow) no-repeat, $gray-gradient);
+		}
+		&:hover {
+			background-color: $lighter-than-medium-gray ;
+		}
+	}
+	article {
+		width: 545px ;
+		font-size: 0.9em ;
+	}
+	&.open header {
+		background-color: $medium-gray ;
+
+		figure {
+			@include background(sprite($layout-sprite, up-arrow) no-repeat, $darkest-gray-gradient);
+		}
+	}
+	&.closed article {
+		display: none ;
+	}
+} /* accordian */
+
+
+
 
 /* Back to Top Elements */
 .back-to-top {

@@ -32,7 +32,7 @@
                     <strong>Format:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_format', true) ?><br />
                     <strong>Location:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_location', true) ?><br />
                     <strong>Schedule:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_schedule', true) ?><br />
-                    <strong>Url:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_schedule', true) ?><br />
+                    <strong>Url:</strong> <a href="<?php echo get_post_meta($post->ID, '_nsm_program_url', true) ?>" title="<?php the_title() ?>" target="_blank"><?php echo get_post_meta($post->ID, '_nsm_program_url', true) ?></a><br />
                     <strong>Timeframe:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_timeframe', true) ?><br />
                     <strong>Cost:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_cost', true) ?><br />
                     <br />

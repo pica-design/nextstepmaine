@@ -10,6 +10,7 @@
             <?php endif ?>
 
             <br />
+
             <?php
 
                 $terms = get_terms('nsm_faq_category');
@@ -21,7 +22,7 @@
                     <h3><?php echo $term->name ?></h3>
                     <?php while ($faqs->have_posts()) : $faqs->the_post() ?>
                         
-                        <section class='accordion closed'>
+                        <section class='accordion-tall closed'>
                             <header>
                                 <figcaption><?php the_title() ?></figcaption>
                                 <figure></figure>

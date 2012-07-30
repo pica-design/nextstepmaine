@@ -744,6 +744,57 @@ section.accordion {
     display: none; }
 
 /* accordian */
+section.accordion-tall {
+  margin: 10px 0 10px 0; }
+  section.accordion-tall header {
+    overflow: auto;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #cccccc;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear; }
+    section.accordion-tall header figcaption {
+      float: left;
+      display: block;
+      padding: 9px 15px 9px 15px;
+      font: normal normal normal 1.05em/1em "AvenirBlack";
+      letter-spacing: 0.1em;
+      color: white; }
+    section.accordion-tall header figure {
+      position: relative;
+      float: right;
+      width: 30px;
+      height: 32px;
+      border-left: 4px solid white;
+      background: url('../images/layout-s39f2513ef8.png') 0 0 no-repeat, url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2NjY2NjYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+      background: url('../images/layout-s39f2513ef8.png') 0 0 no-repeat, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cccccc), color-stop(100%, #969696));
+      background: url('../images/layout-s39f2513ef8.png') 0 0 no-repeat, -webkit-linear-gradient(top, #cccccc 0%, #969696 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 0 no-repeat, -moz-linear-gradient(top, #cccccc 0%, #969696 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 0 no-repeat, -o-linear-gradient(top, #cccccc 0%, #969696 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 0 no-repeat, -ms-linear-gradient(top, #cccccc 0%, #969696 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 0 no-repeat, linear-gradient(top, #cccccc 0%, #969696 100%); }
+    section.accordion-tall header:hover {
+      background-color: #afafaf; }
+  section.accordion-tall article {
+    width: 545px;
+    font-size: 0.9em; }
+  section.accordion-tall.open header {
+    background-color: #969696; }
+    section.accordion-tall.open header figure {
+      background: url('../images/layout-s39f2513ef8.png') 0 -32px no-repeat, url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzVmNjA2MiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+      background: url('../images/layout-s39f2513ef8.png') 0 -32px no-repeat, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #969696), color-stop(100%, #5f6062));
+      background: url('../images/layout-s39f2513ef8.png') 0 -32px no-repeat, -webkit-linear-gradient(top, #969696 0%, #5f6062 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 -32px no-repeat, -moz-linear-gradient(top, #969696 0%, #5f6062 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 -32px no-repeat, -o-linear-gradient(top, #969696 0%, #5f6062 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 -32px no-repeat, -ms-linear-gradient(top, #969696 0%, #5f6062 100%);
+      background: url('../images/layout-s39f2513ef8.png') 0 -32px no-repeat, linear-gradient(top, #969696 0%, #5f6062 100%); }
+  section.accordion-tall.closed article {
+    display: none; }
+
+/* accordian */
 /* Back to Top Elements */
 .back-to-top {
   position: fixed;
