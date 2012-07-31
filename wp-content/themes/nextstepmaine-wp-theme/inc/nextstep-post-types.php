@@ -307,7 +307,8 @@
 		   ),
 			'public' => true,
 			'hierarchical' => true,
-			'supports' => array('title','editor','thumbnail','gallery')
+			'supports' => array('title','editor','thumbnail','gallery'),
+			'rewrite' => array('slug' => 'faq', 'with_front' => true)
 		)	
 	);
 				

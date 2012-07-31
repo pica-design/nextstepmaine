@@ -7,6 +7,8 @@ get_header();
 
 $search_query = str_replace('"', '', get_search_query());
 $search_query_words = explode(' ', $search_query);
+//We'll use this to track which post type results are being shown for
+$current_cpt = "";
 
 ?>
 
@@ -15,33 +17,33 @@ $search_query_words = explode(' ', $search_query);
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
-					<h3 class="page-title"><?php printf( __( 'Search Results for: %s', 'nextstepmaine' ), '<strong>' . get_search_query() . '</strong>' ); ?></h3>
+					<h3 class="page-title">
+						<?php echo count($wp_query->posts) ?>
+						<?php printf( __( 'Search Results for: %s', 'nextstepmaine' ), '<strong>' . get_search_query() . '</strong>' ); ?>
+					</h3>
 				</header>
 
 				
 				<?php 
+					//Build an array of the number of results per post type
 					$cpt_posts_count = Array();
-					
-					while ( have_posts() ) : the_post();
-						++$cpt_posts_count[$post->post_type];
-					endwhile ;
+					while ( have_posts() ) : the_post(); ++$cpt_posts_count[$post->post_type]; endwhile ;
 				?>
 
-				<?php $current_cpt = "" ?>
+				<?php ?>
 
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php 
+						//Display the current result post type in sections, along with a count; e.g. '5 Maine Educational Programs'
 						if ($post->post_type != $current_cpt) : 
 							$cpt = get_post_type_object($post->post_type); 
 							$current_cpt = $post->post_type;
 					?>
-					
 					<br /><br />
 					<h2 class="search-results-post-type">
 						<?php echo $cpt_posts_count[$post->post_type] ?>
 						<?php echo $cpt->labels->human_friendly ?>
 					</h2>
-
 					<?php endif ?>
 					
 					<div class="search-entry">
@@ -51,6 +53,16 @@ $search_query_words = explode(' ', $search_query);
 									$title = get_the_title();
 									//Wrap the exact query in the post title with a span so we can highlight the relevent query
 									echo ucwords(str_ireplace($search_query, "<span class='query'>$search_query</span>", $title));
+
+									//If the current result is for a program let's also show the program institution
+									if ($post->post_type == 'nsm_program') :
+										// Find connected institutions
+										$institution = p2p_type( 'Program Institution' )->get_connected( $post );
+										while ( $institution->have_posts() ) : $institution->the_post(); 
+											echo " at " . get_the_title($post->ID); 
+										endwhile; 
+										wp_reset_postdata();
+									endif;
 								?>
 		                    </h4>
 		                    <article class="entry-excerpt">

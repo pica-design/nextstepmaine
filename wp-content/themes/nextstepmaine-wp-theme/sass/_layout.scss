@@ -561,7 +561,7 @@ section.website-wrapper {
 		
 		&.search-results {
 			.search-entry {
-				padding: 5px ;
+				padding: 8px ;
 				margin: 10px 0 20px 0 ;
 				@include border-radius(2px,2px);
 				background-color: $off-white ;
@@ -677,8 +677,13 @@ section.website-wrapper {
 								background: sprite($layout-sprite, facebook-f-icon) ;
 
 								//Hide the default FB Icon - it's ugly and too small
+								/*
 								.FBConnectButton_Simple {
 									background-image: none !important ;
+								}
+								*/
+								iframe {
+									opacity: 0 ;
 								}
 							}
 							a {

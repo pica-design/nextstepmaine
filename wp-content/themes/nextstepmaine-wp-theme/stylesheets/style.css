@@ -1313,7 +1313,7 @@ section.content-wrapper {
       section.content-wrapper .aside .widget#jobs-in-demand a {
         font-weight: normal; }
   section.content-wrapper.search-results .search-entry {
-    padding: 5px;
+    padding: 8px;
     margin: 10px 0 20px 0;
     -webkit-border-radius: 2px 2px;
     -moz-border-radius: 2px / 2px;
@@ -1425,9 +1425,14 @@ section.content-wrapper {
               background: url('../images/layout-s39f2513ef8.png') 0 -327px; }
             .website-wrapper footer .inner .column .button-w-tab .button-tab .icon.facebook {
               width: 17px;
-              background: url('../images/layout-s39f2513ef8.png') 0 -132px; }
-              .website-wrapper footer .inner .column .button-w-tab .button-tab .icon.facebook .FBConnectButton_Simple {
-                background-image: none !important; }
+              background: url('../images/layout-s39f2513ef8.png') 0 -132px;
+              /*
+              .FBConnectButton_Simple {
+              	background-image: none !important ;
+              }
+              */ }
+              .website-wrapper footer .inner .column .button-w-tab .button-tab .icon.facebook iframe {
+                opacity: 0; }
             .website-wrapper footer .inner .column .button-w-tab .button-tab .icon:hover {
               filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
               opacity: 1; }
