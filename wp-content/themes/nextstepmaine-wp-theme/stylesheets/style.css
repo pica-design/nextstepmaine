@@ -1312,8 +1312,46 @@ section.content-wrapper {
                   color: white; }
       section.content-wrapper .aside .widget#jobs-in-demand a {
         font-weight: normal; }
-  section.content-wrapper.search-results .entry-summary .query {
-    background-color: #7cdafd; }
+  section.content-wrapper.search-results .search-entry {
+    padding: 5px;
+    margin: 10px 0 20px 0;
+    -webkit-border-radius: 2px 2px;
+    -moz-border-radius: 2px / 2px;
+    -ms-border-radius: 2px / 2px;
+    -o-border-radius: 2px / 2px;
+    border-radius: 2px / 2px;
+    background-color: #ececec; }
+    section.content-wrapper.search-results .search-entry a {
+      font-family: 'HelveticaCondensed'; }
+    section.content-wrapper.search-results .search-entry .entry-title {
+      font-weight: bold;
+      color: #5f6062; }
+    section.content-wrapper.search-results .search-entry .entry-excerpt {
+      margin: 12px 0 5px 0; }
+      section.content-wrapper.search-results .search-entry .entry-excerpt p {
+        margin: 0;
+        color: #afafaf;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear; }
+    section.content-wrapper.search-results .search-entry .entry-link {
+      display: block;
+      color: #afafaf;
+      -webkit-transition: all 0.2s linear;
+      -moz-transition: all 0.2s linear;
+      -ms-transition: all 0.2s linear;
+      -o-transition: all 0.2s linear;
+      transition: all 0.2s linear; }
+    section.content-wrapper.search-results .search-entry:hover .entry-title {
+      color: #2a2a2a; }
+    section.content-wrapper.search-results .search-entry:hover .entry-excerpt p {
+      color: #5f6062; }
+    section.content-wrapper.search-results .search-entry:hover .entry-link {
+      color: #5f6062; }
+    section.content-wrapper.search-results .search-entry .query {
+      background-color: #69d5fd; }
 
 /* section.content-wrapper */
 .website-wrapper footer {
