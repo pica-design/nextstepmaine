@@ -39,12 +39,19 @@
 		$nsm_update_notice = "";
 		//A form has been submitted
 		if ($_POST) :
+			global $post ;
+			//First off we need to remove the previous institution posts
+			$nsm_jobs = new WP_Query('post_type=nsm_job&posts_per_page=-1');
+			while ($nsm_jobs->have_posts()) : $nsm_jobs->the_post();
+				wp_delete_post($post->ID, true);
+			endwhile;
+
 			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
 			$file_name = $_FILES['file-upload']['name'];
 			//Move the uploaded file to it's final resting place
-			move_uploaded_file($_FILES['file-upload']['tmp_name'], $filepath . $file_name);
+			move_uploaded_file($_FILES['file-upload']['tmp_name'], $file_path . $file_name);
 			//Open the uploaded csv	
-			if (($uploaded_csv = fopen($filepath . $file_name, "r")) !== false) :
+			if (($uploaded_csv = fopen($file_path . $file_name, "r")) !== false) :
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
 				$row_count = 0;
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
@@ -74,14 +81,19 @@
 					$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
 					
 					//Select some information about the current occupation
+					$occupation_description = "";
 					$occupation = $onet->get_results("SELECT description FROM occupation_data WHERE onetsoc_code LIKE '%{$row[0]}%'");
-					
+					//print_r($occupation);
+					if (is_array($occupation) && isset($occupation[0])) : 
+						$occupation_description = $occupation[0]->description;
+					endif;
+
 					//Create a custom post for each row
 					$post_id = wp_insert_post(array(
 						'post_type'	  => 'nsm_job',
 						'post_status' => 'publish',
 						'post_title'  => $row[1],
-						'post_content' => $occupation[0]->description
+						'post_content' => $occupation_description
 					));	
 					
 					//Add the category term to the post
@@ -114,6 +126,7 @@
                     <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
                     <?php endif ?>
                     <h3>Import a list of jobs via the 'Download Excel' link on Maine DOL</h3>
+                    <p><em>NOTE: All previous jobs will be removed before importing the new ones.</em></p>
                     <form method="POST" action="<?php echo $_SERVER['REQUEST_URI'] ?>" enctype="multipart/form-data">
                     	<ul>
                         	<li>
@@ -136,14 +149,21 @@
 		$nsm_update_notice = "";
 		//A form has been submitted
 		if ($_POST) :		
+			global $post ;
+			//First off we need to remove the previous institution posts
+			$nsm_institutions = new WP_Query('post_type=nsm_institution&posts_per_page=-1');
+			while ($nsm_institutions->have_posts()) : $nsm_institutions->the_post();
+				wp_delete_post($post->ID, true);
+			endwhile;
+			
 			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
 			$file_name = $_FILES['file-upload']['name'];
 			
 			//Move the uploaded file to it's final resting place
-			move_uploaded_file($_FILES['file-upload']['tmp_name'], $filepath . $file_name);
+			move_uploaded_file($_FILES['file-upload']['tmp_name'], $file_path . $file_name);
 		
 			//Open the uploaded csv	
-			if (($uploaded_csv = fopen($filepath . $file_name, "r")) !== false) :
+			if (($uploaded_csv = fopen($file_path . $file_name, "r")) !== false) :
 				
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
 				$row_count = 0;
@@ -205,6 +225,7 @@
 				//Set an update notice
 				$nsm_update_notice = "Inserted $row_count rows";
 			endif;
+			
 		endif;
 	
 		?>
@@ -216,6 +237,7 @@
                 <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
                 <?php endif ?>
                 <h3>Import a list of insititutions</h3>
+                <p><em>NOTE: All previous institutions will be removed before importing the new ones.</em></p>
                 <form method="POST" action="<?php echo $_SERVER['REQUEST_URI'] ?>" enctype="multipart/form-data">
                     <ul>
                         <li>
@@ -237,17 +259,23 @@
 		$nsm_update_notice = "";
 		//A form has been submitted
 		if ($_POST) :
-			
+			global $post ;
+			//First off we need to remove the previous program posts
+			$nsm_programs = new WP_Query('post_type=nsm_program&posts_per_page=-1');
+			$program_count = 0;
+			while ($nsm_programs->have_posts()) : $nsm_programs->the_post();
+				wp_delete_post($post->ID, true);
+				$program_count++;
+			endwhile;
+
 			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
 			$file_name = $_FILES['file-upload']['name'];
 			
 			//Move the uploaded file to it's final resting place
-			move_uploaded_file($_FILES['file-upload']['tmp_name'], $filepath . $file_name);
-			
-			
+			move_uploaded_file($_FILES['file-upload']['tmp_name'], $file_path . $file_name);
 			
 			//Open the uploaded csv	
-			if (($uploaded_csv = fopen($filepath . $file_name, "r")) !== false) :
+			if (($uploaded_csv = fopen($file_path . $file_name, "r")) !== false) :
 				
 				ini_set("auto_detect_line_endings", true);
 				
@@ -342,6 +370,7 @@
                 <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
                 <?php endif ?>
                 <h3>Import a list of Programs</h3>
+                <p><em>NOTE: All previous programs will be removed before importing the new ones.</em></p>
                 <form method="POST" action="<?php echo $_SERVER['REQUEST_URI'] ?>" enctype="multipart/form-data">
                     <ul>
                         <li>

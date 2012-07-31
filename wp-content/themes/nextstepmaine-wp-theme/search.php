@@ -13,25 +13,18 @@ $current_cpt = "";
 ?>
 
 		<section class="content-wrapper search-results">
-
 			<?php if ( have_posts() ) : ?>
-
 				<header class="page-header">
 					<h3 class="page-title">
 						<?php echo count($wp_query->posts) ?>
 						<?php printf( __( 'Search Results for: %s', 'nextstepmaine' ), '<strong>' . get_search_query() . '</strong>' ); ?>
 					</h3>
 				</header>
-
-				
 				<?php 
 					//Build an array of the number of results per post type
 					$cpt_posts_count = Array();
 					while ( have_posts() ) : the_post(); ++$cpt_posts_count[$post->post_type]; endwhile ;
 				?>
-
-				<?php ?>
-
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php 
 						//Display the current result post type in sections, along with a count; e.g. '5 Maine Educational Programs'
@@ -45,7 +38,6 @@ $current_cpt = "";
 						<?php echo $cpt->labels->human_friendly ?>
 					</h2>
 					<?php endif ?>
-					
 					<div class="search-entry">
 						<a href="<?php the_permalink() ?>" title="<?php the_title() ?>">
 	                    	<h4 class="entry-title">
@@ -72,7 +64,6 @@ $current_cpt = "";
 								//We want to remove the <strong> they wrap around the excerpt
 								$excerpt = str_replace('<strong class="search-excerpt">', '', $excerpt);
 								$excerpt = str_replace('</strong>', '', $excerpt);
-
 								/*
 								Replace Method
 								1) Look for the exact search query, wrap it with a <span>
@@ -91,7 +82,6 @@ $current_cpt = "";
 										$excerpt = str_ireplace($word, "<span class='query'>$word</span>", $excerpt);		
 									endforeach;
 								endif;
-
 								//Output the final excerpt
 								echo ucwords($excerpt);
 							?>
@@ -100,25 +90,16 @@ $current_cpt = "";
 						</a>
                     </div><!-- .search-entry -->
 				<?php endwhile; ?>
-
-				
-
 			<?php else : ?>
-
 				<article id="post-0" class="post no-results not-found">
 					<header class="entry-header">
 						<h1 class="entry-title"><?php _e( 'Nothing Found', 'nextstepmaine' ); ?></h1>
 					</header><!-- .entry-header -->
-
 					<div class="entry-content">
 						<p><?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.', 'twentyeleven' ); ?></p>
 						<?php get_search_form(); ?>
 					</div><!-- .entry-content -->
 				</article><!-- #post-0 -->
-
 			<?php endif; ?>
-
-			
 		</section><!-- .content-wrapper -->
-
 <?php get_footer(); ?>
