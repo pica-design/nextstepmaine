@@ -1,0 +1,33 @@
+.slideshow {
+	width: 880px ;
+	margin: 0 auto 0 auto ;
+	
+	.slideshow-prev {
+		//Bring in our default for the slideshow nav item
+		@include slideshow-nav-item ;
+		//Using our compass-generated sprite, output the background image coordinates
+		background: sprite($layout-sprite, slideshow-prev) ;
+		margin-right: 10px ;
+	}
+	
+	.slides {
+		float: left ;
+		width: 800px ;
+		height: 287px ;
+		
+		.slide {
+			display: none ;
+		}
+			.slide.first {
+				display: block ;
+			}
+	} /* .slides */
+	
+	.slideshow-next {
+		//Bring in our default for the slideshow nav item
+		@include slideshow-nav-item ;
+		//Using our compass-generated sprite, output the background image coordinates
+		background: sprite($layout-sprite, slideshow-next) ;
+		margin-left: 10px ;
+	}
+} /* .slideshow */

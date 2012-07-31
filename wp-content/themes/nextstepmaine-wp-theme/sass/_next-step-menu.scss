@@ -1,0 +1,92 @@
+.next-step-header {
+	width: 800px ;
+	margin: 0 auto 0 auto ;
+	overflow: auto ;
+	padding: 10px 0 10px 0 ;
+	
+	h1 {
+		float: left ;
+		color: $medium-blue ;
+		font-weight: bold ;
+		font-size: 2.4em ;
+	}
+	.caption {
+		diplay: inline-block ;
+		float: left ;
+		width: 200px ;	
+		margin: 8px 0 0 20px ;
+		font-size: 0.75em ;
+	}
+} /* .next-step-header */
+	
+nav.next-step {
+	width: 100% ;
+	background-color: $light-gray ;
+	
+	.inner {
+		@include centered; 
+		padding: 20px 0 20px 0 ;
+		
+		li.backLava {
+			top: 0px !important ;
+			z-index: 1 ;
+			background: sprite($layout-sprite, lava-lamp-menu-arrow) ;
+		}
+		ul {
+			margin: 0 ;
+			padding: 4px ;
+			overflow: auto ;
+			
+			li {
+				float: left ;
+				width: 189px ;
+				height: 75px ;
+				margin: 0 10px 0 0 ;
+				text-align: center ;
+				z-index: 1 ;
+				@include single-transition(all, 0.2s, linear) ;
+				@include blue-gradient ;
+				
+				&:before {
+					content: '';
+					display: inline-block;
+					height: 100%; 
+					vertical-align: middle;
+					margin-right: -0.25em;
+				}
+				
+				&.last {
+					margin-right: 0 ;
+				}
+				
+				&.selectedLava, &:hover {
+					@include single-box-shadow($medium-gray, 0, 0, 8px, false, false);
+				}
+				
+				h2 {
+					position: relative ;
+					z-index: 2 ;
+					display: inline-block ;
+					vertical-align: middle;
+					margin: 0 ;
+					padding: 10px 15px;
+					text-transform: none ;
+					
+					a {
+						position: relative ;
+						z-index: 3 ;
+						font: italic normal normal 0.95em/1.0em 'AvenirBlack' ;
+						letter-spacing: 0.1em ;
+						color: rgb(255,255,255) ;
+						$default-text-shadow-color: $darkest-blue ;
+						$default-text-shadow-blur: 3px ;
+						$default-text-shadow-v-offset: 1px ;
+						@include single-text-shadow;
+					}
+				}
+				
+				
+			} /* li */
+		} /* ul */
+	} /* .inner */
+} /* nav.next-step */

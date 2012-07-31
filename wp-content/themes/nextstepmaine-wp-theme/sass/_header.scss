@@ -1,0 +1,88 @@
+
+section.masthead {
+	width: 800px ;
+	margin: 20px auto 20px auto ;
+	overflow: auto ;
+	
+	.website-logo {
+		float: left ;
+	}
+	.website-slogan {
+		float: left ;
+		color: $medium-blue ;
+		font-family: 'AvenirLight';
+		font-size: 1.4em ;
+		margin: 30px 0 0 30px ;
+	}
+	.website-controls {
+		float: right ;
+		
+		.website-quick-links {
+			ul {
+				display: inline-block ;
+				float: right ;
+				margin: 0 ;
+				padding: 0 ;
+			}	
+				li {
+					float: left ;
+					list-style: none ;
+					color: $medium-blue ;
+					font-family: 'AvenirLight';
+					font-size: 0.8em ;
+					a {
+						color: $dark-gray ;
+						display: inline-block ;
+						margin: 0 5px 0 5px ;
+						text-transform: uppercase ;
+						letter-spacing: 0.1em ;
+					}
+					&:after {
+						content: "/";
+					}
+					&.last:after {
+						content: "";
+						margin-right: 0 ;
+					}
+				}
+		}
+		.website-search {
+			position: relative ;
+			margin-top: 13px ;
+			float: right ;
+			width: 200px ;
+			
+			.search-form {
+				.field {
+					position: absolute ;
+					top: 3px ;
+					left: 0 ;
+					width: 166px ;
+					background-color: $light-gray ;
+					border: 1px solid $medium-gray ;
+					color: $dark-gray ;
+					padding: 6px ;
+					font-size: 0.85em ;
+					
+					&::-webkit-input-placeholder {
+					   color: $dark-gray ;
+					}
+					&:-moz-placeholder {
+					   color: $dark-gray ;
+					}
+				}
+				.submit {
+					position: absolute ;
+					top: 0 ;
+					right: 0 ;
+					padding: 7px 7px 8px 7px ;
+					color: $white ;
+					border: 1px solid $off-white ;
+					border-left: 0px ;
+					font: italic normal normal 1.2em/1.0em 'AvenirBlack' ;
+					@include blue-gradient ;
+				}
+			}
+		}
+	} /* .website.controls */
+} /* section.masthead */

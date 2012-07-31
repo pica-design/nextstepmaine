@@ -1,70 +1,104 @@
 
-// --SASS INTERNALS--
-// These items do not print to the rendered .css files
+//////////// SASS INTERNALS //////////////////
 
-//---------------------------
-//	COMPASS CORE
-//---------------------------
-@import 'compass';
-//---------------------------
-//	SASS MIXINS
-//---------------------------
-@import 'mixins' ;
-//---------------------------
-//	SASS VARIABLES
-//---------------------------
-@import 'colors';
+	//---------------------------
+	//	COMPASS CORE
+	//---------------------------
+	@import 'compass';
+	//---------------------------
+	//	SASS MIXINS
+	//---------------------------
+	@import 'mixins' ;
+	//---------------------------
+	//	SASS VARIABLES
+	//---------------------------
+	@import 'colors';
 
-//PUBLIC STYLES
-/**********************************************
-	BROWSER CORRECTIONS
-***********************************************/	
-@import 'normalize';
 
-/**********************************************
-	FONTS
-***********************************************/	
-@import 'fonts';
 
-/**********************************************
-	IMAGE SPRITES
-***********************************************/
-//The layout sprite is created with a reference to $layout-sprite, 
-//so we can have more control with it, like calling the image with coordinates in a single declaration
-//This is mostly so we can use sprite images in background() for laying backgrounds, like gradients + images
-$layout-layout: vertical ;
-$layout-sprite: sprite-map("layout/*.png") ;
+//////////// THEME SETUP //////////////////
 
-//The browser icon sprite does not require so much control so we'll use the simple method
-$browser-icons-layout: vertical ;
-@import "content/browser-icons/*.png";
+	/**********************************************
+		BROWSER CORRECTIONS
+	***********************************************/	
+	@import 'normalize';
 
-/**********************************************
-	HTML DECLARATIONS 
-**********************************************/
-@import 'html-base';
+	/**********************************************
+		FONTS
+	***********************************************/	
+	@import 'fonts';
 
-/****************************************** 	
-	CSS TEXT SELECTION
-******************************************/
-@import 'selection';
+	/**********************************************
+		IMAGE SPRITES
+	***********************************************/
+	//The layout sprite is created with a reference to $layout-sprite, 
+	//so we can have more control with it, like calling the image with coordinates in a single declaration
+	//This is mostly so we can use sprite images in background() for laying backgrounds, like gradients + images
+	$layout-layout: vertical ;
+	$layout-sprite: sprite-map("layout/*.png") ;
 
-/**********************************************
-	COMMONLY USED DECLARATIONS 
-**********************************************/
-@import 'common';
+	//The browser icon sprite does not require so much control so we'll use the simple method
+	$browser-icons-layout: vertical ;
+	@import "content/browser-icons/*.png";
 
-/**********************************************
-	LAYOUT DECLARATIONS 
-**********************************************/
-@import 'layout';
+	/**********************************************
+		HTML DECLARATIONS 
+	**********************************************/
+	@import 'html-base';
 
-/**********************************************
-	TABLESORTER jQUERY DECLARATIONS 
-**********************************************/
-@import 'tablesorter';
+	/****************************************** 	
+		CSS TEXT SELECTION
+	******************************************/
+	@import 'selection';
 
-/**********************************************
-	FORMIDABLE FORMS WORDPRESS PLUGIN DECLARATIONS 
-**********************************************/
-@import 'formidable';
+	/**********************************************
+		COMMONLY USED DECLARATIONS 
+	**********************************************/
+	@import 'common';
+
+
+
+//////////// TEMPLATE STYLES //////////////////
+
+//This wrapper encompasses the entire website
+section.website-wrapper {
+	background-color: $white ;
+	position: relative ;
+	width: 100% ;
+	min-height: 100% ;
+}
+
+	/**********************************************
+		HEADER DECLARATIONS 
+	**********************************************/
+	@import 'header';
+
+	/**********************************************
+		SLIDESHOW DECLARATIONS 
+	**********************************************/
+	@import 'slideshow';
+
+	/**********************************************
+		NEXT STEP MENU DECLARATIONS 
+	**********************************************/
+	@import 'next-step-menu';
+
+	/**********************************************
+		CONTENT DECLARATIONS 
+	**********************************************/
+	@import 'content';
+
+	/**********************************************
+		FOOTER DECLARATIONS 
+	**********************************************/
+	@import 'footer';
+
+	/**********************************************
+		TABLESORTER jQUERY DECLARATIONS 
+	**********************************************/
+	@import 'tablesorter';
+
+	/**********************************************
+		FORMIDABLE FORMS WORDPRESS PLUGIN DECLARATIONS 
+	**********************************************/
+	@import 'formidable';

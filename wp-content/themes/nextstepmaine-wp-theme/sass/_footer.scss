@@ -1,0 +1,172 @@
+.website-wrapper footer {
+	position: absolute ;
+	bottom: 0 ;
+	width: 100% ;
+	background-color: $light-gray ;
+	
+	.inner {
+		@include centered;
+		width: 820px ;
+		overflow: auto ;
+		padding: 0 10px 0 10px ;
+		.column {
+			float: left ;
+			margin: 30px 50px 0 0 ;
+			
+			.button {
+				float: left ;
+				width: 120px ;
+				height: 30px ;
+				margin: 0 12px 15px 0 ;
+				padding: 9px 0 0 0 ;
+			}
+			.button-w-tab {
+				position: relative ;
+				width: 120px ;
+				height: 30px ;
+				float: left ;
+				margin: 0 12px 15px 0 ;
+
+				.button {
+					position: absolute ;
+					float: none ;
+					z-index: 2 ;
+				}
+				.button-tab {
+					position: absolute ;
+					top: 0 ;
+					left: 5px ;
+					width: 110px ;
+					height: 30px ;
+					z-index: 1 ;
+					background-color: $lightest-gray ;
+					border: 1px solid $lighter-than-medium-gray ;
+					font-size: 0.8em ;
+					@include single-transition(all, 0.2s, linear) ;
+
+					.icon {
+						height: 16px ;
+						float: left ;
+						margin-top: 6px ;
+						@include opacity(0.5) ;
+						@include single-transition(all, 0.2s, linear) ;
+						
+						&.email {
+							width: 21px ;
+							margin-left: 10px ;
+							background: sprite($layout-sprite, email-icon) ;
+						}
+						&.twitter {
+							width: 20px ;
+							margin-left: 13px ;
+							margin-right: 13px ;
+							background: sprite($layout-sprite, twitter-bird-icon) ;
+						}
+						&.facebook {
+							width: 17px ;
+							//Display our own FB Icon - pulled from the FB Brand Standards so it's still compliant 
+							background: sprite($layout-sprite, facebook-f-icon) ;
+
+							//Hide the default FB Icon - it's ugly and too small
+							/*
+							.FBConnectButton_Simple {
+								background-image: none !important ;
+							}
+							*/
+							iframe {
+								opacity: 0 ;
+							}
+						}
+						a {
+							@extend .link-fill-container ;
+						}
+						&:hover {
+							@include opacity(1.0) ;
+						}
+					}
+
+					&.facebook-like {
+						iframe {
+							margin: 4px 0 0 17px ;
+						}
+					}
+				}
+
+				&:hover {
+					//Slide the button tab down from behind the button
+					.button-tab {
+						top: 30px ;
+					}
+				}
+			}
+
+			h4 {
+				font: normal normal normal 0.90em/1.0em 'AvenirBlack' ;
+				margin-bottom: 10px ;
+			}
+			
+			ul {
+				margin: 0 ;
+				padding: 0 ;
+				
+				li {
+					list-style: none ;
+					font-size: 0.8em ;
+					line-height: 1.3em ;
+					margin-bottom: 0 ;
+
+					a {
+						color: $dark-gray ;
+						font-size: inherit ;
+					}
+				}
+				&#menu-quick-menu-1 {
+					li a {
+						text-transform: uppercase ;
+					}	
+				}
+			} /* ul */
+			
+			&.first { /* First Column */
+				width: 265px ;
+			}
+	
+			&.last { /* Last Column */
+				margin-right: 0 ;
+			}
+			
+		} /* .column */
+			
+		.row {
+			
+			&.copyright {
+				padding: 45px 0 10px 0 ;
+				font-size: 0.7em ;
+				color: $dark-gray ;
+				overflow: auto ;
+				
+				a {
+					font-size: inherit ;
+					color: inherit ;
+					
+					&:hover {
+						text-decoration: underline ;
+					}
+				} /* a */
+				
+				.pica {
+					float: right ;
+					width: 20px ;
+					height: 20px ;
+					background: sprite($layout-sprite, pica-mark-small) ;
+					@include opacity(0.5) ;
+					@include single-transition(all, 0.2s, linear) ;
+					
+					&:hover {
+						@include opacity(1.0) ;
+					}
+				} /* .pica */
+			} /* .copyright */
+		} /* .row */
+	} /* .inner */
+} /* .website-wrapper footer */
