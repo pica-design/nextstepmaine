@@ -37,10 +37,9 @@
 	$layout-layout: vertical ;
 	$layout-sprite: sprite-map("layout/*.png") ;
 
-	//The browser icon sprite does not require so much control so we'll use the simple method
+	//Generate our browser icon sprite
 	$browser-icons-layout: vertical ;
 	@import "content/browser-icons/*.png";
-
 	/**********************************************
 		HTML DECLARATIONS 
 	**********************************************/

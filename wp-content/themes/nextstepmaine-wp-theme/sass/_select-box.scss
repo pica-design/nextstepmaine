@@ -1,0 +1,87 @@
+select {
+	/* 
+		The select will be replaced by the jquery select box plugin
+		Let's hide it so it doesn't flash on for a second
+		NOTE: This should be removed if there is no javascript?? 
+			OR we should set this with javascript
+	*/
+	visibility: hidden ;
+}
+
+/* Custom Dropdown Menu Plugin - Lives in the blog sidebar */
+div.sbHolder {
+	position: relative;
+	height: 34px;
+	width: 100% ;
+	margin: 5px 0 0 0 ;
+	@include light-blue-gradient ;
+
+	a.sbToggle {
+		position: absolute;
+		top: 0; right: 0;
+		display: block;
+		height: 34px;
+		width: 30px;
+		z-index: 20 ;
+		background: sprite($layout-sprite, dropdown-arrow-inactive) ;
+
+		&.sbToggleOpen {
+			background: sprite($layout-sprite, dropdown-arrow-active) ;
+		}
+	}
+
+	a.sbSelector {
+		position: absolute;
+		top: 0; left: 0;
+		display: block;
+		height: 34px;
+		width: 100% ;
+		padding: 2px 30px 2px 5px ;
+		overflow: hidden;
+
+		&:link, 
+		&:visited, 
+		&:hover {
+			color: $white ;
+		}
+	}
+	ul.sbOptions {
+		position: absolute;
+		top: 32px !important ; left: -5px !important ;
+		margin: 5px; padding: 0;
+		width: 100% ;
+		z-index: 1;
+		overflow-y: auto;
+		background-color: $medium-blue ;
+		@include single-box-shadow($medium-gray, 0, 3px, 8px, false, false);
+
+		li {
+			list-style: none;
+			margin: 0 ;
+			@include single-transition(all, 0.2s, linear) ;
+
+			a {
+				display: block;
+				padding: 5px 20px 5px 5px ;
+				width: 100% ;
+				color: $lightest-gray ;
+
+				&:link, 
+				&:visited, 
+				&:hover {
+				}
+			}
+			&.last a {
+				border-bottom: none;
+			}
+
+			&:hover {
+				background-color: $dark-blue ;
+
+				a {
+					color: $white ;
+				}
+			}
+		}
+	}
+} /* .sbHolder */
