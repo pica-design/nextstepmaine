@@ -1,0 +1,45 @@
+//Generate our admin icon sprite
+$admin-icons-layout: vertical ;
+$admin-icons-sprite: sprite-map("admin/*.png") ;
+
+/*------- Institution Post Type Icons -------*/
+/* Small */
+#menu-posts-nsm_institution .wp-menu-image {
+	background: sprite($admin-icons-sprite, institution-sm-inactive) !important ;
+}
+#menu-posts-nsm_institution:hover .wp-menu-image, #menu-posts-nsm_institution.wp-has-current-submenu .wp-menu-image {
+	background: sprite($admin-icons-sprite, institution-sm-active) !important ;
+}
+/* Large */
+#icon-edit.icon32-posts-nsm_institution {
+	width: 32px ; height: 32px ;
+	background: sprite($admin-icons-sprite, institution-lg-active) ;
+}
+
+/*------- Programs Post Type Icons -------*/
+/* Small */
+#menu-posts-nsm_program .wp-menu-image {
+	background: sprite($admin-icons-sprite, program-sm-inactive) !important ;
+}
+#menu-posts-nsm_program:hover .wp-menu-image, #menu-posts-nsm_program.wp-has-current-submenu .wp-menu-image {
+	background: sprite($admin-icons-sprite, program-sm-active) !important ;
+}
+/* Large */
+#icon-edit.icon32-posts-nsm_program {
+	width: 32px ; height: 32px ;
+	background: sprite($admin-icons-sprite, program-lg-active) ;
+}
+
+/*------- Jobs Post Type Icons -------*/
+/* Small */
+#menu-posts-nsm_job .wp-menu-image {
+	background: sprite($admin-icons-sprite, job-sm-inactive) !important ;
+}
+#menu-posts-nsm_job:hover .wp-menu-image, #menu-posts-nsm_job.wp-has-current-submenu .wp-menu-image {
+	background: sprite($admin-icons-sprite, job-sm-active) !important ;
+}
+/* Large */
+#icon-edit.icon32-posts-nsm_job {
+	width: 32px ; height: 32px ;
+	background: sprite($admin-icons-sprite, job-lg-active) ;
+}

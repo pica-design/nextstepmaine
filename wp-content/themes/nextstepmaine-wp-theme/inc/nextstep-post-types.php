@@ -1,24 +1,10 @@
 <?php
-	
-	// Define icon styles for the custom post type
+	// Define icon styles for the custom post types
+	add_action( 'admin_enqueue_scripts', 'post_type_icons' );
 	function post_type_icons() {
-	?>
-	<style type="text/css" media="screen">
-			#menu-posts-nsm_institution .wp-menu-image {
-				background: url(<?php bloginfo('template_url') ?>/images/admin-dashboard/nsm_institution-icon-16x64.jpg) no-repeat 6px -32px !important;
-			}
-			#menu-posts-nsm_institution:hover .wp-menu-image, #menu-posts-casestudy.wp-has-current-submenu .wp-menu-image {
-				background-position:6px 0px !important;
-			}
-			#icon-edit.icon32-posts-nsm_institution {
-				background: url(<?php bloginfo('template_url') ?>/images/admin-dashboard/nsm_institution-icon-32x32.jpg) no-repeat;
-			}
-			
-		</style>
-	
-	<?php }
-	add_action( 'admin_head', 'post_type_icons' );
-	
+		wp_register_style('nextstep-admin-icons', get_bloginfo('template_directory')."/stylesheets/admin.css");
+		wp_enqueue_style('nextstep-admin-icons');
+	}
 
 	/*********************************************************
 	NEXT STEP MAINE DOL JOBS IN DEMAND CPT
