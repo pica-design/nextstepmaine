@@ -47,7 +47,7 @@
 			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/admin.scss",
 			"settings":
 			{
-				"buffer_size": 533,
+				"buffer_size": 1627,
 				"line_ending": "Unix"
 			}
 		},
@@ -55,7 +55,7 @@
 			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 2947,
 				"line_ending": "Unix"
 			}
 		},
@@ -63,7 +63,7 @@
 			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_footer.scss",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 3339,
 				"line_ending": "Unix"
 			}
 		}
@@ -195,6 +195,10 @@
 		"find_history":
 		[
 			"institution",
+			"nsm_institution",
+			"institution",
+			"nsm_institution",
+			"institution",
 			"border-r",
 			"$lowered_search_query",
 			"nsm_institution_website_url",
@@ -228,15 +232,15 @@
 					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/admin.scss",
 					"settings":
 					{
-						"buffer_size": 533,
+						"buffer_size": 1627,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								114,
-								114
+								632,
+								632
 							]
 						],
 						"settings":
@@ -256,7 +260,7 @@
 					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 2947,
 						"regions":
 						{
 						},
@@ -285,7 +289,7 @@
 					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_footer.scss",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 3339,
 						"regions":
 						{
 						},

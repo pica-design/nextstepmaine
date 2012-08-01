@@ -124,7 +124,9 @@
 	});
 	
 	/* CONTENT ACCORDIANS */
-	$('section.accordion header').click(function(){
+	$('section.accordion header').each(function(){
+    	$(this).children('div').css('height', $(this).height())
+    }).click(function(){
 		//If the accordian is open let's go ahead and close it
 		if ($(this).parent().is('.open')) {
 			$(this)
@@ -272,6 +274,7 @@
         });
     };
 
-
     $('table.tablesorter.programs, table.tablesorter.jobs').stickyTableHeaders()
+
+    
 })(jQuery)

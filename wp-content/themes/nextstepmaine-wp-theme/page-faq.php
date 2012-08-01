@@ -22,10 +22,10 @@
                     <h3><?php echo $term->name ?></h3>
                     <?php while ($faqs->have_posts()) : $faqs->the_post() ?>
                         
-                        <section class='accordion-tall closed'>
+                        <section class='accordion closed'>
                             <header>
                                 <figcaption><?php the_title() ?></figcaption>
-                                <figure></figure>
+                                <div><figure></figure></div>
                             </header>
                             <article>
                                 <?php the_content() ?>

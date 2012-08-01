@@ -90,7 +90,9 @@ section.accordion {
 		overflow: auto ;
 		margin-bottom: 10px ;
 		cursor: pointer ;
+		width: 100% ;
 	    background-color: $light-gray ;
+	    padding: 0 ;
 		@include single-transition(all, 0.2s, linear) ;
 
 		figcaption {
@@ -100,14 +102,23 @@ section.accordion {
 			font: normal normal normal 1.05em/1.0em 'AvenirBlack' ;
 			letter-spacing: 0.1em ;
 			color: rgb(255,255,255) ;
+			line-height: 1.4em ;
+			width: 90% ;
 		}
-		figure {
+		div {
 			position: relative ;
 			float: right ;
-			width: 30px ; height: 32px ;
+			width: 30px ;
 			border-left: 4px solid $white ;
+			@include gray-gradient ;
 			
-			@include background(sprite($layout-sprite, down-arrow) no-repeat, $gray-gradient);
+			figure {
+				position: absolute ;
+				bottom: 0 ;
+				float: right ;
+				width: 24px ; height: 32px ;
+				@include background(sprite($layout-sprite, down-arrow) no-repeat);
+			}
 		}
 		&:hover {
 			background-color: $lighter-than-medium-gray ;
@@ -119,56 +130,12 @@ section.accordion {
 	}
 	&.open header {
 		background-color: $medium-gray ;
+		div {
+			@include darkest-gray-gradient ;
 
-		figure {
-			@include background(sprite($layout-sprite, up-arrow) no-repeat, $darkest-gray-gradient);
-		}
-	}
-	&.closed article {
-		display: none ;
-	}
-} /* accordian */
-
-
-section.accordion-tall {
-	margin: 10px 0 10px 0 ;
-	
-	header {
-		overflow: auto ;
-		margin-bottom: 10px ;
-		cursor: pointer ;
-	    background-color: $light-gray ;
-		@include single-transition(all, 0.2s, linear) ;
-
-		figcaption {
-			float: left ;
-			display: block ;
-			padding: 9px 15px 9px 15px ;
-			font: normal normal normal 1.05em/1.0em 'AvenirBlack' ;
-			letter-spacing: 0.1em ;
-			color: rgb(255,255,255) ;
-		}
-		figure {
-			position: relative ;
-			float: right ;
-			width: 30px ; height: 32px ;
-			border-left: 4px solid $white ;
-			
-			@include background(sprite($layout-sprite, down-arrow) no-repeat, $gray-gradient);
-		}
-		&:hover {
-			background-color: $lighter-than-medium-gray ;
-		}
-	}
-	article {
-		width: 545px ;
-		font-size: 0.9em ;
-	}
-	&.open header {
-		background-color: $medium-gray ;
-
-		figure {
-			@include background(sprite($layout-sprite, up-arrow) no-repeat, $darkest-gray-gradient);
+			figure {
+				@include background(sprite($layout-sprite, up-arrow) no-repeat);
+			}
 		}
 	}
 	&.closed article {

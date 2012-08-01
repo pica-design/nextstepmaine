@@ -87,12 +87,7 @@ section.website-wrapper {
 		CONTENT DECLARATIONS 
 	**********************************************/
 	@import 'content';
-
-	/**********************************************
-		FOOTER DECLARATIONS 
-	**********************************************/
-	@import 'footer';
-
+	
 	/**********************************************
 		TABLESORTER jQUERY DECLARATIONS 
 	**********************************************/
@@ -102,3 +97,8 @@ section.website-wrapper {
 		FORMIDABLE FORMS WORDPRESS PLUGIN DECLARATIONS 
 	**********************************************/
 	@import 'formidable';
+	
+	/**********************************************
+		FOOTER DECLARATIONS 
+	**********************************************/
+	@import 'footer';

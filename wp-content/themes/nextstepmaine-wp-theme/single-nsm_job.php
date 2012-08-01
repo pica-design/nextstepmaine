@@ -47,7 +47,7 @@
                     <section class='accordion closed'>
                         <header>
                         	<figcaption>Job Tasks</figcaption>
-                        	<figure></figure>
+                        	<div><figure></figure></div>
                         </header>
                         <article>
                             <ul class="show-bullets">
@@ -114,7 +114,7 @@
                     <section class='accordion closed'>
                         <header>
                         	<figcaption>Related Jobs</figcaption>
-                        	<figure></figure>
+                        	<div><figure></figure></div>
                        	</header>
                         <article>
                             <ul class="show-bullets">

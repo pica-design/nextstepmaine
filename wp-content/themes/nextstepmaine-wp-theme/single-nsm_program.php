@@ -50,7 +50,7 @@
 						<section class='accordion closed'>
                             <header>
                                 <figcaption>Other programs at <?php echo $institution_title ?></figcaption>
-                                <figure></figure>
+                                <div><figure></figure></div>
                             </header>
                             <article>
 								<?php while ( $programs->have_posts() ) : $programs->the_post(); ?>
