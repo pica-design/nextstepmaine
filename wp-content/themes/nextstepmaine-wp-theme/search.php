@@ -1,15 +1,14 @@
 <?php
-/**
- * The template for displaying Search Results pages.
-*/
+	/**
+	 * The template for displaying Search Results pages.
+	*/
 
-get_header(); 
+	get_header(); 
 
-$search_query = str_replace('"', '', get_search_query());
-$search_query_words = explode(' ', $search_query);
-//We'll use this to track which post type results are being shown for
-$current_cpt = "";
-
+	$search_query = str_replace('"', '', get_search_query());
+	$search_query_words = explode(' ', $search_query);
+	//We'll use this to track which post type results are being shown for
+	$current_cpt = "";
 ?>
 
 		<section class="content-wrapper search-results">
@@ -17,12 +16,14 @@ $current_cpt = "";
 				<header class="page-header">
 					<h3 class="page-title">
 						<?php echo count($wp_query->posts) ?>
-						<?php printf( __( 'Search Results for: %s', 'nextstepmaine' ), '<strong>' . get_search_query() . '</strong>' ); ?>
+						<?php printf( __( 'Search Result(s) for: %s', 'nextstepmaine' ), '<strong>' . get_search_query() . '</strong>' ); ?>
 					</h3>
 				</header>
 				<?php 
 					//Build an array of the number of results per post type
 					$cpt_posts_count = Array();
+
+					while ( have_posts() ) : the_post(); $cpt_posts_count[$post->post_type] = ""; endwhile ;
 					while ( have_posts() ) : the_post(); ++$cpt_posts_count[$post->post_type]; endwhile ;
 				?>
 				<?php while ( have_posts() ) : the_post(); ?>
@@ -35,7 +36,13 @@ $current_cpt = "";
 					<br /><br />
 					<h2 class="search-results-post-type">
 						<?php echo $cpt_posts_count[$post->post_type] ?>
-						<?php echo $cpt->labels->human_friendly ?>
+						<?php 
+							if (isset($cpt->labels->human_friendly)) :
+								echo $cpt->labels->human_friendly ;
+							else :
+								echo $cpt->labels->singular_name . "(s)";
+							endif;
+						?>
 					</h2>
 					<?php endif ?>
 					<div class="search-entry">
@@ -44,7 +51,7 @@ $current_cpt = "";
 								<?php 
 									$title = get_the_title();
 									//Wrap the exact query in the post title with a span so we can highlight the relevent query
-									echo ucwords(str_ireplace($search_query, "<span class='query'>$search_query</span>", $title));
+									echo ucwords(str_ireplace($search_query, "<span class='query'>".ucwords($search_query)."</span>", $title));
 
 									//If the current result is for a program let's also show the program institution
 									if ($post->post_type == 'nsm_program') :

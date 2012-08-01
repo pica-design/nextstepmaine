@@ -14,7 +14,7 @@
 			'labels' => array(
 				'name' => __( 'Jobs' ),
 				'singular_name' => __( 'Job' ),
-				'human_friendly' => __('High-Demand Jobs in Maine'),
+				'human_friendly' => __('High-Demand Job(s) in Maine'),
 				'add_new_item' => 'Add New Job',
 				'edit_item' => 'Edit Jobs',
 				'new_item' => 'New Job',
@@ -99,7 +99,7 @@
 			'labels' => array(
 				'name' => __( 'Institutions' ),
 				'singular_name' => __( 'Institution' ),
-				'human_friendly' => __('Higher Education Institutions in Maine'),
+				'human_friendly' => __('Higher Education Institution(s) in Maine'),
 				'add_new_item' => 'Add New Institution',
 				'edit_item' => 'Edit Institutions',
 				'new_item' => 'New Institution',
@@ -197,7 +197,7 @@
 				'name' => __( 'Programs' ),
 				'singular_name' => __( 'Program' ),
 				'add_new_item' => 'Add New Program',
-				'human_friendly' => __('Maine Educational Programs'),
+				'human_friendly' => __('Maine Educational Program(s)'),
 				'edit_item' => 'Edit Programs',
 				'new_item' => 'New Program',
 				'search_items' => 'Search Programs',
@@ -283,7 +283,7 @@
 			'labels' => array(
 				'name' => __( 'FAQs' ),
 				'singular_name' => __( 'FAQ' ),
-				'human_friendly' => __('Frequently Asked Questions'),
+				'human_friendly' => __('Frequently Asked Question(s)'),
 				'add_new_item' => 'Add New FAQ',
 				'edit_item' => 'Edit FAQs',
 				'new_item' => 'New FAQ',
