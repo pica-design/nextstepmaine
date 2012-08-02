@@ -39,7 +39,7 @@
                     </section>
                 	<section class="column">
                     	<h4 class="uppercase">Site Map</h4>
-                        <?php wp_nav_menu('Site Map Menu') ?>
+                        <?php wp_nav_menu(array('menu' => 'Footer Menu')) ?>
                     </section>
                 	<section class="column last">
                     	<h4 class="uppercase">Brought to you by</h4>

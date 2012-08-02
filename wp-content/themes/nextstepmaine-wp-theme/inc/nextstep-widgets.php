@@ -25,7 +25,7 @@
                 <h3>Financial Aid</h3>
                 <p class="slogan">Get help paying<br />for college.</p>
                 <p class="tooltip">Click the link below<br />for more information</p>
-                <a href="http://www.fafsa.ed.gov/" title="Federal Student Aid Website" target="_blank">
+                <a href="<?php bloginfo('url') ?>/financial-aid/" title="Learn about Financial Aid">
 	                <img src="<?php bloginfo('template_directory') ?>/images/content/fafsa-logo.jpg" alt="Federal Student Aid Logo" />
                 </a>
             </section>

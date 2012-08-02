@@ -39,7 +39,7 @@
 						<section class='accordion closed'>
                             <header>
                                 <figcaption>Programs at <?php the_title() ?></figcaption>
-                                <figure></figure>
+                                <div><figure></figure></div>
                             </header>
                             <article>
 								<?php while ( $programs->have_posts() ) : $programs->the_post(); ?>

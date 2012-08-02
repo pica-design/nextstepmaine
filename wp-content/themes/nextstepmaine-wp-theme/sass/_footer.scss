@@ -9,9 +9,10 @@
 		width: 820px ;
 		overflow: auto ;
 		padding: 0 10px 0 10px ;
+
 		.column {
 			float: left ;
-			margin: 30px 50px 0 0 ;
+			margin: 30px 40px 0 0 ;
 			
 			.button {
 				float: left ;
@@ -120,7 +121,7 @@
 						font-size: inherit ;
 					}
 				}
-				&#menu-quick-menu-1 {
+				&#menu-footer-menu {
 					li a {
 						text-transform: uppercase ;
 					}	
