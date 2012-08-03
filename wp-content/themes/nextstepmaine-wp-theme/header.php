@@ -59,7 +59,7 @@
 	                	<img src="<?php bloginfo('template_directory') ?>/images/content/nextstepmaine-logo.jpg" alt="Next Step Maine Logo" />
                     </a>
                 </figure>
-                <article class="website-slogan">opportunities for the<br /> non-traditional student</article>
+                <article class="website-slogan">Connect to education.<br />Launch your future.</article>
                 <section class="website-controls">
                     <div class="website-quick-links"><?php wp_nav_menu(array('menu' => 'Quick Menu', 'container' => '')) ?></div>
                     <div class="clear"></div>
