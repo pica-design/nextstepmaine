@@ -9,6 +9,13 @@
 	$search_query_words = explode(' ', $search_query);
 	//We'll use this to track which post type results are being shown for
 	$current_cpt = "";
+
+	//Build an array of the number of results per post type
+	$cpt_posts_count = Array();
+	//We loop through to assign the array keys first, so we don't can any php warnings about missing indexes
+	while ( have_posts() ) : the_post(); $cpt_posts_count[$post->post_type] = ""; endwhile ;
+	//Loop through again and assign our values
+	while ( have_posts() ) : the_post(); ++$cpt_posts_count[$post->post_type]; endwhile ;
 ?>
 
 		<section class="content-wrapper search-results">
@@ -19,13 +26,6 @@
 						<?php printf( __( 'Search Result(s) for: %s', 'nextstepmaine' ), '<strong>' . get_search_query() . '</strong>' ); ?>
 					</h3>
 				</header>
-				<?php 
-					//Build an array of the number of results per post type
-					$cpt_posts_count = Array();
-
-					while ( have_posts() ) : the_post(); $cpt_posts_count[$post->post_type] = ""; endwhile ;
-					while ( have_posts() ) : the_post(); ++$cpt_posts_count[$post->post_type]; endwhile ;
-				?>
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php 
 						//Display the current result post type in sections, along with a count; e.g. '5 Maine Educational Programs'

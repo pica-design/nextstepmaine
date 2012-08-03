@@ -30,14 +30,27 @@
 	add_filter( 'next_post_rel_link', 'disable_stuff' );
 	function disable_stuff( $data ) { return false; }
 	
-	//Increase the default search term limit
-	function change_wp_search_size($query) {
-	if ( $query->is_search ) // Make sure it is a search page
-		$query->query_vars['posts_per_page'] = -1; // Change 10 to the number of posts you would like to show
-		return $query; // Return our modified query variables
+	//Increase the default search result limit
+	add_filter('pre_get_posts', 'increase_search_results',10,1); 
+	function increase_search_results($query) {
+		if ( $query->is_search == 1) :
+			$query->query_vars['posts_per_page'] = -1;
+			return $query; // Return our modified query variables
+		endif;
 	}
-	add_filter('pre_get_posts', 'change_wp_search_size'); // Hook our custom function onto the request filter
 	
+	//Order search results by post_type
+	add_filter('posts_orderby','order_search_results',10,2);
+	function order_search_results( $orderby, $query ){
+		global $wpdb;
+		if ( $query->is_search ) :
+		    $orderby =  "$wpdb->posts.post_type ASC";
+		else :
+			$orderby = "$wpdb->posts.post_date DESC, $wpdb->posts.menu_order ASC";
+	    endif;
+	    return $orderby;
+	}
+
 	/************************
 			SETUP
 	************************/
