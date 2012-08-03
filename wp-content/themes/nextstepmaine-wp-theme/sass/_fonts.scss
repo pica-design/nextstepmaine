@@ -20,6 +20,17 @@
 }
 
 @font-face {
+    font-family: 'AvenirHeavy';
+    src: url('../fonts/avenir_heavy-webfont.eot');
+    src: url('../fonts/avenir_heavy-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenir_heavy-webfont.woff') format('woff'),
+         url('../fonts/avenir_heavy-webfont.ttf') format('truetype'),
+         url('../fonts/avenir_heavy-webfont.svg#AvenirLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'AvenirMedium';
     src: url('../fonts/avenir_medium-webfont.eot');
     src: url('../fonts/avenir_medium-webfont.eot?#iefix') format('embedded-opentype'),
