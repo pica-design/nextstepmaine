@@ -1,29 +1,27 @@
 <?php 
     //Determine if the user is viewing a nextstep page
-    switch ($post->post_name) :
-        case 'get-a-ged' : $nextstep = 0 ; break;
-        case 'start-college' : $nextstep = 1 ; break;
-        case 'finish-college' : $nextstep = 2 ; break;
-        case 'change-my-career' : $nextstep = 3 ; break;
-        case 'home' : $nextstep = -1 ; break;
-        default : $nextstep = false ; break;
-    endswitch;
+    if (is_object($post)) : 
+        switch ($post->post_name) :
+            case 'get-a-ged' : $nextstep = 0 ; break;
+            case 'start-college' : $nextstep = 1 ; break;
+            case 'finish-college' : $nextstep = 2 ; break;
+            case 'change-my-career' : $nextstep = 3 ; break;
+            case 'home' : $nextstep = -1 ; break;
+            default : $nextstep = false ; break;
+        endswitch;
 
+        //Pull our post gallery if one exists
+        $gallery = new Post_Gallery($post->ID);
+
+        //Grab the page seo settings
+        $metadesc = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
+        $metakeywords = get_post_meta($post->ID, '_yoast_wpseo_metakeywords', true);
+    else :
+         $nextstep = false ;
+    endif;
     //If they are we'll set a cookie with the step value (so we can keep the menu positioned on their step)
         //e.g. Viewed 'Change my Career' and then clicked around the website, we want to keep 'Change my Career' highlighted
-
-    //This works on PICA DEV
-    //if ($nextstep !== false) : setcookie("nextstep", $nextstep, time() + 3600, "/nextstepmaine/", "picadesign.ath.cx"); endif ;
-
-    //This works on James Dev - ODD
     if ($nextstep !== false) : setcookie("nextstep", $nextstep, time() + 3600, "/nextstepmaine/"); endif ;
-
-    //Pull our post gallery if one exists
-	$gallery = new Post_Gallery($post->ID);
-	
-	//Grab the page seo settings
-	$metadesc = get_post_meta($post->ID, '_yoast_wpseo_metadesc', true);
-	$metakeywords = get_post_meta($post->ID, '_yoast_wpseo_metakeywords', true);
 ?>
 <!DOCTYPE HTML>
 <html>
