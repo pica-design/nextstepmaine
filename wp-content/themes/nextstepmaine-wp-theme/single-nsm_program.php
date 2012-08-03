@@ -5,6 +5,8 @@
             
         	<?php if (have_posts()) : ?>
             	<?php while (have_posts()) : the_post() ?>
+                    <p>Below are the details about the program you’ve chosen.  Contact the school directly for admissions and financial aid information, or use the link to go directly to the school’s website for more details.</p>
+
 					<?php
 						// Find connected pages
 						$institution = p2p_type( 'Program Institution' )->get_connected( $post );

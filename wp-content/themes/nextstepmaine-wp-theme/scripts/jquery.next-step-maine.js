@@ -113,14 +113,14 @@
 		homeLeft = -1
 	}
 
-
 	//Enable the lavalamp using the index decided on above
 	$('nav.next-step .inner').lavaLamp({
 		fx: 'linear',
 		speed: 200,
 		startItem: +index,
 		homeTop: homeTop,
-		homeLeft: homeLeft
+		homeLeft: homeLeft,
+		returnHome:true
 	});
 	
 	/* CONTENT ACCORDIANS */
