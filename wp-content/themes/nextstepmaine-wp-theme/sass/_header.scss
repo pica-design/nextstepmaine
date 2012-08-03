@@ -45,45 +45,10 @@ section.masthead {
 						content: "";
 						margin-right: 0 ;
 					}
-				}
-		}
-		.website-search {
-			position: relative ;
-			margin-top: 13px ;
-			float: right ;
-			width: 200px ;
-			
-			.search-form {
-				.field {
-					position: absolute ;
-					top: 3px ;
-					left: 0 ;
-					width: 166px ;
-					background-color: $light-gray ;
-					border: 1px solid $medium-gray ;
-					color: $dark-gray ;
-					padding: 6px ;
-					font-size: 0.85em ;
-					
-					&::-webkit-input-placeholder {
-					   color: $dark-gray ;
-					}
-					&:-moz-placeholder {
-					   color: $dark-gray ;
+					&.current-menu-item a {
+						//text-decoration: underline ;
 					}
 				}
-				.submit {
-					position: absolute ;
-					top: 0 ;
-					right: 0 ;
-					padding: 7px 7px 8px 7px ;
-					color: $white ;
-					border: 1px solid $off-white ;
-					border-left: 0px ;
-					font: italic normal normal 1.2em/1.0em 'AvenirBlack' ;
-					@include blue-gradient ;
-				}
-			}
 		}
 	} /* .website.controls */
 } /* section.masthead */

@@ -66,6 +66,7 @@ section.content-wrapper {
 		//Bring in our styles for the prgram type menu
 		@import 'program-type-menu';
 
+		//This is applied to the institution logo/seal on single institution & program pages
 		.institution-image {
 			max-height: 100px ;
 			float: left ;
@@ -88,8 +89,15 @@ section.content-wrapper {
 				width: 33% ;
 				height: 220px ;
 				padding: 0 15px 0 15px ;
-				@include single-box-shadow($medium-gray, -5px, 0px , 7px, -5px, false);
-				
+				@include single-box-shadow($medium-gray, -5px, 0px , 5px, -5px, false);
+				/*
+				color
+				h-offset
+				v-offset
+				blur
+				spread
+				inset
+				*/
 				&:first-child {
 					border-left: 0px ;
 					padding: 0 ;
@@ -107,7 +115,7 @@ section.content-wrapper {
 			float: right ;
 			width: 190px ;
 			padding: 0 0 0 13px ;
-			@include single-box-shadow($medium-gray, -5px, 0px , 7px, -5px, false);
+			@include single-box-shadow($medium-gray, -5px, 0px , 5px, -5px, false);
 			
 			.widget {
 				border-bottom: 1px solid $light-blue ;
@@ -138,14 +146,18 @@ section.content-wrapper {
 			p.tooltip {
 				font: normal normal normal 1.0em/1.0em 'Arial' ;
 				color: $medium-blue ;
+
+				a {
+					font: inherit ;
+				}
 			}
 			ul {
 				margin: 0 ;
-				padding: 0 ;
+				padding: 0 0 5px 0 ;
 				
 				li {
 					list-style: none ;
-					margin-bottom: 12px ;
+					margin-bottom: 9px ;
 					font-weight: bold ;
 
 					a {

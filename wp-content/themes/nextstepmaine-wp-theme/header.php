@@ -59,7 +59,7 @@
                 </figure>
                 <article class="website-slogan">Connect to education.<br />Launch your future.</article>
                 <section class="website-controls">
-                    <div class="website-quick-links"><?php wp_nav_menu(array('menu' => 'Quick Menu', 'container' => '')) ?></div>
+                    <div class="website-quick-links"><?php wp_nav_menu(array('menu' => 'Mastehad Quick Menu', 'container' => '')) ?></div>
                     <div class="clear"></div>
                     <div class="website-search"><?php get_search_form(); ?></div>
                 </section>

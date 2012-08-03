@@ -30,6 +30,12 @@
 	add_filter( 'next_post_rel_link', 'disable_stuff' );
 	function disable_stuff( $data ) { return false; }
 	
+	/*
+	
+	//Both functions below we chopped, and instead we modified the relavent search plugin starting at line 100
+	//See evernote 'changelogs' note for more information.
+	//Leaving these here for reference if we need them later on
+
 	//Increase the default search result limit
 	add_filter('pre_get_posts', 'increase_search_results',10,1); 
 	function increase_search_results($query) {
@@ -38,7 +44,8 @@
 			return $query; // Return our modified query variables
 		endif;
 	}
-	
+	*/
+	/*
 	//Order search results by post_type
 	add_filter('posts_orderby','order_search_results',10,2);
 	function order_search_results( $orderby, $query ){
@@ -50,6 +57,7 @@
 	    endif;
 	    return $orderby;
 	}
+	*/
 
 	/************************
 			SETUP
@@ -65,9 +73,15 @@
 		/************************
    		 CUSTOM QUERY VARIABLES
 		************************/
-		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo
+		/*
+			The following created a query_var called 'program_type', so..
+			site.com/programs/foo  ==  site.com/programs?program_type=foo
+
+			NOTE: Your 'programs' page can not have any child
+		*/
+		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?program_type=foo
 		add_rewrite_tag('%program_type%', '([^&]+)');
-		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 
+		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?program_type=foo 
 		add_rewrite_rule('^programs/([^/]*)/?', 'index.php?pagename=programs&program_type=$matches[1]', 'top');
 
 		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo

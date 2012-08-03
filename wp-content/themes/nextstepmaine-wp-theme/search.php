@@ -104,7 +104,7 @@
 					</header><!-- .entry-header -->
 					<div class="entry-content">
 						<p><?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.', 'twentyeleven' ); ?></p>
-						<?php get_search_form(); ?>
+		                <div class="website-search"><?php get_search_form(); ?></div>
 					</div><!-- .entry-content -->
 				</article><!-- #post-0 -->
 			<?php endif; ?>

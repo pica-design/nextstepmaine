@@ -78,6 +78,11 @@ section.website-wrapper {
 	@import 'header';
 
 	/**********************************************
+		WEBSITE CONTROLS DECLARATIONS 
+	**********************************************/
+	@import 'website-search';
+
+	/**********************************************
 		SLIDESHOW DECLARATIONS 
 	**********************************************/
 	@import 'slideshow';

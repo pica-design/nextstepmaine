@@ -23,9 +23,9 @@
 			?>
             <section class="widget" id="financial-aid">
                 <h3>Financial Aid</h3>
-                <p class="slogan">Get help paying<br />for college.</p>
-                <p class="tooltip">Click the link below<br />for more information</p>
                 <a href="<?php bloginfo('url') ?>/financial-aid/" title="Learn about Financial Aid">
+	                <p class="slogan">Get help paying<br />for college.</p>
+	                <p class="tooltip">Click the link below<br />for more information</p>
 	                <img src="<?php bloginfo('template_directory') ?>/images/content/fafsa-logo.jpg" alt="Federal Student Aid Logo" />
                 </a>
             </section>
@@ -108,7 +108,7 @@
             <section class="widget" id="institutions">
                 <h3>Institutions</h3>
                 <?php if (is_page('home')) : ?>
-                	<p>(Choose from one of the<br />options in the drop down menu<br /><span class="blue-text"><strong>to search for program types<br />and schools)</strong></span></p>
+                	<p class="tooltip">(Choose from one of the<br />options in the drop down menu<br />to search for program types<br />and schools)</p>
                 <?php endif ?>
                 <select>
                 	<option value="">Institutions</option>
