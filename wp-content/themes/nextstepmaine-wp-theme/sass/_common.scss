@@ -11,7 +11,7 @@
 }
 .button {
 	text-align: center ;
-	font: normal normal normal 0.8em/1.0em 'AvenirBlack' ;
+	font: normal normal normal 0.8em/1.0em 'AvenirHeavy' ;
 	letter-spacing: 1px ;
 	@include single-transition(all, 0.2s, linear) ;
 	
@@ -99,7 +99,7 @@ section.accordion {
 			float: left ;
 			display: block ;
 			padding: 9px 15px 9px 15px ;
-			font: normal normal normal 1.05em/1.0em 'AvenirBlack' ;
+			font: normal normal normal 1.05em/1.0em 'AvenirHeavy' ;
 			letter-spacing: 0.1em ;
 			color: rgb(255,255,255) ;
 			line-height: 1.4em ;

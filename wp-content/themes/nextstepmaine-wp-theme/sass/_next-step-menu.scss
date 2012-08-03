@@ -7,8 +7,7 @@
 	h1 {
 		float: left ;
 		color: $medium-blue ;
-		font-weight: bold ;
-		font-size: 2.4em ;
+		font: normal normal normal 2.4em/1.0em 'AvenirHeavy' ;
 	}
 	.caption {
 		diplay: inline-block ;
@@ -75,7 +74,7 @@ nav.next-step {
 					a {
 						position: relative ;
 						z-index: 3 ;
-						font: italic normal normal 0.95em/1.0em 'AvenirBlack' ;
+						font: italic normal normal 0.95em/1.0em 'AvenirHeavy' ;
 						letter-spacing: 0.1em ;
 						color: rgb(255,255,255) ;
 						$default-text-shadow-color: $darkest-blue ;

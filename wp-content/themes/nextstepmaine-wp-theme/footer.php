@@ -34,7 +34,7 @@
                         	<li>SUITE 5, AUGUSTA, ME 04330</li>
                         	<li><strong>PHONE:</strong> 207-622-6345</li>
                         	<li><strong>FAX:</strong> 207-622-6346</li>
-                        	<li><strong>EMAIL:</strong> mdf@mdf.org</li>
+                        	<li><strong>EMAIL:</strong> <a href="mailto:mdf@mdf.org?Subject=Next Step Maine" title="Email Next Step Maine">mdf@mdf.org</a></li>
                         </ul>
                     </section>
                 	<section class="column">

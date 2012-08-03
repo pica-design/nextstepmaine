@@ -53,7 +53,7 @@ html {
 			line-height: 1.2em ;
 		}
 			h1 {
-				font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+				font: normal normal normal 1.6em/1.0em 'AvenirHeavy' ;
 				color: $medium-blue ;
 				text-transform: uppercase ;
 
@@ -63,7 +63,7 @@ html {
 				}
 			}
 			h2 {
-				font: normal normal normal 1.6em/1.0em 'AvenirBlack' ;
+				font: normal normal normal 1.6em/1.0em 'AvenirHeavy' ;
 				color: $dark-gray ;
 				/*text-transform: uppercase ;*/
 			}
@@ -74,7 +74,7 @@ html {
 			font-weight: inherit ;
 			outline: none ;
 			font-size: inherit ;
-			font-family: 'AvenirBlack' ;
+			font-family: 'AvenirHeavy' ;
 			letter-spacing: 0em ;
 		}
 			a img {
@@ -90,7 +90,7 @@ html {
 		
 
 		strong {
-			font-family: 'AvenirMedium';
+			font-family: 'AvenirHeavy';
 		}
 	}//Body
 }//HTML
