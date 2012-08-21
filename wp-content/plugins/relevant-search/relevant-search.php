@@ -103,7 +103,7 @@ class Relevant_Search
 		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$offset = ( $paged > 1 ) ? ( ( $paged - 1 ) * $limit ) : 0;
 
-		$query[] = "GROUP BY ID ORDER BY search_score DESC, post_type ASC, post_date DESC LIMIT {$offset}, {$limit}";
+		$query[] = "GROUP BY ID ORDER BY post_type DESC, search_score DESC, post_date DESC LIMIT {$offset}, {$limit}";
 
 		/* Join the query */
 		$request = join( ' ', $query );

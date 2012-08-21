@@ -6,7 +6,10 @@
             case 'start-college' : $nextstep = 1 ; break;
             case 'finish-college' : $nextstep = 2 ; break;
             case 'change-my-career' : $nextstep = 3 ; break;
-            case 'home' : $nextstep = -1 ; break;
+            case 'home' : 
+                $nextstep = false ;
+                setcookie("nextstep", "", time() + 3600, "/nextstepmaine/");
+            break;
             default : $nextstep = false ; break;
         endswitch;
 
@@ -70,8 +73,16 @@
             	<figure class="slideshow-prev"></figure>
             	<section class="slides">
                     <?php foreach ($gallery->attachments as $key => $slide) : $slide_class = ($key == 0) ? "first" : ""; ?>
-                        
-                        <figure class="slide <?php echo $slide_class ?>"><img src="<?php echo get_bloginfo('url') . "/wp-content/uploads/" . $slide->meta_data['_wp_attachment_metadata']['sizes']['slideshow']['file'] ?>" alt="<?php echo $slide->post_title ?>" /></figure><?php endforeach ?>
+                        <figure class="slide <?php echo $slide_class ?>">
+                            <?php
+                                if (isset($slide->meta_data['_wp_attachment_metadata']['sizes']['slideshow'])) :
+                                    $slide_source = get_bloginfo('url') . "/wp-content/uploads/" . $slide->meta_data['_wp_attachment_metadata']['sizes']['slideshow']['file'];
+                                else :
+                                    $slide_source = $slide->guid;
+                                endif;
+                            ?>
+                            <img src="<?php echo $slide_source ?>" alt="<?php echo $slide->post_title ?>" />
+                        </figure><?php endforeach ?>
                 </section>
             	<figure class="slideshow-next"></figure>                
             </section><!-- .slideshow -->
@@ -79,7 +90,7 @@
             
             <section class="next-step-header">
             	<h1>What's your next step?</h1>
-                <span class="caption">(CHOOSE FROM ONE OF THE OPTIONS BELOW TO GET STARTED)</span>
+                <span class="caption">(CHOOSE ONE OF THE OPTIONS<br />BELOW TO GET STARTED TODAY)</span>
             </section><!-- .next-step-header -->
             
             <nav class="next-step">

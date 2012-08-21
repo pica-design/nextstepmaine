@@ -91,7 +91,7 @@ section.accordion {
 		margin-bottom: 10px ;
 		cursor: pointer ;
 		width: 100% ;
-	    background-color: $light-gray ;
+	    background-color: $lighter-than-medium-gray ;
 	    padding: 0 ;
 		@include single-transition(all, 0.2s, linear) ;
 
@@ -121,12 +121,12 @@ section.accordion {
 			}
 		}
 		&:hover {
-			background-color: $lighter-than-medium-gray ;
+			background-color: $medium-gray ;
 		}
 	}
 	article {
 		width: 545px ;
-		font-size: 0.9em ;
+		font-size: 1.0em ;
 	}
 	&.open header {
 		background-color: $medium-gray ;
@@ -144,7 +144,13 @@ section.accordion {
 } /* accordian */
 
 
+.inline {
+	display: inline ;
+}
 
+.moreleading {
+	line-height: 1.25em ;
+}
 
 /* Back to Top Elements */
 .back-to-top {

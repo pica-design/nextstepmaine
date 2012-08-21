@@ -17,7 +17,9 @@ section.content-wrapper {
 		&.full-width {
 			width: 800px ;
 		}
-
+		p {
+			font-size: 1.1em ;
+		}
 		ul.breadcrumbs {
 			display: inline-block ;
 			float: left ;
@@ -81,7 +83,7 @@ section.content-wrapper {
 	.aside {
 		/* The horizontal aside section is used on the website homepage */
 		&.horizontal {
-			margin: 20px 0 0 0 ;
+			margin: 20px 0 30px 0 ;
 			width: 100% ;
 			
 			.widget {
@@ -106,7 +108,7 @@ section.content-wrapper {
 				h3 {
 					font: normal normal normal 1.7em/1.2em 'AvenirHeavy' ;
 					text-transform: lowercase ;
-					margin-bottom: 25px ;
+					margin-bottom: 12px ;
 				}
 			} /* widget */
 		} /* .horizontal */
@@ -132,7 +134,12 @@ section.content-wrapper {
 				h3 {
 					font: normal normal normal 1.7em/1.2em 'AvenirHeavy' ;
 					text-transform: lowercase ;
-					margin-bottom: 15px ;
+					margin-bottom: 12px ;
+				}
+
+				a.sbSelector {
+					font-size: 0.95em !important ;
+					padding-top: 3px !important ;
 				}
 			} /* .widget */
 		} /* .vertical */
@@ -157,7 +164,7 @@ section.content-wrapper {
 				
 				li {
 					list-style: none ;
-					margin-bottom: 9px ;
+					margin-bottom: 6px ;
 					font-weight: bold ;
 
 					a {

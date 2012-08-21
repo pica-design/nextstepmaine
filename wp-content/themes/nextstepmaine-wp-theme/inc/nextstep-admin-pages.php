@@ -113,14 +113,14 @@
 				//Close the opened file
 				fclose($uploaded_csv);
 				//Set an update notice
-				$nsm_update_notice = "Inserted $row_count rows";
+				$nsm_update_notice = "Inserted $row_count Jobs";
 			endif;
 		endif;
 	
 		?>
         	<div id="wpbody-content">
             	<div class="wrap">
-                	<div id="icon-edit-pages" class="icon32"></div>
+	            	<div id="icon-edit" class="icon32 icon32-posts-nsm_job"></div>
 	            	<h2>Jobs in Demand in Maine</h2>
                     <?php if (!empty($nsm_update_notice)) : ?>
                     <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
@@ -223,7 +223,7 @@
 				//Close the opened file
 				fclose($uploaded_csv);
 				//Set an update notice
-				$nsm_update_notice = "Inserted $row_count rows";
+				$nsm_update_notice = "Inserted $row_count Institutions";
 			endif;
 			
 		endif;
@@ -231,7 +231,7 @@
 		?>
         <div id="wpbody-content">
             <div class="wrap">
-                <div id="icon-edit-pages" class="icon32"></div>
+                <div id="icon-edit" class="icon32 icon32-posts-nsm_institution"></div>
                 <h2>Maine Institutions</h2>
                 <?php if (!empty($nsm_update_notice)) : ?>
                 <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>
@@ -294,19 +294,19 @@
 					    [2] => Program Title
 					    [3] => Program Type
 					    [4] => Discipline
-					    [5] => Program Level
-					    [6] => Program Format 
-					    [7] => Location
-					    [8] => Schedule (if possible)
-					    [9] => Program URL
-					    [10] => Avg Timeframe to Complete in Hours
-					    [11] => Avg Cost Per Credit Hour
-					    [12] => Program Category 
-					    [13] => Program Description
+					    [5] => Program Format 
+					    [6] => Location
+					    [7] => Schedule (if possible)
+					    [8] => Program URL
+					    [9] => Avg Timeframe to Complete in Hours
+					    [10] => Avg Cost Per Credit Hour
+					    [11] => Program Category 
+					    [12] => Program Description
 					)
 					*/
 					
-					//Omit the first 'headings' row			
+					//Omit the first 'headings' row	
+					
 					if ($row_count > 0) :
 						//if ($row_count < 5) :
 							
@@ -315,11 +315,11 @@
 								'post_type'	  => 'nsm_program',
 								'post_status' => 'publish',
 								'post_title'  => $row[2],
-								'post_content' => $row[13]
+								'post_content' => $row[12]
 							));	
 							
 							//Add the category terms to the post
-							$terms = explode(',', $row[12]);
+							$terms = explode(',', $row[11]);
 							foreach ($terms as $term) :
 								wp_set_object_terms($post_id, $term, 'nsm_program_category');
 							endforeach;
@@ -331,13 +331,13 @@
 							update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
 							update_post_meta($post_id, '_nsm_program_type', $row[3]);
 							update_post_meta($post_id, '_nsm_program_discipline', $row[4]);
-							update_post_meta($post_id, '_nsm_program_level', $row[5]);
-							update_post_meta($post_id, '_nsm_program_format', $row[6]);
-							update_post_meta($post_id, '_nsm_program_location', $row[7]);
-							update_post_meta($post_id, '_nsm_program_schedule', $row[8]);
-							update_post_meta($post_id, '_nsm_program_url', $row[9]);
-							update_post_meta($post_id, '_nsm_program_timeframe', $row[10]);
-							update_post_meta($post_id, '_nsm_program_cost', $row[11]);
+							
+							update_post_meta($post_id, '_nsm_program_format', $row[5]);
+							update_post_meta($post_id, '_nsm_program_location', $row[6]);
+							update_post_meta($post_id, '_nsm_program_schedule', $row[7]);
+							update_post_meta($post_id, '_nsm_program_url', $row[8]);
+							update_post_meta($post_id, '_nsm_program_timeframe', $row[9]);
+							update_post_meta($post_id, '_nsm_program_cost', $row[10]);
 							
 							//Select the institution that this program belongs to based on the Title IV Code
 							$institution = new WP_Query(array(
@@ -353,18 +353,19 @@
 								
 						//endif;
 					endif;
+					
 					$row_count++;	
 				endwhile;
 				//Close the opened file
 				fclose($uploaded_csv);
 				//Set an update notice
-				$nsm_update_notice = "Inserted $row_count rows";
+				$nsm_update_notice = "Inserted $row_count programs";
 			endif;
 		endif;
 		?>
         <div id="wpbody-content">
             <div class="wrap">
-                <div id="icon-edit-pages" class="icon32"></div>
+                <div id="icon-edit" class="icon32 icon32-posts-nsm_program"></div>
                 <h2>Maine Institution Programs</h2>
                 <?php if (!empty($nsm_update_notice)) : ?>
                 <div class="updated"><p><?php echo $nsm_update_notice ?></p></div>

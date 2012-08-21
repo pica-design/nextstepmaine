@@ -12,8 +12,8 @@
 	.caption {
 		diplay: inline-block ;
 		float: left ;
-		width: 200px ;	
-		margin: 8px 0 0 20px ;
+		width: 250px ;	
+		margin: 4px 0 0 20px ;
 		font-size: 0.75em ;
 	}
 } /* .next-step-header */
@@ -53,15 +53,12 @@ nav.next-step {
 					vertical-align: middle;
 					margin-right: -0.25em;
 				}
-				
 				&.last {
 					margin-right: 0 ;
 				}
-				
 				&.selectedLava, &:hover {
 					@include single-box-shadow($medium-gray, 0, 0, 8px, false, false);
 				}
-				
 				h2 {
 					position: relative ;
 					z-index: 2 ;
@@ -74,7 +71,7 @@ nav.next-step {
 					a {
 						position: relative ;
 						z-index: 3 ;
-						font: italic normal normal 0.95em/1.0em 'AvenirHeavy' ;
+						font: italic normal normal 0.90em/1.0em 'AvenirHeavy' ;
 						letter-spacing: 0.1em ;
 						color: rgb(255,255,255) ;
 						$default-text-shadow-color: $darkest-blue ;
@@ -83,8 +80,6 @@ nav.next-step {
 						@include single-text-shadow;
 					}
 				}
-				
-				
 			} /* li */
 		} /* ul */
 	} /* .inner */

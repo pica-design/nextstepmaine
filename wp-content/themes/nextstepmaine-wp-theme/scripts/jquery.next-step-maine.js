@@ -94,33 +94,14 @@
 	*/
 	//The first thing we try to do is see if the user is on a step page 
 		//If they are we want to use the index of the current page to position the arrow
-	//var steps = $('nav.next-step .inner ul li')
-	//var index = steps.index(steps.filter('.current_page_item'))
-	homeTop = 0
-	homeLeft = 0
-	
-	//console.log(index)
-
-	//However, if the user is not on one of these pages (index == -1) then let's attempt to grab the nextstep cookie
-		//The cookie is set in header.php on each of the 4 step pages so the user can navigate around the site and the arrow stays on their step
-	//if (index == -1) { 
 	index = $.cookie('nextstep')
-	//} 
-
-	//However, if the user has not yet visited one of these pages OR the user's browser does not accept cookies we use 0 as a fallback 
-	if (index == -1) {
-		homeTop = -1
-		homeLeft = -1
-	}
 
 	//Enable the lavalamp using the index decided on above
 	$('nav.next-step .inner').lavaLamp({
 		fx: 'linear',
 		speed: 200,
 		startItem: +index,
-		homeTop: homeTop,
-		homeLeft: homeLeft,
-		returnHome:true
+		autoReturn: true
 	});
 	
 	/* CONTENT ACCORDIANS */

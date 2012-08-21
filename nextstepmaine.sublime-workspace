@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"auto",
+				"autoReturn"
+			],
+			[
+				"n",
+				"none"
+			],
+			[
+				"array_m",
+				"array_multisort"
+			],
+			[
 				"line",
 				"line-height	zen:css_properties"
 			],
@@ -51,6 +63,23 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+			"settings":
+			{
+				"buffer_size": 2996,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "If you’ve decided to pursue a certificate or degree, your very first question is probably: how can I pay for this? You should first find out what your options are and Apply for Federal Financial Aid: Federal financial aid is available for students attending at least half-time. Part-time students need to fill out the Free Application for Federal Student Aid (FAFSA) to see what financial aid they are eligible for.\n\nGenerally, the same types of financial aid are available for vocational, technical and online classes. Ask the financial aid office at the school you will be attending to make sure that the degree or certificate program in which you are enrolled meets financial aid eligibility.\n\nNot all schools accept federal financial aid; you should contact your school to find out if they participate in the <a title=\"Free Application for Federal Student Aid\" href=\"http://www.fafsa.ed.gov/\" target=\"_blank\">Federal Student Aid program</a>.\n\nYou can submit the FAFSA after January 1 of the year you will start attending college. If you will attend during the 2010-2011 school year, you can submit the FAFSA beginning on January 1, 2010. If you will attend during the 2011-2012 school year, you can submit the FAFSA beginning on January 1, 2011. Many colleges have deadlines as early as February 1, so it is better to file your FAFSA early! You do not need to be accepted into a college to complete the FAFSA.\n\nYou do not need to wait until your taxes have been completed to complete the FAFSA. The FAFSA asks for information from your federal tax returns; however, you may use estimated tax information if you have not yet filed a tax return. You will have an opportunity later to make changes to your application after your taxes have been completed.\n\n[accordion title=\"Get Help from Your Employer\"]If you have a job, your first step should be to find out what supports your employer may offer to further your education and training. Many employers offer tuition assistance, flexible scheduling or on-site training to help increase employees’ skills &amp; knowledge. If your employer is part of the Maine Employers’ Initiative, you are entitled to tuition discounts from several institutions in Maine: Check to see if your employer is on this list; then ask them about it![/accordion][accordion title=\"Explore Maine-specific Financial Aid\"]Maine has a variety of programs available to help students pay for college. You can explore some of these options at the <a title=\"Finance Authority of Maine\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Maine_Financial_Aid.aspx\" target=\"_blank\">Finance Authority of Maine website</a>.[/accordion][accordion title=\"Get a Loan\"]There are federal, <a title=\"Maine Load Programs - FAME\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Loan_Programs.aspx\" target=\"_blank\">Maine and alternative loan programs</a> that may be a good option for you to cover your college costs. Not all loan programs allow part-time students, but in most cases those who are enrolled at least half-time will qualify.[/accordion][accordion title=\"Explore Additional Resources\"]<a title=\"Finance Authority of Maine\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Paying_for_College.aspx\" target=\"_blank\">The Finance Authority of Maine (FAME)</a> provides great guidance on other ways to save, plan for and pay for college. Go here to explore some of these resources.[/accordion][accordion title=\"Are You in the Military\"]There are many education benefits available to individuals who are interested in or are currently pursuing a military career and to veterans and their dependents. Visit the <a title=\"Finance Authority of Maine - Military Benefits\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Military_Students.aspx\" target=\"_blank\">FAME website</a> for an overview of the various military education benefits and financial aid programs, including college and career exploration resources.[/accordion][accordion title=\"Search for Scholarships\"]You may be eligible for local or state scholarships that will help you pay for school. Be sure to utilize the <a title=\"Finance Authority of Maine - Scholarship Search Tool\" href=\"http://www.famemaine.com/files/StaticPages/Education/Scholarship_Search.aspx\" target=\"_blank\">FAME scholarship search tool</a>.[/accordion]",
+			"settings":
+			{
+				"buffer_size": 4401,
+				"line_ending": "Unix",
+				"name": "If you’ve decided to pursue a certificate or degre"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -92,53 +121,66 @@
 	},
 	"file_history":
 	[
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_slideshow.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-post-types.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/search.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.min.js",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_search-results.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-faq.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_program.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_footer.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/admin.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_browser-icons.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_select-box.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/style.css",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-admin-pages.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/config.rb",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_content.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/slideshow.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_formidable.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-admin-pages.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/index.html",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_header.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_select-box.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_search-results.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-widgets.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/plugins/relevant-search/relevant-search.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_next-step-menu.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_search-field.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/style.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_website-search.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-home.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_normalize.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_program-type-menu.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_selection.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_slideshow.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/admin.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/editor.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_browser-icons.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_fonts.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_footer.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_gradients.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/search.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_website-controls.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_faq.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-post-types.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/singe-nsm_faq.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-shortcodes.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_program.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.min.js",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-faq.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/style.css",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/config.rb",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/slideshow.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/searchform.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-config.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-includes/post.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_fonts.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-meta-boxes.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/style.css",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_formidable.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/images/layout-s401003e54c.png",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-widgets.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/template-step-page.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/editor.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter.min.js",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter/jquery.tablesorter.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter/jquery.tablesorter.min.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/finish-college.html",
@@ -147,7 +189,6 @@
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/temp/change-career-html",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-includes/functions.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_editor.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_normalize.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/editor.css",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/normalize.css",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/screen.scss",
@@ -181,6 +222,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"AvenirMedium",
+			"AvenirBlack",
+			"prog_edu_lvl",
+			"avenir_light",
 			"institution",
 			"nsm_institution",
 			"institution",
@@ -199,6 +244,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"AvenirHeavy",
 			"lighter-than",
 			"'"
 		],
@@ -211,8 +257,66 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+					"settings":
+					{
+						"buffer_size": 2996,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2279,
+								2279
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1170.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 4401,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1461,
+								1461
+							]
+						],
+						"settings":
+						{
+							"auto_name": "If you’ve decided to pursue a certificate or degre",
+							"incomplete_sync": null,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],

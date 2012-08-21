@@ -24,6 +24,7 @@ div.sbHolder {
 		width: 30px;
 		z-index: 20 ;
 		background: sprite($layout-sprite, dropdown-arrow-inactive) ;
+		@include single-transition(none, 0s, linear) ;
 
 		&.sbToggleOpen {
 			background: sprite($layout-sprite, dropdown-arrow-active) ;
@@ -36,13 +37,17 @@ div.sbHolder {
 		display: block;
 		height: 34px;
 		width: 100% ;
-		padding: 2px 30px 2px 5px ;
+		padding: 1px 30px 2px 4px ;
 		overflow: hidden;
-
+		font-family: 'AvenirLight';
+		line-height: 1.2em ;
+		letter-spacing: 0em ;
+		font-size: 0.9em ;
 		&:link, 
 		&:visited, 
 		&:hover {
 			color: $white ;
+			font-weight: normal ;
 		}
 	}
 	ul.sbOptions {
@@ -64,17 +69,12 @@ div.sbHolder {
 				display: block;
 				padding: 5px 20px 5px 5px ;
 				width: 100% ;
-				color: $lightest-gray ;
-
-				&:link, 
-				&:visited, 
-				&:hover {
-				}
+				color: $off-white ;
+				font-family: 'AvenirLight';
 			}
 			&.last a {
 				border-bottom: none;
 			}
-
 			&:hover {
 				background-color: $dark-blue ;
 

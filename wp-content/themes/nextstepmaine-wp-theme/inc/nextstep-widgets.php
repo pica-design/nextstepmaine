@@ -25,7 +25,7 @@
                 <h3>Financial Aid</h3>
                 <a href="<?php bloginfo('url') ?>/financial-aid/" title="Learn about Financial Aid">
 	                <p class="slogan">Get help paying<br />for college.</p>
-	                <p class="tooltip">Click the link below<br />for more information</p>
+	                <!--<p class="tooltip">Click the link below<br />for more information</p>-->
 	                <img src="<?php bloginfo('template_directory') ?>/images/content/fafsa-logo.jpg" alt="Federal Student Aid Logo" />
                 </a>
             </section>
@@ -108,10 +108,10 @@
             <section class="widget" id="institutions">
                 <h3>Institutions</h3>
                 <?php if (is_page('home')) : ?>
-                	<p class="tooltip">(Choose from one of the<br />options in the drop down menu<br />to search for program types<br />and schools)</p>
+                	<!--<p class="tooltip">(Choose from one of the<br />options in the drop down menu<br />to search for program types<br />and schools)</p>-->
                 <?php endif ?>
                 <select>
-                	<option value="">Institutions</option>
+                	<option value="">Choose an Institution to View Programs Available</option>
                 <?php
                 	//Query all the institutions to populate our dropdown menu
 					$institutions = new WP_Query(array(
