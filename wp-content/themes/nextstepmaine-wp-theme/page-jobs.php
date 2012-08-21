@@ -100,10 +100,5 @@
             <em>Data obtained from the <a href="http://www.maine.gov/labor/cwri/data/oes/hwid.html" title="Maine Department of Labor" target="_blank">Maine Department of Labor</a> and <a href="http://www.onetcenter.org/" title="O*NET Resoruce Center" target="_blank">O*NET</a></em>
             <br /><br />
         </div>
-        <!--
-        <div class="aside vertical">
-            <?php get_sidebar('Page') ?>
-        </div>
-    -->
     </section>          
 <?php get_footer(); ?>

@@ -5,7 +5,12 @@
             
         	<?php if (have_posts()) : ?>
             	<?php while (have_posts()) : the_post() ?>
-					<img class="institution-image" src="<?php echo get_post_meta($post->ID, '_nsm_institution_logo', true) ?>" alt="<?php the_title() ?> Logo" />
+                    <?php
+                        $image_url = get_post_meta($post->ID, '_nsm_institution_logo', true) ;
+                        if ($image_url != "") :
+                    ?>
+					<img class="institution-image" src="<?php echo $image_url ?>" alt="<?php the_title() ?> Logo" />
+                    <?php endif ?>
                     <div class="clear"></div>
                     <h2><?php the_title() ?></h2>
                     <br />
@@ -23,18 +28,15 @@
                     <br />
                     
                     <?php
-						// Find connected pages
-						//$programs = p2p_type( 'Program Institution' )->get_connected( $post );
-						
 						//Pull other programs at the parent institution
 						$programs = new WP_Query( array(
 							'connected_type' => 'Program Institution',
 							'connected_items' => $post,
-							'nopaging' => true/*,
-							'post__not_in' => array($post->ID)*/
+							'nopaging' => true
 						) );
 						
-						
+                        if (!empty($programs->posts)) :
+
 						?>
 						<section class='accordion closed'>
                             <header>
@@ -50,6 +52,9 @@
                         	</article>
                         </section>
                 <?php 
+                        else :
+                            echo "There are currently no programs for this institution. Please check back soon!";
+                        endif;
 					endwhile;
 	            endif;
 			?>
