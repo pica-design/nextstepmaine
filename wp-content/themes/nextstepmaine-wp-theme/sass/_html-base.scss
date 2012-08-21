@@ -72,7 +72,7 @@ html {
 			font: inherit ;
 			color: inherit ;
 			text-decoration: none ;
-			font-weight: inherit ;
+			font-weight: normal ;
 			outline: none ;
 			font-size: inherit ;
 			font-family: 'AvenirHeavy' ;
@@ -90,13 +90,9 @@ html {
 			margin-top: 0px ;
 			color: inherit ;
 		}
-			p a {
-				font-weight: bold ;
-			}
-		
-
 		strong {
 			font-family: 'AvenirHeavy';
+			font-weight: normal ;
 		}
 	}//Body
 }//HTML

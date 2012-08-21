@@ -92,19 +92,11 @@ section.content-wrapper {
 				height: 220px ;
 				padding: 0 15px 0 15px ;
 				@include single-box-shadow($medium-gray, -5px, 0px , 5px, -5px, false);
-				/*
-				color
-				h-offset
-				v-offset
-				blur
-				spread
-				inset
-				*/
+				
 				&:first-child {
 					border-left: 0px ;
 					padding: 0 ;
 				}
-
 				h3 {
 					font: normal normal normal 1.7em/1.2em 'AvenirHeavy' ;
 					text-transform: lowercase ;
