@@ -64,20 +64,51 @@
 	"buffers":
 	[
 		{
-			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/single-nsm_institution.php",
 			"settings":
 			{
-				"buffer_size": 2996,
+				"buffer_size": 3573,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "If you’ve decided to pursue a certificate or degree, your very first question is probably: how can I pay for this? You should first find out what your options are and Apply for Federal Financial Aid: Federal financial aid is available for students attending at least half-time. Part-time students need to fill out the Free Application for Federal Student Aid (FAFSA) to see what financial aid they are eligible for.\n\nGenerally, the same types of financial aid are available for vocational, technical and online classes. Ask the financial aid office at the school you will be attending to make sure that the degree or certificate program in which you are enrolled meets financial aid eligibility.\n\nNot all schools accept federal financial aid; you should contact your school to find out if they participate in the <a title=\"Free Application for Federal Student Aid\" href=\"http://www.fafsa.ed.gov/\" target=\"_blank\">Federal Student Aid program</a>.\n\nYou can submit the FAFSA after January 1 of the year you will start attending college. If you will attend during the 2010-2011 school year, you can submit the FAFSA beginning on January 1, 2010. If you will attend during the 2011-2012 school year, you can submit the FAFSA beginning on January 1, 2011. Many colleges have deadlines as early as February 1, so it is better to file your FAFSA early! You do not need to be accepted into a college to complete the FAFSA.\n\nYou do not need to wait until your taxes have been completed to complete the FAFSA. The FAFSA asks for information from your federal tax returns; however, you may use estimated tax information if you have not yet filed a tax return. You will have an opportunity later to make changes to your application after your taxes have been completed.\n\n[accordion title=\"Get Help from Your Employer\"]If you have a job, your first step should be to find out what supports your employer may offer to further your education and training. Many employers offer tuition assistance, flexible scheduling or on-site training to help increase employees’ skills &amp; knowledge. If your employer is part of the Maine Employers’ Initiative, you are entitled to tuition discounts from several institutions in Maine: Check to see if your employer is on this list; then ask them about it![/accordion][accordion title=\"Explore Maine-specific Financial Aid\"]Maine has a variety of programs available to help students pay for college. You can explore some of these options at the <a title=\"Finance Authority of Maine\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Maine_Financial_Aid.aspx\" target=\"_blank\">Finance Authority of Maine website</a>.[/accordion][accordion title=\"Get a Loan\"]There are federal, <a title=\"Maine Load Programs - FAME\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Loan_Programs.aspx\" target=\"_blank\">Maine and alternative loan programs</a> that may be a good option for you to cover your college costs. Not all loan programs allow part-time students, but in most cases those who are enrolled at least half-time will qualify.[/accordion][accordion title=\"Explore Additional Resources\"]<a title=\"Finance Authority of Maine\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Paying_for_College.aspx\" target=\"_blank\">The Finance Authority of Maine (FAME)</a> provides great guidance on other ways to save, plan for and pay for college. Go here to explore some of these resources.[/accordion][accordion title=\"Are You in the Military\"]There are many education benefits available to individuals who are interested in or are currently pursuing a military career and to veterans and their dependents. Visit the <a title=\"Finance Authority of Maine - Military Benefits\" href=\"http://www.famemaine.com/files/Pages/education/students_and_families/Military_Students.aspx\" target=\"_blank\">FAME website</a> for an overview of the various military education benefits and financial aid programs, including college and career exploration resources.[/accordion][accordion title=\"Search for Scholarships\"]You may be eligible for local or state scholarships that will help you pay for school. Be sure to utilize the <a title=\"Finance Authority of Maine - Scholarship Search Tool\" href=\"http://www.famemaine.com/files/StaticPages/Education/Scholarship_Search.aspx\" target=\"_blank\">FAME scholarship search tool</a>.[/accordion]",
+			"file": "wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
 			"settings":
 			{
-				"buffer_size": 4401,
-				"line_ending": "Unix",
-				"name": "If you’ve decided to pursue a certificate or degre"
+				"buffer_size": 5077,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+			"settings":
+			{
+				"buffer_size": 1759,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_content.scss",
+			"settings":
+			{
+				"buffer_size": 3736,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+			"settings":
+			{
+				"buffer_size": 2993,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+			"settings":
+			{
+				"buffer_size": 5727,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -121,6 +152,9 @@
 	},
 	"file_history":
 	[
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_content.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_formidable.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-admin-pages.php",
@@ -128,7 +162,6 @@
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/index.html",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_header.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_select-box.scss",
@@ -155,7 +188,6 @@
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_gradients.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/search.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_website-controls.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_faq.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-post-types.php",
@@ -166,7 +198,6 @@
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_program.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.min.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-faq.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/style.css",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/config.rb",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/slideshow.scss",
@@ -257,23 +288,82 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+					"file": "wp-content/themes/nextstepmaine-wp-theme/single-nsm_institution.php",
 					"settings":
 					{
-						"buffer_size": 2996,
+						"buffer_size": 3573,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2279,
-								2279
+								3284,
+								3284
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 142.0,
+						"translation.y": 81.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+					"settings":
+					{
+						"buffer_size": 5077,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4621,
+								4971
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 710.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+					"settings":
+					{
+						"buffer_size": 1759,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1384,
+								1384
 							]
 						],
 						"settings":
@@ -285,34 +375,96 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1170.0,
+						"translation.y": 561.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 3,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_content.scss",
 					"settings":
 					{
-						"buffer_size": 4401,
+						"buffer_size": 3736,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1461,
-								1461
+								3276,
+								3276
 							]
 						],
 						"settings":
 						{
-							"auto_name": "If you’ve decided to pursue a certificate or degre",
 							"incomplete_sync": null,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1928.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+					"settings":
+					{
+						"buffer_size": 2993,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2562,
+								2562
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/SCSS/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1672.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+					"settings":
+					{
+						"buffer_size": 5727,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5338,
+								5664
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 893.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

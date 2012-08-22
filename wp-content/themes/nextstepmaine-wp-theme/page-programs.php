@@ -106,9 +106,18 @@
 							?>
                         </td>
                     </tr>
-					<?php endwhile ; wp_reset_postdata(); ?>
+					<?php 
+						endwhile ; 
+						$last_updated_date = get_the_date();
+						wp_reset_postdata(); ?>
 				</tbody>
             </table>
+            <br /><br />
+            <em>
+            	Data obtained from the individual institutions listed above. Programs change often, so please inquire with the host institution in question to ensure their data has not changed. 
+            	Last updated on <?php echo $last_updated_date ?>
+            </em>
+            <br /><br />
         </div>
     </section>          
 <?php get_footer(); ?>

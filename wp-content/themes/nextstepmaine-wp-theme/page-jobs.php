@@ -91,7 +91,7 @@
 		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_entry_wage', true) ?></td>
 		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_median_wage', true) ?></td>
 					   	</tr>
-						<?php endwhile ?>
+						<?php endwhile ; $last_updated_date = get_the_date(); ?>
 					<?php endforeach ?>
 				</tbody>
 			</table>
@@ -100,7 +100,7 @@
             	Data obtained from the 
             	<a href="http://www.maine.gov/labor/cwri/data/oes/hwid.html" title="Maine Department of Labor" target="_blank">Maine Department of Labor</a> 
             	and <a href="http://www.onetcenter.org/" title="O*NET Resoruce Center" target="_blank">O*NET</a>
-            	Last updated on <?php the_date() ?>
+            	Last updated on <?php echo $last_updated_date ?>
             </em>
             <br /><br />
         </div>

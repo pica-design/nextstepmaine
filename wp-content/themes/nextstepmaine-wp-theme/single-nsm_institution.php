@@ -58,6 +58,12 @@
 					endwhile;
 	            endif;
 			?>
+            <br /><br />
+            <em>
+                Data obtained directly from the institution listed above. Programs change often, so please inquire with the institution to ensure their data has not changed. 
+                Last updated on <?php the_date() ?>
+            </em>
+            <br /><br />
         </div>
         <div class="aside vertical">
             <?php get_sidebar('Page') ?>
