@@ -32,10 +32,10 @@
         	<div class="filter-options">
         		<div class="title">View: </div>
         		<div class="button gray inline padded rounded <?php echo $all_programs_active ?>"><a href="<?php echo get_permalink($post->ID) ?>" title="All Programs">All</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/associate" title="Associate Programs">Associate Programs (2 Years)</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/bachelor" title="Bachelor Programs">Bachelor Programs (4 Years)</a></div>
+                <div class="button gray inline padded rounded <?php echo $certificate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/certificate" title="Certificate Programs">Certificate Programs</a></div>
+	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/associate" title="Associate Programs">Associate Programs</a></div>
+	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/bachelor" title="Bachelor Programs">Bachelor Programs</a></div>
 	        	<div class="button gray inline padded rounded <?php echo $master_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/master" title="Master Programs">Master Programs</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $certificate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/certificate" title="Certificate Programs">Certificate Programs</a></div>
 	        </div>
             <table cellpadding="0" cellspacing="0" border="0" class="tablesorter programs">
             	<thead>

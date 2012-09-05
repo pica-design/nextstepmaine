@@ -66,7 +66,7 @@
             <br /><br />
         </div>
         <div class="aside vertical">
-            <?php get_sidebar('Page') ?>
+            <?php get_sidebar('page') ?>
         </div>
     </section>          
 <?php get_footer(); ?>

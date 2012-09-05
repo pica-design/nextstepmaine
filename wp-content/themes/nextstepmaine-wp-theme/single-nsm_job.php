@@ -3,9 +3,11 @@
 	get_header(); 
 	
 	//Connect to our O*NET database
+	//Pica DEV
 	$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
 
-	//$onet = new wpdb('root', '1309jamM@', 'onet', 'localhost');
+	//Pica VPS
+	//$onet = new wpdb('nsm_onetuser', 'Zso[D5_W3xVb', 'nsm_onet', 'localhost');
 	
 	//Grab the current occupation soc code
 	$onetsoc_code = get_post_meta($post->ID, '_nsm_job_soc_code', true);
@@ -161,9 +163,17 @@
                     <?php endif ?>
                 <?php endwhile ?>
             <?php endif ?>
+            <br /><br />
+            <em>
+            	Data obtained from the 
+            	<a href="http://www.maine.gov/labor/cwri/data/oes/hwid.html" title="Maine Department of Labor" target="_blank">Maine Department of Labor</a> 
+            	and <a href="http://www.onetcenter.org/" title="O*NET Resoruce Center" target="_blank">O*NET</a>
+            	Last updated on <?php the_date() ?>
+            </em>
+            <br /><br />
         </div>
         <div class="aside vertical">
-            <?php get_sidebar('Page') ?>
+            <?php get_sidebar('page') ?>
         </div>
     </section>          
 <?php get_footer(); ?>

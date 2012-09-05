@@ -1,4 +1,9 @@
-AuthUserFile /Applications/MAMP/.htpasswd
+#Pica DEV
+#AuthUserFile /Applications/MAMP/.htpasswd
+
+#Live Pica VPS
+AuthUserFile /home/nsm/.htpasswds/.htpasswd
+
 AuthType Basic
 AuthName "Pica Design Testing Server: Please log in"
 require user picadesign

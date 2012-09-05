@@ -2,7 +2,7 @@
     <section class="content-wrapper">
         
         <section class="aside horizontal">
-	        <?php get_sidebar('Homepage') ?>
+	        <?php get_sidebar('homepage') ?>
         </section>
         
     </section>          

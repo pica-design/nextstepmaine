@@ -11,11 +11,11 @@ html {
 	body {
 		margin: 0px ;
 		font-family: Arial, Helvetica, sans-serif ;
-		font-size: 14px ;
+		font-size: 0.95em ;
 		height: 100% ;
 		min-width: 870px ;
 		color: $dark-gray ;
-		letter-spacing: -0.08em ;
+		letter-spacing: -0.04em ;
 
 		ul {
 			margin: 0 ;
@@ -76,7 +76,7 @@ html {
 			outline: none ;
 			font-size: inherit ;
 			font-family: 'AvenirHeavy' ;
-			letter-spacing: -0.08em ;
+			letter-spacing: -0.04em ;
 			@include single-transition(all, 0.2s, linear) ;
 
 			&:hover {
@@ -93,6 +93,7 @@ html {
 		strong {
 			font-family: 'AvenirHeavy';
 			font-weight: normal ;
+			letter-spacing: -0.04em ;
 		}
 	}//Body
 }//HTML
