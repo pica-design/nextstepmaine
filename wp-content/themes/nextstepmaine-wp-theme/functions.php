@@ -83,7 +83,12 @@
 		add_rewrite_tag('%program_type%', '([^&]+)');
 		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?program_type=foo 
 		add_rewrite_rule('^programs/([^/]*)/?', 'index.php?pagename=programs&program_type=$matches[1]', 'top');
-
+		/*
+		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo
+		add_rewrite_tag('%faq_item%', '([^&]+)');
+		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 
+		add_rewrite_rule('^faq/([^/]*)/?', 'index.php?pagename=faq&faq_item=$matches[1]', 'top');
+*/
 		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo
 		add_rewrite_tag('%education_requirement%', '([^&]+)');
 		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 

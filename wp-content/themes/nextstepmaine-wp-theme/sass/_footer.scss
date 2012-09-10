@@ -65,6 +65,8 @@
 						}
 						&.facebook {
 							width: 17px ;
+							//The following margin is only temporary until NSM begins using twitter
+							margin-left: 13px ;
 							//Display our own FB Icon - pulled from the FB Brand Standards so it's still compliant 
 							background: sprite($layout-sprite, facebook-f-icon) ;
 

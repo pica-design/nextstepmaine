@@ -8,7 +8,7 @@
             case 'change-my-career' : $nextstep = 3 ; break;
             case 'home' : 
                 $nextstep = false ;
-                setcookie("nextstep", "", time() + 3600, "/nextstepmaine/");
+                setcookie("nextstep", "", time() + 3600, "/");
             break;
             default : $nextstep = false ; break;
         endswitch;
@@ -24,7 +24,7 @@
     endif;
     //If they are we'll set a cookie with the step value (so we can keep the menu positioned on their step)
         //e.g. Viewed 'Change my Career' and then clicked around the website, we want to keep 'Change my Career' highlighted
-    if ($nextstep !== false) : setcookie("nextstep", $nextstep, time() + 3600, "/nextstepmaine/"); endif ;
+    if ($nextstep !== false) : setcookie("nextstep", $nextstep, time() + 3600, "/"); endif ;
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -44,13 +44,25 @@
         -->
         <meta charset="UTF-8">
         <title><?php wp_title() ?></title>
+        <meta name="msvalidate.01" content="5EEAF8559BB30800CEB7EB72D4B159B9" />
         <meta property="og:title" content="<?php bloginfo('name') ?>" />
         <meta property="og:description" content="<?php bloginfo('description') ?>" />
         <meta property="og:image" content="<?php bloginfo('template_directory') ?>/images/content/nextstepmaine-logo.jpg" />
-        <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory');?>/stylesheets/style.css" />
+        <link rel="stylesheet" href="<?php bloginfo('template_directory') ?>/stylesheets/style.css" />
+        <link rel="shortcut icon" href="<?php bloginfo('template_directory') ?>/images/content/favicon.jpg" />
         <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         <!--[if gte IE 9]><style type="text/css">.gradient { filter: none; }</style><![endif]-->
         <?php //wp_head() ?>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-4265805-56']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
     </head>
     <body>
     	<section class="website-wrapper">

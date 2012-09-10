@@ -58,6 +58,7 @@
 		$('html, body').animate({scrollTop:offset + adjustment}, 500);
 	}
 
+	//When sorting in the programs list, scroll back to the top after the sort
 	$('table.tablesorter.programs th, table.tablesorter.jobs th').click(function(){
 		$(this).parent().parent().scrollHere(0)
 	})
@@ -104,6 +105,36 @@
 		autoReturn: true
 	});
 	
+	//If the location hash is for an faq item with an accordion, go ahead and open it
+	var hash = window.location.hash.replace('#','')
+	
+	if ($('.accordion header figcaption a[name=' + hash + ']').length > 0) {
+		$('.accordion header figcaption a[name=' + hash + ']')
+			.parent()
+				.parent()
+					.parent()
+					.find('article')
+						.slideDown()
+						.parent()
+							.addClass('open')
+							.scrollHere(-10)
+	}
+
+	//Fade in the permalink icons on open accordions (generally on the faw page when an faq item is directly linkedto)
+    $('section.accordion.open article .link-icon').fadeIn(500)
+
+    $('section.accordion article .link-icon a').click(function(eve){
+    	eve.preventDefault()
+    	//Grab the link hash from the link icon anchor
+    	var link_hash = $(this).attr('href').split('/')
+    	link_hash = link_hash[link_hash.length - 1]
+
+    	//Append the clicked link_hash to the browser location in the address bar (so users can copy/paste the url)
+    	var scrollmem = $('body').scrollTop()
+    	window.location.hash = link_hash
+    	$('html,body').scrollTop(scrollmem)
+    })
+
 	/* CONTENT ACCORDIANS */
 	$('section.accordion header').each(function(){
     	$(this).children('div').css('height', $(this).height())
@@ -115,8 +146,9 @@
 					.find('article')
 						.slideUp()
 						.parent()
-				.removeClass('open')
-				.addClass('closed')
+					.removeClass('open')
+					.addClass('closed')
+					.find('.link-icon').fadeOut(500)
 		} else {
 			//Whereas if the menu is currently closed, let's open it
 			$(this)
@@ -126,9 +158,10 @@
 						.parent()
 					.removeClass('closed')
 					.addClass('open')
+					.find('.link-icon').fadeIn(500)
 		}
 	})
-	
+
 	$('.widget#institutions select').selectbox({
 		onChange: function (val, inst) {
 			if (val != "") {
@@ -233,7 +266,6 @@
                 var $this = $(this);
                 var origCell = $('th', base.$originalHeader).eq(index);
                 $this.removeClass().addClass(origCell.attr('class'));
-                //console.log(origCell.width())
                 $this.css('width', origCell.outerWidth());
             });
 

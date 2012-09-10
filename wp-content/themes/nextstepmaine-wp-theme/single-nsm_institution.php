@@ -10,9 +10,11 @@
                         if ($image_url != "") :
                     ?>
 					<img class="institution-image" src="<?php echo $image_url ?>" alt="<?php the_title() ?> Logo" />
+                    <?php else : ?>
+                    <br />
+                    <h2><?php the_title() ?></h2>
                     <?php endif ?>
                     <div class="clear"></div>
-                    <h2><?php the_title() ?></h2>
                     <br />
                     <?php $content = get_the_content() ;
 					if (!empty($content)) : echo $content ; ?><br /><br />

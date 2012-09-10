@@ -136,6 +136,7 @@
 	//We want to tap in and add a column for the location ID and a column for the location region taxonomy term
 	function manage_nsm_institution_admin_columns ($columns) {
 		$new_columns['cb'] = '<input type="checkbox" />';
+		$new_columns['nsm_institution_logo'] = _x('Institution Logo', 'column name');	
 		$new_columns['title'] = _x('Institution Name', 'column name');	
 		$new_columns['nsm_institution_phone'] = _x('Phone', 'column name');		
 		$new_columns['nsm_institution_address'] = _x('Phone', 'column name');		
@@ -157,6 +158,12 @@
 	function manage_nsm_institution_admin_columns_content ($column) {
 		global $post;
 		switch ($column) :
+			case 'nsm_institution_logo' :
+                $image_url = get_post_meta($post->ID, '_nsm_institution_logo', true) ;
+                if ($image_url != "") :
+					?><img class="institution-image" src="<?php echo $image_url ?>" alt="Institution Image" width="60px" /><?php
+                endif; 
+			break;
 			case 'nsm_institution_category':
 				$terms = get_the_terms( $post->ID, 'nsm_institution_category');
 				if ($terms) :

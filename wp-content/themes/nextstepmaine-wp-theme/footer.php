@@ -7,11 +7,11 @@
                             <figure class="button gray gradient hover uppercase">Tell a Friend</figure>
                             <div class="button-tab">
                                 <figure class="icon email">
-                                    <a title="Email this website to a friend" href="mailto:?subject=I thought you would like Next Step Maine" target="_blank"></a>
+                                    <a title="Email this website to a friend" href="mailto:?subject=Check out this new website I found: Next Step Maine" target="_blank"></a>
                                 </figure>
-                                <figure class="icon twitter">
+                                <!--<figure class="icon twitter">
                                     <a title="Share this website on Twitter" href="https://twitter.com/share?url=<?php bloginfo('url') ?>" target="_blank"></a>
-                                </figure>
+                                </figure>-->
                                 <figure class="icon facebook">
                                     <a name="fb_share" title="Share this website on Facebook" type="icon" share_url="<?php bloginfo('url') ?>"></a> 
                                     <!--[if !IE]> -->
@@ -23,7 +23,7 @@
                         <div class="button-w-tab">
                             <figure class="button gray gradient hover uppercase"><a href="" title="Find Next Step Maine on Facebook">Facebook</a></figure>
                             <div class="button-tab facebook-like">
-                                <iframe src="//www.facebook.com/plugins/like.php?href=<?php bloginfo('url') ?>&amp;send=false&amp;layout=button_count&amp;width=200&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21&amp;appId=309173685769794" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
+                                <iframe src="//www.facebook.com/plugins/like.php?href=https://www.facebook.com/pages/Next-Step-Maine/176909589111001&amp;send=false&amp;layout=button_count&amp;width=200&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21&amp;appId=309173685769794" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
                             </div>
                         </div>
                     </section>

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"a",
+				"AvenirHeavy"
+			],
+			[
+				"accordion",
+				"accordion_state"
+			],
+			[
 				"auto",
 				"autoReturn"
 			],
@@ -18,10 +26,6 @@
 			[
 				"line",
 				"line-height	zen:css_properties"
-			],
-			[
-				"a",
-				"up-arrow-big"
 			],
 			[
 				"wp_enqueue_",
@@ -104,26 +108,41 @@
 	},
 	"file_history":
 	[
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_content.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/.htaccess",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_institution.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_program.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_content.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-post-types.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_footer.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-admin-pages.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/style.css",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-faq.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-home.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/template-step-page.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_faq.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sidebar-page.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sidebar-default.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sidebar-default-page.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sidebar.php",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-config.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/sftp-config.json",
+		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_html-base.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/.htpasswd",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_tablesorter.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_next-step-menu.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/header.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-jobs.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/searchform.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_header.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_common.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-home.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-programs.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_institution.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_formidable.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-admin-pages.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/functions.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/index.html",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.next-step-maine.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_colors.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_select-box.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_search-results.scss",
@@ -141,31 +160,20 @@
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_mixins.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_browser-icons.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_fonts.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_footer.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_gradients.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/footer.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/search.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_website-controls.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_faq.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-post-types.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-classes.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/singe-nsm_faq.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_job.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-shortcodes.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/single-nsm_program.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.min.js",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page-faq.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/style.css",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/config.rb",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/slideshow.scss",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/sass/_layout.scss",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/page.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-config.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-includes/post.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/inc/nextstep-meta-boxes.php",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/stylesheets/style.css",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/images/layout-s401003e54c.png",
-		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/template-step-page.php",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.cycle.all.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter.min.js",
 		"/Volumes/Other Pica Shares-1/Websites/nextstepmaine/wp-content/themes/nextstepmaine-wp-theme/scripts/jquery.tablesorter/jquery.tablesorter.js",
@@ -208,6 +216,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"console",
 			"AvenirMedium",
 			"AvenirBlack",
 			"prog_edu_lvl",
@@ -312,6 +321,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 288.0,
+	"side_bar_width": 336.0,
 	"status_bar_visible": true
 }

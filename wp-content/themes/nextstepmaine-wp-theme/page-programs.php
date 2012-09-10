@@ -37,6 +37,16 @@
 	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/bachelor" title="Bachelor Programs">Bachelor Programs</a></div>
 	        	<div class="button gray inline padded rounded <?php echo $master_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/master" title="Master Programs">Master Programs</a></div>
 	        </div>
+
+            <?php
+                //We want to display a little tooltip/help info for certain program types
+
+                //Display a link for users to learn more about certificate programs
+                if ($certificate_active == 'active') :
+                    echo "Are you confused about the different types of certificates? Find out more and learn the <a href='".get_bloginfo('url')."/faq/#what-are-all-of-these-certificate-programs' title='Certificiate Program FAQ'>difference between certificates and degrees here</a>.<br /><br />";
+                endif;
+            ?>
+
             <table cellpadding="0" cellspacing="0" border="0" class="tablesorter programs">
             	<thead>
                 	<tr>

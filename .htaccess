@@ -2,21 +2,26 @@
 #AuthUserFile /Applications/MAMP/.htpasswd
 
 #Live Pica VPS
-AuthUserFile /home/nsm/.htpasswds/.htpasswd
+#AuthUserFile /home/nsm/.htpasswds/.htpasswd
 
-AuthType Basic
-AuthName "Pica Design Testing Server: Please log in"
-require user picadesign
-require user mdf
+#AuthType Basic
+#AuthName "Pica Design Testing Server: Please log in"
+#require user picadesign
+#require user mdf
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /nextstepmaine/
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /nextstepmaine/index.php [L]
+	RewriteEngine On
+	RewriteBase /nextstepmaine/
+	RewriteRule ^index\.php$ - [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	
+	#PICA DEV
+	#RewriteRule . /nextstepmaine/index.php [L]
+
+	#LIVE PICA VPS
+	RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress

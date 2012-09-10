@@ -16,9 +16,17 @@
 							$institution_title = get_the_title($post->ID); 
 							$institution_internal_url = get_permalink($post->ID); 
 						?>
-							<img class="institution-image" src="<?php echo get_post_meta($post->ID, '_nsm_institution_logo', true) ?>" alt="<?php the_title() ?> Logo" />
-                            <div class="clear"></div>
-							<h2><?php echo $institution_title ?></h2>
+							<?php
+                        $image_url = get_post_meta($post->ID, '_nsm_institution_logo', true) ;
+                        if ($image_url != "") :
+                    ?>
+                    <img class="institution-image" src="<?php echo $image_url ?>" alt="<?php the_title() ?> Logo" />
+                    <?php else : ?>
+                    <br />
+                    <h2><?php the_title() ?></h2>
+                    <?php endif ?>
+                    <div class="clear"></div>
+                    <br />
                             
 					<?php endwhile; wp_reset_postdata(); ?>
                     

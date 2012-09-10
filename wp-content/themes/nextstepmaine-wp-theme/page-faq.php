@@ -8,11 +8,8 @@
                     <?php the_content() ?>
                 <?php endwhile ?>
             <?php endif ?>
-
             <br />
-
             <?php
-
                 $terms = get_terms('nsm_faq_category');
                 foreach ($terms as $term) :
 
@@ -21,13 +18,15 @@
                 <?php if ($faqs->have_posts()) : ?>
                     <h3><?php echo $term->name ?></h3>
                     <?php while ($faqs->have_posts()) : $faqs->the_post() ?>
-                        
                         <section class='accordion closed'>
                             <header>
-                                <figcaption><?php the_title() ?></figcaption>
+                                <figcaption>
+                                    <a name="<?php echo $post->post_name ?>"><?php the_title() ?></a>
+                                </figcaption>
                                 <div><figure></figure></div>
                             </header>
                             <article>
+                                <figure class="link-icon"><a href="#<?php echo $post->post_name ?>" title="Permalink to <?php the_title() ?>"></a></figure>
                                 <?php the_content() ?>
                             </article>
                         </section>
@@ -37,7 +36,7 @@
             <?php endforeach ?>
         </div>
         <div class="aside vertical">
-            <?php get_sidebar('Page') ?>
+            <?php get_sidebar('page') ?>
         </div>
     </section>          
 <?php get_footer(); ?>

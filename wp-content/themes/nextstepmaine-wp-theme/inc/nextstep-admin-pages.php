@@ -57,7 +57,7 @@
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
 					//DEBUGGING
-					//echo "<pre>" . print_r($row, true) . "</pre>";
+					echo "<pre>" . print_r($row, true) . "</pre>";
 					/*
 					Array
 					(
@@ -78,8 +78,11 @@
 					*/
 					
 					//Connect to our O*NET database
-					$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
+					//$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
 					
+					//Pica VPS
+					$onet = new wpdb('nsm_onetuser', 'Zso[D5_W3xVb', 'nsm_onet', 'localhost');
+
 					//Select some information about the current occupation
 					$occupation_description = "";
 					$occupation = $onet->get_results("SELECT description FROM occupation_data WHERE onetsoc_code LIKE '%{$row[0]}%'");
@@ -169,7 +172,7 @@
 				$row_count = 0;
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
-					if ($row > 0) :
+					if ($row > 1) :
 					
 						//DEBUGGING
 						//echo "<pre>" . print_r($row, true) . "</pre>";
@@ -183,13 +186,10 @@
 						    [3] => Institution Logo URL
 						    [4] => Institution Physical Address
 						    [5] => Institution Phone Number
-						    [6] => Financial Aid Phone
-						    [7] => Financial Aid Email
-						    [8] => Financial Aid Website
-						    [9] => Admissions Contact Phone
-						    [10] => Admissions Contact Email
-						    [11] => Category
-						    [12] => Description
+						    [6] => Financial Aid Contact
+						    [7] => Admissions Contact
+						    [8] => Category
+						    [9] => Description
 						)
 						*/
 						
@@ -198,11 +198,11 @@
 							'post_type'	  => 'nsm_institution',
 							'post_status' => 'publish',
 							'post_title'  => $row[0],
-							'post_content' => $row[12]
+							'post_content' => $row[9]
 						));	
 						
 						//Add the category term to the post
-						wp_set_object_terms($post_id, $row[11], 'nsm_institution_category');
+						wp_set_object_terms($post_id, $row[8], 'nsm_institution_category');
 							
 						//Add the remaining data as post meta
 						update_post_meta($post_id, '_nsm_institution_title_iv_code', $row[1]);
@@ -210,12 +210,18 @@
 						update_post_meta($post_id, '_nsm_institution_logo', $row[3]);
 						update_post_meta($post_id, '_nsm_institution_address', $row[4]);
 						update_post_meta($post_id, '_nsm_institution_phone', $row[5]);
-						update_post_meta($post_id, '_nsm_institution_finaid_phone', $row[6]);
-						update_post_meta($post_id, '_nsm_institution_finaid_email', $row[7]);
-						update_post_meta($post_id, '_nsm_institution_finaid_website', $row[8]);
-						update_post_meta($post_id, '_nsm_institution_admission_phone', $row[9]);
-						update_post_meta($post_id, '_nsm_institution_admission_email', $row[10]);
+						update_post_meta($post_id, '_nsm_institution_finaid_contact', $row[6]);
+						update_post_meta($post_id, '_nsm_institution_admission_contact', $row[7]);
 						
+
+						/*
+							REMOVE!! - we used these for a period but ultimately decided not to use them
+							_nsm_institution_finaid_phone
+							_nsm_institution_finaid_email
+							_nsm_institution_finaid_website
+							_nsm_institution_admission_phone
+							_nsm_institution_admission_email
+						*/
 					endif;
 					
 					$row_count++;
@@ -306,52 +312,43 @@
 					*/
 					
 					//Omit the first 'headings' row	
-					
-					if ($row_count > 0) :
-						//if ($row_count < 5) :
-							
-							//Create a custom post for each row
-							$post_id = wp_insert_post(array(
-								'post_type'	  => 'nsm_program',
-								'post_status' => 'publish',
-								'post_title'  => $row[2],
-								'post_content' => $row[12]
-							));	
-							
-							//Add the category terms to the post
-							$terms = explode(',', $row[11]);
-							foreach ($terms as $term) :
-								wp_set_object_terms($post_id, $term, 'nsm_program_category');
-							endforeach;
-								
-							//Add the category term to the post
-							//wp_set_object_terms($post_id, $row[0], 'nsm_program_institution');
-							
-							//Add the remaining data as post meta
-							update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
-							update_post_meta($post_id, '_nsm_program_type', $row[3]);
-							update_post_meta($post_id, '_nsm_program_discipline', $row[4]);
-							
-							update_post_meta($post_id, '_nsm_program_format', $row[5]);
-							update_post_meta($post_id, '_nsm_program_location', $row[6]);
-							update_post_meta($post_id, '_nsm_program_schedule', $row[7]);
-							update_post_meta($post_id, '_nsm_program_url', $row[8]);
-							update_post_meta($post_id, '_nsm_program_timeframe', $row[9]);
-							update_post_meta($post_id, '_nsm_program_cost', $row[10]);
-							
-							//Select the institution that this program belongs to based on the Title IV Code
-							$institution = new WP_Query(array(
-								'post_type'	 => 'nsm_institution',						
-								'meta_key' 	 => '_nsm_institution_title_iv_code',
-								'meta_value' => $row[1]
-							));
-							
-							//Connect this program with the parent institution 
-							p2p_type('Program Institution')->connect($post_id, $institution->posts[0]->ID, array(
-								'date' => current_time('mysql')
-							));
-								
-						//endif;
+					if ($row_count > 1) :
+						//Create a custom post for each row
+						$post_id = wp_insert_post(array(
+							'post_type'	  => 'nsm_program',
+							'post_status' => 'publish',
+							'post_title'  => $row[2],
+							'post_content' => $row[12]
+						));	
+						
+						//Add the category terms to the post
+						$terms = explode(',', $row[11]);
+						foreach ($terms as $term) :
+							wp_set_object_terms($post_id, $term, 'nsm_program_category');
+						endforeach;
+						
+						//Add the remaining data as post meta
+						update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
+						update_post_meta($post_id, '_nsm_program_type', $row[3]);
+						update_post_meta($post_id, '_nsm_program_discipline', $row[4]);
+						update_post_meta($post_id, '_nsm_program_format', $row[5]);
+						update_post_meta($post_id, '_nsm_program_location', $row[6]);
+						update_post_meta($post_id, '_nsm_program_schedule', $row[7]);
+						update_post_meta($post_id, '_nsm_program_url', $row[8]);
+						update_post_meta($post_id, '_nsm_program_timeframe', $row[9]);
+						update_post_meta($post_id, '_nsm_program_cost', $row[10]);
+						
+						//Select the institution that this program belongs to based on the Title IV Code
+						$institution = new WP_Query(array(
+							'post_type'	 => 'nsm_institution',						
+							'meta_key' 	 => '_nsm_institution_title_iv_code',
+							'meta_value' => $row[1]
+						));
+						
+						//Connect this program with the parent institution 
+						p2p_type('Program Institution')->connect($post_id, $institution->posts[0]->ID, array(
+							'date' => current_time('mysql')
+						));
 					endif;
 					
 					$row_count++;	
