@@ -57,7 +57,7 @@
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
 					//DEBUGGING
-					echo "<pre>" . print_r($row, true) . "</pre>";
+					//echo "<pre>" . print_r($row, true) . "</pre>";
 					/*
 					Array
 					(
@@ -78,10 +78,10 @@
 					*/
 					
 					//Connect to our O*NET database
-					//$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
+					$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
 					
 					//Pica VPS
-					$onet = new wpdb('nsm_onetuser', 'Zso[D5_W3xVb', 'nsm_onet', 'localhost');
+					//$onet = new wpdb('nsm_onetuser', 'Zso[D5_W3xVb', 'nsm_onet', 'localhost');
 
 					//Select some information about the current occupation
 					$occupation_description = "";
@@ -172,7 +172,7 @@
 				$row_count = 0;
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
-					if ($row > 1) :
+					if ($row_count > 0) :
 					
 						//DEBUGGING
 						//echo "<pre>" . print_r($row, true) . "</pre>";
@@ -229,7 +229,7 @@
 				//Close the opened file
 				fclose($uploaded_csv);
 				//Set an update notice
-				$nsm_update_notice = "Inserted $row_count Institutions";
+				$nsm_update_notice = "Inserted " . ($row_count - 1) ." Institutions";
 			endif;
 			
 		endif;
@@ -312,7 +312,7 @@
 					*/
 					
 					//Omit the first 'headings' row	
-					if ($row_count > 1) :
+					if ($row_count > 0) :
 						//Create a custom post for each row
 						$post_id = wp_insert_post(array(
 							'post_type'	  => 'nsm_program',
@@ -356,7 +356,7 @@
 				//Close the opened file
 				fclose($uploaded_csv);
 				//Set an update notice
-				$nsm_update_notice = "Inserted $row_count programs";
+				$nsm_update_notice = "Inserted " . ($row_count - 1) ." programs";
 			endif;
 		endif;
 		?>

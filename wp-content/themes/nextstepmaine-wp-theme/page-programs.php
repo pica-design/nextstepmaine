@@ -8,7 +8,7 @@
     <section class="content-wrapper">
         <div class="page-content full-width">
         	<?php $breadcrumbs = new Breadcrumbs ?>
-    		<h1>Maine Educational Programs</h1>
+    		<h1><?php the_title() ?></h1>
     		<br />
         	<?php while (have_posts()) : the_post() ?>
         		<?php the_content() ?>

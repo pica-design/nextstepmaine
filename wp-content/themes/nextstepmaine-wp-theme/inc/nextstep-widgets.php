@@ -116,7 +116,9 @@
                 	//Query all the institutions to populate our dropdown menu
 					$institutions = new WP_Query(array(
 						'post_type' => 'nsm_institution',
-						'posts_per_page' => -1
+						'posts_per_page' => -1,
+						'orderby' => 'title',
+						'order' => 'ASC'
 					));					
 					//cache the current page(post) for a condition (we're about to overwrite it)
 					$current_page = $post;
@@ -164,6 +166,7 @@
 						$post = $current_page ; 
 					?>
                  </select>
+                 <p>Programs listed are just a few of all the programs available at Maine institutions.  These programs offer a flexible schedule that may work best for adult learners juggling other obligations.  To see all programs, go directly to each school’s website.</p>
             </section>
             <?php
 		}

@@ -30,7 +30,7 @@
                             
 					<?php endwhile; wp_reset_postdata(); ?>
                     
-                    <br />
+                    
                     <h3><?php the_title() ?></h3>
                     <br />
                     
