@@ -89,11 +89,14 @@
                             <?php
                                 if (isset($slide->meta_data['_wp_attachment_metadata']['sizes']['slideshow'])) :
                                     $slide_source = get_bloginfo('url') . "/wp-content/uploads/" . $slide->meta_data['_wp_attachment_metadata']['sizes']['slideshow']['file'];
+                                    //echo get_post_meta($post->ID, '_attachment-slide-link', true);
                                 else :
                                     $slide_source = $slide->guid;
                                 endif;
                             ?>
-                            <img src="<?php echo $slide_source ?>" alt="<?php echo $slide->post_title ?>" />
+                            <a href="<?php echo $slide->meta_data['_attachment-slide-link'][0] ?>" title="<?php echo $slide->post_title ?>" />
+                                <img src="<?php echo $slide_source ?>" alt="<?php echo $slide->post_title ?>" />
+                            </a>
                         </figure><?php endforeach ?>
                 </section>
             	<figure class="slideshow-next"></figure>                

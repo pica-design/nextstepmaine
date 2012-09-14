@@ -31,11 +31,67 @@
         	<figure class="back-to-top"><div></div></figure>
         	<div class="filter-options">
         		<div class="title">View: </div>
-        		<div class="button gray inline padded rounded <?php echo $all_programs_active ?>"><a href="<?php echo get_permalink($post->ID) ?>" title="All Programs">All</a></div>
-                <div class="button gray inline padded rounded <?php echo $certificate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/certificate" title="Certificate Programs">Certificate Programs</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/associate" title="Associate Programs">Associate Programs</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/bachelor" title="Bachelor Programs">Bachelor Programs</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $master_active ?>"><a href="<?php echo get_permalink($post->ID) ?>/master" title="Master Programs">Master Programs</a></div>
+        		<div class="button gray inline padded rounded <?php echo $all_programs_active ?>">
+                    <?php
+                        $all_programs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_program'
+                        ));
+                    ?>
+                    <a href="<?php echo get_permalink($post->ID) ?>" title="All Programs">All (<?php echo count($all_programs) ?>)</a>
+                </div>
+                <div class="button gray inline padded rounded <?php echo $certificate_active ?>">
+                    <?php
+                        $certificate_programs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_program',
+                            'meta_query' => array(array(
+                                'key' => '_nsm_program_type',
+                                'value' => 'certificate'
+                            ))
+                        ));
+                    ?>
+                    <a href="<?php echo get_permalink($post->ID) ?>/certificate" title="Certificate Programs">Certificate Programs (<?php echo count($certificate_programs) ?>)</a>
+                </div>
+	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>">
+                    <?php
+                        $associate_programs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_program',
+                            'meta_query' => array(array(
+                                'key' => '_nsm_program_type',
+                                'value' => 'associate'
+                            ))
+                        ));
+                    ?>
+                    <a href="<?php echo get_permalink($post->ID) ?>/associate" title="Associate Programs">Associate Programs (<?php echo count($associate_programs) ?>)</a>
+                </div>
+	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>">
+                    <?php
+                        $bachelor_programs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_program',
+                            'meta_query' => array(array(
+                                'key' => '_nsm_program_type',
+                                'value' => 'bachelor'
+                            ))
+                        ));
+                    ?>
+                    <a href="<?php echo get_permalink($post->ID) ?>/bachelor" title="Bachelor Programs">Bachelor Programs (<?php echo count($bachelor_programs) ?>)</a>
+                </div>
+	        	<div class="button gray inline padded rounded <?php echo $master_active ?>">
+                    <?php
+                        $master_programs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_program',
+                            'meta_query' => array(array(
+                                'key' => '_nsm_program_type',
+                                'value' => 'master'
+                            ))
+                        ));
+                    ?>
+                    <a href="<?php echo get_permalink($post->ID) ?>/master" title="Master Programs">Master Programs (<?php echo count($master_programs) ?>)</a>
+                </div>
 	        </div>
 
             <?php
@@ -62,7 +118,12 @@
             	<?php 
 					//By default we want to pull all programs 
 					if (empty($program_type)) : 
-						$programs = new WP_Query('post_type=nsm_program&posts_per_page=-1&orderby=title&order=asc');
+						$programs = new WP_Query(array(
+                            'post_type' => 'nsm_program',
+                            'nopaging' => true,
+                            'order' => 'ASC',
+                            'orderby' => 'title'
+                        ));
 					else :
 						//However, if the program_type query var has been set via GET we want to only show programs of that type
 						//Note, the query var is set like site.com/programs/associate which is internally translated to ?program_type=associate
@@ -70,8 +131,8 @@
 						$programs = new WP_Query(array(
 							'post_type' => 'nsm_program',
 							'posts_per_page' => '-1',
-							'orderby' => 'title',
-							'order' => 'asc',
+							'order' => 'ASC',
+                            'orderby' => 'title',
 							'meta_query' => array(
 								array(
 									'key' => '_nsm_program_type',
@@ -95,17 +156,18 @@
 							?>
                         </td>
                         <td><a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a></td>
-                        <td><?php echo get_post_meta($post->ID, '_nsm_program_type', true) ?></td>
-                        <td><?php echo get_post_meta($post->ID, '_nsm_program_format', true) ?></td>
+                        <td><?php echo ucfirst(get_post_meta($post->ID, '_nsm_program_type', true)) ?></td>
+                        <td><?php echo ucwords(get_post_meta($post->ID, '_nsm_program_format', true)) ?></td>
                         <td><?php echo get_post_meta($post->ID, '_nsm_program_cost', true) ?></td>
                         <td>
                         	<?php
 								// Find connected pages
                         		$previous_post = $post;
 								$institution = p2p_type( 'Program Institution' )->get_connected( $post );
-								while ( $institution->have_posts() ) : $institution->the_post(); 
-									the_title();
-								endwhile; wp_reset_postdata(); 
+								while ( $institution->have_posts() ) : $institution->the_post(); ?>
+
+									<a href="<?php the_permalink()?>" title="<?php the_title() ?>"><?php the_title() ?></a>
+								<?php endwhile; wp_reset_postdata(); 
 								$post = $previous_post;
 								
 								$location = get_post_meta($post->ID, '_nsm_program_location', true);

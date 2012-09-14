@@ -147,6 +147,11 @@
 			"input" => "html",
 			"html"  => "<input type='checkbox' name='attachments[$post->ID][attachment-exclude-from-gallery]' " . checked( get_post_meta($post->ID, "_attachment-exclude-from-gallery", true), 'on', 0 ) . " /> &nbsp;" . __("Don't show this attachment in the gallery.")
 		);
+		$form_fields["attachment-slide-link"] = array(
+			"label" => __("Slide Link"),
+			"input" => "text",
+			"value" => get_post_meta($post->ID, '_attachment-slide-link', true)
+		);
 	   return $form_fields;
 	}
 	
@@ -157,6 +162,7 @@
 		else :
 			update_post_meta($post['ID'], '_attachment-exclude-from-gallery', 'off');
 		endif;
+		update_post_meta($post['ID'], '_attachment-slide-link', $attachment['attachment-slide-link']);
 		return $post;
 	}
 	

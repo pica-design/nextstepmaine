@@ -34,7 +34,10 @@
 						$programs = new WP_Query( array(
 							'connected_type' => 'Program Institution',
 							'connected_items' => $post,
-							'nopaging' => true
+							'nopaging' => true,
+                            'order' => 'ASC',
+                            'orderby' => 'title meta_value',
+                            'meta_key' => '_nsm_program_type'
 						) );
 						
                         if (!empty($programs->posts)) :
@@ -48,7 +51,8 @@
                             <article>
 								<?php while ( $programs->have_posts() ) : $programs->the_post(); ?>
                                 <a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a>
-                                - <em><?php echo get_post_meta($post->ID, '_nsm_program_type', true) ?></em>
+                                - <em><?php echo ucfirst(get_post_meta($post->ID, '_nsm_program_type', true)) ?></em>
+                                - <em><?php echo get_post_meta($post->ID, '_nsm_program_location', true) ?></em>
                                 <br />
                                 <?php endwhile; wp_reset_postdata(); ?>
                         	</article>

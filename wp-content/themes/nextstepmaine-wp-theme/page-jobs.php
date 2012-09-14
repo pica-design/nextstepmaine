@@ -37,10 +37,57 @@
 			<figure class="back-to-top"><div></div></figure>
             <div class="filter-options">
 	            <div class="title">View by education requirement:</div>
-	            <div class="button gray inline padded rounded <?php echo $all_jobs_active ?>"><a href="<?php echo get_permalink($post->ID) ?>" title="All Jobs">All</a></div>
-	            <div class="button gray inline padded rounded <?php echo $high_school_active ?>"><a href="<?php echo get_permalink($post->ID) ?>high-school" title="High School Only Jobs">High School Diploma</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>"><a href="<?php echo get_permalink($post->ID) ?>associate" title="Associate Degree Only Jobs">Associate Degree</a></div>
-	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>"><a href="<?php echo get_permalink($post->ID) ?>bachelor" title="Bachelor Degree Only Programs">Bachelor Degree</a></div>
+	            <div class="button gray inline padded rounded <?php echo $all_jobs_active ?>">
+	            	<?php
+                        $all_jobs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_job',
+                        ));
+                    ?>
+	            	<a href="<?php echo get_permalink($post->ID) ?>" title="All Jobs">All (<?php echo count($all_jobs) ?>)</a>
+	            </div>
+	            <div class="button gray inline padded rounded <?php echo $high_school_active ?>">
+	            	<?php
+                        $hs_jobs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_job',
+                            'tax_query' => array(array(
+								'taxonomy' => 'nsm_job_education_requirement',
+								'field' => 'slug',
+								'terms' => 'high-school'
+							))
+                        ));
+                    ?>
+	            	<a href="<?php echo get_permalink($post->ID) ?>high-school" title="High School Only Jobs">High School Diploma (<?php echo count($hs_jobs) ?>)</a>
+	            </div>
+	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>">
+	        		<?php
+                        $associate_jobs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_job',
+                            'tax_query' => array(array(
+								'taxonomy' => 'nsm_job_education_requirement',
+								'field' => 'slug',
+								'terms' => 'associate'
+							))
+                        ));
+                    ?>
+	        		<a href="<?php echo get_permalink($post->ID) ?>associate" title="Associate Degree Only Jobs">Associate Degree (<?php echo count($associate_jobs) ?>)</a>
+	        	</div>
+	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>">
+	        		<?php
+                        $bachelor_jobs = get_posts(array(
+                            'numberposts' => -1,
+                            'post_type' => 'nsm_job',
+                            'tax_query' => array(array(
+								'taxonomy' => 'nsm_job_education_requirement',
+								'field' => 'slug',
+								'terms' => 'bachelor'
+							))
+                        ));
+                    ?>
+	        		<a href="<?php echo get_permalink($post->ID) ?>bachelor" title="Bachelor Degree Only Programs">Bachelor Degree (<?php echo count($bachelor_jobs) ?>)</a>
+	        	</div>
         	</div>
             <table cellpadding="0" cellspacing="0" border="0" class="tablesorter jobs">
             	<thead>
