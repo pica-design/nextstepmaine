@@ -170,8 +170,36 @@
 		}
 	})
 
-	$('table.tablesorter.programs, table.tablesorter.jobs').tablesorter({
+
+	// add parser through the tablesorter addParser method 
+	$.tablesorter.addParser({ 
+        // set a unique id 
+        id: 'numericWithComma', 
+        is: function(s) { 
+            return false; 
+        }, 
+        format: function(s) { 
+            // format your data for normalization         
+            return parseFloat(s.replace(/\,/,'')); 
+        }, 
+        // set type, either numeric or text 
+        type: 'numeric' 
+    }); 
+	
+	$('table.tablesorter.programs').tablesorter({
 		sortList: [[1,0]]
+	})
+	
+	$('table.tablesorter.jobs').tablesorter({
+		headers: { 
+	        2: { 
+	            sorter:'numericWithComma' 
+	        },
+	        3: { 
+	            sorter:'numericWithComma' 
+	        }        
+	    },
+	    //debug: true
 	})
 
 

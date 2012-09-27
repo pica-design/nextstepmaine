@@ -7,7 +7,7 @@
                             <figure class="button gray gradient hover uppercase">Tell a Friend</figure>
                             <div class="button-tab">
                                 <figure class="icon email">
-                                    <a title="Email this website to a friend" href="mailto:?subject=Check out this new website I found: Next Step Maine" target="_blank"></a>
+                                    <a title="Email this website to a friend" href="mailto:?subject=Check out this new website I found: Next Step Maine&body=Next Step Maine is part of our effort to capitalize on Maine’s ready population of non-traditional students and working adults to help them increase their value in the workforce through increased skills and knowledge. Visit http://www.nextstepmaine.com for more information."></a>
                                 </figure>
                                 <!--<figure class="icon twitter">
                                     <a title="Share this website on Twitter" href="https://twitter.com/share?url=<?php bloginfo('url') ?>" target="_blank"></a>
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="button-w-tab">
-                            <figure class="button gray gradient hover uppercase"><a href="" title="Find Next Step Maine on Facebook">Facebook</a></figure>
+                            <figure class="button gray gradient hover uppercase"><a href="https://www.facebook.com/pages/Next-Step-Maine/176909589111001" title="Find Next Step Maine on Facebook" target="_blank">Facebook</a></figure>
                             <div class="button-tab facebook-like">
                                 <iframe src="//www.facebook.com/plugins/like.php?href=https://www.facebook.com/pages/Next-Step-Maine/176909589111001&amp;send=false&amp;layout=button_count&amp;width=200&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21&amp;appId=309173685769794" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
                             </div>
@@ -34,7 +34,7 @@
                         	<li>SUITE 5, AUGUSTA, ME 04330</li>
                         	<li><strong>PHONE:</strong> 207-622-6345</li>
                         	<li><strong>FAX:</strong> 207-622-6346</li>
-                        	<li><strong>EMAIL:</strong> <a href="mailto:mdf@mdf.org?Subject=Next Step Maine" title="Email Next Step Maine">mdf@mdf.org</a></li>
+                        	<li><strong>EMAIL:</strong> <a href="mailto:nextstepmaine@mdf.org?Subject=Next Step Maine" title="Email Next Step Maine">nextstepmaine@mdf.org</a></li>
                         </ul>
                     </section>
                 	<section class="column">

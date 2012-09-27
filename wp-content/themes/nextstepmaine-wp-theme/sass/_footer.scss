@@ -7,12 +7,12 @@
 	.inner {
 		@include centered;
 		width: 820px ;
-		overflow: auto ;
+		//overflow: auto ;
 		padding: 0 10px 0 10px ;
 
 		.column {
 			float: left ;
-			margin: 30px 40px 0 0 ;
+			margin: 30px 35px 0 0 ;
 			
 			.button {
 				float: left ;
