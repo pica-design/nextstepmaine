@@ -11,17 +11,12 @@ require user mdf
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteBase /nextstepmaine/
-	RewriteRule ^index\.php$ - [L]
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteCond %{REQUEST_FILENAME} !-d
-	
-	#PICA DEV
-	RewriteRule . /nextstepmaine/index.php [L]
-
-	#LIVE PICA VPS
-	#RewriteRule . /index.php [L]
+RewriteEngine On
+RewriteBase /nextstepmaine/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /nextstepmaine/index.php [L]
 </IfModule>
 
 # END WordPress

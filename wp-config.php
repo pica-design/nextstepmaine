@@ -16,14 +16,6 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 
-//LOCAL PICA DEV
-
-define('DB_NAME', 'nextstepmaine_wordpress');
-define('DB_USER', 'root');
-define('DB_PASSWORD', '1309piCa');
-define('DB_HOST', 'localhost');
-
-
 //LIVE PICA VPS
 /*
 define('DB_NAME', 'nsm_wordpress');
@@ -31,6 +23,12 @@ define('DB_USER', 'nsm_wpuser');
 define('DB_PASSWORD', '{QT.^g#-7,nH');
 define('DB_HOST', 'localhost');
 */
+
+//LOCAL PICA DEV
+define('DB_NAME', 'nextstepmaine_wordpress');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '1309piCa');
+define('DB_HOST', 'localhost');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -84,6 +82,8 @@ define('WPLANG', '');
  * in their development environments.
  */
 define('WP_DEBUG', true);
+
+//define('RELOCATE',true);
 
 /* That's all, stop editing! Happy blogging. */
 

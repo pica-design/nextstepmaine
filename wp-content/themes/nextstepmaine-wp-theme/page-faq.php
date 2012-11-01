@@ -16,7 +16,14 @@
                     $faqs = new WP_Query("post_type=nsm_faq&posts_per_page=-1&nsm_faq_category=$term->slug");
             ?>
                 <?php if ($faqs->have_posts()) : ?>
-                    <h3><?php echo $term->name ?></h3>
+                    <h3><?php
+                        //This is a little hack because we can't use html in tag names
+                        if ($term->name == "Taking the GED&reg; test") :
+                            echo "Taking the GED<sup>&reg;</sup> test";
+                        else : 
+                            echo $term->name ;
+                        endif; 
+                    ?></h3>
                     <?php while ($faqs->have_posts()) : $faqs->the_post() ?>
                         <section class='accordion closed'>
                             <header>
