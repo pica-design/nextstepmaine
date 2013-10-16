@@ -153,7 +153,7 @@ $description_font_size ?>;color:#<?php echo $description_color ?>;font-weight:<?
 .with_frm_style .frm_radio label, .with_frm_style .frm_checkbox label{font-family:<?php echo stripslashes($check_font) ?>;font-size:<?php echo $check_font_size ?>;color:#<?php echo $check_label_color ?>;font-weight:<?php echo $check_weight ?>;display:inline;}
 .with_frm_style .frm_radio input[type="radio"], .with_frm_style .frm_checkbox input[type="checkbox"]{margin-right:5px;width:auto;}
 .with_frm_style input[type="radio"],.with_frm_style input[type="checkbox"]{width:auto;}
-.with_frm_style .frm_blank_field input[type=text], .with_frm_style .frm_blank_field input[type=password], .with_frm_style .frm_blank_field input[type=url], .with_frm_style .frm_blank_field input[type=tel], .with_frm_style .frm_blank_field input[type=number], .with_frm_style .frm_blank_field input[type=email], .with_frm_style .frm_blank_field textarea, .with_frm_style .frm_blank_field select, .frm_form_fields_error_style, .with_frm_style *:invalid, .with_frm_style .frm_blank_field #recaptcha_area{color:#<?php echo $text_color_error ?>;background-color:#<?php echo $bg_color_error ?>;border-color:#<?php echo $border_color_error ?>;border-width:<?php echo $border_width_error ?>;border-style:<?php echo $border_style_error ?>;}
+.with_frm_style .frm_blank_field input[type=text], .with_frm_style .frm_blank_field input[type=password], .with_frm_style .frm_blank_field input[type=url], .with_frm_style .frm_blank_field input[type=tel], .with_frm_style .frm_blank_field input[type=number], .with_frm_style .frm_blank_field input[type=email], .with_frm_style .frm_blank_field textarea, .with_frm_style .frm_blank_field select, .frm_form_fields_error_style, .with_frm_style .frm_blank_field #recaptcha_area{color:#<?php echo $text_color_error ?>;background-color:#<?php echo $bg_color_error ?>;border-color:#<?php echo $border_color_error ?>;border-width:<?php echo $border_width_error ?>;border-style:<?php echo $border_style_error ?>;}
 .with_frm_style :invalid, .with_frm_style :-moz-submit-invalid, .with_frm_style :-moz-ui-invalid {box-shadow:none;}
 .with_frm_style .frm_error{font-weight:<?php echo $weight ?>;}
 .with_frm_style .frm_blank_field label, .with_frm_style .frm_error{color:#<?php echo $border_color_error ?>;}
@@ -170,6 +170,8 @@ $description_font_size ?>;color:#<?php echo $description_color ?>;font-weight:<?
 .form_results.with_frm_style tr td{text-align:left;color:#<?php echo $text_color ?>;padding:7px 9px;border-top:<?php echo $field_border_width ?> solid #<?php echo $border_color ?>;}
 .form_results.with_frm_style tr.frm_even, .frm-grid .frm_even{background-color:#<?php echo $bg_color ?>;}
 .form_results.with_frm_style tr.frm_odd, .frm-grid .frm_odd{background-color:#<?php echo $bg_color_active ?>;}
+.with_frm_style .frm_uploaded_files{padding:5px 0;}
+.with_frm_style .frm_file_names{display:block;}
 #frm_loading{display:none;position:fixed;top:0;left:0;width:100%;height:100%;}
 #frm_loading h3{font-weight:bold;padding-bottom:15px;}
 #frm_loading_content{position:fixed;top:20%;left:33%;width:33%;text-align:center;color:#<?php echo $text_color ?>;background:#<?php echo $bg_color_active ?>;border:2px solid #<?php echo $border_color_active ?>;padding:30px;font-weight:bold;}
@@ -187,6 +189,7 @@ $description_font_size ?>;color:#<?php echo $description_color ?>;font-weight:<?
 .frmcal table.frmcal-calendar tbody tr td{height:110px;width:14.28%;vertical-align:top;padding:0 !important;color:#<?php echo $text_color ?>;font-size:12px;}
 table.frmcal-calendar .frmcal_date{background-color:#<?php echo $bg_color ?>;padding:0 5px;text-align:right;-moz-box-shadow:0 2px 5px #<?php echo $border_color ?>;-webkit-box-shadow:0 2px 5px #<?php echo $border_color ?>;box-shadow:0 2px 5px #<?php echo $border_color ?>;-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#<?php echo $border_color ?>')";filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#<?php echo $border_color ?>');}
 table.frmcal-calendar .frmcal-today .frmcal_date{background-color:#<?php echo $bg_color_active ?>;padding:0 5px;text-align:right;-moz-box-shadow:0 2px 5px #<?php echo $border_color_active ?>;-webkit-box-shadow:0 2px 5px #<?php echo $border_color_active ?>;box-shadow:0 2px 5px #<?php echo $border_color_active ?>;-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#<?php echo $border_color_active ?>')";filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#<?php echo $border_color_active ?>');}
+.frmcal_num{display:inline;}
 .frmcal-content{padding:2px 4px;}
 .frm-loading-img{background:url(<?php echo FRM_IMAGES_URL ?>/ajax_loader.gif) no-repeat center center;padding:6px 12px;}
 #ui-datepicker-div{display:none;z-index:999 !important;}

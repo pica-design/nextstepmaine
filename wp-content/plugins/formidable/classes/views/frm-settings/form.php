@@ -3,20 +3,19 @@
     <h2><?php _e('Form Settings', 'formidable'); ?></h2>
 
     <?php require(FRM_VIEWS_PATH.'/shared/errors.php'); ?>
-    <?php require(FRM_VIEWS_PATH.'/shared/nav.php'); ?>
     
     <div id="poststuff" class="metabox-holder">
     <div id="post-body">
         <div class="meta-box-sortables">
         <div class="categorydiv postbox">
-        <h3 class="hndle"><span><?php _e('Settings', 'formidable') ?></span></h3>
+        <h3 class="hndle"><span><?php _e('Global Settings', 'formidable') ?></span></h3>
         <div class="inside">
         <div class="contextual-help-tabs">
-        <ul <?php if(version_compare( $GLOBALS['wp_version'], '3.3.0', '<')) echo 'id="category-tabs" class="category-tabs"'; ?>>
-        	<li class="tabs active"><a onclick="frmSettingsTab(jQuery(this),'general');" style="cursor:pointer"><?php _e('General', 'formidable') ?></a></li>
-            <li><a onclick="frmSettingsTab(jQuery(this),'styling');" style="cursor:pointer"><?php _e('Form Styling', 'formidable') ?></a></li>
+        <ul class="frm-category-tabs <?php if(version_compare( $GLOBALS['wp_version'], '3.3.0', '<')) echo 'category-tabs id="category-tabs'; ?>">
+        	<li class="tabs active"><a href="#general_settings" style="cursor:pointer"><?php _e('General', 'formidable') ?></a></li>
+            <li><a href="#styling_settings" style="cursor:pointer"><?php _e('Form Styling', 'formidable') ?></a></li>
             <?php foreach($sections as $sec_name => $section){ ?>
-                <li><a onclick="frmSettingsTab(jQuery(this),'<?php echo $sec_name ?>');"><?php echo ucfirst($sec_name) ?></a></li>
+                <li><a href="#<?php echo $sec_name ?>_settings"><?php echo ucfirst($sec_name) ?></a></li>
             <?php } ?>
         </ul>
         </div>
@@ -143,6 +142,14 @@
             <tr class="form-field">
                 <td valign="top"><?php _e('Default Messages', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('You can override the success message and submit button settings on individual forms.', 'formidable') ?>" /></td>
                 <td>        
+                    <?php _e('Blank Field', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The message seen when a required field is left blank.', 'formidable') ?>" /><br/>
+                    <input type="text" id="frm_blank_msg" name="frm_blank_msg" class="frm_long_input" value="<?php echo esc_attr(stripslashes($frm_settings->blank_msg)) ?>" />
+                </td>
+            </tr>
+            
+            <tr class="form-field">
+                <td></td> 
+                <td>        
                     <?php _e('Incorrect Field', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The message seen when a field response is either incorrect or missing.', 'formidable') ?>" /><br/>
                     <input type="text" id="frm_invalid_msg" name="frm_invalid_msg" class="frm_long_input" value="<?php echo esc_attr(stripslashes($frm_settings->invalid_msg)) ?>" />
                 </td>
@@ -207,7 +214,7 @@
                 }
         } ?>
         
-        <p class="alignright frm_uninstall" style="padding-top:1.25em;"><a href="javascript:frm_uninstall_now()" class="button-secondary"><?php _e('Uninstall Formidable', 'formidable') ?></a></p>
+        <p class="alignright frm_uninstall" style="padding-top:1.25em;"><a href="javascript:frm_uninstall_now()"><?php _e('Uninstall Formidable', 'formidable') ?></a></p>
         <p class="submit">
         <input class="button-primary" type="submit" value="<?php _e('Update Options', 'formidable') ?>" />
         </p>

@@ -6,8 +6,6 @@
         <div class="frm_forms<?php echo ($values['custom_style']) ? ' with_frm_style' : ''; ?>" id="frm_form_<?php echo $form->id ?>_container">
         <?php include(FRM_VIEWS_PATH.'/frm-entries/errors.php'); ?>
 
-        <?php require(FRM_VIEWS_PATH.'/shared/nav.php'); ?>
-
         <form enctype="multipart/form-data" method="post"  id="form_<?php echo $form->form_key ?>">
         <?php
         if(version_compare( $GLOBALS['wp_version'], '3.3.3', '<')){ ?>

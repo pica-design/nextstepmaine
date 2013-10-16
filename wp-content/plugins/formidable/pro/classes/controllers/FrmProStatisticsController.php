@@ -4,7 +4,6 @@ class FrmProStatisticsController{
     function FrmProStatisticsController(){
         add_action('admin_menu', array( &$this, 'menu' ), 24);
         add_action('admin_init', array(&$this, 'admin_js'));
-        add_filter('frm_nav_array', array( &$this, 'frm_nav'), 3);
         add_shortcode('frm-graph', array(&$this, 'graph_shortcode'));
         add_shortcode('frm-stats', array(&$this, 'stats_shortcode'));
     }
@@ -26,12 +25,6 @@ class FrmProStatisticsController{
     function head(){
         require_once(FRMPRO_PATH . '/js/ofc-library/open-flash-chart-object.php');
         require_once(FRMPRO_PATH . '/js/ofc-library/open-flash-chart.php');
-    }
-    
-    function frm_nav($nav){
-        if(current_user_can('frm_view_reports'))
-            $nav['formidable-reports'] = __('Reports', 'formidable');
-        return $nav;
     }
     
     function show(){
@@ -81,7 +74,7 @@ class FrmProStatisticsController{
             'odd' => false, 'truncate' => 40, 'truncate_label' => 15, 'response_count' => 10, 
             'user_id' => false, 'type' => 'default', 'x_axis' => false, 'data_type' => 'count',
             'limit' => '', 'x_start' => '', 'x_end' => '', 'show_key' => false, 'min' => '', 'max' => '',
-            'include_zero' => false, 'width' => 400, 'height' => 400
+            'include_zero' => false, 'width' => 400, 'height' => 400, 'wrap' => 15
         );
         $args = wp_parse_args($args, $defaults);
         $vals = $this->get_graph_values($field, $args);
@@ -121,7 +114,7 @@ class FrmProStatisticsController{
             
             foreach ($values as $val_key => $val){
                 if($val)
-                    $pie_values[] = new pie_value($val, "$labels[$val_key] (". round(($val/$total_count) *100) . "%)");
+                    $pie_values[] = new pie_value($val, wordwrap($labels[$val_key], $wrap, "n")." (". round(($val/$total_count) *100) . "%)");
             }
             
             $bar->set_values( $pie_values );
@@ -465,16 +458,16 @@ class FrmProStatisticsController{
         $field->field_options = maybe_unserialize($field->field_options);
         
         global $frm_posts;
-        if($frm_posts and isset($frm_posts[$field->form_id])){
+        
+        if($user_id){
+            $form_posts = $frmdb->get_records($frmdb->entries, array('form_id' => $field->form_id, 'post_id >' => 1, 'user_id' => $user_id), '', '', 'id,post_id');
+        }else if($frm_posts and isset($frm_posts[$field->form_id])){
             $form_posts = $frm_posts[$field->form_id];
         }else{
             $form_posts = $frmdb->get_records($frmdb->entries, array('form_id' => $field->form_id, 'post_id >' => 1), '', '', 'id,post_id');
             
-            if(!$frm_posts)
-                $frm_posts = array();
-            $frm_posts[$field->form_id] = $form_posts;
-        }        
-
+            $frm_posts = array($field->form_id => $form_posts);
+        }
        
         if(!empty($form_posts)){
             if(isset($field->field_options['post_field']) and $field->field_options['post_field'] != ''){
@@ -666,7 +659,7 @@ class FrmProStatisticsController{
             $form = $frmdb->get_one_record($frmdb->forms, array('id' => $field->form_id));
             $form_options = maybe_unserialize($form->options);
             $id_count = array_count_values($inputs);
-            if ($form->editable and (isset($form_options['single_entry']) and isset($form_options['single_entry_type']) and $form_options['single_entry_type'] == 'user')){
+            if ($form->editable and (isset($form_options['single_entry']) and $form_options['single_entry'] and isset($form_options['single_entry_type']) and $form_options['single_entry_type'] == 'user')){
                 //if only one response per user, do a pie chart of users who have submitted the form
                 $users_of_blog = (function_exists('get_users')) ? get_users() : get_users_of_blog();
                 $total_users = count( $users_of_blog );
@@ -1228,7 +1221,7 @@ class FrmProStatisticsController{
             'truncate_label' => 7, 'response_count' => 10, 'user_id' => false, 
             'type' => 'default', 'x_axis' => false, 'data_type' => 'count', 'limit' => '',
             'x_start' => '', 'x_end' => '', 'show_key' => false, 'min' => '', 'max' => '',
-            'include_zero' => false, 'google' => false
+            'include_zero' => false, 'google' => false, 'wrap' => 15
         );
         
         extract(shortcode_atts($defaults, $atts));
@@ -1276,7 +1269,7 @@ class FrmProStatisticsController{
             $html .= '<div id="chart_'. $this_id .'"></div>';
             $js .= 'swfobject.embedSWF("'.FRMPRO_URL.'/js/open-flash-chart.swf","chart_'. $this_id .'","'.$width.'","'.$height.'","9.0.0","expressInstall.swf",{"get-data":"get_data_'. $this_id .'"},{"wmode" : "transparent"});';
             $js_content2 .= 'function get_data_'. $this_id .'(){return JSON.stringify(data_'. $this_id .');}';
-            $js_content2 .= 'var data_'. $this_id .'='. $this->get_graph($field, compact('ids', 'colors', 'grid_color', 'bg_color', 'truncate', 'truncate_label', 'response_count', 'user_id', 'type', 'x_axis', 'data_type', 'limit', 'x_start', 'x_end', 'show_key', 'min', 'max', 'include_zero', 'width')) .';';
+            $js_content2 .= 'var data_'. $this_id .'='. $this->get_graph($field, compact('ids', 'colors', 'grid_color', 'bg_color', 'truncate', 'truncate_label', 'response_count', 'user_id', 'type', 'x_axis', 'data_type', 'limit', 'x_start', 'x_end', 'show_key', 'min', 'max', 'include_zero', 'width', 'wrap')) .';';
         }
             
         $js_content .= $js . $js_content2;

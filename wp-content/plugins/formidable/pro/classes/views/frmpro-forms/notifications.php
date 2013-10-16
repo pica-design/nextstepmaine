@@ -1,116 +1,70 @@
-<?php if(!empty($values['fields'])){ ?>
 <tr valign="top">
-    <td><label><?php _e('and/or', 'formidable') ?></label> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('Select a user id, hidden, or email field to send a notification.', 'formidable') ?>" /></td>
-    <td>
-        <?php 
-            $field_select = array('email', 'user_id', 'hidden', 'select', 'radio', 'checkbox');
-        foreach($values['fields'] as $val_key => $fo){
-            if(in_array($fo['type'], $field_select)){ ?>
-                <input type="checkbox" name="options[also_email_to][]" value="<?php echo $fo['id'] ?>" <?php FrmAppHelper::checked($values['also_email_to'], $fo['id']); ?> /> <?php echo $fo['name'] ?><br/>
-        <?php }else if($fo['type'] == 'data' and $fo['data_type'] != 'show'){
-                $linked_form_id = $frmdb->get_var($frmdb->fields, array('id' => $fo['form_select']), 'form_id');
+<td colspan="2">
+    <p><label><?php _e('Subject', 'formidable') ?></label>
+    <input type="text" name="notification[<?php echo $email_key ?>][email_subject]" class="frm_not_email_subject frm_long_input" id="email_subject_<?php echo $email_key ?>" size="55" value="<?php echo esc_attr($notification['email_subject']); ?>" /></p>
+        
+    <p><label><?php _e('Message', 'formidable') ?> </label>
+    <textarea name="notification[<?php echo $email_key ?>][email_message]" class="frm_not_email_message frm_long_input" id="email_message_<?php echo $email_key ?>" cols="50" rows="5"><?php echo FrmAppHelper::esc_textarea($notification['email_message']) ?></textarea></p>
 
-                if($linked_form_id)
-                    $linked_fields = $wpdb->get_results("SELECT * FROM $frmdb->fields WHERE type in ('".implode("','", $field_select)."', 'text') and form_id=$linked_form_id");
-                if(isset($linked_fields) and $linked_fields){ 
-                $values['fields'][$val_key]['linked'] = $linked_fields;
-                foreach($linked_fields as $linked_field){ 
-                    if(!in_array($linked_field->type, $field_select)) continue; ?>
-                    <input type="checkbox" name="options[also_email_to][]" value="<?php echo $fo['id'] .'|'. $linked_field->id ?>" <?php FrmAppHelper::checked($values['also_email_to'], $fo['id'] .'|'. $linked_field->id); ?> /> <?php echo $fo['name'] .': '. FrmAppHelper::truncate($linked_field->name, 80) ?><br/>
-                <?php } 
-                }
-            }
-        } ?>
-    </td>
-</tr>
+    <h4><?php _e('Options', 'formidable') ?> </h4>
+    <input type="checkbox" name="notification[<?php echo $email_key ?>][inc_user_info]" class="frm_not_inc_user_info" id="inc_user_info_<?php echo $email_key ?>" value="1" <?php checked($notification['inc_user_info'], 1); ?> /> <?php _e('Append IP Address, Browser, and Referring URL to message', 'formidable') ?>
+        
+    <p><input type="checkbox" name="notification[<?php echo $email_key ?>][plain_text]" value="1" <?php checked($notification['plain_text'], 1); ?> /> <?php _e('Send Emails in Plain Text', 'formidable') ?></p>
+
+<?php if($email_key > 0){ ?>
+    <p class="alignright"><a href="javascript:frmRemoveEmailList(<?php echo $email_key ?>)"><?php _e('Remove Email', 'formidable') ?></a></p>
 <?php } ?>
-<tr valign="top">
-    <td><label><?php _e('Subject', 'formidable') ?></label></td>
-    <td><?php if(isset($values['id'])) FrmProFieldsHelper::get_shortcode_select($values['id'], 'email_subject'); ?><br/>
-<input type="text" name="options[email_subject]" id="email_subject" size="55" value="<?php echo esc_attr($values['email_subject']); ?>" style="width:98%"/></td>
-</tr>
 
-<tr valign="top">
-    <td><label><?php _e('Message', 'formidable') ?> </label></td>
-    <td><?php if(isset($values['id'])) FrmProFieldsHelper::get_shortcode_select($values['id'], 'email_message', 'email'); ?><br/>
-        <textarea name="options[email_message]" id="email_message" cols="50" rows="5" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea($values['email_message']) ?></textarea>
-    </td>
-</tr>
-
-<tr valign="top">
-    <td></td>
-    <td><input type="checkbox" name="options[inc_user_info]" id="inc_user_info" value="1" <?php checked($values['inc_user_info'], 1); ?> /> <?php _e('Append IP Address, Browser, and Referring URL to message', 'formidable') ?></td>
-</tr>
-
-<tr valign="top">
-    <td><label><?php _e('Email Format', 'formidable') ?></label></td>
-    <td><input type="checkbox" name="options[plain_text]" id="plain_text" value="1" <?php checked($values['plain_text'], 1); ?> /> <?php _e('Send Emails in Plain Text', 'formidable') ?></td>
-</tr>
-
-<tr valign="top">
-    <td><label><?php _e('Update Emails', 'formidable') ?></label></td>
-    <td><input type="checkbox" name="options[update_email]" value="1" <?php checked($values['update_email'], 1); ?> /> <?php _e('Automatically resend this email notification when entries are updated', 'formidable') ?></td>
-</tr>
-</table>
-</div>
-
-<div class="notification_settings tabs-panel panel_secondary" style="display:none;margin-top:10px">
-	<table class="form-table">
-<tr valign="top">
-    <td width="200px"><label style="font-weight:bold"><?php _e('Auto Responder', 'formidable') ?></label></td>
-    <td><input type="checkbox" name="options[auto_responder]" id="auto_responder" value="1" <?php checked($values['auto_responder'], 1); ?> onclick="frm_show_div('hide_ar',this.checked,1,'.')" /> <?php _e('Send an automatic response to users submitting the form', 'formidable') ?></td>
-</tr>
-
-<tr valign="top" class="hide_ar">
-    <td><label><?php _e('From/Reply to', 'formidable') ?></label></td>
-    <td><span class="howto"><?php _e('Name', 'formidable') ?></span> <input type="text" name="options[ar_reply_to_name]" value="<?php echo esc_attr($values['ar_reply_to_name']) ?>" title="<?php _e('Name', 'formidable') ?>">
+    <p><?php _e('Send this notification when entries are', 'formidable'); ?>
+        <select name="notification[<?php echo $email_key ?>][update_email]">
+            <option value="0"><?php _e('created', 'formidable') ?></option>
+            <option value="2" <?php selected($notification['update_email'], 2); ?>><?php _e('updated', 'formidable') ?></option>
+            <option value="1" <?php selected($notification['update_email'], 1); ?>><?php _e('created or updated', 'formidable') ?></option>
+        </select>
+    </p>
+    <?php if(isset($notification['ar'])){ ?>
+    <input type="hidden" name="notification[<?php echo $email_key ?>][ar]" value="1" <?php checked($notification['ar'], 1); ?> />
+    <?php } 
     
-    <span class="howto" style="margin-left:10px"><?php _e('Email', 'formidable') ?></span> &lt;<input type="text" name="options[ar_reply_to]" value="<?php echo esc_attr($values['ar_reply_to']) ?>" title="<?php _e('Email Address', 'formidable') ?>">>
-    </td>
-</tr>
-
-<tr valign="top" class="hide_ar">
-    <td><label><?php _e('Email Recipient', 'formidable') ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('Select a user id, hidden, or email field to send the autoresponse.', 'formidable') ?>" /></label></td>
-    <td><select name="options[ar_email_to]">
-        <option value=""></option>
+    $form_fields = array();
+    foreach($values['fields'] as $f){
+        if(in_array($f['type'], array('select','radio','checkbox','10radio','scale','data')) or ($f['type'] == 'data' and isset($fo['data_type']) and in_array($fo['data_type'], array('select','radio','checkbox'))))
+            $form_fields[] = $f;
+        unset($f);
+    }
+    
+    $show_logic = (!empty($notification['conditions']) and count($notification['conditions']) > 2) ? true : false; 
+    
+    if(!empty($form_fields)){ ?>
+    <a href="javascript:frmToggleLogic('email_logic_<?php echo $email_key ?>')" class="button-secondary" id="email_logic_<?php echo $email_key ?>" <?php echo ($show_logic) ? ' style="display:none"' : ''; ?>><?php _e('Use Conditional Logic', 'formidable') ?></a>
+    <?php }else{ ?>
+    <p class="howto"><?php _e('Add a radio, dropdown, or checkbox field to your form to enable conditional logic.', 'formidable') ?>    
+    <?php } ?>
+    <div class="frm_logic_rows tagchecklist" <?php echo ($show_logic) ? '' : ' style="display:none"'; ?>>
+        <div id="frm_logic_row_<?php echo $email_key ?>">
+        <select name="notification[<?php echo $email_key ?>][conditions][send_stop]">
+            <option value="send" <?php selected($notification['conditions']['send_stop'], 'send') ?>><?php _e('Send', 'formidable') ?></option>
+            <option value="stop" <?php selected($notification['conditions']['send_stop'], 'stop') ?>><?php _e('Stop', 'formidable') ?></option>
+        </select>
+        <?php _e('this notification if', 'formidable'); ?>
+        <select name="notification[<?php echo $email_key ?>][conditions][any_all]">
+            <option value="any" <?php selected($notification['conditions']['any_all'], 'any') ?>><?php _e('any', 'formidable') ?></option>
+            <option value="all" <?php selected($notification['conditions']['any_all'], 'all') ?>><?php _e('all', 'formidable') ?></option>
+        </select>
+        <?php _e('of the following match', 'formidable') ?>:
+            
         <?php 
-        if(!empty($values['fields'])){
-        foreach($values['fields'] as $val_key => $fo){
-            if(in_array($fo['type'], array('email', 'user_id', 'hidden'))){ ?>
-                <option value="<?php echo $fo['id'] ?>" <?php selected($values['ar_email_to'], $fo['id']); ?>><?php echo $fo['name'] ?></option>
-        <?php }else if($fo['type'] == 'data' and $fo['data_type'] != 'show'){
-                if(isset($values['fields'][$val_key]['linked'])){ ?>
-                <?php foreach($values['fields'][$val_key]['linked'] as $linked_field){ 
-                    if(!in_array($linked_field->type, $field_select)) continue; ?>
-                    <option value="<?php echo $fo['id'] ?>|<?php echo $linked_field->id ?>" <?php selected($values['ar_email_to'], $fo['id'] .'|'. $linked_field->id); ?>><?php echo $fo['name'] .': '. FrmAppHelper::truncate($linked_field->name, 80) ?></option>
-                <?php } 
-                }
-            }
+
+        foreach($notification['conditions'] as $meta_name => $condition){
+            if(is_numeric($meta_name))
+                include(FRMPRO_VIEWS_PATH .'/frmpro-forms/_logic_row.php');
+            unset($meta_name);
+            unset($condition);
         }
-        } ?>
-    </select>
-    </td>
-</tr>
-
-<tr valign="top" class="hide_ar">
-    <td><label><?php _e('Subject', 'formidable') ?></label></td>
-    <td><?php if(isset($values['id'])) FrmProFieldsHelper::get_shortcode_select($values['id'], 'ar_email_subject'); ?><br/>
-<input type="text" name="options[ar_email_subject]" id="ar_email_subject" size="55" value="<?php echo esc_attr($values['ar_email_subject']); ?>" style="width:98%"/></td>
-</tr>
-
-<tr valign="top" class="hide_ar">
-    <td><label><?php _e('Message', 'formidable') ?></label></td>
-    <td><?php if(isset($values['id'])) FrmProFieldsHelper::get_shortcode_select($values['id'], 'ar_email_message', 'email'); ?><br/>
-        <textarea name="options[ar_email_message]" id="ar_email_message" cols="50" rows="5" style="width:98%"><?php echo FrmAppHelper::esc_textarea($values['ar_email_message']) ?></textarea>
-    </td>
-</tr>
-
-<tr valign="top" class="hide_ar">
-    <td><label><?php _e('Email Format', 'formidable') ?></label></td>
-    <td><input type="checkbox" name="options[ar_plain_text]" id="ar_plain_text" value="1" <?php checked($values['ar_plain_text'], 1); ?> /> <?php _e('Send Emails in Plain Text', 'formidable') ?></td>
-</tr>
-
-<tr valign="top" class="hide_ar">
-    <td><label><?php _e('Update Emails', 'formidable') ?></label></td>
-    <td><input type="checkbox" name="options[ar_update_email]" value="1" <?php checked($values['ar_update_email'], 1); ?> /> <?php _e('Automatically resend this email notification when entries are updated', 'formidable') ?></td>
+            
+        ?>
+        </div>
+        <p><a class="button" href="javascript:frmAddFormLogicRow(<?php echo $email_key ?>,<?php echo $values['id'] ?>);">+ <?php _e('Add', 'formidable') ?></a></p>
+    </div>
+</td>
 </tr>

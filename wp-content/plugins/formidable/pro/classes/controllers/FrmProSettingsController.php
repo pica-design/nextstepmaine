@@ -27,7 +27,7 @@ class FrmProSettingsController{
     function head(){
         $js_file  = FRM_URL . '/js/jquery/jquery-ui-themepicker.js';
       ?>
-        <link type="text/css" rel="stylesheet" href="http<?php is_ssl() ? 's' : ''; ?>://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/themes/base/ui.all.css" />
+        <link type="text/css" rel="stylesheet" href="http<?php echo is_ssl() ? 's' : ''; ?>://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/themes/base/ui.all.css" />
         <link href="<?php echo FRM_SCRIPT_URL ?>&amp;controller=settings" type="text/css" rel="Stylesheet" class="frm-custom-theme"/>
         <?php
         require(FRM_VIEWS_PATH . '/shared/head.php');

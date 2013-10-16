@@ -15,6 +15,8 @@ class FrmProAppController{
         add_action('frm_standalone_route', array(&$this, 'standalone_route'), 10, 2);
         add_action('frm_after_install', array(&$this, 'install'));
         add_action('frm_after_uninstall', array(&$this, 'uninstall'));
+        
+        add_shortcode('frm_set_get', array(&$this, 'set_get'));
     }
     
     
@@ -217,6 +219,14 @@ class FrmProAppController{
     function uninstall(){
         global $frmprodb;
         $frmprodb->uninstall();
+    }
+    
+    function set_get($atts){
+        foreach($atts as $att => $val){
+            $_GET[$att] = $val;
+            unset($att);
+            unset($val);
+        }
     }
     
 }

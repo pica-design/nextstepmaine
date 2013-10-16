@@ -221,7 +221,7 @@ data:"controller=entries&frm_action=ajax_set_cookie&entry_id=<?php echo $entry_i
             $post_id = $frmdb->get_var($frmdb->entries, array('id' => $entry_id), 'post_id');
             if($post_id){
                 $post = get_post($post_id, ARRAY_A);
-                $this->insert_post($entry_id, $post, true);
+                $this->insert_post($entry_id, $post, true, $form_id);
             }else{
                 $this->create_post($entry_id, $form_id);
             }
@@ -255,17 +255,23 @@ data:"controller=entries&frm_action=ajax_set_cookie&entry_id=<?php echo $entry_i
                     $post['post_status'] = 'publish';
             }
             
-            $post_id = $this->insert_post($entry_id, $post);
+            //check for auto custom display and set frm_display_id
+            $display = FrmProDisplay::get_auto_custom_display(compact('form_id', 'entry_id'));
+            if($display)
+                $_POST['frm_wp_post_custom']['=frm_display_id'] = $display->ID;
+            
+            $post_id = $this->insert_post($entry_id, $post, false, $form_id);
         }
+        
         //save post_id with the entry
         $updated = $wpdb->update( $frmdb->entries, array('post_id' => $post_id), array( 'id' => $entry_id ) );
         if($updated)
             wp_cache_delete( $entry_id, 'frm_entry' );
     }
     
-    function insert_post($entry_id, $post, $editing=false){
+    function insert_post($entry_id, $post, $editing=false, $form_id=false){
         $field_ids = $new_post = array();
-
+        
         foreach($_POST['frm_wp_post'] as $post_data => $value){
             $post_data = explode('=', $post_data);
             $field_ids[] = $post_data[0];
@@ -276,6 +282,14 @@ data:"controller=entries&frm_action=ajax_set_cookie&entry_id=<?php echo $entry_i
             $post[$post_data[1]] = $new_post[$post_data[1]] = $value;
             //delete the entry meta below so it won't be stored twice
         }
+        
+        //if empty post content and auto display, then save compiled post content
+        $display_id = ($editing) ? get_post_meta($post['ID'], 'frm_display_id', true) : (isset($_POST['frm_wp_post_custom']['=frm_display_id']) ? $_POST['frm_wp_post_custom']['=frm_display_id'] : 0);
+        
+        if(!isset($post['post_content']) and $display_id){
+            $dyn_content = get_post_meta($display_id, 'frm_dyncontent', true);
+            $post['post_content'] = apply_filters('frm_content', $dyn_content, $form_id, $entry_id);
+        }
             
         $post_ID = wp_insert_post( $post );
     	
@@ -283,12 +297,27 @@ data:"controller=entries&frm_action=ajax_set_cookie&entry_id=<?php echo $entry_i
     	    return;
     	
     	global $frm_entry_meta, $user_ID, $frm_media_id;
-    	
+
+    	$exclude_attached = array();
     	if($frm_media_id and !empty($frm_media_id)){
     	    global $wpdb;
     	    //link the uploads to the post
-    	    foreach($frm_media_id as $media_id)
-    	        $wpdb->update( $wpdb->posts, array('post_parent' => $post_ID), array( 'ID' => $media_id ) );
+    	    foreach($frm_media_id as $media_id){
+    	        $exclude_attached = array_merge($exclude_attached, (array)$media_id);
+    	        
+    	        if(is_array($media_id)){
+    	            $attach_string = implode( ',', array_filter($media_id) );
+    				$attached = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_parent = %d WHERE post_type = 'attachment' AND ID IN ( $attach_string )", $post_ID ) ) .'<br/>';
+    				
+    	            foreach($media_id as $m){
+    	                clean_attachment_cache( $m );
+    	                unset($m);
+    	            }
+    	        }else{
+    	            $wpdb->update( $wpdb->posts, array('post_parent' => $post_ID), array( 'ID' => $media_id, 'post_type' => 'attachment' ) );
+    	            clean_attachment_cache( $media_id );
+    	        }
+    	    }
     	}
 
     	if($editing and count($_FILES) > 0){
@@ -296,7 +325,7 @@ data:"controller=entries&frm_action=ajax_set_cookie&entry_id=<?php echo $entry_i
     	    $args = array( 
     	        'post_type' => 'attachment', 'numberposts' => -1, 
     	        'post_status' => null, 'post_parent' => $post_ID, 
-    	        'exclude' => $frm_media_id
+    	        'exclude' => $exclude_attached
     	    ); 
 
             $attachments = get_posts( $args );
@@ -306,7 +335,7 @@ data:"controller=entries&frm_action=ajax_set_cookie&entry_id=<?php echo $entry_i
     	
     	if(isset($_POST['frm_tax_input'])){
             foreach ($_POST['frm_tax_input'] as $taxonomy => $tags ) {
-    		    if ( is_array($tags) ) // array = hierarchical, string = non-hierarchical.
+    		    if ( is_taxonomy_hierarchical($taxonomy) )
     				$tags = array_keys($tags);
     				
     			wp_set_post_terms( $post_ID, $tags, $taxonomy );
@@ -318,7 +347,10 @@ data:"controller=entries&frm_action=ajax_set_cookie&entry_id=<?php echo $entry_i
         	    $post_data = explode('=', $post_data);
                 $field_id = $post_data[0];
 
-                update_post_meta($post_ID, $post_data[1], maybe_serialize($value));
+                if($value == '')
+                    delete_post_meta($post_ID, $post_data[1]);
+                else
+                    update_post_meta($post_ID, $post_data[1], $value);
             	$frm_entry_meta->delete_entry_meta($entry_id, $field_id); 
             }
         }

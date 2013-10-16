@@ -2,7 +2,7 @@
 /*
 Plugin Name: Formidable
 Description: Quickly and easily create drag-and-drop forms
-Version: 1.06.05
+Version: 1.06.08
 Plugin URI: http://formidablepro.com/
 Author URI: http://strategy11.com
 Author: Strategy11
@@ -30,14 +30,14 @@ define('FRM_CONTROLLERS_PATH', FRM_PATH.'/classes/controllers');
 define('FRM_TEMPLATES_PATH', FRM_PATH.'/classes/templates');
 
 global $frm_siteurl;
-$frm_siteurl = get_bloginfo('url');
+$frm_siteurl = site_url();
 if(is_ssl() and (!preg_match('/^https:\/\/.*\..*$/', $frm_siteurl) or !preg_match('/^https:\/\/.*\..*$/', WP_PLUGIN_URL))){
     $frm_siteurl = str_replace('http://', 'https://', $frm_siteurl);
     define('FRM_URL', str_replace('http://', 'https://', WP_PLUGIN_URL.'/formidable'));
 }else
     define('FRM_URL', WP_PLUGIN_URL.'/formidable');  //plugins_url('/formidable')
     
-define('FRM_SCRIPT_URL', $frm_siteurl .'/index.php?plugin=formidable');
+define('FRM_SCRIPT_URL', $frm_siteurl . (is_admin() ? '/wp-admin' : '') .'/index.php?plugin=formidable');
 define('FRM_IMAGES_URL', FRM_URL.'/images');
 
 load_plugin_textdomain('formidable', false, 'formidable/languages/' );
@@ -52,7 +52,7 @@ if (!defined ('IS_WPMU')){
 }
 
 global $frm_version, $frm_db_version;
-$frm_version = '1.06.05';
+$frm_version = '1.06.08';
 $frm_db_version = 9;
 
 global $frm_ajax_url;

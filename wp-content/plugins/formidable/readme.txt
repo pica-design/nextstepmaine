@@ -2,9 +2,9 @@
 Contributors: sswells, srwells
 Donate link: http://formidablepro.com/donate
 Tags: admin, AJAX, captcha, contact, contact form, database, email, feedback, form, forms, javascript, jquery, page, plugin, poll, Post, spam, survey, template, widget, wpmu
-Requires at least: 2.9
-Tested up to: 3.4
-Stable tag: 1.06.05
+Requires at least: 3.0
+Tested up to: 3.5
+Stable tag: 1.06.08
 
 Quickly and easily build forms with a simple drag-and-drop interface and in-place editing. 
 
@@ -61,6 +61,70 @@ A. Try clearing your browser cache. As plugin modifications are made, frequent j
 [See more FAQs](http://formidablepro.com/formidable-faqs/ "Formidable Pro FAQs")
 
 == Changelog ==
+= 1.06.08 =
+* Changed class names on action links on the form listing table to prevent conflicts with themes and other plugins
+* PRO: Filter shortcodes if any in the login message
+* PRO: Fixed order of fields shown in default email notification
+* PRO: Keep files attached to the post when editing the entry and using multiple file upload option
+* PRO: Attach file uploads to WP post even if the upload field is not set as a custom field
+* PRO: Fixed bug forcing site name and admin email as the email "from" info when a custom name/email is selected
+* PRO: Send a notification even if the notification before it is empty
+* PRO: Fixed conditional logic on email notifications to make sure they are stopped when they should be
+* PRO: Automatically send emails to the saved value of a field when used in the "Email recipients" box without requiring show=field_value
+
+= 1.06.07 = 
+* Added mb_split fallback for servers without mbstring installed
+* Changed menu position to prevent override from other plugins and themes
+* PRO: Fixed issue with the form shortcode showing if using multiple forms with default values on the same page
+* PRO: Fixed javascript error in frm-entry-update-field shortcode
+* PRO: Send the "read more" link to the single entry page instead of showing in-place for dynamic displays
+
+= 1.06.06 =
+* Removed generic classes from input fields like "text" and "date"
+* Correctly jump down to form with error messages
+* Added frm_setup_new_entry hook for overriding defaults for all fields in one hook when presenting a blank form
+* Added "This field cannot be blank" message to global settings
+* Changed substr to mb_substr for language-safe truncation
+* WP 3.5 compatibility
+* Fixed conflict with W3TC that was adding slashes into options on the form settings page
+* Show a message on the form builder page if a reCaptcha is included in the form, but not set up
+* Switch from add_object_page to add_menu_page to prevent menu position conflicts
+* (Free only) Allow emails to be sent from the admin email instead of forcing an email address from the submitted entry
+* PRO: Added multiple-image upload
+* PRO: Added unlimited emails per form and conditional routing
+* PRO: Use the "customized content" box to save the actual content if no field is selected for the post content
+* PRO: Added frm-field-value shortcode to get the value of a field in another form. [frm-field-value field_id=25 user_id=current entry_id=140 ip=1]
+* PRO: Added frm-show-entry shortcode to show an entry in the same formats as the default email message. [frm-show-entry id=100 plain_text=1 user_info=1]
+* PRO: Added frm_set_get shortcode to artificially set $_GET values for use in custom displays or dynamic defaults values. [frm-set-get any_param="any value" another="value 2"] This can be fetched with [get param="any_param"] [get param="another"]
+* PRO: Extended conditional logic for displaying fields to include text, number, email, website, and time fields
+* PRO: Added support for the [frm-search] shortcode into the [formresults] table
+* PRO: Updated NicEdit
+* PRO: If http isn't included in a url or image field, automatically add it during validation
+* PRO: Added "wrap" parameter to the frm-graph shortcode to wrap the text in long questions
+* PRO: Added localization to custom display calendar to start on day of the week selected in WordPress settings
+* PRO: Added entry updated dates to custom display shortcodes
+* PRO: Correctly check uniqueness of post fields when there are no other error messages
+* PRO: If using a number field with the value "0" that is linked through a data from entries field, show 0 instead of nothing
+* PRO: Update for more accurate checking for hierarchal taxonomies when saving posts
+* PRO: Evaluate numbers as numeric instead of a string for conditional logic for hiding and showing fields
+* PRO: Fix to allow tags fields and other fields in the same form that are mapped to the same taxonomy
+* PRO: Fixed conditional logic to work correctly when dependent on the value "0"
+* PRO: Fixed display of shortcodes inside the before or after content areas of the custom display if nesting [get param=something]
+* PRO: Fixed calculations for multiple-paged calculations with checkbox fields that may not be checked
+* PRO: Fixed checkbox fields linked through another field to display properly in a custom display
+* PRO: Fixed separate values to work with sending to email addresses
+* PRO: Show a max of 500 options in a data from entries field in the admin to prevent server limits from making the form inaccessible
+* PRO: Make sure the graphs printed from the reports page are not split when printing
+* PRO: Fixed the link to show more text in the custom display to show the text in place or link to the single page correctly depending on the custom display type
+* PRO: Removed "just show it" data from entries fields in the email checkbox settings
+* PRO: Remove post custom fields from database if blank
+* PRO: Fixed frm-stats shortcode to work with post custom fields combined with the value parameter
+* PRO: Fixed div nesting issue when using collapsible section headings followed by non-collapsible sections headings
+* PRO: Removed separate values checkbox for post status and taxonomy fields
+* PRO: Fixed double filtering forms if inserted in the dynamic box of a custom display used for posts
+* PRO: Fixed page size and limit overriding single entry displays
+
+
 = 1.06.05 =
 * Fixed WP 3.4 layout issues with missing sidebars
 * Added responsive css for WP 3.4 to keep the form builder sidebar box showing on small screens
@@ -69,6 +133,8 @@ A. Try clearing your browser cache. As plugin modifications are made, frequent j
 * Updated translations
 * PRO: Prevent wp_redirect from stripping square brackets from urls
 * PRO: Fixed calculations for fields hidden in a collapsible section
+* PRO: Fixed delete link to work on pages without forms
+* PRO: Added support to import checkbox field values in multiple columns
 
 = 1.06.04 =
 * Moved form processing to avoid multiple submissions when some plugins are activated and remove the page before redirection

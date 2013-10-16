@@ -7,7 +7,6 @@ class FrmAppController{
     function FrmAppController(){
         add_action('admin_menu', array( &$this, 'menu' ), 1);
         add_action('admin_head', array(&$this, 'menu_css'));
-        add_filter('frm_nav_array', array( &$this, 'frm_nav'), 1);
         add_filter('plugin_action_links_formidable/formidable.php', array( &$this, 'settings_link'), 10, 2 );
         add_action('after_plugin_row_formidable/formidable.php', array( &$this, 'pro_action_needed'));
         add_action('admin_notices', array( &$this, 'pro_get_started_headline'));
@@ -43,32 +42,30 @@ class FrmAppController{
             unset($frm_role_description);
         }
         
+        $count = count(get_post_types( array( 'show_ui' => true, '_builtin' => false, 'show_in_menu' => true ) ));
+        $pos = ((int)$count > 0) ? 22.7 : 29.3;
+        $pos = apply_filters('frm_menu_position', $pos);
+        
         if(current_user_can('frm_view_forms')){
             global $frm_forms_controller;
-            add_object_page('Formidable', $frm_settings->menu, 'frm_view_forms', 'formidable', array($frm_forms_controller, 'route'), 'div');
+            add_menu_page('Formidable', $frm_settings->menu, 'frm_view_forms', 'formidable', array($frm_forms_controller, 'route'), 'div', $pos);
         }elseif(current_user_can('frm_view_entries') and $frmpro_is_installed){
             global $frmpro_entries_controller;
-            add_object_page('Formidable', $frm_settings->menu, 'frm_view_entries', 'formidable', array($frmpro_entries_controller, 'route'), 'div');
+            add_menu_page('Formidable', $frm_settings->menu, 'frm_view_entries', 'formidable', array($frmpro_entries_controller, 'route'), 'div', $pos);
         }
     }
     
     function menu_css(){ ?>
-    <style type="text/css">
-    #adminmenu .toplevel_page_formidable div.wp-menu-image{background: url(<?php echo FRM_IMAGES_URL ?>/form_16.png) no-repeat center;}
-    </style>    
-    <?php    
+<style type="text/css">
+#adminmenu .toplevel_page_formidable div.wp-menu-image{background: url(<?php echo FRM_IMAGES_URL ?>/form_16.png) no-repeat center;}
+</style>    
+<?php    
     //#adminmenu .toplevel_page_formidable:hover div.wp-menu-image{background: url(<?php echo FRM_IMAGES_URL /icon_16.png) no-repeat center;}
     }
     
-    function frm_nav($nav=array()){
-        if(current_user_can('frm_view_forms')){
-            $nav['formidable'] = __('Forms', 'formidable');
-            $nav['formidable-templates'] = __('Templates', 'formidable');
-        }
-        return $nav;
-    }
-    
     function get_form_nav($id, $show_nav=false){
+        global $pagenow;
+        
         $show_nav = FrmAppHelper::get_param('show_nav', $show_nav);
         
         if($show_nav)
@@ -89,7 +86,7 @@ class FrmAppController{
         if( $frm_update->pro_is_authorized() and !$frm_update->pro_is_installed() ){
             if (IS_WPMU and $frm_update->pro_wpmu and !FrmAppHelper::is_super_admin())
                 return;
-            $frm_update->queue_update(true);
+            $frm_update->manually_queue_update();
             $inst_install_url = wp_nonce_url('update.php?action=upgrade-plugin&plugin=' . $plugin, 'upgrade-plugin_' . $plugin);
     ?>
       <td colspan="3" class="plugin-update"><div class="update-message" style="-moz-border-radius:5px;border:1px solid #CC0000;; margin:5px;background-color:#FFEBE8;padding:3px 5px;"><?php printf(__('Your Formidable Pro installation isn\'t quite complete yet.<br/>%1$sAutomatically Upgrade to Enable Formidable Pro%2$s', 'formidable'), '<a href="'.$inst_install_url.'">', '</a>'); ?></div></td>
@@ -111,9 +108,9 @@ class FrmAppController{
             global $frmpro_is_installed, $frm_db_version, $frm_ajax_url;
             $db_version = get_option('frm_db_version');
             $pro_db_version = ($frmpro_is_installed) ? get_option('frmpro_db_version') : false;
-            if(((int)$db_version < (int)$frm_db_version) or ($frmpro_is_installed and (int)$pro_db_version < 15)){ //this number should match the db_version in FrmDb.php
+            if(((int)$db_version < (int)$frm_db_version) or ($frmpro_is_installed and (int)$pro_db_version < 16)){ //this number should match the db_version in FrmDb.php
             ?>
-<div class="error" id="frm_install_message" style="padding:7px;"><?php _e('Your Formidable database needs to be updated.<br/>Please deactivate and reactivate the plugin to fix this or', 'formidable'); ?> <a id="frm_install_link" href="javascript:frm_install_now()"><?php _e('Update Now', 'formidable') ?></a></div>  
+<div class="error" id="frm_install_message" style="padding:7px;"><?php _e('Your Formidable database needs to be updated.<br/>Please deactivate and reactivate the plugin to fix this or', 'formidable'); ?> <a id="frm_install_link" href="#" onclick="frm_install_now();return false;"><?php _e('Update Now', 'formidable') ?></a></div>  
 <script type="text/javascript">
 function frm_install_now(){ 
 jQuery('#frm_install_link').replaceWith('<img src="<?php echo FRM_IMAGES_URL; ?>/wpspin_light.gif" alt="<?php _e('Loading...', 'formidable'); ?>" />');
@@ -127,7 +124,7 @@ success:function(msg){jQuery("#frm_install_message").fadeOut("slow");}
         }
             
         if( $frm_update->pro_is_authorized() and !$frm_update->pro_is_installed()){
-            $frm_update->queue_update(true);
+            $frm_update->manually_queue_update();
             $inst_install_url = wp_nonce_url('update.php?action=upgrade-plugin&plugin=' . $frm_update->plugin_name, 'upgrade-plugin_' . $frm_update->plugin_name);
         ?>
     <div class="error" style="padding:7px;"><?php printf(__('Your Formidable Pro installation isn\'t quite complete yet.<br/>%1$sAutomatically Upgrade to Enable Formidable Pro%2$s', 'formidable'), '<a href="'.$inst_install_url.'">', '</a>'); ?></div>  
@@ -136,21 +133,46 @@ success:function(msg){jQuery("#frm_install_message").fadeOut("slow");}
     }
     
     function admin_js(){
-        global $frm_version;
+        global $frm_version, $pagenow;
         wp_enqueue_script('jquery');
         wp_enqueue_script('jquery-ui-core');
-            
-        if(isset($_GET) and isset($_GET['page']) and preg_match('/formidable*/', $_GET['page'])){
+        
+        if(isset($_GET) and (isset($_GET['page']) and preg_match('/formidable*/', $_GET['page'])) or ($pagenow == 'edit.php' and isset($_GET) and isset($_GET['post_type']) and $_GET['post_type'] == 'frm_display')){
+            add_filter('admin_body_class', array(&$this, 'admin_body_class'));
             wp_enqueue_script('jquery-ui-sortable');
             wp_enqueue_script('jquery-ui-draggable');
             wp_enqueue_script('admin-widgets');
             wp_enqueue_style('widgets');
             wp_enqueue_script('formidable_admin', FRM_URL . '/js/formidable_admin.js', array('jquery', 'jquery-ui-draggable'), $frm_version);
             wp_enqueue_script('formidable');
-            wp_enqueue_style('formidable-admin', FRM_URL. '/css/frm_admin.css', $frm_version);
+            wp_enqueue_style('formidable-admin', FRM_URL. '/css/frm_admin.css', array(), $frm_version);
             wp_enqueue_script('jquery-elastic', FRM_URL.'/js/jquery/jquery.elastic.js', array('jquery'));
             add_thickbox();
+        }else if($pagenow == 'post.php' or ($pagenow == 'post-new.php' and isset($_REQUEST['post_type']) and $_REQUEST['post_type'] == 'frm_display')){
+            if(isset($_REQUEST['post_type'])){
+                $post_type = $_REQUEST['post_type'];
+            }else if(isset($_REQUEST['post'])){
+                $post = get_post($_REQUEST['post']);
+                $post_type = $post->post_type;
+            }else{
+                return;
+            }
+            
+            if($post_type == 'frm_display'){
+                wp_enqueue_script('jquery-ui-draggable');
+                wp_enqueue_script('formidable_admin', FRM_URL . '/js/formidable_admin.js', array('jquery', 'jquery-ui-draggable'), $frm_version);
+                wp_enqueue_script('jquery-elastic', FRM_URL.'/js/jquery/jquery.elastic.js', array('jquery'));
+                wp_enqueue_style('formidable-admin', FRM_URL. '/css/frm_admin.css', array(), $frm_version);
+            }
         }
+    }
+    
+    function admin_body_class($classes){
+        global $wp_version;
+        if(version_compare( $wp_version, '3.4.9', '>'))
+            $classes .= ' frm_35_trigger';
+        
+        return $classes;
     }
     
     function front_head(){
@@ -161,7 +183,7 @@ success:function(msg){jQuery("#frm_install_message").fadeOut("slow");}
             //$frm_db_version is the version of the database we're moving to
             $old_db_version = get_option('frm_db_version');
             $pro_db_version = ($frmpro_is_installed) ? get_option('frmpro_db_version') : false;
-            if(((int)$old_db_version < (int)$frm_db_version) or ($frmpro_is_installed and (int)$pro_db_version < 15))
+            if(((int)$old_db_version < (int)$frm_db_version) or ($frmpro_is_installed and (int)$pro_db_version < 16))
                 $this->install($old_db_version);
         }
 
@@ -324,6 +346,14 @@ success:function(msg){jQuery("#frm_install_message").fadeOut("slow");}
 
     //formidable shortcode
     function get_form_shortcode($atts){
+        global $frm_skip_shortcode;
+        if($frm_skip_shortcode){
+            $sc = '[formidable';
+            foreach($atts as $k => $v)
+                $sc .= ' '. $k .'="'. $v .'"';
+            return $sc .']';
+        }
+        
         global $frm_entries_controller;
         extract(shortcode_atts(array('id' => '', 'key' => '', 'title' => false, 'description' => false, 'readonly' => false, 'entry_id' => false, 'fields' => array()), $atts));
         do_action('formidable_shortcode_atts', compact('id', 'key', 'title', 'description', 'readonly', 'entry_id', 'fields'));

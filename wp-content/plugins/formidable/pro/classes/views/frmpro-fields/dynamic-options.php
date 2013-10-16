@@ -5,7 +5,7 @@
     <option value="taxonomy" <?php if(!is_object($selected_field)) selected($selected_field, 'taxonomy') ?>>- <?php _e('Use a Category/Taxonomy', 'formidable') ?> -</option>
     <?php foreach ($form_list as $form_opts){
     $selected = (is_object($selected_field) and $form_opts->id == $selected_field->form_id) ? ' selected="selected"' : ''; ?>
-    <option value="<?php echo $form_opts->id ?>"<?php echo $selected ?>><?php echo stripslashes($form_opts->name) ?></option>
+    <option value="<?php echo $form_opts->id ?>"<?php echo $selected ?>><?php echo FrmAppHelper::truncate(stripslashes($form_opts->name), 30) ?></option>
     <?php } ?>
 </select>
 

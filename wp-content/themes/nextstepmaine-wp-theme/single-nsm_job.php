@@ -25,13 +25,22 @@
 					<?php endif ?>
                     <a class="button gray rounded padded" href="<?php echo get_post_meta($post->ID, '_nsm_job_onet_link', true) ?>" title="<?php echo $post->post_title ?>" target="_blank">Learn more about this job</a> 
                     <br /><br />
-					<strong>Number of Jobs in 2008:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_employment_2008', true) ?><br />
-					<strong>Number of Jobs in 2018:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_employment_2018', true) ?><br />
+					<strong>Number of Jobs in 2010:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_base_employment', true) ?><br />
+					<strong>Number of Jobs in 2020:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_projected_employment', true) ?><br />
                     <strong>Yearly Job Growth Rate:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_growth_rate', true) ?><br />
                     <strong>Annual Openings:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_annual_openings', true) ?><br />
                     <strong>Entry Wage:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_entry_wage', true) ?><br />
                     <strong>Median Wage:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_median_wage', true) ?><br />
-                    
+                    <strong>Education Requirement:</strong>
+                    <?php
+                    	$terms = wp_get_post_terms($post->ID, 'nsm_job_education_requirement');
+                    	foreach ($terms as $key => $term) : 
+                    		echo $term->name ;
+                    		if ($key != 0 && $key != (count($terms) - 1)) : 
+                    			echo ", ";
+                    		endif;
+                    	endforeach;
+                    ?>
                     <?php
 						/********************************
 							WORK TASKS

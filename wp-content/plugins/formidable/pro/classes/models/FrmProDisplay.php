@@ -1,108 +1,112 @@
 <?php
 class FrmProDisplay{
 
-    function create( $values ){
-        global $wpdb, $frmprodb;
-
-        $new_values = array();
-        $values['display_key'] = isset($values['display_key']) ? $values['display_key'] : $values['name'];
-        $new_values['display_key'] = FrmAppHelper::get_unique_key($values['display_key'], $frmprodb->displays, 'display_key');
-        $new_values['name'] = $values['name'];
-        $new_values['description'] = $values['description'];
-        $new_values['content'] = $values['content'];
-        $new_values['dyncontent'] = $values['dyncontent'];
-        $new_values['insert_loc'] = isset($values['insert_loc']) ? $values['insert_loc'] : 'none';
-        $new_values['param'] = isset($values['param']) ? sanitize_title_with_dashes($values['param']) : '';
-        $new_values['type'] = isset($values['type']) ? $values['type'] : '';
-        $new_values['show_count'] = isset($values['show_count']) ? $values['show_count'] : 'all';
-        $new_values['form_id'] = isset($values['form_id']) ? (int)$values['form_id'] : 0;
-        $new_values['entry_id'] = isset($values['entry_id']) ? (int)$values['entry_id'] : 0;
-        $new_values['post_id'] = isset($values['post_id']) ? (int)$values['post_id'] : 0;
-        $new_values['created_at'] = current_time('mysql', 1);
-
-        if (isset($values['options'])){
-            $new_values['options'] = array();
-            foreach ($values['options'] as $key => $value)
-                $new_values['options'][$key] = $value;
-            $new_values['options'] = maybe_serialize($new_values['options']);
-        }
-        
-        $wpdb->insert( $frmprodb->displays, $new_values );
-        $display_id = $wpdb->insert_id;
-        if ($display_id)
-            do_action('frm_create_display', $display_id, $values);
-
-        return $display_id;
-    }
-
     function duplicate( $id, $copy_keys=false, $blog_id=false ){
-        global $wpdb, $frmprodb;
+        global $wpdb;
 
-        $values = $this->getOne( $id, $blog_id );
-        if(!$values)
+        $values = $this->getOne( $id, $blog_id, true );
+        
+        if(!$values or !is_numeric($values->frm_form_id))
             return false;
             
         $new_values = array();
-        $new_key = ($copy_keys) ? $values->display_key : '';
-        $new_values['display_key'] = FrmAppHelper::get_unique_key($new_key, $frmprodb->displays, 'display_key');
-        $new_values['name'] = $values->name;
-        $new_values['description'] = $values->description;
-        $new_values['content'] = $values->content;
-        $new_values['dyncontent'] = $values->dyncontent;
-        $new_values['insert_loc'] = 'none';
-        $new_values['param'] = $values->param;
-        $new_values['type'] = $values->type;
-        $new_values['show_count'] = $values->show_count;
-        $options = maybe_unserialize($values->options);
-        $options['copy'] = false;
-        $new_values['options'] = maybe_serialize($options);
+        foreach(array('post_name', 'post_title', 'post_excerpt', 'post_content', 'post_status', 'post_type') as $k){
+            $new_values[$k] = $values->{$k};
+            unset($k);
+        }
+        
+        $meta = array();
+        foreach(array('form_id', 'entry_id', 'post_id', 'dyncontent', 'param', 'type', 'show_count', 'insert_loc') as $k){
+            $meta[$k] = $values->{'frm_'. $k};
+            unset($k);
+        }
+        
+        $default = FrmProDisplaysHelper::get_default_opts();
+        $meta['options'] = array();
+        foreach($default as $k => $v){
+            if(isset($meta[$k]))
+                continue;
+                
+            $meta['options'][$k] = $values->{'frm_'. $k};
+            unset($k);
+            unset($v);
+        }
+        $meta['options']['copy'] = false;
+        
         if ($blog_id){
             global $frm_form;
-            $old_form = $frm_form->getOne($values->form_id, $blog_id);
+            $old_form = $frm_form->getOne($values->frm_form_id, $blog_id);
             $new_form = $frm_form->getOne($old_form->form_key);
-            $new_values['form_id'] = $new_form->id;
-        }else    
-            $new_values['form_id'] = $values->form_id;
-        $new_values['entry_id'] = $values->entry_id;
-        $new_values['post_id'] = $values->post_id;
-        $new_values['options'] = $values->options;
-        $new_values['created_at'] = current_time('mysql', 1);
+            $meta['form_id'] = $new_form->id;
+        }else{    
+            $meta['form_id'] = $values->form_id;
+        }
 
-        $query_results = $wpdb->insert( $frmprodb->displays, $new_values );
+        $post_ID = wp_insert_post( $new_values );
+        
+        $new_values = array_merge((array)$new_values, $meta);
 
-       if($query_results)
-           return $wpdb->insert_id;
-       else
-          return false;
+        $this->update($post_ID, $new_values);
+        
+        return $post_ID;
     }
 
     function update( $id, $values ){
-        global $wpdb, $frmprodb, $frm_field;
-
         $new_values = array();
-        $values['display_key'] = (isset($values['display_key'])) ? $values['display_key'] : $values['name'];
-        $new_values['display_key'] = FrmAppHelper::get_unique_key($values['display_key'], $frmprodb->displays, 'display_key', $id);
-        $new_values['param'] = isset($values['param']) ? sanitize_title_with_dashes($values['param']) : '';
+        $new_values['frm_param'] = isset($values['param']) ? sanitize_title_with_dashes($values['param']) : '';
 
-        $fields = array('name', 'description', 'content', 'dyncontent', 'insert_loc', 'type', 'show_count', 'form_id', 'entry_id', 'post_id');
-        foreach ($fields as $field)
-            $new_values[$field] = $values[$field];
+        $fields = array('dyncontent', 'insert_loc', 'type', 'show_count', 'form_id', 'entry_id', 'post_id');
+        foreach ($fields as $field){
+            if(isset($values[$field]))
+                $new_values['frm_'. $field] = $values[$field];
+        }
             
-        $new_values['entry_id'] = isset($values['entry_id']) ? (int)$values['entry_id'] : 0;
+        $new_values['frm_entry_id'] = isset($values['entry_id']) ? (int)$values['entry_id'] : 0;
         
         if (isset($values['options'])){
-            $new_values['options'] = array();
+            $new_values['frm_options'] = array();
             foreach ($values['options'] as $key => $value)
-                $new_values['options'][$key] = $value;
-            $new_values['options'] = maybe_serialize($new_values['options']);
+                $new_values['frm_options'][$key] = $value;
         }
 
-        $query_results = $wpdb->update( $frmprodb->displays, $new_values, array( 'id' => $id ) );
-        if ($query_results){
-            wp_cache_delete( $id, 'frm_display');
-            do_action('frm_update_display', $id, $values);
+        foreach($new_values as $key => $val){
+            update_post_meta($id, $key, $val);
+            unset($key);
+            unset($val);
         }
-        return $query_results;
+        
+        if(!isset($new_values['frm_form_id']) or empty($new_values['frm_form_id']))
+            return;
+            
+        global $wpdb, $frmdb;
+        
+        //update 'frm_display_id' post metas for automatically used custom displays
+        $posts = $wpdb->get_col("SELECT post_id FROM $frmdb->entries WHERE post_id > 0 and form_id=". (int)$new_values['frm_form_id']);
+        $first_post = $posts ? reset($posts) : false;
+        $qualified = $this->get_auto_custom_display(array('form_id' => $new_values['frm_form_id'], 'post_id' => $first_post));
+        
+        if(!$qualified){
+            //delete any post meta for this display if no qualified displays
+            $wpdb->delete($wpdb->postmeta, array('meta_key' => 'frm_display_id', 'meta_value' => $id));
+        }else if($qualified->ID == $id){
+            //this display is qualified
+            if($posts){
+                foreach($posts as $p){
+                    update_post_meta($p, 'frm_display_id', $id);
+                    unset($p);
+                }
+            }else{
+                $wpdb->delete($wpdb->postmeta, array('meta_key' => 'frm_display_id', 'meta_value' => $id));
+            }            
+        }else{
+            //this display is not qualified, so set any posts to the next qualified display
+            $update_display_posts = $wpdb->query("UPDATE $wpdb->postmeta SET meta_value=$qualified->ID WHERE meta_key='frm_display_id' AND meta_value=$id");
+        }
+        
+        //update post meta of post selected for auto insertion
+        if(isset($new_values['frm_insert_loc']) and $new_values['frm_insert_loc'] != 'none' and isset($new_values['frm_post_id']) and (int)$new_values['frm_post_id'])
+            update_post_meta($new_values['frm_post_id'], 'frm_display_id', $id);
+            
     }
 
     function destroy( $id ){
@@ -116,82 +120,140 @@ class FrmProDisplay{
             wp_cache_delete($id, 'frm_display');
             do_action('frm_destroy_display', $id);
         }
-        return $query_results;
         
-    }
-
-    function &getName( $id ){
-        $cache = wp_cache_get($id, 'frm_display');
-        if($cache)
-            return $cache->name;
-        
-        global $wpdb, $frmprodb;   
-        $query = "SELECT name FROM $frmprodb->displays WHERE id='$id';";
-        return $wpdb->get_var($query);
-    }
-
-    function &getIdByName( $name ){
-        global $wpdb, $frmprodb;
-        $query = "SELECT id FROM $frmprodb->displays WHERE name='$name';";
-        return $wpdb->get_var($query);
+        return $query_results;   
     }
     
-    function getOne( $id, $blog_id=false ){
-        global $wpdb, $frmprodb, $frmdb;
-        
-        if(!$blog_id){   
-            $cache = wp_cache_get($id, 'frm_display');
-            if($cache)
-                return $cache;
-        }
+    function getOne( $id, $blog_id=false, $get_meta=false ){
+        global $wpdb;
 
-        if ($blog_id and IS_WPMU){
-            global $wpmuBaseTablePrefix;
-            if($wpmuBaseTablePrefix)
-                $prefix = "{$wpmuBaseTablePrefix}{$blog_id}_";
-            else
-                $prefix = $wpdb->get_blog_prefix( $blog_id );
-                
-            $table_name = "{$prefix}frm_display";
-        }else{
-            $table_name = $frmprodb->displays;
-        } 
-        
-        if (is_numeric($id))
-            $where = array('id' => $id);
-        else
-            $where = array('display_key' => $id);
-
-        $results = $frmdb->get_one_record($table_name, $where);
-        if($results and !$blog_id){
-            wp_cache_set($results->id, 'frm_display');
-            wp_cache_set($results->display_key, 'frm_display');
+        if ($blog_id and IS_WPMU)
+            switch_to_blog($blog_id);
+            
+        if (!is_numeric($id)){
+            $id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type = %s", $id, 'frm_display' ) );
+            
+            if (IS_WPMU and empty($id))
+                return false;
         }
-        return $results;
+        
+        $post = get_post($id);
+        if(!$post or $post->post_type != 'frm_display'){
+            $args = array(
+                'post_type' => 'frm_display', 
+                'meta_key' => 'frm_old_id',
+                'meta_value' => $id,
+                'numberposts' => 1
+            );
+            $posts = get_posts($args);
+            
+            if($posts)
+                $post = reset($posts);
+        }
+        
+        if($post and $get_meta)
+            $post = FrmProDisplaysHelper::setup_edit_vars($post);
+        
+        if ($blog_id and IS_WPMU)
+            restore_current_blog();
+
+        return $post;
     }
 
-    function getAll( $where = '', $order_by = '', $limit = '' ){
-        global $wpdb, $frmprodb, $frm_app_helper;
-        
-        if(is_numeric($limit))
-            $limit = " LIMIT {$limit}";
+    function getAll( $where = '', $order_by = 'post_date', $limit = 99 ){
+        if(!is_numeric($limit))
+            $limit = (int)$limit;
             
-        $query = 'SELECT * FROM ' . $frmprodb->displays . $frm_app_helper->prepend_and_or_where(' WHERE ', $where) . $order_by . $limit;
-        if ($limit == ' LIMIT 1')
-            $results = $wpdb->get_row($query);
-        else
-            $results = $wpdb->get_results($query);
+        //$query = 'SELECT * FROM ' . $frmprodb->displays . $frm_app_helper->prepend_and_or_where(' WHERE ', $where) . $order_by . $limit;
+        $query = array(
+            'numberposts'   => $limit,
+            'orber_by'      => $order_by,
+            'post_type'     => 'frm_display'
+        );
+        
+        $results = get_posts($query);
         return $results;
+    }
+    
+    /**
+     * Check for a qualified custom display.
+     * Qualified:   1. set to show calendar or dynamic
+     *              2. published
+     *              3. form has posts/entry is linked to a post
+     */
+    function get_auto_custom_display($args){
+        $defaults = array('post_id' => false, 'form_id' => false, 'entry_id' => false);
+        extract(wp_parse_args( $args, $defaults )); 
+        
+        global $wpdb, $frmdb;
+        
+        if($form_id){
+            $display_ids = $wpdb->get_col("SELECT post_ID FROM $wpdb->postmeta WHERE meta_key='frm_form_id' AND meta_value=". (int)$form_id);
+            
+            if(!$display_ids)
+                return false;
+                
+            if(!$post_id and !$entry_id){
+                //does form have posts?
+                $entry_id = $wpdb->get_var("SELECT post_id FROM $frmdb->entries WHERE form_id=". (int)$form_id);
+            }
+        }
+        
+        if($post_id and !$entry_id){
+            //is post linked to an entry?
+            $entry_id = $wpdb->get_var("SELECT id FROM $frmdb->entries WHERE post_id=". (int)$post_id);
+            
+            //is post selected for auto-insertion?
+            if(!$entry_id){
+                $query = "SELECT post_ID FROM $wpdb->postmeta WHERE meta_key='frm_post_id' AND meta_value='". (int)$post_id ."'";
+                if(isset($display_ids))
+                    $query .= " AND post_ID in (". implode(',', $display_ids) .")";
+                $display_ids = $wpdb->get_col($query);
+                
+                if(!$display_ids)
+                    return false;
+            }
+        }
+        
+        //this post does not have an auto display
+        if(!$entry_id)
+            return false;
+            
+        $query = "SELECT p.* FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm ON (p.ID = pm.post_ID) WHERE pm.meta_key='frm_show_count' AND post_type='frm_display' AND pm.meta_value in ('dynamic','calendar','single') AND p.post_status='publish' ";
+        
+        if(isset($display_ids))
+            $query .= "AND p.ID in (". implode(',', $display_ids) .") ";
+            
+        $query .= "ORDER BY p.ID ASC LIMIT 1";
+        
+        $display = $wpdb->get_row($query);
+                
+        return $display;
+    }
+    
+    function get_form_custom_display($form_id){
+        global $wpdb;
+        
+        $display_ids = $wpdb->get_col("SELECT post_ID FROM $wpdb->postmeta WHERE meta_key='frm_form_id' AND meta_value=". (int)$form_id);
+        
+        if(!$display_ids)
+            return false;
+            
+        $query = "SELECT p.* FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta pm ON (p.ID = pm.post_ID) WHERE pm.meta_key='frm_show_count' AND post_type='frm_display' AND pm.meta_value in ('dynamic','calendar','single') AND p.post_status='publish' AND p.ID in (". implode(',', $display_ids) .") ORDER BY p.ID ASC LIMIT 1";
+        
+        $display = $wpdb->get_row($query);
+                
+        return $display;
     }
 
     function validate( $values ){
         $errors = array();
 
-        if( $values['name'] == '' )
+        if( $values['post_title'] == '' )
             $errors[] = __('Name cannot be blank', 'formidable');
             
-        if( $values['description'] == __('This is not displayed anywhere, but is just for your reference. (optional)', 'formidable' ))
-            $_POST['description'] = '';
+        if( $values['excerpt'] == __('This is not displayed anywhere, but is just for your reference. (optional)', 'formidable' ))
+            $_POST['excerpt'] = '';
         
         if( $values['content'] == '' )
             $errors[] = __('Content cannot be blank', 'formidable');

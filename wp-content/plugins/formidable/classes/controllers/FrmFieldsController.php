@@ -359,7 +359,7 @@ class FrmFieldsController{
     function input_html($field, $echo=true){
         global $frm_settings;
         
-        $class = $field['type'];
+        $class = ''; //$field['type'];
         $add_html = '';
         
         if(isset($field['size']) and $field['size'] > 0){
@@ -401,7 +401,8 @@ class FrmFieldsController{
             $class .= ' '. $field['input_class'];
         
         $class = apply_filters('frm_field_classes', $class, $field);
-        $add_html .= ' class="'.$class.'"';
+        if(!empty($class))
+            $add_html .= ' class="'. $class .'"';
         
         if($echo)
             echo $add_html;

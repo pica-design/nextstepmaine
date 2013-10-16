@@ -9,7 +9,7 @@
 </tr>
 <?php } 
 
-if(in_array($display['type'], array('radio', 'checkbox', 'select'))){ ?>
+if(in_array($display['type'], array('radio', 'checkbox', 'select')) and (!isset($field['post_field']) or ($field['post_field'] != 'post_category' and $field['post_field'] != 'post_status'))){ ?>
 <tr><td><?php _e('Use separate values', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('Add a separate value to use for calculations, email routing, saving to the database, and many other uses. The option values are saved while the option labels are shown in the form.', 'formidable') ?>" /></td>
     <td><input type="checkbox" name="field_options[separate_value_<?php echo $field['id'] ?>]" id="separate_value_<?php echo $field['id'] ?>" value="1" <?php checked($field['separate_value'], 1) ?> onclick="frmSeparateValue(<?php echo $field['id'] ?>)" /> <label for="separate_value_<?php echo $field['id'] ?>"><?php _e('Use separate values', 'formidable'); ?></label></td>
 </tr>
@@ -92,6 +92,9 @@ if ($display['type'] == 'divider'){ ?>
     </td>
 </tr>
 <?php }else if($field['type'] == 'file'){ ?>
+    <tr><td><label for="field_options[multiple_<?php echo $field['id'] ?>]"><?php _e('Multiple files', 'formidable') ?></label></td>
+        <td><input type="checkbox" name="field_options[multiple_<?php echo $field['id'] ?>]" value="1" <?php echo (isset($field['multiple']) and $field['multiple'])? 'checked="checked"':''; ?> /> <span class="howto"><?php _e('allow multiple files to be uploaded to this field', 'formidable') ?></span></td>
+    </tr>
     <tr><td><label for="field_options[attach_<?php echo $field['id'] ?>]"><?php _e('Email Attachment', 'formidable') ?></label></td>
         <td><input type="checkbox" name="field_options[attach_<?php echo $field['id'] ?>]" value="1" <?php echo (isset($field['attach']) and $field['attach'])? 'checked="checked"':''; ?> /> <span class="howto"><?php _e('attach this file to the email notification', 'formidable') ?></span></td>
     </tr>
@@ -217,7 +220,7 @@ if(in_array($field['type'], array('text', 'number', 'textarea', 'hidden'))){ ?>
     <td><input type="checkbox" value="1" name="field_options[use_calc_<?php echo $field['id'] ?>]" <?php checked($field['use_calc'], 1) ?> onchange="frm_show_div('frm_calc_opts<?php echo $field['id'] ?>',this.checked,true,'#')" /> 
         <?php _e('Calculate the default value for this field', 'formidable') ?> 
         <div id="frm_calc_opts<?php echo $field['id'] ?>" <?php if(!$field['use_calc']) echo 'style="display:none"'; ?>>
-            <?php FrmProFieldsHelper::get_shortcode_select($field['form_id'], 'frm_calc_'. $field['id'], 'field_opt'); ?><br/>
+            <?php FrmProFieldsHelper::get_shortcode_select($field['form_id'], 'frm_calc_'. $field['id'], 'calc'); ?><br/>
             <input type="text" value="<?php echo esc_attr($field['calc']) ?>" id="frm_calc_<?php echo $field['id'] ?>" name="field_options[calc_<?php echo $field['id'] ?>]" class="frm_long_input"/>
         </div>
     </td>

@@ -14,10 +14,14 @@ class FrmProForm{
         $defaults = FrmProFormsHelper::get_default_opts();
         unset($defaults['logged_in']);
         unset($defaults['editable']);
-        $defaults['inc_user_info'] = 0;
+        unset($defaults['notification']);
         
-        foreach($defaults as $opt => $default)
+        foreach($defaults as $opt => $default){
             $options[$opt] = (isset($values['options'][$opt])) ? $values['options'][$opt] : $default;
+            
+            unset($opt);
+            unset($default);
+        }
 
         unset($defaults);
         
@@ -118,41 +122,33 @@ class FrmProForm{
         
         //update/create custom display
         if((isset($values['frm_dyncontent']) and !empty($values['frm_dyncontent'])) or (isset($values['frm_single_content']) and !empty($values['frm_single_content']))){
-            $cd_values = array();
-            if(isset($values['frm_single_content']))
-                $cd_values = array('content' => $values['frm_single_content']);
-            else
-                $cd_values = array('dyncontent' => $values['frm_dyncontent']);
-                
+            
             if(isset($values['frm_display_id']) and is_numeric($values['frm_display_id'])){
                 //updating custom display
-                global $frmprodb;
-                
-                $query_results = $wpdb->update( $frmprodb->displays, $cd_values, array( 'id' => $values['frm_display_id'] ) );
-                if ($query_results){
-                    wp_cache_delete( $values['frm_display_id'], 'frm_display');
-                    do_action('frm_update_display', $values['frm_display_id'], $cd_values);
-                }
-                
-                unset($query_results);
+                if(isset($values['frm_single_content']))
+                    wp_insert_post(array('post_content' => $values['frm_single_content'], 'ID' => $values['frm_display_id']));
+                else
+                    update_post_meta($values['frm_display_id'], 'frm_dyncontent', $values['frm_dyncontent']);
             }else{
                 //create new
-                global $frmpro_display;
+                $cd_values = array('post_status' => 'publish', 'post_type' => 'frm_display');
+                $cd_values['post_title'] = __('Single', 'formidable') .' '. $values['options']['post_type'];
+                $cd_values['post_excerpt'] = __('Used for the single post page', 'formidable');
+                $cd_values['post_content'] = __('Add content here if you would like to use this as a listing page.', 'formidable');
                 
-                $cd_values['name'] = __('Single', 'formidable') .' '. $values['options']['post_type'];
+                $display_id = wp_insert_post( $cd_values );
+                unset($cd_values);
                 
-                $cd_values['description'] = __('Used for the single post page', 'formidable');
-                $cd_values['content'] = __('Add content here if you would like to use this as a listing page.', 'formidable');
-                $cd_values['dyncontent'] = $values['frm_dyncontent'];
-                $cd_values['param'] = 'entry';
-                $cd_values['type'] = 'display_key';
-                $cd_values['show_count'] = 'dynamic';
-                
-                $cd_values['form_id'] = $id;
-                
-                $frmpro_display->create( $cd_values );
+                foreach(array(
+                        'frm_dyncontent' => $values['frm_dyncontent'], 
+                        'frm_param' => 'entry', 'frm_type' => 'display_key',
+                        'frm_show_count' => 'dynamic', 'frm_form_id' => $id
+                    ) as $key => $val){
+                    update_post_meta($display_id, $key, $val);
+                    unset($key);
+                    unset($val);
+                }
             }
-            unset($cd_values);
         }
 
         //update dependent fields

@@ -16,8 +16,11 @@ class FrmForm{
     $options = array();
     
     $defaults = FrmFormsHelper::get_default_opts();
-    foreach ($defaults as $var => $default)
+    foreach ($defaults as $var => $default){
         $options[$var] = isset($values['options'][$var]) ? $values['options'][$var] : $default;
+        unset($var);
+        unset($default);
+    }
         
     $options['before_html'] = isset($values['options']['before_html']) ? $values['options']['before_html'] : FrmFormsHelper::get_default_html('before');
     $options['after_html'] = isset($values['options']['after_html']) ? $values['options']['after_html'] : FrmFormsHelper::get_default_html('after');
@@ -92,8 +95,12 @@ class FrmForm{
         $options = array();
         
         $defaults = FrmFormsHelper::get_default_opts();
-        foreach ($defaults as $var => $default)
-            $options[$var] = isset($values['options'][$var]) ? $values['options'][$var] : $default;
+        foreach ($defaults as $var => $default){
+            if($var == 'notification')
+                $options[$var] = isset($values[$var]) ? $values[$var] : $default;
+            else
+                $options[$var] = isset($values['options'][$var]) ? $values['options'][$var] : $default;
+        }
             
         $options['custom_style'] = isset($values['options']['custom_style']) ? $values['options']['custom_style'] : 0;
         $options['before_html'] = isset($values['options']['before_html']) ? $values['options']['before_html'] : FrmFormsHelper::get_default_html('before');
@@ -219,12 +226,6 @@ class FrmForm{
       return $wpdb->get_var($query);
   }
   
-  function getIdByName( $name ){
-      global $wpdb, $frmdb;
-      $query = "SELECT id FROM $frmdb->forms WHERE name='$name';";
-      return $wpdb->get_var($query);
-  }
-  
   function getIdByKey( $key ){
       global $wpdb, $frmdb;
       $query = "SELECT id FROM $frmdb->forms WHERE form_key='$key' LIMIT 1";
@@ -245,8 +246,12 @@ class FrmForm{
       }else{
           $table_name = $frmdb->forms;
           $cache = wp_cache_get($id, 'frm_form');
-          if($cache)
-            return $cache;
+          if($cache){
+              if(isset($cache->options))
+                  $cache->options = stripslashes_deep(maybe_unserialize($cache->options));
+              
+              return $cache;
+          }
       }
       
       if (is_numeric($id))
@@ -257,8 +262,8 @@ class FrmForm{
       $results = $frmdb->get_one_record($table_name, $where);
       
       if(isset($results->options)){
-          $results->options = stripslashes_deep(maybe_unserialize($results->options));
           wp_cache_set($results->id, $results, 'frm_form');
+          $results->options = stripslashes_deep(maybe_unserialize($results->options));
       }
       return $results;
   }

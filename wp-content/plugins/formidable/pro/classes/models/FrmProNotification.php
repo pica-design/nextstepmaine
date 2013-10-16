@@ -11,23 +11,70 @@ class FrmProNotification{
         return true;
     }
     
-    function entry_created($entry_id, $form_id){
+    function entry_created($entry_id, $form_id, $create=true){
         if(defined('WP_IMPORTING'))
             return;
             
-        global $frm_form, $frm_entry, $frm_entry_meta, $frm_notification, $frmpro_settings;
+        global $frm_form, $frm_field, $frm_entry, $frm_entry_meta, $frm_notification, $frmpro_settings, $frmpro_notification;
 
         $form = $frm_form->getOne($form_id);
         $form_options = maybe_unserialize($form->options);
         $entry = $frm_entry->getOne($entry_id, true);
+        $sent_to = array();
+        $notifications = (isset($form_options['notification'])) ? $form_options['notification'] : array(0 => $form_options);
+        $fields = $frm_field->getAll(array('fi.form_id' => $form_id), 'field_order');
         
-        $to_email = $form_options['email_to'];
-        $email_fields = (isset($form_options['also_email_to'])) ? (array)$form_options['also_email_to'] : array();
-        $entry_ids = array($entry->id);
-        $exclude_fields = array();
+        $temp_fields = array();
+        foreach($fields as $k => $f){
+            if(!isset($entry->metas[$f->id])){
+                $f->field_options = maybe_unserialize($f->field_options);
+                if(isset($f->field_options['post_field']) and !empty($f->field_options['post_field'])){
+                    //get value from linked post
+                    $entry->metas[$f->id] = FrmProEntryMetaHelper::get_post_or_meta_value($entry, $f, array('links' => false));
+                    if($entry->metas[$f->id] == '') //and !include_blank
+                        unset($entry->metas[$f->id]);
+                //}else if(include_blank){
+                //    $entry->metas[$f->id] = '';
+                }
+            }
+            
+            $temp_fields[$f->id] = $f;
+            unset($fields[$k]);
+            unset($k);
+            unset($f);
+        }
+        
+        $fields = $temp_fields;
+        unset($temp_fields);
+        
+        foreach($notifications as $notification){
+            if(isset($notification['update_email'])){
+                if($create and $notification['update_email'] == 2)
+                    continue;
+                
+                if(!$create and empty($notification['update_email']))
+                    continue;
+            }
+            
+            //check if conditions are met
+            $stop = $frmpro_notification->conditions_met($notification, $entry);
+            if($stop)
+                continue;
+                
+            unset($stop);
+            
+            $to_email = explode(',', $notification['email_to']);
+            $email_fields = (isset($notification['also_email_to'])) ? (array)$notification['also_email_to'] : array();
+            $email_fields = array_merge($email_fields, $to_email);
+            $entry_ids = array($entry->id);
+            $exclude_fields = array();
         
         foreach($email_fields as $key => $email_field){
-            $email_fields[$key] = (int)$email_field;
+
+            $email_field = str_replace(array('[', ']'), '', trim($email_field));
+            if(is_numeric($email_field))
+                $email_fields[$key] = (int)$email_field;
+                
             if(preg_match('/|/', $email_field)){
                 $email_opt = explode('|', $email_field);
                 if(isset($email_opt[1])){
@@ -51,11 +98,11 @@ class FrmProNotification{
             }
         }
 
-        if ($to_email == '' and empty($email_fields)) return;
+        if (empty($to_email) and empty($email_fields)) continue;
         
         foreach($email_fields as $email_field){
-            if(isset($form_options['reply_to_name']) and preg_match('/|/', $email_field)){
-                $email_opt = explode('|', $form_options['reply_to_name']);
+            if(isset($notification['reply_to_name']) and preg_match('/|/', $email_field)){
+                $email_opt = explode('|', $notification['reply_to_name']);
                 if(isset($email_opt[1])){
                     if(isset($entry->metas[$email_opt[0]]))
                         $entry_ids[] = $entry->metas[$email_opt[0]];
@@ -71,30 +118,25 @@ class FrmProNotification{
             $where = " and it.field_id not in (".implode(',', $exclude_fields).")";
         $values = $frm_entry_meta->getAll("it.field_id != 0 and it.item_id in (". implode(',', $entry_ids).")". $where, " ORDER BY fi.field_order");
         
-        $to_emails = array();
-        if($to_email)
-            $to_emails = explode(',', $to_email);
+        $to_emails = ($to_email) ? $to_email : array();
         
-        $plain_text = (isset($form_options['plain_text']) and $form_options['plain_text']) ? true : false;
+        $plain_text = (isset($notification['plain_text']) and $notification['plain_text']) ? true : false;
         $custom_message = false;
         $get_default = true;
         $mail_body = '';
-        if(isset($form_options['email_message']) and trim($form_options['email_message']) != ''){
-            if(!preg_match('/\[default-message\]/', $form_options['email_message']))
+        if(isset($notification['email_message']) and trim($notification['email_message']) != ''){
+            if(!preg_match('/\[default-message\]/', $notification['email_message']))
                 $get_default = false;
             
-            $custom_message = true;
-            $shortcodes = FrmProAppHelper::get_shortcodes($form_options['email_message'], $entry->form_id);
-            $mail_body  = FrmProFieldsHelper::replace_shortcodes($form_options['email_message'], $entry, $shortcodes);
-        }
-
-        if($get_default)
-            $default = '';
+            if(isset($notification['ar']) and $notification['ar']){
+                //don't continue with blank autoresponder message for reverse compatability
+                if($notification['email_message'] == '') continue;
+                $notification['email_message'] = apply_filters('frm_ar_message', $notification['email_message'], array('entry' => $entry, 'form' => $form));
+            }
             
-        if($get_default and !$plain_text){
-            $default .= "<table cellspacing='0' style='font-size:12px;line-height:135%; border-bottom:{$frmpro_settings->field_border_width} solid #{$frmpro_settings->border_color};'><tbody>\r\n";
-            $bg_color = " style='background-color:#{$frmpro_settings->bg_color};'";
-            $bg_color_alt = " style='background-color:#{$frmpro_settings->bg_color_active};'";
+            $custom_message = true;
+            $shortcodes = FrmProAppHelper::get_shortcodes($notification['email_message'], $entry->form_id);
+            $mail_body  = FrmProFieldsHelper::replace_shortcodes($notification['email_message'], $entry, $shortcodes);
         }
         
         $reply_to_name = $frm_blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);  //default sender name
@@ -102,48 +144,50 @@ class FrmProNotification{
         $attachments = array();
         
         foreach ($values as $value){
+            $field = (isset($fields[$value->field_id])) ? $fields[$value->field_id] : false;
+            $prev_val = maybe_unserialize($value->meta_value);
             
             if($value->field_type == 'file'){
                 global $frmdb;
-                $file_options = $frmdb->get_var($frmdb->fields, array('id' => $value->field_id), 'field_options');
+                if($field)
+                    $file_options = $field->field_options;
+                else
+                    $file_options = $frmdb->get_var($frmdb->fields, array('id' => $value->field_id), 'field_options');
                 $file_options = maybe_unserialize($file_options);
                 if(isset($file_options['attach']) and $file_options['attach']){
-                    $file = get_post_meta( $value->meta_value, '_wp_attached_file', true);
-                	if($file){
-                	    if(!isset($uploads) or !isset($uploads['basedir']))
-                	        $uploads = wp_upload_dir();
-                	    $attachments[] = $uploads['basedir'] . "/$file";
+                    foreach((array)$prev_val as $m){
+                        $file = get_post_meta( $m, '_wp_attached_file', true);
+                    	if($file){
+                    	    if(!isset($uploads) or !isset($uploads['basedir']))
+                    	        $uploads = wp_upload_dir();
+                    	    $attachments[] = $uploads['basedir'] . "/$file";
+                    	}
+                    	unset($m);
                 	}
                 }
                     
             }
-            
-            $val = apply_filters('frm_email_value', maybe_unserialize($value->meta_value), $value, $entry);
-            
+        
+            $val = apply_filters('frm_email_value', $prev_val, $value, $entry);
+
             if($value->field_type == 'textarea' and !$plain_text)
                 $val = str_replace(array("\r\n", "\r", "\n"), ' <br/>', $val);
             
-            
             if (is_array($val))
                 $val = implode(', ', $val);
-            
-            if($get_default and $plain_text){
-                $default .= $value->field_name . ': ' . $val . "\r\n\r\n";
-            }else if($get_default){
-                $row_style = "valign='top' style='text-align:left;color:#{$frmpro_settings->text_color};padding:7px 9px;border-top:{$frmpro_settings->field_border_width} solid #{$frmpro_settings->border_color}'";
-                $default .= "<tr".(($odd)?$bg_color:$bg_color_alt)."><th $row_style>$value->field_name</th><td $row_style>$val</td></tr>\r\n";
-                $odd = ($odd) ? false : true;
-            }
                 
-            if(isset($form_options['reply_to']) and (int)$form_options['reply_to'] == $value->field_id){
+            if(isset($notification['reply_to']) and (int)$notification['reply_to'] == $value->field_id){
                 if($value->field_type == 'user_id'){
                     $user_data = get_userdata($value->meta_value);
                     $reply_to = $user_data->user_email;
-                }else if(is_email($val))
+                }else if(is_email($val)){
                     $reply_to = $val;
+                }else if(is_email($prev_val)){
+                    $reply_to = $prev_val;
+                }
             }
             
-            if(isset($form_options['reply_to_name']) and (int)$form_options['reply_to_name'] == $value->field_id){
+            if(isset($notification['reply_to_name']) and (int)$notification['reply_to_name'] == $value->field_id){
                 if($value->field_type == 'user_id'){
                     $user_data = get_userdata($value->meta_value);
                     $reply_to_name = $user_data->display_name;
@@ -157,67 +201,109 @@ class FrmProNotification{
                     $to_emails[] = $user_data->user_email;
                 }else{
                     $val = explode(',', $val);
-                    if(is_array($val)){
-                        foreach($val as $v){
+                    $prev_val = explode(',', $prev_val);
+                    
+                    if(is_array($val) or is_array($prev_val)){
+                        foreach((array)$val as $v){
                             $v = trim($v);
                             if(is_email($v))
                                 $to_emails[] = $v;
+                            unset($v);
                         }
-                    }else if(is_email($val))
+                        
+                        foreach((array)$prev_val as $v){
+                            $v = trim($v);
+                            if(is_email($v) and !in_array($v, $to_emails))
+                                $to_emails[] = $v;
+                            unset($v);
+                        }
+                    }else if(is_email($val)){
                         $to_emails[] = $val;
+                    }else if(is_email($prev_val)){
+                        $to_emails[] = $prev_val;
+                    }
                 }
             }
         }
+        unset($prev_val);
         
         $attachments = apply_filters('frm_notification_attachment', $attachments, $form, array('entry' => $entry));
+        if(isset($notification['ar']) and $notification['ar'])
+            $attachments = apply_filters('frm_autoresponder_attachment', array(), $form);
         
         
-        if(!isset($reply_to)){
+        if(!isset($reply_to))
             $reply_to = '[admin_email]';
+            
+        if($notification['reply_to'] == 'custom')
+            $reply_to = isset($notification['cust_reply_to']) ? $notification['cust_reply_to'] : $reply_to;
+            
+        if(empty($reply_to)){  
+            $reply_to = '[admin_email]';
+            
             //global $frm_settings;
             //$reply_to = $frm_settings->email_to;
         }
         
-        if(isset($form_options['inc_user_info']) and $form_options['inc_user_info']){
-            $data = maybe_unserialize($entry->description);
-            if($plain_text or !$get_default){
-                $mail_body .= "\r\n\r\n" . __('User Information', 'formidable') ."\r\n";
-                $mail_body .= __('IP Address', 'formidable') . ": ". $entry->ip ."\r\n";
-                $mail_body .= __('User-Agent (Browser/OS)', 'formidable') . ": ". $data['browser']."\r\n";
-                $mail_body .= __('Referrer', 'formidable') . ": ". $data['referrer']."\r\n";
-            }else{
-                $default .= "<tr".(($odd)?$bg_color:$bg_color_alt)."><th $row_style>". __('IP Address', 'formidable') . "</th><td $row_style>". $entry->ip ."</td></tr>\r\n";
-                $odd = ($odd) ? false : true;
-                $default .= "<tr".(($odd)?$bg_color:$bg_color_alt)."><th $row_style>".__('User-Agent (Browser/OS)', 'formidable') . "</th><td $row_style>". $data['browser']."</td></tr>\r\n";
-                $odd = ($odd) ? false : true;
-                $default .= "<tr".(($odd)?$bg_color:$bg_color_alt)."><th $row_style>".__('Referrer', 'formidable') . "</th><td $row_style>". str_replace("\r\n", '<br/>', $data['referrer']) ."</td></tr>\r\n";
-            }
-        }
-
-        if($get_default and !$plain_text)
-            $default .= "</tbody></table>";
+        if($notification['reply_to_name'] == 'custom')
+            $reply_to_name = isset($notification['cust_reply_to_name']) ? $notification['cust_reply_to_name'] : $reply_to_name;
         
-        if(isset($form_options['email_subject']) and $form_options['email_subject'] != ''){
-            $shortcodes = FrmProAppHelper::get_shortcodes($form_options['email_subject'], $entry->form_id);
-            $subject = FrmProFieldsHelper::replace_shortcodes($form_options['email_subject'], $entry, $shortcodes);
+        if(isset($notification['inc_user_info']) and $notification['inc_user_info'] and !$get_default){
+            $data = maybe_unserialize($entry->description);
+            $mail_body .= "\r\n\r\n" . __('User Information', 'formidable') ."\r\n";
+            $mail_body .= __('IP Address', 'formidable') . ": ". $entry->ip ."\r\n";
+            $mail_body .= __('User-Agent (Browser/OS)', 'formidable') . ": ". $data['browser']."\r\n";
+            $mail_body .= __('Referrer', 'formidable') . ": ". $data['referrer']."\r\n";
+        }
+        
+        if(isset($notification['email_subject']) and $notification['email_subject'] != ''){
+            $shortcodes = FrmProAppHelper::get_shortcodes($notification['email_subject'], $entry->form_id);
+            $subject = FrmProFieldsHelper::replace_shortcodes($notification['email_subject'], $entry, $shortcodes);
             $subject = apply_filters('frm_email_subject', $subject, compact('form', 'entry'));
+            
+            if(isset($notification['ar']) and $notification['ar'])
+                $subject = apply_filters('frm_ar_subject', $subject, $form);
         }else{
             //set default subject
             $subject = sprintf(__('%1$s Form submitted on %2$s', 'formidable'), stripslashes($form->name), $frm_blogname);
         }
         
-        if($get_default and $custom_message)
-            $mail_body = str_replace('[default-message]', $default, $mail_body);
-        else if($get_default)
-            $mail_body = $default;
+        if($get_default){
+            $default = FrmProEntriesController::show_entry_shortcode(array(
+                'id' => $entry->id, 'entry' => $entry, 'plain_text' => $plain_text, 'fields' => $fields, 
+                'user_info' => (isset($notification['inc_user_info']) ? $notification['inc_user_info'] : false)
+            ));
+            
+            if($custom_message)
+                $mail_body = str_replace('[default-message]', $default, $mail_body);
+            else
+                $mail_body = $default;
+                
+            unset($default);
+        }
         
         $to_emails = apply_filters('frm_to_email', $to_emails, $values, $form_id);
         foreach((array)$to_emails as $to_email){
-            $to_email = apply_filters('frm_content', $to_email, $form, $entry_id);
-            $frm_notification->send_notification_email(trim($to_email), $subject, $mail_body, $reply_to, $reply_to_name, $plain_text, $attachments);
+            $to_email = trim(apply_filters('frm_content', $to_email, $form, $entry_id));
+            if(($to_email == '[admin_email]' or is_email($to_email)) and !in_array($to_email, $sent_to)){
+                $sent_to[] = $to_email;
+                $frm_notification->send_notification_email(trim($to_email), $subject, $mail_body, $reply_to, $reply_to_name, $plain_text, $attachments);
+            }
+            unset($to_email);
+        }
+        
+        
+        unset($to_emails);
+        unset($notification);
+        unset($subject);
+        unset($mail_body);
+        unset($reply_to);
+        unset($reply_to_name);
+        unset($plain_text);
+        unset($attachments);
         }
 
-        return $to_emails;
+        return $sent_to;
     }
     
     function entry_updated($entry_id, $form_id){
@@ -225,10 +311,28 @@ class FrmProNotification{
         global $frm_form;
         $form = $frm_form->getOne($form_id);
         $form->options = maybe_unserialize($form->options);
-        if(isset($form->options['update_email']) and $form->options['update_email'])
-            $this->entry_created($entry_id, $form_id);
+        $notifications = (isset($form->options['notification'])) ? $form->options['notification'] : array(0 => $form->options);
+        
+        $email = false;
+        $ar = false;
+        
+        foreach($notifications as $notification){
+            if($email and $ar)
+                break;
+                
+            if(!$email and isset($notification['update_email']) and $notification['update_email'])
+                $email = true;
+                
+            if(!$ar and isset($notification['ar_update_email']) and $notification['ar_update_email'])
+                $ar = true;
+                
+            unset($notification);
+        }
+        
+        if($email)
+            $this->entry_created($entry_id, $form_id, false);
             
-        if(isset($form->options['ar_update_email']) and $form->options['ar_update_email'])
+        if($ar)
             $this->autoresponder($entry_id, $form_id);
     }
     
@@ -334,11 +438,45 @@ class FrmProNotification{
             $subject = sprintf(__('%1$s Form submitted on %2$s', 'formidable'), stripslashes($form->name), $frm_blogname); //subject
         }
         
+        $subject = apply_filters('frm_ar_subject', $subject, $form);
         $attachments = apply_filters('frm_autoresponder_attachment', array(), $form);
         
         $frm_notification->send_notification_email($to_email, $subject, $mail_body, $reply_to, $reply_to_name, $plain_text, $attachments);
         
         return $to_email;
+    }
+    
+    //check if conditions are met
+    function conditions_met($notification, $entry){
+        $stop = false;
+        $met = array();
+ 
+        if(!isset($notification['conditions']) or empty($notification['conditions']))
+            return $stop;
+          
+        foreach($notification['conditions'] as $k => $condition){
+            if(!is_numeric($k))
+                continue;
+                
+            if($stop and $notification['conditions']['any_all'] == 'any' and $notification['conditions']['send_stop'] == 'stop')
+                continue;
+
+            $observed_value = (isset($entry->metas[$condition['hide_field']])) ? $entry->metas[$condition['hide_field']] : '';
+
+            $stop = FrmProFieldsHelper::value_meets_condition($observed_value, $condition['hide_field_cond'], $condition['hide_opt']);
+
+            if($notification['conditions']['send_stop'] == 'send')
+                $stop = $stop ? false : true;
+            
+            $met[$stop] = $stop;
+        }
+        
+        if($notification['conditions']['any_all'] == 'all' and !empty($met) and isset($met[0]) and isset($met[1]))
+            $stop = ($notification['conditions']['send_stop'] == 'send') ? true : false;
+        else if($notification['conditions']['any_all'] == 'any' and $notification['conditions']['send_stop'] == 'send' and isset($met[0]))
+            $stop = false;
+  
+        return $stop;
     }
 
 }

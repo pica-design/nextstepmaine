@@ -19,32 +19,48 @@ if ($new_field->type == 'data'){
 }
     
 
+    
 if(isset($new_field->field_options['post_field']) and $new_field->field_options['post_field'] == 'post_category'){
+    if(!isset($field_name))
+        $field_name = 'field_options[hide_opt_'. $current_field_id .']';
+        
     $new_field = (array)$new_field;
     $new_field['value'] = (isset($field) and isset($field['hide_opt'][$meta_name])) ? $field['hide_opt'][$meta_name] : '';
     $new_field['exclude_cat'] = (isset($new_field->field_options['exclude_cat'])) ? $new_field->field_options['exclude_cat'] : '';
-    echo FrmFieldsHelper::dropdown_categories(array('name' => "field_options[hide_opt_{$current_field_id}][]", 'id' => "field_options[hide_opt_{$current_field_id}]", 'field' => $new_field) );
-}else{ 
+    echo FrmFieldsHelper::dropdown_categories(array('name' => "{$field_name}[]", 'id' => $field_name, 'field' => $new_field) );
+}else{
+    if(!isset($field_name))
+        $field_name = 'field_options[hide_opt_'. $current_field_id .'][]';
+        
     $temp_field = (array)$new_field;
     foreach($new_field->field_options as $fkey => $fval){
         $temp_field[$fkey] = $fval;
         unset($fkey);
         unset($fval);
     }
-?>
-<select name="field_options[hide_opt_<?php echo $current_field_id ?>][]">
-    <option value=""><?php echo ($new_field->type == 'data') ? 'Anything' : 'Select'; ?></option>
+    
+    if(!isset($val))
+        $val = (isset($field) && isset($field['hide_opt'][$meta_name])) ? $field['hide_opt'][$meta_name] : '';
+  
+if(in_array($new_field->type, array('select', 'radio', 'checkbox', '10radio', 'scale', 'data'))){ ?>
+<select name="<?php echo $field_name ?>">
+    <option value=""><?php echo ($new_field->type == 'data') ? __('Anything', 'formidable') : __('Select', 'formidable'); ?></option>
 <?php 
     if($new_field->options){
     foreach ($new_field->options as $opt_key => $opt){
         $field_val = apply_filters('frm_field_value_saved', $opt, $opt_key, $temp_field); //use VALUE instead of LABEL
         $opt = apply_filters('frm_field_label_seen', $opt, $opt_key, $temp_field);
         unset($field_array);
-        
-    $selected = (isset($field) && $field['hide_opt'][$meta_name] == $field_val) ? ' selected="selected"' : ''; ?>
-    <option value="<?php echo esc_attr($field_val); ?>"<?php echo $selected; ?>><?php echo FrmAppHelper::truncate($opt, 25); ?></option>
+    ?>
+    <option value="<?php echo esc_attr($field_val); ?>"<?php selected($val, $field_val) ?>><?php echo FrmAppHelper::truncate($opt, 25); ?></option>
 <?php } 
     } ?>
 </select>
+<?php    
+}else{
+?>
+<input type="text" name="<?php echo $field_name ?>" value="<?php echo esc_attr($val); ?>" />
 <?php 
+}
+unset($val);
 } ?>

@@ -66,26 +66,6 @@ class FrmProListHelper extends WP_List_Table {
 		    
             $this->items = $frm_entry->getAll($s_query, " ORDER BY $orderby $order", " LIMIT $start, $per_page", true, false);
 	        $total_items = $frm_entry->getRecordCount($s_query);
-		}else if($this->plural == 'displays'){
-		    global $frmpro_display, $frm_app_helper;
-
-            if(isset($_REQUEST['form']) and is_numeric($_REQUEST['form'])){
-                $s_query .= "form_id=". (int)$_REQUEST['form'];
-            }
-            
-		    if($s != ''){
-		        foreach((array)$search_terms as $term){
-		            $term = esc_sql( like_escape( $term ) );
-                    if(!empty($s_query))
-                        $s_query .= " AND";
-
-                    $s_query .= " (name like '%$term%' OR description like '%$term%' OR created_at like '%$term%' OR content like '%$term%' OR dyncontent like '%$term%')";
-                    unset($term);
-                }
-		    }
-		    
-            $this->items = $frmpro_display->getAll($s_query, " ORDER BY $orderby $order", " LIMIT $start, $per_page", true, false);
-	        $total_items = $frm_app_helper->getRecordCount($s_query, $this->table_name);
 		}
 
 		$this->set_pagination_args( array(
@@ -107,10 +87,6 @@ class FrmProListHelper extends WP_List_Table {
                     $colspan = $this->get_column_count();
                     include(FRM_VIEWS_PATH .'/frm-entries/no_entries.php');
                 }
-            break;
-            case 'displays':
-                _e('No Custom Displays Found.', 'formidable');
-                echo ' <a href="?page=formidable-entry-templates&amp;frm_action=new" class="button-secondary">'. __('Add New', 'formidable') .'</a>';
             break;
             default:
                 parent::no_items();
@@ -209,9 +185,7 @@ class FrmProListHelper extends WP_List_Table {
         $actions['duplicate'] = "<a href='" . wp_nonce_url( $duplicate_link ) . "'>". __('Duplicate', 'formidable') ."</a>";
 		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link ) . "' onclick='return confirm(\"". __('Are you sure you want to delete that?', 'formidable') ."\")'>" . __( 'Delete', 'formidable' ) . "</a>";
 		
-	    if($this->plural == 'displays' and !current_user_can('frm_edit_displays')){
-	        $actions = array();
-	    }else if($this->plural == 'entries'){
+	    if($this->plural == 'entries'){
     		if(!current_user_can('frm_edit_entries'))
     		    unset($actions['edit']);
     		if(!current_user_can('frm_create_entries'))
@@ -261,8 +235,8 @@ class FrmProListHelper extends WP_List_Table {
 				    break;
 				case 'created_at':
 				case 'updated_at':
-				    $date = date($frmpro_settings->date_format, strtotime($item->{$col_name}));
-					$val = "<abbr title='". date($frmpro_settings->date_format .' g:i:s A', strtotime($item->{$col_name})) ."'>". $date ."</abbr>";
+				    $date = FrmProAppHelper::get_formatted_time($item->{$col_name}, $frmpro_settings->date_format);
+					$val = "<abbr title='". FrmProAppHelper::get_formatted_time($item->{$col_name}, $frmpro_settings->date_format, 'g:i:s A') ."'>". $date ."</abbr>";
 					break;
 				case 'form_id':
 				    global $frm_form;
@@ -272,12 +246,7 @@ class FrmProListHelper extends WP_List_Table {
     				else
     				    $val = '';
     				break; 
-				case 'post_id':
-				    if($this->plural == 'displays' and $item->insert_loc == 'none'){
-				        $val = '';
-				        break;
-				    }
-				        
+				case 'post_id':				        
 				    $post = get_post($item->{$col_name});
 				    if($post)
 				        $val = '<a href="'. admin_url('post.php') .'?post='. $item->{$col_name} .'&amp;action=edit">'. FrmAppHelper::truncate($post->post_title, 50) .'</a>';
@@ -289,10 +258,7 @@ class FrmProListHelper extends WP_List_Table {
 				    $val = $user->user_login;
 				    break;
 				case 'shortcode':
-				    if($this->plural == 'displays')
-				        $code = "[display-frm-data id={$item->id} filter=1]";
-				    else
-				        $code = '';
+				    $code = '';
 				    
 				    $val = "<input type='text' style='font-size:10px;width:100%;' readonly='true' onclick='this.select();' onfocus='this.select();' value='{$code}' />";
 			        break;

@@ -185,7 +185,7 @@
 				</tbody>
             </table>
             <br /><br />
-            <em>* = University College supported program.  As the University of Maine System’s distance education organization, University College offers access to courses and programs from the seven universities at dozens of locations and online.</em>
+            <em>* = University College supported program. As the University of Maine System’s distance education organization, University College offers access to courses and programs from the seven universities at dozens of locations and online. <a href="http://learn.maine.edu" title="Univeristy College Programs" target="_blank">Click here to learn more.</a></em>
             <br /><br />
             <em>
             	Data obtained from the individual institutions listed above. Programs change often, so please inquire with the host institution in question to ensure their data has not changed. 

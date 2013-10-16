@@ -46,8 +46,8 @@
 </tr>
 
 <tr class="hide_editable">
-    <td style="padding-left:45px;" valign="top"><label><?php _e('Update Confirmation Message', 'formidable') ?></label></td>
-    <td><textarea name="options[edit_msg]" cols="50" rows="4"><?php echo FrmAppHelper::esc_textarea($values['edit_msg']); ?></textarea></td>
+    <td style="padding-left:45px;" valign="top" colspan="2"><label><?php _e('Update Confirmation Message', 'formidable') ?></label><br/>
+        <textarea name="options[edit_msg]" id="edit_msg" cols="50" rows="4"><?php echo FrmAppHelper::esc_textarea($values['edit_msg']); ?></textarea></td>
 </tr>
 
 <tr><td><input type="checkbox" name="options[single_entry]" id="single_entry" value="1"<?php echo ($values['single_entry'])?(' checked="checked"'):(''); ?> /> <label for="single_entry"><?php _e('Allow Only One Entry for Each', 'formidable') ?></label></td>
@@ -60,7 +60,7 @@
             foreach($values['fields'] as $field){ 
                 if(in_array($field['type'], array('user_id', 'html', 'break', 'section', 'captcha', 'file'))) continue; 
     ?>
-    <option value="<?php echo $field['id'] ?>" <?php selected($values['single_entry_type'], $field['id']) ?>><?php echo FrmAppHelper::truncate($field['name'], 200) ?></option>
+    <option value="<?php echo $field['id'] ?>" <?php selected($values['single_entry_type'], $field['id']) ?>><?php echo FrmAppHelper::truncate($field['name'], 40) ?></option>
     <?php 
             }
         } 

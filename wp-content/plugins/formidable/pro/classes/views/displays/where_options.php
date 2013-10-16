@@ -19,5 +19,5 @@ $options = FrmProFieldsHelper::get_status_options($field); ?>
 </select>
 <?php }else{ ?>
 <?php if(isset($field) and $field->type == 'date'){ ?><img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('Date options: \'NOW\' or a date in yyyy-mm-dd format.', 'formidable') ?>" /> <?php } ?>
-<input type="text" size="15" value="<?php echo esc_attr($where_val) ?>" name="options[where_val][<?php echo $where_key; ?>]"/>
+<input type="text"  style="width:auto;" value="<?php echo esc_attr($where_val) ?>" name="options[where_val][<?php echo $where_key; ?>]"/>
 <?php } ?>

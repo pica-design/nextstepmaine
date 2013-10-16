@@ -138,7 +138,7 @@ class FrmFieldsHelper{
             'name' => __('Untitled', 'formidable'), 'description' => '', 
             'field_key' => $key, 'type' => $type, 'options'=>'', 'default_value'=>'', 
             'field_order' => $field_count+1, 'required' => false, 
-            'blank' => __('This field cannot be blank', 'formidable'), 
+            'blank' => $frm_settings->blank_msg, 
             'invalid' => __('This field is invalid', 'formidable'), 'form_id' => $form_id,
             'field_options' => $field_options
         );
@@ -154,9 +154,10 @@ class FrmFieldsHelper{
     
     function get_default_html($type='text'){
         if (apply_filters('frm_normal_field_type_html', true, $type)){
+            $for = (in_array($type, array('radio', 'checkbox', 'data'))) ? '' : 'for="field_[key]"';
             $default_html = <<<DEFAULT_HTML
 <div id="frm_field_[id]_container" class="frm_form_field form-field [required_class][error_class]">
-    <label class="frm_primary_label">[field_name]
+    <label $for class="frm_primary_label">[field_name]
         <span class="frm_required">[required_label]</span>
     </label>
     [input]
@@ -271,9 +272,11 @@ DEFAULT_HTML;
     	
     	if(!function_exists('recaptcha_get_html'))
             require_once(FRM_PATH.'/classes/recaptchalib.php');
+        
+        $lang = apply_filters('frm_recaptcha_lang', $frm_settings->re_lang, $field);
         ?>
-        <script type="text/javascript">var RecaptchaOptions={theme:'<?php echo $frm_settings->re_theme ?>',lang:'<?php echo apply_filters('frm_recaptcha_lang', $frm_settings->re_lang, $field) ?>'<?php echo apply_filters('frm_recaptcha_custom', '', $field) ?>};</script>
-        <?php echo recaptcha_get_html($frm_settings->pubkey, $error, is_ssl()) ?>
+        <script type="text/javascript">var RecaptchaOptions={theme:'<?php echo $frm_settings->re_theme ?>',lang:'<?php echo $lang ?>'<?php echo apply_filters('frm_recaptcha_custom', '', $field) ?>};</script>
+        <?php echo recaptcha_get_html($frm_settings->pubkey .'&hl='. $lang, $error, is_ssl()) ?>
 <?php
     }
     
@@ -287,12 +290,17 @@ DEFAULT_HTML;
         if(!$name) $name = "item_meta[$field[id]]";
         $id = 'field_'. $field['field_key'];
         $class = $field['type'];
-        
-        $selected = is_array($field['value']) ? reset($field['value']) : $field['value'];
 
         $exclude = (is_array($field['exclude_cat'])) ? implode(',', $field['exclude_cat']) : $field['exclude_cat'];
         $exclude = apply_filters('frm_exclude_cats', $exclude, $field);
         
+        if(is_array($field['value'])){
+            if(!empty($exclude))
+                $field['value'] = array_diff($field['value'], explode(',', $exclude));
+            $selected = reset($field['value']);
+        }else{
+            $selected = $field['value'];
+        }      
         
         $args = array(
             'show_option_all' => ' ', 'hierarchical' => 1, 'name' => $name,
@@ -321,12 +329,12 @@ DEFAULT_HTML;
     }
     
     function show_onfocus_js($field_id, $clear_on_focus){ ?>
-    <a href="javascript:frm_clear_on_focus(<?php echo $field_id; ?>,<?php echo $clear_on_focus; ?>)" class="<?php echo ($clear_on_focus) ?'':'frm_inactive_icon '; ?>frm_default_val_icons frm_action_icon frm_reload_icon" id="clear_field_<?php echo $field_id; ?>" title="<?php printf(__('Set this field to %1$sclear on click', 'formidable'), ($clear_on_focus) ? __('not', 'formidable').' ' :'' ); ?>"></a>
+    <a href="javascript:frm_clear_on_focus(<?php echo $field_id; ?>,<?php echo $clear_on_focus; ?>)" class="<?php echo ($clear_on_focus) ?'':'frm_inactive_icon '; ?>frm_default_val_icons frm_action_icon frm_reload_icon" id="clear_field_<?php echo $field_id; ?>" title="<?php printf(__('%1$sclear default value when field is clicked', 'formidable'), ($clear_on_focus) ? '': __('Do not', 'formidable').' ' ); ?>"></a>
     <?php
     }
     
     function show_default_blank_js($field_id, $default_blank){ ?>
-    <a href="javascript:frm_default_blank(<?php echo $field_id; ?>,<?php echo $default_blank ?>)" class="<?php echo ($default_blank) ?'':'frm_inactive_icon '; ?>frm_default_val_icons frm_action_icon frm_error_icon" id="default_blank_<?php echo $field_id; ?>" title="<?php printf(__('This default value should %1$sbe considered blank', 'formidable'), ($default_blank) ? __('not', 'formidable').' ' :'' ); ?>"></a>
+    <a href="javascript:frm_default_blank(<?php echo $field_id; ?>,<?php echo $default_blank ?>)" class="<?php echo ($default_blank) ?'':'frm_inactive_icon '; ?>frm_default_val_icons frm_action_icon frm_error_icon" id="default_blank_<?php echo $field_id; ?>" title="<?php printf(__('Default value will %1$spass form validation', 'formidable'), ($default_blank) ? __('not', 'formidable').' ' :'' ); ?>"></a>
     <?php
     }
     

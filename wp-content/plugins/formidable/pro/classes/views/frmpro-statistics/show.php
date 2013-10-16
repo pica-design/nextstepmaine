@@ -3,7 +3,6 @@
     <h2><?php echo (isset($form)) ? stripslashes($form->name) .' ' : ''; _e('Form Reports', 'formidable') ?></h2>
 
     <?php require(FRM_VIEWS_PATH.'/shared/errors.php'); ?>
-    <?php require(FRM_VIEWS_PATH.'/shared/nav.php'); ?>
     <?php if (!isset($form)){ ?>
         <div id="menu-management" class="clear nav-menus-php" style="margin-top:30px;">
             <div class="menu-edit" style="width:300px;">
@@ -29,6 +28,7 @@
         </div>
     <?php }else{
             FrmAppController::get_form_nav($form->id, true);
+            $class = 'odd';
     ?>
         <form method="get" class="frm_no_print">
             <input type="hidden" name="frm_action" value="show" />
@@ -40,7 +40,7 @@
         <div id="chart_time"></div>
         <div id="img_chart_time" class="frm_print_graph"></div>
         <?php foreach ($fields as $field){ ?>
-            <div style="margin-top:25px;">
+            <div style="margin-top:25px;" class="pg_<?php echo $class ?>">
             <div class="alignleft"><div id="chart_<?php echo $field->id ?>"></div>
                 <div id="img_chart_<?php echo $field->id ?>" class="frm_print_graph"></div>
             </div>
@@ -63,7 +63,10 @@
             </div>
             <div class="clear"></div>
             </div>
-        <?php } 
+        <?php
+            $class = ($class == 'odd') ? 'even' : 'odd';
+            unset($field); 
+            } 
     } ?>
         <div id="chart_hour"></div>
         <div id="chart_month"></div>

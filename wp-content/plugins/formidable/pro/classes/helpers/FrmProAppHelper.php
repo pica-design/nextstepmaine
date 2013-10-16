@@ -750,13 +750,53 @@ class FrmProAppHelper{
         require_once(ABSPATH . 'wp-admin/includes/image.php');
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         
+        $media_ids = $errors = array();
         add_filter('upload_dir', array('FrmProAppHelper', 'upload_dir'));
-        $media_id = media_handle_upload($field_id, 0);
+        
+        if(is_array($_FILES[$field_id]['name'])){
+            foreach($_FILES[$field_id]['name'] as $k => $n){
+                if(empty($n))
+                    continue;
+                    
+                $f_id = $field_id . $k;
+                $_FILES[$f_id] = array(
+                    'name'  => $n,
+                    'type'  => $_FILES[$field_id]['type'][$k],
+                    'tmp_name' => $_FILES[$field_id]['tmp_name'][$k],
+                    'error' => $_FILES[$field_id]['error'][$k],
+                    'size'  => $_FILES[$field_id]['size'][$k]
+                );
+                
+                unset($k);
+                unset($n);
+                
+                $media_id = media_handle_upload($f_id, 0);
+                if (is_numeric($media_id))
+                    $media_ids[] = $media_id;
+                else
+                    $errors[] = $media_id;
+            }
+        }else{
+            $media_id = media_handle_upload($field_id, 0);
+            if (is_numeric($media_id))
+                $media_ids[] = $media_id;
+            else
+                $errors[] = $media_id;
+        }
+        
+        unset($media_id);
+        
+        if(empty($media_ids))
+            return $errors;
+        
         remove_filter('upload_dir', array('FrmProAppHelper', 'upload_dir'));
         
-        return $media_id;
+        if(count($media_ids) == 1)
+            $media_ids = reset($media_ids);
+        
+        return $media_ids;
     }
-    
+  
     //Upload files into "formidable" subdirectory
     function upload_dir($uploads){
         $relative_path = apply_filters('frm_upload_folder', 'formidable');
@@ -929,6 +969,14 @@ class FrmProAppHelper{
                                 if($new_id and is_numeric($new_id))
                                     $values['item_meta'][$field_id] = $new_id;
                                 unset($new_id);
+                            }
+                        }
+                        
+                        if(isset($_POST['item_meta'][$field_id]) and ($field->type == 'checkbox' or ($field->type == 'data' and $field->field_options['data_type'] != 'checkbox'))){
+                            if(empty($values['item_meta'][$field_id])){
+                                $values['item_meta'][$field_id] = $_POST['item_meta'][$field_id];
+                            }else if(!empty($_POST['item_meta'][$field_id])){
+                                $values['item_meta'][$field_id] = array_merge((array)$_POST['item_meta'][$field_id], (array)$values['item_meta'][$field_id]);
                             }
                         }
                         

@@ -28,10 +28,10 @@ class FrmProFieldsHelper{
             }
         }
 
-        preg_match_all( "/\[(date|time|email|login|display_name|first_name|last_name|user_meta|post_meta|post_id|post_title|post_author_email|ip|auto_id|get|get-(.?)|\d*)\b(.*?)(?:(\/))?\]/s", $value, $matches, PREG_PATTERN_ORDER);
+        preg_match_all( "/\[(date|time|email|login|display_name|first_name|last_name|user_meta|post_meta|post_id|post_title|post_author_email|ip|auto_id|get|get-(.?))\b(.*?)(?:(\/))?\]/s", $value, $matches, PREG_PATTERN_ORDER);
 
-        if (!isset($matches[0])) return $value;
-        
+        if (!isset($matches[0])) return do_shortcode($value);
+
         foreach ($matches[0] as $match_key => $val){
             switch($val){
                 case '[date]':
@@ -161,18 +161,50 @@ class FrmProFieldsHelper{
                             break;
                         }
                     }
-            }
+            }            
+            
             if (!isset($new_value)) $new_value = '';
             
-            if(is_array($new_value))
+            if(is_array($new_value)){
+                if(count($new_value) === 1)
+                    $new_value = reset($new_value);
                 $value = $new_value;
-            else
+            }else{
                 $value = str_replace($val, $new_value, $value);
+            }
                 
             unset($new_value);
         }
+        
+        unset($matches);
+        preg_match_all( "/\[(\d*)\b(.*?)(?:(\/))?\]/s", $value, $matches, PREG_PATTERN_ORDER);
+        if (isset($matches[0])){
+            foreach ($matches[0] as $match_key => $val){
+                $shortcode = $matches[1][$match_key];
+                if(is_numeric($shortcode)){ 
+                    $new_value = FrmAppHelper::get_param('item_meta['. $shortcode .']', false);
 
-        return do_shortcode($value);
+                    if(!$new_value and isset($atts['default']))
+                        $new_value = $atts['default'];
+
+                    if(is_array($new_value) and !$return_array)
+                        $new_value = implode(', ', $new_value);
+                        
+                    if(is_array($new_value))
+                        $value = $new_value;
+                    else
+                        $value = str_replace($val, $new_value, $value);
+                }
+            }
+        }
+        
+        global $frm_skip_shortcode;
+        $frm_skip_shortcode = true;
+                
+        $value = do_shortcode($value);
+        
+        $frm_skip_shortcode = false;
+        return $value;
     }
     
     function setup_new_field_vars($values){
@@ -359,7 +391,7 @@ class FrmProFieldsHelper{
             'admin_only' => 0, 'locale' => '', 'attach' => false, 'minnum' => $minnum, 'maxnum' => $maxnum, 
             'step' => $step, 'clock' => 12, 'start_time' => '00:00', 'end_time' => '23:'.$end_minute, 
             'dependent_fields' => 0, 'unique' => 0, 'use_calc' => 0, 'calc' => '', 'duplication' => 1, 'rte' => 'nicedit',
-            'dyn_default_value' => ''
+            'dyn_default_value' => '', 'multiple' => 0
         );
     }
     
@@ -424,8 +456,8 @@ class FrmProFieldsHelper{
                         if($sub_field->type == 'data' and $field['type'] == 'data' and (is_numeric($field['form_select']) or $field['form_select'] == 'taxonomy')){
                             $condition['LinkedField'] = $field['form_select'];
                             $condition['DataType'] = $field['data_type'];
-                        }else if(isset($field['hide_opt']) and !empty($field['hide_opt'][$i2])){
-                            $condition['Value'] = stripslashes(str_replace('"', '&quot;', ($field['hide_opt'][$i2])));
+                        }else if(isset($field['hide_opt']) and (!empty($field['hide_opt'][$i2]) or $field['hide_opt'][$i2] == 0)){
+                            $condition['Value'] = stripslashes(str_replace('"', '&quot;', ( apply_filters('frm_get_default_value', $field['hide_opt'][$i2], $frm_field->getOne($field['id']) ))));
                         }
                         $condition['Type'] = $sub_field->type . (($sub_field->type == 'data') ? '-'. $sub_opts['data_type'] : '');
                         $conditions[] = $condition;
@@ -633,8 +665,11 @@ class FrmProFieldsHelper{
             if (isset($entry_ids) and !empty($entry_ids))
                 $metas = $frm_entry_meta->getAll("it.item_id in (".implode(',', $entry_ids).") and field_id=". (int)$values['form_select'], ' ORDER BY meta_value');
         }else{
-            $metas = $frmdb->get_records($frmdb->entry_metas, array('field_id' => $values['form_select']), 'meta_value', '', 'item_id, meta_value');
-            $post_ids = $frmdb->get_records($frmdb->entries, array('form_id' => $selected_field->form_id), '', '', 'id, post_id');
+            $limit = '';
+            if(is_admin() and isset($_GET) and $_GET['page'] == 'formidable')
+                $limit = 500;
+            $metas = $frmdb->get_records($frmdb->entry_metas, array('field_id' => $values['form_select']), 'meta_value', $limit, 'item_id, meta_value');
+            $post_ids = $frmdb->get_records($frmdb->entries, array('form_id' => $selected_field->form_id), '', $limit, 'id, post_id');
         }
         
         if($linked_posts and !empty($post_ids)){
@@ -793,6 +828,9 @@ DEFAULT_HTML;
                     $frm_div = $field['id'];
                     $html = preg_replace('/\<\/div\>$/', '', $html); //"</div>\n";
                 }
+            }else if($frm_div and $frm_div != $field['id']){
+                $html = "</div>\n". $html;
+                $html = preg_replace('/\<\/div\>$/', '', $html); //"</div>\n";
             }
             
             if (preg_match('/\[(collapse_this)\]/s', $html)){
@@ -807,6 +845,10 @@ DEFAULT_HTML;
             $html = apply_filters('frm_get_default_value', $html, (object)$field, false);
             $html = do_shortcode($html);
         }
+        
+        if (preg_match('/\[(collapse_this)\]/s', $html))
+            $html = str_replace('[collapse_this]', '', $html);
+        
         return $html;
     }
 
@@ -826,23 +868,27 @@ DEFAULT_HTML;
         return $image;
     }
     
-    function get_file_name($media_id, $short=true){
-        if ( is_numeric($media_id) ){
-    		if ($short){
-    		    $attachment = get_post($media_id);
-                $label = basename($attachment->guid);
-            }
-            $url = wp_get_attachment_url($media_id);
+    function get_file_name($media_ids, $short=true){
+        $value = '';
+        foreach((array)$media_ids as $media_id){
+            if ( is_numeric($media_id) ){
+        		if ($short){
+        		    $attachment = get_post($media_id);
+                    $label = basename($attachment->guid);
+                }
+                $url = wp_get_attachment_url($media_id);
+
+                if (is_admin()){
+                    global $frm_siteurl;
+                    $url = '<a href="'.$url.'">'.$label.'</a>';
+                    if(isset($_GET) and isset($_GET['page']) and preg_match('/formidable*/', $_GET['page']))
+                        $url .= '<br/><a href="'.$frm_siteurl.'/wp-admin/media.php?action=edit&attachment_id='.$media_id.'">'. __('Edit Uploaded File', 'formidable') .'</a>';
+                }
                 
-            if (is_admin()){
-                global $frm_siteurl;
-                $url = '<a href="'.$url.'">'.$label.'</a>';
-                if(isset($_GET) and isset($_GET['page']) and preg_match('/formidable*/', $_GET['page']))
-                    $url .= '<br/><a href="'.$frm_siteurl.'/wp-admin/media.php?action=edit&attachment_id='.$media_id.'">'. __('Edit Uploaded File', 'formidable') .'</a>';
-            }
-                
-            return $url;
-    	}
+                $value .= $url;
+        	}
+	    }
+	    return $value;
     }
     
     function get_data_value($value, $field, $atts=array()){
@@ -876,7 +922,7 @@ DEFAULT_HTML;
                     $new_value = $frm_entry_meta->get_entry_meta_by_field($value, $linked_field->id);
                 }
                 
-                $value = (!empty($new_value)) ? $new_value : $value;
+                $value = (!empty($new_value) or $new_value == 0) ? $new_value : $value;
                 if($linked_field){
                     if(isset($atts['show']) and !is_numeric($atts['show']))
                         $atts['show'] = $linked_field->id;
@@ -961,7 +1007,7 @@ DEFAULT_HTML;
         else
             $where_value = ($value) ? " AND meta_value='".addslashes($value)."'" : '';
          
-        if(!$frm_post_ids)
+        //if(!$frm_post_ids)
             $frm_post_ids = array();
         
         $post_ids = array();
@@ -986,6 +1032,9 @@ DEFAULT_HTML;
         if(!empty($limit))
             $limit = " LIMIT ". $limit;
         
+        if($value)
+            $atts[$id] = $value;
+            
         if(!empty($atts)){
             $entry_ids = array();
             
@@ -1136,13 +1185,18 @@ DEFAULT_HTML;
         return $stat;
     }
     
-    function value_meets_condition($observed_value, $cond, $hide_opt){ 
+    function value_meets_condition($observed_value, $cond, $hide_opt){
         if($hide_opt == '')
             return false;
             
         if(is_array($observed_value)){
             if($cond == '=='){
-                $m = in_array($hide_opt, $observed_value);
+                if(is_array($hide_opt)){
+                    $m = array_intersect($hide_opt, $observed_value); 
+                    $m = empty($m) ? false : true;
+                }else{
+                    $m = in_array($hide_opt, $observed_value);
+                }
             }else if($cond == '!='){
                 $m = !in_array($hide_opt, $observed_value);
             }else if($cond == '>'){
@@ -1172,6 +1226,8 @@ DEFAULT_HTML;
             $exclude = "'divider','captcha','break','html'";
             if($type == 'field_opt')
                 $exclude .= ",'data','checkbox'";
+            else if($type == 'calc')
+                $exclude .= ",'data'";
             $field_list = $frm_field->getAll("fi.type not in (". $exclude .") and fi.form_id=". (int)$form_id, 'field_order');
         }
         
@@ -1179,13 +1235,13 @@ DEFAULT_HTML;
         ?>
         <select class="frm_shortcode_select" onchange="frmInsertFieldCode('<?php echo $target_id ?>',this.value);this.value='';">
             <option value="">- <?php _e('Select a value to insert into the box below', 'formidable') ?> -</option>
-            <?php if($type != 'field_opt'){ ?>
-            <option value="[id]"><?php _e('Entry ID', 'formidable') ?></option>
-            <option value="[key]"><?php _e('Entry Key', 'formidable') ?></option>
-            <option value="[post_id]"><?php _e('Post ID', 'formidable') ?></option>
-            <option value="[ip]"><?php _e('User IP', 'formidable') ?></option>
-            <option value="[created-at]"><?php _e('Entry creation date', 'formidable') ?></option>
-            <option value="[updated-at]"><?php _e('Entry update date', 'formidable') ?></option>
+            <?php if($type != 'field_opt' and $type != 'calc'){ ?>
+            <option value="id"><?php _e('Entry ID', 'formidable') ?></option>
+            <option value="key"><?php _e('Entry Key', 'formidable') ?></option>
+            <option value="post_id"><?php _e('Post ID', 'formidable') ?></option>
+            <option value="ip"><?php _e('User IP', 'formidable') ?></option>
+            <option value="created-at"><?php _e('Entry creation date', 'formidable') ?></option>
+            <option value="updated-at"><?php _e('Entry update date', 'formidable') ?></option>
             
             <optgroup label="<?php _e('Form Fields', 'formidable') ?>">
             <?php }
@@ -1196,13 +1252,13 @@ DEFAULT_HTML;
                 if($field->type == 'data' and (!isset($field->field_options['data_type']) or $field->field_options['data_type'] == 'data' or $field->field_options['data_type'] == ''))
                     continue;
             ?>
-                <option value="[<?php echo $field->id ?>]"><?php echo $field_name = FrmAppHelper::truncate($field->name, 60) ?> (<?php _e('ID', 'formidable') ?>)</option>
-                <option value="[<?php echo $field->field_key ?>]"><?php echo $field_name ?> (<?php _e('Key', 'formidable') ?>)</option>
-                <?php if ($field->type == 'file' and $type != 'field_opt'){ ?>
-                    <option class="frm_subopt" value="[<?php echo $field->field_key ?> size=thumbnail]"><?php _e('Thumbnail', 'formidable') ?></option>
-                    <option class="frm_subopt" value="[<?php echo $field->field_key ?> size=medium]"><?php _e('Medium', 'formidable') ?></option>
-                    <option class="frm_subopt" value="[<?php echo $field->field_key ?> size=large]"><?php _e('Large', 'formidable') ?></option>
-                    <option class="frm_subopt" value="[<?php echo $field->field_key ?> size=full]"><?php _e('Full Size', 'formidable') ?></option>
+                <option value="<?php echo $field->id ?>"><?php echo $field_name = FrmAppHelper::truncate($field->name, 60) ?> (<?php _e('ID', 'formidable') ?>)</option>
+                <option value="<?php echo $field->field_key ?>"><?php echo $field_name ?> (<?php _e('Key', 'formidable') ?>)</option>
+                <?php if ($field->type == 'file' and $type != 'field_opt' and $type != 'calc'){ ?>
+                    <option class="frm_subopt" value="<?php echo $field->field_key ?> size=thumbnail"><?php _e('Thumbnail', 'formidable') ?></option>
+                    <option class="frm_subopt" value="<?php echo $field->field_key ?> size=medium"><?php _e('Medium', 'formidable') ?></option>
+                    <option class="frm_subopt" value="<?php echo $field->field_key ?> size=large"><?php _e('Large', 'formidable') ?></option>
+                    <option class="frm_subopt" value="<?php echo $field->field_key ?> size=full"><?php _e('Full Size', 'formidable') ?></option>
                 <?php }else if($field->type == 'data'){ //get all fields from linked form
                     if (isset($field->field_options['form_select']) && is_numeric($field->field_options['form_select'])){
                         $linked_form = $frmdb->get_var($frmdb->fields, array('id' => $field->field_options['form_select']), 'form_id');
@@ -1210,8 +1266,8 @@ DEFAULT_HTML;
                             $linked_forms[] = $linked_form;
                             $linked_fields = $frm_field->getAll("fi.type not in ('divider','captcha','break','html') and fi.form_id =". (int)$linked_form);
                             foreach ($linked_fields as $linked_field){ ?>
-                    <option class="frm_subopt" value="[<?php echo $field->id ?> show=<?php echo $linked_field->id ?>]"><?php echo FrmAppHelper::truncate($linked_field->name, 60) ?> (<?php _e('ID', 'formidable') ?>)</option>
-                    <option class="frm_subopt" value="[<?php echo $field->field_key ?> show=<?php echo $linked_field->field_key ?>]"><?php echo FrmAppHelper::truncate($linked_field->name, 60) ?> (<?php _e('Key', 'formidable') ?>)</option>
+                    <option class="frm_subopt" value="<?php echo $field->id ?> show=<?php echo $linked_field->id ?>"><?php echo FrmAppHelper::truncate($linked_field->name, 60) ?> (<?php _e('ID', 'formidable') ?>)</option>
+                    <option class="frm_subopt" value="<?php echo $field->field_key ?> show=<?php echo $linked_field->field_key ?>"><?php echo FrmAppHelper::truncate($linked_field->name, 60) ?> (<?php _e('Key', 'formidable') ?>)</option>
                     <?php
                             }
                         } 
@@ -1220,21 +1276,21 @@ DEFAULT_HTML;
             }
             }
             
-            if($type != 'field_opt'){ ?>
+            if($type != 'field_opt' and $type != 'calc'){ ?>
             </optgroup>
             <optgroup label="<?php _e('Helpers', 'formidable') ?>">
-                <option value="[editlink]"><?php _e('Admin link to edit the entry', 'formidable') ?></option>
+                <option value="editlink"><?php _e('Admin link to edit the entry', 'formidable') ?></option>
                 <?php if ($target_id == 'content'){ ?>
-                <option value="[detaillink]"><?php _e('Link to view single page if showing dynamic entries', 'formidable') ?></option>
+                <option value="detaillink"><?php _e('Link to view single page if showing dynamic entries', 'formidable') ?></option>
                 <?php }
                 
                 if($type != 'email'){ ?>
-                <option value="[evenodd]"><?php _e('Add a rotating \'even\' or \'odd\' class', 'formidable') ?></option>
+                <option value="evenodd"><?php _e('Add a rotating \'even\' or \'odd\' class', 'formidable') ?></option>
                 <?php }else if($target_id == 'email_message'){ ?>
-                <option value="[default-message]"><?php _e('Default Email Message', 'formidable') ?></option>   
+                <option value="default-message"><?php _e('Default Email Message', 'formidable') ?></option>   
                 <?php } ?>
-                <option value="[siteurl]"><?php _e('Site URL', 'formidable') ?></option>
-                <option value="[sitename]"><?php _e('Site Name', 'formidable') ?></option>
+                <option value="siteurl"><?php _e('Site URL', 'formidable') ?></option>
+                <option value="sitename"><?php _e('Site Name', 'formidable') ?></option>
             </optgroup>
             <?php } ?>
         </select>    
@@ -1245,12 +1301,12 @@ DEFAULT_HTML;
         global $frm_field, $frm_entry_meta, $post, $frmpro_settings;
 
         if($display){
-            $param_value = ($display->type == 'id') ? $entry->id : $entry->item_key;
+            $param_value = ($display->frm_type == 'id') ? $entry->id : $entry->item_key;
             
             if($entry->post_id){
                 $detail_link = get_permalink($entry->post_id);
             }else{
-                $param = (isset($display->param) && !empty($display->param)) ? $display->param : 'entry';
+                $param = (isset($display->frm_param) && !empty($display->frm_param)) ? $display->frm_param : 'entry';
                 if($post)
                     $detail_link = add_query_arg($param, $param_value, get_permalink($post->ID));
                 else
@@ -1432,16 +1488,21 @@ DEFAULT_HTML;
                         $atts['post_id'] = $entry->post_id;
                         $replace_with = apply_filters('frmpro_fields_replace_shortcodes', $replace_with, $tag, $atts, $field); 
                     }   
-                    
-                    if (isset($replace_with) and is_array($replace_with))
-                        $replace_with = implode($sep, $replace_with);
 
                     if ($field and $field->type == 'file'){
                         //size options are thumbnail, medium, large, or full
-                        $size = (isset($atts['size'])) ? $atts['size'] : 'thumbnail';
-                        if($size != 'id')
-                            $replace_with = FrmProFieldsHelper::get_media_from_id($replace_with, $size);
+                        $size = (isset($atts['size'])) ? $atts['size'] : (isset($atts['show']) ? $atts['show'] : 'thumbnail');
+                        $inc_html = (isset($atts['html']) and $atts['html']) ? true : false;
+                        $sep = (isset($atts['sep'])) ? $atts['sep'] : ' ';
+                        
+                        if($size != 'id' and !empty($replace_with))
+                            $replace_with = FrmProFieldsHelper::get_media_from_id($replace_with, $size, $inc_html);
+
+                        unset($size);
                     }
+                    
+                    if (isset($replace_with) and is_array($replace_with))
+                        $replace_with = implode($sep, $replace_with);
                         
                     if ($conditional){
                         $replace_with = apply_filters('frm_conditional_value', $replace_with, $atts, $field, $tag);
@@ -1475,19 +1536,19 @@ DEFAULT_HTML;
                             $replace_with = urlencode(htmlentities($replace_with));
                             
                         if (isset($atts['truncate'])){
-                            if(isset($atts['more_text'])){
+                            if(isset($atts['more_text']))
                                 $more_link_text = $atts['more_text'];
-                            }else
+                            else
                                 $more_link_text = (isset($atts['more_link_text'])) ? $atts['more_link_text'] : '. . .';
-                                
-                            if ($display and $show == 'all'){
-                                $more_link_text = ' <a href="'.$detail_link.'">'.$more_link_text.'</a>';
+
+                            if ($display and $display->frm_show_count == 'dynamic'){
+                                $more_link_text = ' <a href="'. $detail_link .'">'. $more_link_text .'</a>';
                                 $replace_with = FrmAppHelper::truncate($replace_with, (int)$atts['truncate'], 3, $more_link_text); 
                             }else{
                                 $replace_with = wp_specialchars_decode(strip_tags($replace_with), ENT_QUOTES);
                                 $part_one = substr($replace_with, 0, (int)$atts['truncate']);
                                 $part_two = substr($replace_with, (int)$atts['truncate']);
-                                $replace_with = $part_one .'<a onclick="jQuery(this).next().css(\'display\', \'inline\');jQuery(this).css(\'display\', \'none\')" class="frm_text_exposed_show"> '. $more_link_text .'</a><span style="display:none;">'. $part_two .'</span>';
+                                $replace_with = $part_one .'<a href="#" onclick="jQuery(this).next().css(\'display\', \'inline\');jQuery(this).css(\'display\', \'none\');return false;" class="frm_text_exposed_show"> '. $more_link_text .'</a><span style="display:none;">'. $part_two .'</span>';
                             }
                         }
                         
@@ -1587,23 +1648,46 @@ DEFAULT_HTML;
          }
          
          return $replace_with;
-     }
+    }
      
-     function get_media_from_id($replace_with, $size='thumbnail'){
-         if($size == 'label'){
-            $attachment = get_post($replace_with);
-            $replace_with = basename($attachment->guid);
+    function get_media_from_id($ids, $size='thumbnail', $html=false){
+        $replace_with = array();
+        if($size == 'label'){
+            foreach((array)$ids as $id){
+                if(!is_numeric($id))
+                    continue;
+                    
+                $attachment = get_post($id);
+                if($attachment)
+                    $replace_with[] = basename($attachment->guid);
+            }
         }else{
-            $image = wp_get_attachment_image_src($replace_with, $size); //Returns an array (url, width, height) or false
+            foreach((array)$ids as $id){
+                if(!is_numeric($id))
+                    continue;
+                    
+                $image = wp_get_attachment_image_src($id, $size); //Returns an array (url, width, height) or false
 
-            if($image)
-                $replace_with = $image[0];
-            else
-                $replace_with = wp_get_attachment_url($replace_with);
-         }
-         
-         return $replace_with;
-     }
+                if($image)
+                    $img = $image[0];
+                else
+                    $img = wp_get_attachment_url($id);
+                
+                if($html)
+                    $img = '<img src="'. $img .'" />';
+                
+                $replace_with[] = $img;
+                
+                unset($img);
+                unset($id);
+            }
+        }
+        
+        if(count($replace_with) == 1)
+            $replace_with = reset($replace_with);
+        
+        return $replace_with;
+    }
      
      function get_display_value($replace_with, $field, $atts=array()){
          $sep = (isset($atts['sep'])) ? $atts['sep'] : ', ';
@@ -1631,11 +1715,16 @@ DEFAULT_HTML;
              
              if(isset($atts['time_ago']))
                  $replace_with = FrmProAppHelper::human_time_diff( strtotime($replace_with), strtotime(date_i18n('Y-m-d')) );
-         }else if (is_numeric($replace_with) and $field->type == 'file'){ 
+         }else if ((is_numeric($replace_with) or is_array($replace_with)) and $field->type == 'file'){ 
              //size options are thumbnail, medium, large, or full
-             $size = (isset($atts['size'])) ? $atts['size'] : 'thumbnail';
+             $size = (isset($atts['size'])) ? $atts['size'] : (isset($atts['show']) ? $atts['show'] : 'thumbnail');
+             $inc_html = (isset($atts['html']) and $atts['html']) ? true : false;
+             $sep = (isset($atts['sep'])) ? $atts['sep'] : ' ';
              if($size != 'id')
-                 $replace_with = FrmProFieldsHelper::get_media_from_id($replace_with, $size);
+                 $replace_with = FrmProFieldsHelper::get_media_from_id($replace_with, $size, $inc_html);
+             
+             if(is_array($replace_with))
+                 $replace_with = implode($sep, $replace_with);
          }else if ($field->type == 'data'){ //and (is_numeric($replace_with) or is_array($replace_with))
              $field->field_options = maybe_unserialize($field->field_options);
              if(isset($field->field_options['form_select']) and $field->field_options['form_select'] == 'taxonomy')
@@ -1684,8 +1773,12 @@ DEFAULT_HTML;
                          foreach($linked_ids as $linked_id){
                              $new_val = FrmProFieldsHelper::get_data_value($linked_id, $field, $atts);
                              
-                             if($linked_id != $new_val)
+                             if($linked_id != $new_val){
+                                 if(is_array($new_val))
+                                    $new_val = implode($sep, $new_val);
+                                    
                                  $replace_with[] = $new_val;
+                             }
                              
                              unset($new_val);
                          }

@@ -6,7 +6,7 @@
     $selected_type = '';
     
     _e('Populate', 'formidable') ?>
-    <select name="options[post_category][<?php echo $field_vars['meta_name'] . $tax_key ?>][field_id]">
+    <select name="options[post_category][<?php echo $field_vars['meta_name'] . $tax_key ?>][field_id]" class="frm_single_post_field">
         <option value="">- <?php echo _e('Select Field', 'formidable') ?> -</option>
         <option value="checkbox">- <?php echo _e('A New Checkbox Field', 'formidable') ?> -</option>
         <?php

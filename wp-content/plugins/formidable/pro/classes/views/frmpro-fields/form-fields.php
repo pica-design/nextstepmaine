@@ -31,7 +31,7 @@ $frm_timepicker_loaded['field_'. $field['field_key']] = array(
 <?php
 $field['type'] = ($field['type'] == 'tel') ? 'phone' : $field['type'];
 }else if ($field['type'] == 'image'){?>
-<input type="url" id="field_<?php echo $field['field_key'] ?>" name="<?php echo $field_name ?>" value="<?php echo esc_attr($field['value']) ?>" <?php do_action('frm_field_input_html', $field) ?>/>
+<input type="<?php echo ($frm_settings->use_html) ? 'url' : 'text'; ?>" id="field_<?php echo $field['field_key'] ?>" name="<?php echo $field_name ?>" value="<?php echo esc_attr($field['value']) ?>" <?php do_action('frm_field_input_html', $field) ?>/>
 <?php if ($field['value']){ ?><img src="<?php echo $field['value'] ?>" height="50px" /><?php }
     
 }else if ($field['type'] == '10radio' or $field['type'] == 'scale'){
@@ -72,10 +72,42 @@ if($frm_mobile or FrmProFieldsHelper::mobile_check()){ }else{
     $frm_rte_loaded[] = 'field_'. $field['field_key'];
 }
     }
-}else if ($field['type'] == 'file'){ ?>
-<input type="file" name="file<?php echo $field['id'] ?>" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?>/><br/>
+}else if ($field['type'] == 'file'){ 
+    if(isset($field['multiple']) and $field['multiple']){
+        foreach((array)maybe_unserialize($field['value']) as $media_id){ 
+            if(!is_numeric($media_id))
+                continue;
+        ?>
+<div id="frm_uploaded_<?php echo $media_id ?>" class="frm_uploaded_files">
+<input type="hidden" name="<?php echo $field_name ?>[]" value="<?php echo esc_attr($media_id) ?>" />
+<div class="frm_file_icon"><?php echo FrmProFieldsHelper::get_file_icon($media_id); ?></div>
+<a href="javascript:frmRemoveDiv('#frm_uploaded_<?php echo $media_id ?>')" class="frm_remove_link"><?php _e('Remove', 'formidable') ?></a>
+</div>
+<?php   } 
+if(empty($field_value)){ ?>
+<input type="hidden" name="<?php echo $field_name ?>[]" value="" />
+<?php } ?>
+
+<input type="file" name="file<?php echo $field['id'] ?>[]" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?> />
+
+<script type="text/javascript">
+jQuery(document).ready(function($){ 
+$("#frm_field_<?php echo $field['id'] ?>_container input[type='file']:last").live('change', function(){
+$(this).wrap('<div class="frm_file_names frm_uploaded_files">');
+$(this).after($(this).attr('value') +' <a onclick="frmClearFile(jQuery(this))"><?php _e( "Remove", "formidable" ) ?></a>');
+$(this).hide();
+$("#frm_field_<?php echo $field['id'] ?>_container").append('<input name="file<?php echo $field['id'] ?>[]" type="file" />');
+});
+});
+</script>
+
+<?php  
+    }else{ ?>
+<input type="file" name="file<?php echo $field['id'] ?>" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?> /><br/>
 <input type="hidden" name="<?php echo $field_name ?>" value="<?php echo esc_attr($field['value']) ?>" />
-<?php echo FrmProFieldsHelper::get_file_icon($field['value']);
+<?php echo FrmProFieldsHelper::get_file_icon($field['value']);      
+    }
+
 include_once(FRMPRO_VIEWS_PATH .'/frmpro-entries/loading.php');
 
 }else if ($field['type'] == 'data'){ ?>

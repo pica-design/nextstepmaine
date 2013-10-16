@@ -132,16 +132,21 @@ class FrmProEntryMetaHelper{
         }else if ($atts['type'] == 'user_id'){
             $value = FrmProFieldsHelper::get_display_name($value);
         }else if ($atts['type'] == 'file'){
-            $old_value = $value;
+            $old_value = explode(', ', $value);
             $value = '';
-            if ($atts['show_icon'])
-                $value .= FrmProFieldsHelper::get_file_icon($old_value);
-            
-            if ($atts['show_icon'] and $atts['show_filename'])
-                $value .= '<br/>';
+            foreach($old_value as $mid){
+                $value .= '<div class="frm_file_container">';
+                if ($atts['show_icon'])
+                    $value .= FrmProFieldsHelper::get_file_icon($mid);
+
+                if ($atts['show_icon'] and $atts['show_filename'])
+                    $value .= '<br/>';
+
+                if ($atts['show_filename'])
+                    $value .= FrmProFieldsHelper::get_file_name($mid);
                 
-            if ($atts['show_filename'])
-                $value .= FrmProFieldsHelper::get_file_name($old_value);
+                $value .= '</div>';
+            }
         }else if ($atts['type'] == 'date'){
             $value = FrmProFieldsHelper::get_date($value);
         }else if ($atts['type'] == 'data'){
@@ -167,10 +172,14 @@ class FrmProEntryMetaHelper{
                 if($field->field_options['data_type'] == 'data' or $field->field_options['data_type'] == ''){
                     $linked_field = FrmField::getOne($field->field_options['form_select']);
                     if($linked_field->type == 'file'){
-                        $old_value = $value;
-                        $value = '<img src="'. $value .'" height="50px" alt="" />';
-                        if ($atts['show_filename'])
-                            $value .= '<br/>'. $old_value;
+                        $old_value = explode(', ', $value);
+                        $value = '';
+                        foreach($old_value as $v){
+                            $value .= '<img src="'. $v .'" height="50px" alt="" />';
+                            if ($atts['show_filename'])
+                                $value .= '<br/>'. $v;
+                            unset($v);
+                        }
                     }
                 }
             }
@@ -188,7 +197,9 @@ class FrmProEntryMetaHelper{
             global $frm_entry;
             $entry = $frm_entry->getOne($entry);
         }
-        
+        if(!$entry)
+            return '';
+            
         $field->field_options = maybe_unserialize($field->field_options);
          
         if($entry->post_id){

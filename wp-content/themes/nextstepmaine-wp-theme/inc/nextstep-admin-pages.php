@@ -40,12 +40,14 @@
 		//A form has been submitted
 		if ($_POST) :
 			global $post ;
+			
+			//Connect to our O*NET database
+			$onet = new wpdb(DB_USER, DB_PASSWORD, 'onet', DB_HOST);
+
 			//First off we need to remove the previous institution posts
 			$nsm_jobs = new WP_Query('post_type=nsm_job&posts_per_page=-1');
-			while ($nsm_jobs->have_posts()) : $nsm_jobs->the_post();
-				wp_delete_post($post->ID, true);
-			endwhile;
-
+			while ($nsm_jobs->have_posts()) : $nsm_jobs->the_post(); wp_delete_post($post->ID, true); endwhile;
+			
 			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
 			$file_name = $_FILES['file-upload']['name'];
 			//Move the uploaded file to it's final resting place
@@ -54,63 +56,62 @@
 			if (($uploaded_csv = fopen($file_path . $file_name, "r")) !== false) :
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
 				$row_count = 0;
+
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
 					//DEBUGGING
 					//echo "<pre>" . print_r($row, true) . "</pre>";
+
 					/*
 					Array
 					(
-						[0] => 49-3021		//_soc_code
-						[1] => Automotive Body and Related Repairers	// post title
-						[2] => 811 			// _employment_2008
-						[3] => 803			// _employment_2018
-						[4] => -1.0%		// _growth_rate
-						[5] => 21			// _annual_openings
-						[6] => $12.26		// _entry_wage
-						[7] => $16.94		// _median_wage
-						[8] => http://online.onetcenter.org/link/summary/49-3021.00		// _onet_link
-						[9] => Automotive Body and Related Repairers	// post title - DUPLICATE - uneeded
- 						[10] => High School // nsm_job_category
+					    [0] => High Growth
+					    [1] => SOC Code
+					    [2] => SOCTitle
+					    [3] => Base Empl
+					    [4] => Proj Empl
+					    [5] => Percent Change
+					    [6] => Total Openings
+					    [7] => 2011 Entry Wage
+					    [8] => 2011 Median Wage
+					    [9] => Education/ Training Required
+					    [10] => URL
+					    [11] => O*NET Summary Report URL
 					)
-					
-					
 					*/
 					
-					//Connect to our O*NET database
-					$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
+					//Ignore the header row
+					if ($row_count > 0) : 
 					
-					//Pica VPS
-					//$onet = new wpdb('nsm_onetuser', 'Zso[D5_W3xVb', 'nsm_onet', 'localhost');
+						//Select some information about the current occupation
+						$occupation_description = "";
+						$occupation = $onet->get_results("SELECT description FROM occupation_data WHERE onetsoc_code LIKE '%{$row[1]}%'");
+						//print_r($occupation);
+						if (is_array($occupation) && isset($occupation[0])) : 
+							$occupation_description = $occupation[0]->description;
+						endif;
 
-					//Select some information about the current occupation
-					$occupation_description = "";
-					$occupation = $onet->get_results("SELECT description FROM occupation_data WHERE onetsoc_code LIKE '%{$row[0]}%'");
-					//print_r($occupation);
-					if (is_array($occupation) && isset($occupation[0])) : 
-						$occupation_description = $occupation[0]->description;
-					endif;
-
-					//Create a custom post for each row
-					$post_id = wp_insert_post(array(
-						'post_type'	  => 'nsm_job',
-						'post_status' => 'publish',
-						'post_title'  => $row[1],
-						'post_content' => $occupation_description
-					));	
-					
-					//Add the category term to the post
-					wp_set_object_terms($post_id, $row[10], 'nsm_job_education_requirement');
+						//Create a custom post for each row
+						$post_id = wp_insert_post(array(
+							'post_type'	  => 'nsm_job',
+							'post_status' => 'publish',
+							'post_title'  => $row[2],
+							'post_content' => $occupation_description
+						));	
 						
-					//Add the remaining data as post meta
-					update_post_meta($post_id, '_nsm_job_soc_code', $row[0]);
-					update_post_meta($post_id, '_nsm_job_employment_2008', $row[2]);
-					update_post_meta($post_id, '_nsm_job_employment_2018', $row[3]);
-					update_post_meta($post_id, '_nsm_job_growth_rate', $row[4]);
-					update_post_meta($post_id, '_nsm_job_annual_openings', $row[5]);
-					update_post_meta($post_id, '_nsm_job_entry_wage', $row[6]);
-					update_post_meta($post_id, '_nsm_job_median_wage', $row[7]);
-					update_post_meta($post_id, '_nsm_job_onet_link', $row[8]);
+						//Add the category term to the post
+						wp_set_object_terms($post_id, $row[9], 'nsm_job_education_requirement');
+							
+						//Add the remaining data as post meta
+						update_post_meta($post_id, '_nsm_job_soc_code', $row[1]);
+						update_post_meta($post_id, '_nsm_job_base_employment', $row[3]);
+						update_post_meta($post_id, '_nsm_job_projected_employment', $row[4]);
+						update_post_meta($post_id, '_nsm_job_growth_rate', $row[5]);
+						update_post_meta($post_id, '_nsm_job_annual_openings', $row[6]);
+						update_post_meta($post_id, '_nsm_job_entry_wage', $row[7]);
+						update_post_meta($post_id, '_nsm_job_median_wage', $row[8]);
+						update_post_meta($post_id, '_nsm_job_onet_link', $row[10]);
+					endif;
 					$row_count++;
 				endwhile;
 				//Close the opened file
@@ -172,7 +173,7 @@
 				$row_count = 0;
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
-					if ($row_count > 0) :
+					if ($row_count > 1) :
 					
 						//DEBUGGING
 						//echo "<pre>" . print_r($row, true) . "</pre>";
@@ -200,6 +201,7 @@
 							'post_title'  => $row[0],
 							'post_content' => $row[9]
 						));	
+					
 						
 						//Add the category term to the post
 						wp_set_object_terms($post_id, $row[8], 'nsm_institution_category');
@@ -289,48 +291,66 @@
 				$row_count = 0;
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
 					
-					//DEBUGGING
-					//echo "<pre>" . print_r($row, true) . "</pre>";
 					
-					/*
-					Array
-					(
-					    [0] => Institution Name
-					    [1] => Title IV School Code
-					    [2] => Program Title
-					    [3] => Program Type
-					    [4] => Discipline
-					    [5] => Program Format 
-					    [6] => Location
-					    [7] => Schedule (if possible)
-					    [8] => Program URL
-					    [9] => Avg Timeframe to Complete in Hours
-					    [10] => Avg Cost Per Credit Hour
-					    [11] => Program Category 
-					    [12] => Program Description
-					)
-					*/
 					
 					//Omit the first 'headings' row	
-					if ($row_count > 0) :
+					if ($row_count > 2) :
+						
+						//DEBUGGING
+						//echo "<pre>" . print_r($row, true) . "</pre>";
+						
+						/*
+						Array
+						(
+						    [0] => Institution Name
+						    [1] => Title IV School Code
+						    [2] => Program Title
+						    [3] => Program Type
+						    [4] => Program Level
+						    [5] => Program Format 
+						    [6] => Location
+						    [7] => Schedule (if possible)
+						    [8] => Program URL
+						    [9] => Avg Timeframe to Complete in Hours
+						    [10] => Avg Cost Per Credit Hour
+						    [11] => Program Category 
+						    [12] => Program Description
+						)
+						*/
+						
+						
 						//Create a custom post for each row
 						$post_id = wp_insert_post(array(
 							'post_type'	  => 'nsm_program',
 							'post_status' => 'publish',
-							'post_title'  => $row[2],
+							'post_title'  => ucwords(strtolower($row[2])),
 							'post_content' => $row[12]
 						));	
-						
+					
+						/*
+							THIS IS NOT PROPERLY LOWERCASING THE CATEGORY NAMES
+								* ODD - this works fine on the live server
+						*/
+
 						//Add the category terms to the post
-						$terms = explode(',', $row[11]);
-						foreach ($terms as $term) :
-							wp_set_object_terms($post_id, $term, 'nsm_program_category');
-						endforeach;
+						if (strpos($row[11], ',')) :
+							//If there are multiple categories seperated by a comma insert them one by one
+							$terms = explode(',', $row[11]);
+							foreach ($terms as $term) :
+								//echo ucwords(strtolower($term));
+								wp_set_object_terms($post_id, ucwords(strtolower($term)), 'nsm_program_category');
+							endforeach;
+						else :
+							//Else insert the singular category
+							//echo ucwords(strtolower($row[11]));
+							wp_set_object_terms($post_id, ucwords(strtolower($row[11])), 'nsm_program_category');
+						endif;
+
 						
 						//Add the remaining data as post meta
 						update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
 						update_post_meta($post_id, '_nsm_program_type', $row[3]);
-						update_post_meta($post_id, '_nsm_program_discipline', $row[4]);
+						update_post_meta($post_id, '_nsm_program_level', $row[4]);
 						update_post_meta($post_id, '_nsm_program_format', $row[5]);
 						update_post_meta($post_id, '_nsm_program_location', $row[6]);
 						update_post_meta($post_id, '_nsm_program_schedule', $row[7]);
@@ -349,6 +369,7 @@
 						p2p_type('Program Institution')->connect($post_id, $institution->posts[0]->ID, array(
 							'date' => current_time('mysql')
 						));
+						
 					endif;
 					
 					$row_count++;	

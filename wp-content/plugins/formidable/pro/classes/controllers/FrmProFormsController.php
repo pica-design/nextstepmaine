@@ -4,9 +4,11 @@ class FrmProFormsController{
     function FrmProFormsController(){
         add_filter('frm_admin_list_form_action', array(&$this, 'process_bulk_form_actions'));
         add_action('frm_additional_form_options', array(&$this, 'add_form_options'));
-        add_action('frm_additional_form_notification_options', array(&$this, 'notifications'));
+        add_action('frm_additional_form_notification_options', array(&$this, 'notifications'), 10, 2);
+        add_action('wp_ajax_frm_add_email_list', array(&$this, 'add_email_list'));
         add_action('wp_ajax_frm_add_postmeta_row', array(&$this, '_postmeta_row'));
         add_action('wp_ajax_frm_add_posttax_row', array(&$this, '_posttax_row'));
+        add_action('frm_extra_form_instruction_tabs', array(&$this, 'instruction_tabs'));
         add_action('frm_extra_form_instructions', array(&$this, 'instructions'));
         add_action('frm_translation_page', array(&$this, 'translate'), 10, 2);
         add_filter('get_frm_stylesheet', array(&$this, 'custom_stylesheet'), 10, 2);
@@ -17,6 +19,8 @@ class FrmProFormsController{
         add_filter('frm_content', array(&$this, 'filter_content'), 10, 3);
         add_filter('frm_submit_button', array(&$this, 'submit_button_label'), 5, 2);
         add_filter('frm_error_icon', array(&$this, 'error_icon'));
+        add_filter('frm_form_replace_shortcodes', array(&$this, 'replace_shortcodes'));
+        add_action('wp_ajax_frm_add_form_logic_row', array(&$this, '_logic_row'));
     }
     
     function process_bulk_form_actions($errors){
@@ -89,9 +93,29 @@ class FrmProFormsController{
         require(FRMPRO_VIEWS_PATH.'/frmpro-forms/add_form_options.php');
     }
     
-    function notifications($values){
+    function notifications($values, $atts){
         global $wpdb, $frmdb;
+        extract($atts);
         require(FRMPRO_VIEWS_PATH.'/frmpro-forms/notifications.php');
+    }
+    
+    function add_email_list(){
+        global $frm_field;
+        $email_key = $_POST['list_id'];
+        $form_id = $_POST['form_id'];
+        $first_email = ($email_key) ? false : true;
+        $frmpro_is_installed = true;
+        
+        $notification = FrmProFormsHelper::get_default_notification_opts();
+        $values = array('fields' => array(), 'id' => $form_id);
+        $fields = $frm_field->getAll(array('fi.form_id' => $form_id));
+        foreach($fields as $k => $f){
+            $values['fields'][] = (array)$f;
+            unset($k);
+            unset($f);
+        }
+        include(FRM_VIEWS_PATH.'/frm-forms/notification.php');
+        die();
     }
     
     function post_options($values){
@@ -117,7 +141,9 @@ class FrmProFormsController{
             $values['create_post'] = true;
             
         $form_id = (int)$_GET['id'];
-        $display = FrmProDisplay::getAll("form_id={$form_id} and show_count in ('single', 'dynamic', 'calendar')", '', ' LIMIT 1' );
+        $display = FrmProDisplay::get_form_custom_display($form_id);
+        if($display)
+            $display = FrmProDisplaysHelper::setup_edit_vars($display, true);
             
         require(FRMPRO_VIEWS_PATH.'/frmpro-forms/post_options.php');
     }
@@ -152,6 +178,10 @@ class FrmProFormsController{
         die();
     }
     
+    function instruction_tabs(){
+        include(FRMPRO_VIEWS_PATH.'/frmpro-forms/instruction_tabs.php');
+    }
+    
     function instructions(){
         $tags = array(
             'date' => __('Current Date', 'formidable'), 
@@ -171,7 +201,7 @@ class FrmProFormsController{
             'auto_id start=1' => __('Auto Increment', 'formidable'), 
             'get param=whatever' => __('GET/POST variable', 'formidable')
         );
-        require_once(FRMPRO_VIEWS_PATH.'/frmpro-forms/instructions.php');
+        include(FRMPRO_VIEWS_PATH.'/frmpro-forms/instructions.php');
     }
     
     function translate($form, $action){
@@ -346,6 +376,52 @@ class FrmProFormsController{
         $icon = FRMPRO_ICONS_URL .'/'. $frmpro_settings->error_icon;
         return $icon;
     }
+    
+    function replace_shortcodes($html){
+        preg_match_all("/\[(deletelink)\b(.*?)(?:(\/))?\]/s", $html, $shortcodes, PREG_PATTERN_ORDER);
+        foreach ($shortcodes[0] as $short_key => $tag){
+            $atts = shortcode_parse_atts( $shortcodes[2][$short_key] );
+            if($shortcodes[1][$short_key] == 'deletelink'){
+                $replace_with = FrmProEntriesController::entry_delete_link($atts);
+                $html = str_replace($shortcodes[0][$short_key], $replace_with, $html);
+            }
+            
+            unset($short_key);
+            unset($tag);
+            unset($replace_with);
+        }
+        
+        return $html;
+    }
+    
+    function _logic_row(){
+	    global $frm_ajax_url, $frm_form;
+	    
+	    $meta_name = FrmAppHelper::get_param('meta_name');
+	    $form_id = FrmAppHelper::get_param('form_id');
+	    $email_key = FrmAppHelper::get_param('email_id');
+	    $hide_field = '';
+        
+        $form_fields = FrmField::getAll("fi.form_id = ". (int)$form_id ." and (type in ('select','radio','checkbox','10radio','scale','data') or (type = 'data' and (field_options LIKE '\"data_type\";s:6:\"select\"%' OR field_options LIKE '%\"data_type\";s:5:\"radio\"%' OR field_options LIKE '%\"data_type\";s:8:\"checkbox\"%') ))", " ORDER BY field_order");
+        
+        $form = $frm_form->getOne($form_id);
+        $form->options = maybe_unserialize($form->options);
+        $notification = (isset($form->options['notification']) and isset($form->options['notification'][$email_key])) ? $form->options['notification'][$email_key] : array();
+        
+        if(!isset($notification['conditions']))
+            $notification['conditions'] = array();
+        
+        if(isset($notification['conditions'][$meta_name]))
+            $condition = $notification['conditions'][$meta_name];
+        else
+            $condition = array('hide_field_cond' => '==', 'hide_field' => '');
+            
+        if(!isset($condition['hide_field_cond']))
+            $condition['hide_field_cond'] = '==';
+
+        include(FRMPRO_VIEWS_PATH.'/frmpro-forms/_logic_row.php');
+        die();
+	}
 }
 
 ?>

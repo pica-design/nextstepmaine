@@ -7,11 +7,14 @@ header('Expires: '. gmdate("D, d M Y H:i:s", mktime(date('H')+2, date('i'), date
 header('Last-Modified: '. gmdate('D, d M Y H:i:s') .' GMT');
 header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
-   
+
+//if BOM
+//echo chr(239) . chr(187) . chr(191);
+
 foreach ($form_cols as $col)
     echo '"'. FrmProEntriesHelper::encode_value(strip_tags($col->name), $charset, $to_encoding) .'",';
         
-echo '"'. __('Timestamp', 'formidable') .'","IP","ID","Key"'."\n";
+echo '"'. __('Timestamp', 'formidable') .'","'. __('Last Updated', 'formidable') .'","IP","ID","Key"'."\n";
     
 foreach($entries as $entry){
     foreach ($form_cols as $col){
@@ -30,7 +33,7 @@ foreach($entries as $entry){
         }
           
         if ($col->type == 'user_id'){
-            $field_value = FrmProFieldsHelper::get_display_name($field_value);
+            $field_value = FrmProFieldsHelper::get_display_name($field_value, 'user_login');
         }else if ($col->type == 'file'){
             $field_value = FrmProFieldsHelper::get_file_name($field_value);
         }else if ($col->type == 'date'){
@@ -68,6 +71,11 @@ foreach($entries as $entry){
     }
     $formatted_date = date($wp_date_format, strtotime($entry->created_at));
     echo "\"{$formatted_date}\",";
+    
+    $formatted_date = date($wp_date_format, strtotime($entry->updated_at));
+    echo "\"{$formatted_date}\",";
+    unset($formatted_date);
+    
     echo "\"{$entry->ip}\",";
     echo "\"{$entry->id}\",";
     echo "\"{$entry->item_key}\"\n";

@@ -1,11 +1,11 @@
 <?php 
 	get_header(); 
 
-	//Get the filter term
+	//Get the filter term from the query
 	$education_requirement = "";
 	$education_requirement = get_query_var('education_requirement');
-	
 
+	//Grab the education requirement term id
 	$education_requirement_obj = "";
 	$education_requirement_obj = get_term_by('slug', $education_requirement, 'nsm_job_education_requirement');
 	if ($education_requirement_obj != "") : 
@@ -18,84 +18,34 @@
             <h1><?php the_title() ?></h1>
             <br />
             <?php
-				while (have_posts()) : the_post() ;
-					the_content();
-				endwhile;
-			?>
-			<?php
-				$high_school_active = "";
-				$associate_active = "";
-				$bachelor_active  = "";
-				$all_jobs_active = "";
-        		switch ($education_requirement) : 
-        			case 'high-school' : $high_school_active = "active" ; break;
-        			case 'associate' : $associate_active = "active" ; break;
-        			case 'bachelor' : $bachelor_active = "active" ; break;
-        			default: $all_jobs_active = "active" ; break;
-        		endswitch ;
+            	//Display the page content entered within WordPress for the 'Jobs' page
+				while (have_posts()) : the_post() ; the_content(); endwhile;
 			?>
 			<figure class="back-to-top"><div></div></figure>
             <div class="filter-options">
 	            <div class="title">View by education requirement:</div>
-	            <div class="button gray inline padded rounded <?php echo $all_jobs_active ?>">
-	            	<?php
-                        $all_jobs = get_posts(array(
-                            'numberposts' => -1,
-                            'post_type' => 'nsm_job',
-                        ));
-                    ?>
+	            <div class="button gray inline padded rounded <?php echo $education_requirement == '' ? 'active' : '' ?>">
+	            	<?php $all_jobs = get_posts(array('numberposts' => -1,'post_type' => 'nsm_job',)); ?>
 	            	<a href="<?php echo get_permalink($post->ID) ?>" title="All Jobs">All (<?php echo count($all_jobs) ?>)</a>
 	            </div>
-	            <div class="button gray inline padded rounded <?php echo $high_school_active ?>">
-	            	<?php
-                        $hs_jobs = get_posts(array(
-                            'numberposts' => -1,
-                            'post_type' => 'nsm_job',
-                            'tax_query' => array(array(
-								'taxonomy' => 'nsm_job_education_requirement',
-								'field' => 'slug',
-								'terms' => 'high-school'
-							))
-                        ));
-                    ?>
-	            	<a href="<?php echo get_permalink($post->ID) ?>high-school" title="High School Only Jobs">High School Diploma (<?php echo count($hs_jobs) ?>)</a>
-	            </div>
-	        	<div class="button gray inline padded rounded <?php echo $associate_active ?>">
-	        		<?php
-                        $associate_jobs = get_posts(array(
-                            'numberposts' => -1,
-                            'post_type' => 'nsm_job',
-                            'tax_query' => array(array(
-								'taxonomy' => 'nsm_job_education_requirement',
-								'field' => 'slug',
-								'terms' => 'associate'
-							))
-                        ));
-                    ?>
-	        		<a href="<?php echo get_permalink($post->ID) ?>associate" title="Associate Degree Only Jobs">Associate Degree (<?php echo count($associate_jobs) ?>)</a>
-	        	</div>
-	        	<div class="button gray inline padded rounded <?php echo $bachelor_active ?>">
-	        		<?php
-                        $bachelor_jobs = get_posts(array(
-                            'numberposts' => -1,
-                            'post_type' => 'nsm_job',
-                            'tax_query' => array(array(
-								'taxonomy' => 'nsm_job_education_requirement',
-								'field' => 'slug',
-								'terms' => 'bachelor'
-							))
-                        ));
-                    ?>
-	        		<a href="<?php echo get_permalink($post->ID) ?>bachelor" title="Bachelor Degree Only Programs">Bachelor Degree (<?php echo count($bachelor_jobs) ?>)</a>
-	        	</div>
+
+	            <?php
+	            	//Display the taxonomy terms as a button list / links for filtering the query
+	            	$terms = get_terms('nsm_job_education_requirement');
+	            	foreach($terms as $term) : 
+	            ?>
+	            	<div class="button gray inline padded rounded <?php echo $education_requirement == $term->slug ? 'active' : '' ?>">
+		            	<a href="<?php echo get_permalink($post->ID) . $term->slug ?>" title="<?php echo $term->name ?> Only Jobs"><?php echo $term->name ?> (<?php echo $term->count ?>)</a>
+		            </div>
+	            <?php endforeach ?>
         	</div>
             <table cellpadding="0" cellspacing="0" border="0" class="tablesorter jobs">
             	<thead>
                 	<tr>
                     	<th><strong>EDUCATION REQUIREMENT</strong><div class="sort-direction"></div></th>
                     	<th><strong>JOB NAME</strong></th>
-                    	<th><strong>Number of Jobs in 2008</strong></th>
-						<th><strong>Number of Jobs in 2018</strong></th>
+                    	<th><strong>Number of Jobs in 2010</strong></th>
+						<th><strong>Number of Jobs in 2020</strong></th>
 	                    <th><strong>Yearly Job Growth Rate</strong></th>
 	                    <th><strong>Annual Openings</strong></th>
 	                    <th><strong>Entry Wage</strong></th>
@@ -131,8 +81,8 @@
 					   	<tr>
 					   		<td><?php echo $education_level->name ?></td>
 					   		<td><a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a></td>
-					   		<td><?php echo get_post_meta($post->ID, '_nsm_job_employment_2008', true) ?></td>
-							<td><?php echo get_post_meta($post->ID, '_nsm_job_employment_2018', true) ?></td>
+					   		<td><?php echo get_post_meta($post->ID, '_nsm_job_base_employment', true) ?></td>
+							<td><?php echo get_post_meta($post->ID, '_nsm_job_projected_employment', true) ?></td>
 		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_growth_rate', true) ?></td>
 		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_annual_openings', true) ?></td>
 		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_entry_wage', true) ?></td>

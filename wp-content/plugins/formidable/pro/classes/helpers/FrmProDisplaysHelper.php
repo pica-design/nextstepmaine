@@ -12,21 +12,29 @@ class FrmProDisplaysHelper{
         return $values;
     }
     
-    function setup_edit_vars($record){
-        if(!$record) return false;
+    function setup_edit_vars($post, $check_post=true){
+        if(!$post) return false;
+
+        $values = (object)$post;
         
-        $values = array();
-        $values['id'] = $record->id;
-        
-        foreach (array('name', 'description', 'display_key', 'form_id', 'entry_id', 'post_id', 'content', 'dyncontent', 'param', 'type', 'show_count', 'insert_loc') as $var)
-              $values[$var] = stripslashes(FrmAppHelper::get_param($var, $record->$var));
-        
-        $options = maybe_unserialize($record->options);
-        foreach (FrmProDisplaysHelper::get_default_opts() as $var => $default){
-            if(!isset($values[$var]))
-                $values[$var] = stripslashes_deep(FrmAppHelper::get_post_param('options['.$var.']', (isset($options[$var])) ? $options[$var] : $default));
+        foreach (array('form_id', 'entry_id', 'post_id', 'dyncontent', 'param', 'type', 'show_count', 'insert_loc') as $var){
+            if($check_post)
+                $values->{'frm_'. $var} = stripslashes(FrmAppHelper::get_param($var, get_post_meta($post->ID, 'frm_'. $var, true)));
+            else
+                $values->{'frm_'. $var} = get_post_meta($post->ID, 'frm_'. $var, true);
         }
         
+        $options = get_post_meta($post->ID, 'frm_options', true);
+        foreach (FrmProDisplaysHelper::get_default_opts() as $var => $default){
+            if(!isset($values->{'frm_'. $var})){
+                if($check_post){
+                    $values->{'frm_'. $var} = stripslashes_deep(FrmAppHelper::get_post_param('options['. $var .']', (isset($options[$var])) ? $options[$var] : $default));
+                }else{
+                    $values->{'frm_'. $var} = (isset($options[$var])) ? $options[$var] : $default;
+                }
+            }
+        }
+
         return $values;
     }
     
@@ -36,7 +44,7 @@ class FrmProDisplaysHelper{
             'name' => '', 'description' => '', 'display_key' => '', 
             'form_id' => '', 'date_field_id' => '', 'edate_field_id' => '', 'entry_id' => '', 
             'post_id' => '', 'before_content' => '', 'content' => '', 
-            'after_content' => '', 'dyncontent' => '', 'param' => '', 
+            'after_content' => '', 'dyncontent' => '', 'param' => 'entry', 
             'type' => '', 'show_count' => 'all', 'insert_loc' => 'none', 
             'insert_pos' => 1,
             'order_by' => '', 'order' => '', 'limit' => '', 'page_size' => '', 
@@ -62,7 +70,7 @@ class FrmProDisplaysHelper{
             }
         }*/
         
-        $fields = $frm_field->getAll("fi.type not in ('divider','captcha','break','html') and fi.form_id in (".implode(',',$form_ids) .')');
+        $fields = $frm_field->getAll("fi.type not in ('divider','captcha','break','html') and fi.form_id in (".implode(',', $form_ids) .')');
         
         $tagregexp = 'editlink|deletelink|detaillink|id|post-id|post_id|key|ip|created-at|updated-at|evenodd|get|siteurl|sitename';
         foreach ($fields as $field)
@@ -72,5 +80,6 @@ class FrmProDisplaysHelper{
 
         return $matches;
     }
+
 }
 ?>

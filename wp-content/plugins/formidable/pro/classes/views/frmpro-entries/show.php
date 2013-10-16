@@ -5,7 +5,6 @@
     <div class="form-wrap">
         <div class="frm_forms">
 
-        <?php require(FRM_VIEWS_PATH.'/shared/nav.php'); ?>
         <?php FrmAppController::get_form_nav($entry->form_id, true); 
         
         if(version_compare( $GLOBALS['wp_version'], '3.3.3', '<')){ ?>

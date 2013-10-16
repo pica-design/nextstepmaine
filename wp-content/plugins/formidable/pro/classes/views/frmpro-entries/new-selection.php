@@ -1,8 +1,6 @@
 <div class="wrap">
     <div id="icon-edit-pages" class="icon32"><br/></div>
     <h2><?php _e('Add New Entry', 'formidable') ?></h2>
-    
-    <?php require(FRM_VIEWS_PATH.'/shared/nav.php'); ?>
 
     <div id="menu-management" class="clear nav-menus-php" style="margin-top:30px;">
         <div class="menu-edit" style="width:300px;">

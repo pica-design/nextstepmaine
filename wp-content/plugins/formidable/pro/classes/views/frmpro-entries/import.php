@@ -3,8 +3,6 @@
     <h2><?php _e('Import Entries', 'formidable') ?></h2>
     
     <?php include(FRM_VIEWS_PATH.'/shared/errors.php'); ?>
-    <?php require(FRM_VIEWS_PATH.'/shared/nav.php'); ?>
-    <br/>
     
     <?php if($step == 'import'){ ?>
         

@@ -20,7 +20,7 @@ class FrmAppHelper{
             }
         }
 
-        return $value;
+        return stripslashes_deep($value);
     }
     
     function get_post_param($param, $default=''){
@@ -107,7 +107,7 @@ class FrmAppHelper{
         //    $current = (isset($current['value'])) ? $current['value'] : $current['label'];
         
         if(is_array($values))
-            $values = array_map('trim', $values);
+            $values = array_map(array('FrmAppHelper', 'recursive_trim'), $values);
         else
             $values = trim($values);
         $current = trim($current);
@@ -125,6 +125,15 @@ class FrmAppHelper{
             return true;
         else
             return false;
+    }
+    
+    function recursive_trim(&$value) {
+        if (is_array($value))
+            $value = array_map(array('FrmAppHelper', 'recursive_trim'), $value);
+        else
+            $value = trim($value);
+            
+        return $value;
     }
     
     function esc_textarea( $text ) {
@@ -262,7 +271,7 @@ class FrmAppHelper{
                 foreach ($opt_defaults as $opt => $default_opt){
                     $field_array[$opt] = ($_POST and isset($_POST['field_options'][$opt.'_'.$field->id]) ) ? $_POST['field_options'][$opt.'_'.$field->id] : (isset($field->field_options[$opt]) ? $field->field_options[$opt] : $default_opt);
                     if($opt == 'blank' and $field_array[$opt] == ''){
-                        $field_array[$opt] = __('This field cannot be blank', 'formidable');
+                        $field_array[$opt] = $frm_settings->blank_msg;
                     }else if($opt == 'invalid' and $field_array[$opt] == ''){
                         if($field_type == 'captcha')
                             $field_array[$opt] = $frm_settings->re_msg;
@@ -291,20 +300,36 @@ class FrmAppHelper{
 
         if ($form){
             $form->options = maybe_unserialize($form->options);
-            $values['form_name'] = (isset($record->form_id))?($form->name):('');
+            $values['form_name'] = (isset($record->form_id)) ? $form->name : '';
             if (is_array($form->options)){
-                foreach ($form->options as $opt => $value)
+                foreach ($form->options as $opt => $value){
+                    if(in_array($opt, array('email_to', 'reply_to', 'reply_to_name')))
+                        $values['notification'][0][$opt] = FrmAppHelper::get_param('notification[0]['. $opt .']', $value);
+                    
                     $values[$opt] = FrmAppHelper::get_param($opt, $value);
+                }
             }
         }
         
         $form_defaults = FrmFormsHelper::get_default_opts();
-        $form_defaults['email_to'] = ''; //allow blank email address
         
         //set to posted value or default
         foreach ($form_defaults as $opt => $default){
-            if (!isset($values[$opt]) or $values[$opt] == '')
-                $values[$opt] = ($_POST and isset($_POST['options'][$opt])) ? $_POST['options'][$opt] : $default;
+            if (!isset($values[$opt]) or $values[$opt] == ''){
+                if($opt == 'notification'){
+                    $values[$opt] = ($_POST and isset($_POST[$opt])) ? $_POST[$opt] : $default;
+                    
+                    foreach($default as $o => $d){
+                        if($o == 'email_to')
+                            $d = ''; //allow blank email address
+                        $values[$opt][0][$o] = ($_POST and isset($_POST[$opt][0][$o])) ? $_POST[$opt][0][$o] : $d;
+                        unset($o);
+                        unset($d);
+                    }
+                }else{
+                    $values[$opt] = ($_POST and isset($_POST['options'][$opt])) ? $_POST['options'][$opt] : $default;
+                }
+            }
             unset($opt);
             unset($defaut);
         }
@@ -316,7 +341,7 @@ class FrmAppHelper{
             $values['before_html'] = (isset($_POST['options']['before_html']) ? $_POST['options']['before_html'] : FrmFormsHelper::get_default_html('before'));
 
         if (!isset($values['after_html']))
-            $values['after_html'] = (isset($_POST['options']['after_html'])?$_POST['options']['after_html'] : FrmFormsHelper::get_default_html('after'));
+            $values['after_html'] = (isset($_POST['options']['after_html']) ? $_POST['options']['after_html'] : FrmFormsHelper::get_default_html('after'));
 
         if ($table == 'entries')
             $values = FrmEntriesHelper::setup_edit_vars( $values, $record );
@@ -324,6 +349,22 @@ class FrmAppHelper{
             $values = FrmFormsHelper::setup_edit_vars( $values, $record );
 
         return $values;
+    }
+    
+    function insert_opt_html($args){ 
+        extract($args);
+        
+        $class = '';
+        
+        if(in_array($type, array('email', 'user_id', 'hidden', 'select', 'radio', 'checkbox')))
+            $class .= 'show_frm_not_email_to';
+    ?>
+<li>
+    <a class="frmids alignright <?php echo $class ?>" onclick="frmInsertFieldCode(jQuery(this),'<?php echo $id ?>');return false;" href="#">[<?php echo $id ?>]</a>
+    <a class="frmkeys alignright <?php echo $class ?>" onclick="frmInsertFieldCode(jQuery(this),'<?php echo $key ?>');return false;" href="#">[<?php echo FrmAppHelper::truncate($key, 10) ?>]</a>
+    <a class="<?php echo $class ?>" onclick="frmInsertFieldCode(jQuery(this),'<?php echo $id ?>');return false;" href="#"><?php echo FrmAppHelper::truncate($name, 60) ?></a>
+</li>
+    <?php
     }
     
     function get_us_states(){
@@ -426,10 +467,12 @@ class FrmAppHelper{
         
         if($frmpro_is_installed)
             return $message;
-            
+           
+        global $frm_update;
+         
         include_once(ABSPATH.'/wp-includes/class-IXR.php');
 
-        $url = ($frmpro_is_installed) ? 'http://formidablepro.com/' : 'http://blog.strategy11.com/';
+        $url = ($frmpro_is_installed or $frm_update->pro_is_authorized()) ? 'http://formidablepro.com/' : 'http://blog.strategy11.com/';
         $client = new IXR_Client($url.'xmlrpc.php', false, 80, 5);
         
         if ($client->query('frm.get_main_message'))
@@ -441,25 +484,33 @@ class FrmAppHelper{
     function truncate($str, $length, $minword = 3, $continue = '...'){
         $length = (int)$length;
         $str = stripslashes(strip_tags($str));
+        $original_len = (function_exists('mb_strlen')) ? mb_strlen($str) : strlen($str);
         
-        if($length == 0)
+        if($length == 0){
             return '';
-        else if($length <= 10)
-            return substr($str, 0, $length);
+        }else if($length <= 10){
+            $sub = (function_exists('mb_substr')) ? mb_substr($str, 0, $length) : substr($str, 0, $length);
+            return $sub . (($length < $original_len) ? $continue : '');
+        }
             
         $sub = '';
         $len = 0;
 
-        foreach (explode(' ', $str) as $word){
+        $words = (function_exists('mb_split')) ? mb_split(' ', $str) : explode(' ', $str);
+            
+        foreach ($words as $word){
             $part = (($sub != '') ? ' ' : '') . $word;
             $sub .= $part;
-            $len += strlen($part);
-
-            if (strlen($word) > $minword && strlen($sub) >= $length)
+            $len += (function_exists('mb_strlen')) ? mb_strlen($part) : strlen($part);
+            $total_len = (function_exists('mb_strlen')) ? mb_strlen($sub) : strlen($sub);
+            
+            if (str_word_count($sub) > $minword && $total_len >= $length)
                 break;
+            
+            unset($total_len);
         }
-
-        return $sub . (($len < strlen($str)) ? $continue : '');
+        
+        return $sub . (($len < $original_len) ? $continue : '');
     }
     
     function prepend_and_or_where( $starts_with = ' WHERE ', $where = '' ){

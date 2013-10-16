@@ -118,7 +118,7 @@
             <div class="frm_form_field form-field frm_blank_field <?php echo $pos_class ?>">
             <label class="frm_primary_label"><?php _e('Text field with error', 'formidable') ?> <span class="frm_required">*</span></label>   
             <input type="text" value="<?php _e('This is sample text', 'formidable') ?>"/>
-            <div class="frm_error"><?php _e('This field cannot be blank', 'formidable') ?></div>
+            <div class="frm_error"><?php echo $frm_settings->blank_msg ?></div>
             </div>
             
             <div class="frm_form_field form-field <?php echo $pos_class ?>">

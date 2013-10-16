@@ -41,7 +41,7 @@ global $frmpro_settings; ?>
             <option value=""></option>
             <?php
                 if ($field['options']){ 
-                foreach ($field['options'] as $opt_key => $opt){ 
+                foreach (stripslashes_deep($field['options']) as $opt_key => $opt){ 
                     $selected = ($field['default_value'] == $opt_key)?(' selected="selected"'):(''); ?>
                     <option value="<?php echo $opt_key ?>"<?php echo $selected ?>><?php echo $opt ?></option>
             <?php }
@@ -73,7 +73,7 @@ global $frmpro_settings; ?>
     _e('This data is dynamic on change', 'formidable');
         } 
     }else if ($field['type'] == 'file'){ ?>
-    <input type="file" name="<?php echo $field_name ?>" <?php echo (isset($field['size']) and $field['size']) ? 'style="width:auto" size="'.$field['size'] .'"' : ''; ?> />
+    <input type="file" name="<?php echo $field_name ?>" <?php echo (isset($field['size']) and $field['size']) ? 'style="width:auto" size="'. $field['size'] .'"' : ''; ?> />
 <?php }else if($field['type'] == 'form'){
     echo "FORM";
 } ?>

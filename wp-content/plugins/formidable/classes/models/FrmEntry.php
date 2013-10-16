@@ -7,6 +7,8 @@ class FrmEntry{
         $new_values = array();
         $new_values['item_key'] = FrmAppHelper::get_unique_key($values['item_key'], $frmdb->entries, 'item_key');
         $new_values['name'] = isset($values['name']) ? $values['name'] : $values['item_key'];
+        if(is_array($new_values['name']))
+            $new_values['name'] = reset($new_values['name']);
         $new_values['ip'] = $_SERVER['REMOTE_ADDR'];
         
         if(isset($values['description']) and !empty($values['description'])){
@@ -96,7 +98,7 @@ class FrmEntry{
         $new_values['name'] = $values->name;
         $new_values['user_id'] = $new_values['updated_by'] = $values->user_id;
         $new_values['form_id'] = ($values->form_id)?(int)$values->form_id: null;
-        $new_values['created_at'] = current_time('mysql', 1);
+        $new_values['created_at'] = $new_values['updated_at'] = current_time('mysql', 1);
 
         $query_results = $wpdb->insert( $frmdb->entries, $new_values );
         if($query_results){
@@ -311,7 +313,7 @@ class FrmEntry{
     }
 
     function validate( $values, $exclude=false ){
-        global $wpdb, $frmdb, $frm_field, $frm_entry_meta;
+        global $wpdb, $frmdb, $frm_field, $frm_entry_meta, $frm_settings;
 
         $errors = array();
         if(!isset($values['form_id']) or !isset($values['item_meta'])){
@@ -335,13 +337,16 @@ class FrmEntry{
                 $value = $values['item_meta'][$posted_field->id];
                 
             if (isset($posted_field->field_options['default_blank']) and $posted_field->field_options['default_blank'] and $value == $posted_field->default_value)
-                $_POST['item_meta'][$posted_field->id] = $value = '';            
+                $_POST['item_meta'][$posted_field->id] = $value = '';
+            
+            if(is_array($value) and count($value) === 1)
+                $_POST['item_meta'][$posted_field->id] = $value = reset($value); 
                   
-            if($posted_field->type == 'rte' and (trim($value) == '<br>'))
+            if($posted_field->type == 'rte' and !is_array($value) and (trim($value) == '<br>'))
                 $value = '';
             
             if ($posted_field->required == '1' and !is_array($value) and trim($value) == ''){
-                $errors['field'.$posted_field->id] = (!isset($posted_field->field_options['blank']) or $posted_field->field_options['blank'] == '' or $posted_field->field_options['blank'] == 'Untitled cannot be blank') ? (__('This field cannot be blank', 'formidable')) : $posted_field->field_options['blank'];  
+                $errors['field'.$posted_field->id] = (!isset($posted_field->field_options['blank']) or $posted_field->field_options['blank'] == '' or $posted_field->field_options['blank'] == 'Untitled cannot be blank') ? $frm_settings->blank_msg : $posted_field->field_options['blank'];  
             }else if ($posted_field->type == 'text' and !isset($_POST['name'])){
                 $_POST['name'] = $value;
             }
@@ -365,9 +370,8 @@ class FrmEntry{
             }
             
             $errors = apply_filters('frm_validate_field_entry', $errors, $posted_field, $value);
+            
         }
-
-
         
         global $wpcom_api_key;
         if (isset($values['item_meta']) and !empty($values['item_meta']) and empty($errors) and function_exists( 'akismet_http_post' ) and ((get_option('wordpress_api_key') or $wpcom_api_key)) and $this->akismet($values)){
@@ -390,6 +394,8 @@ class FrmEntry{
 		foreach ( $values['item_meta'] as $val ) {
 			if ( $content != '' )
 				$content .= "\n\n";
+			if(is_array($val))
+			    $val = implode(',', $val);
 			$content .= $val;
 		}
 		

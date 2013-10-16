@@ -4,7 +4,6 @@ class FrmProEntriesController{
     
     function FrmProEntriesController(){
         add_action('admin_menu', array( &$this, 'menu' ), 20);
-        add_filter('frm_nav_array', array( &$this, 'frm_nav'), 1);
         add_action('admin_init', array(&$this, 'admin_js'), 1);
         add_action('init', array(&$this, 'register_scripts'));
         add_action('wp_enqueue_scripts', array(&$this, 'add_js'));
@@ -21,6 +20,7 @@ class FrmProEntriesController{
         add_filter('frm_success_filter', array(&$this, 'get_confirmation_method'), 10, 2);
         add_action('frm_success_action', array(&$this, 'confirmation'), 10, 4);
         add_action('deleted_post', array(&$this, 'delete_entry'));
+        add_action('untrashed_post', array(&$this, 'untrashed_post'));
         add_action('add_meta_boxes', array( &$this, 'create_entry_from_post_box'), 10, 2);
         add_action('wp_ajax_frm_create_post_entry', array( &$this, 'create_post_entry'));
         
@@ -34,6 +34,8 @@ class FrmProEntriesController{
         add_shortcode('frm-entry-edit-link', array(&$this, 'entry_edit_link'));
         add_shortcode('frm-entry-update-field', array(&$this, 'entry_update_field'));
         add_shortcode('frm-entry-delete-link', array(&$this, 'entry_delete_link'));
+        add_shortcode('frm-field-value', array(&$this, 'get_field_value_shortcode'));
+        add_shortcode('frm-show-entry', array(&$this, 'show_entry_shortcode'));
     }
     
     function menu(){
@@ -55,14 +57,6 @@ class FrmProEntriesController{
         }
         //add_filter( 'bulk_actions-' . sanitize_title($frm_settings->menu) .'_page_formidable-entries', array(&$this, 'bulk_action_options'));
         add_action('admin_head-'. sanitize_title($frm_settings->menu) .'_page_formidable-entries', array(&$this, 'head'));
-    }
-    
-    function frm_nav($nav){
-        if(current_user_can('frm_view_entries'))
-            $nav['formidable-entries'] = __('Entries', 'formidable');
-        //if(current_user_can('frm_create_entries'))
-        //    $nav['formidable-entries&frm_action=new'] = __('Add New Entry', 'formidable');
-        return $nav;
     }
     
     function head(){
@@ -537,7 +531,7 @@ class FrmProEntriesController{
             if (empty($errors)){
                 if (isset($form->options['editable_role']) and !FrmAppHelper::user_has_permission($form->options['editable_role'])){
                     global $frm_settings;
-                    wp_die($frm_settings->login_msg);
+                    wp_die(do_shortcode($frm_settings->login_msg));
                 }
                 
                 if (!isset($_POST['frm_page_order_'. $form->id])){
@@ -760,8 +754,16 @@ class FrmProEntriesController{
         }
     }
     
-    function create_entry_from_post_box($post_type, $post){
-        if(!isset($post->ID) or $post_type == 'attachment' or $post_type == 'link')
+    function untrashed_post($post_id){
+        $display = FrmProDisplay::get_auto_custom_display(array('form_id' => $id, 'entry_id' => $entry_id));
+        if($display)
+            update_post_meta($post->ID, 'frm_display_id', $display->ID);
+        else
+            delete_post_meta($post->ID, 'frm_display_id');
+    }
+    
+    function create_entry_from_post_box($post_type, $post=false){
+        if(!$post or !isset($post->ID) or $post_type == 'attachment' or $post_type == 'link')
             return;
             
         global $frmdb, $wpdb, $frm_post_forms;
@@ -846,6 +848,10 @@ success:function(msg){jQuery('#frm_create_entry').fadeOut('slow');}
                 
                 $wpdb->insert( $frmdb->entry_metas, $new_values );
             }
+            
+            $display = FrmProDisplay::get_auto_custom_display(array('form_id' => $id, 'entry_id' => $entry_id));
+            if($display)
+                update_post_meta($post->ID, 'frm_display_id', $display->ID);
         }
         die();
     }
@@ -912,7 +918,7 @@ success:function(msg){jQuery('#frm_create_entry').fadeOut('slow');}
         
         $form_cols = $frm_field->getAll("fi.type not in ('divider', 'captcha', 'break', 'html') and fi.form_id=". $form_id, 'field_order ASC');
         foreach($form_cols as $form_col)
-            $columns[$form_id .'_'. $form_col->field_key] = stripslashes($form_col->name);
+            $columns[$form_id .'_'. $form_col->field_key] = FrmAppHelper::truncate(stripslashes($form_col->name), 35);
 
         $columns[$form_id .'_post_id'] = __('Post', 'formidable');
         $columns[$form_id .'_created_at'] = __('Entry creation date', 'formidable');
@@ -1394,11 +1400,20 @@ success:function(msg){jQuery('#frm_create_entry').fadeOut('slow');}
         $form_cols = $frm_field->getAll($where, 'field_order ASC', $cols);
         unset($where);
         
-        $where = array('it.form_id' => $form->id);
+        $where = 'it.form_id='. (int)$form->id;
         if($user_id)
-            $where['user_id'] = FrmProAppHelper::get_user_id_param($user_id);
+            $where .= ' AND user_id='. (int)FrmProAppHelper::get_user_id_param($user_id);
+            
+        $s = FrmAppHelper::get_param('frm_search', false);
+        if ($s){
+            $new_ids = FrmProEntriesHelper::get_search_ids($s, $form->id);
+            $where .= ' AND it.id in ('. implode(',', $new_ids) .')';
+        }
         
-        $entries = $frm_entry->getAll($where, '', '', true, false);
+        if(isset($new_ids) and empty($new_ids))
+            $entries = false;
+        else
+            $entries = $frm_entry->getAll($where, '', '', true, false);
         
         if($edit_link){
             $anchor = '';
@@ -1697,7 +1712,7 @@ success:function(msg){jQuery('#frm_create_entry').fadeOut('slow');}
         if(!$field_id)
             return 'no field'. $link;
         
-        $link = "<a href='javascript:frmUpdateField($entry_id,$field_id,\"$value\",\"$message\",\"". FRM_SCRIPT_URL."\")' id='frm_update_field_{$entry_id}_{$field_id}' class='frm_update_field_link $class'>$label</a>";
+        $link = '<a href="#" onclick="frmUpdateField('. $entry_id .','. $field_id .',\''. $value .'\',\''. $message .'\',\''. FRM_SCRIPT_URL.'\');return false;" id="frm_update_field_'. $entry_id .'_'. $field_id .'" class="frm_update_field_link '. $class .'">'. $label .'</a>';
         
         return $link;
     }
@@ -1744,6 +1759,117 @@ success:function(msg){jQuery('#frm_create_entry').fadeOut('slow');}
         }
             
         return $link;
+    }
+    
+    function get_field_value_shortcode($atts){
+        extract(shortcode_atts(array('entry_id' => false, 'field_id' => false, 'user_id' => false, 'ip' => false), $atts));
+        if(!$field_id  or (!$entry_id and !$user_id and !$ip))
+            return __('You are missing options in your shortcode. field_id and either user_id, entry_id, or ip are required.', 'formidable');
+            
+        global $frm_field, $wpdb, $frmdb;
+        
+        $field = $frm_field->getOne($field_id);
+        
+        $query = "SELECT post_id, id FROM $frmdb->entries WHERE form_id=$field->form_id and ";
+        if($user_id)
+            $query .= "user_id=". (int)FrmProAppHelper::get_user_id_param($user_id);
+        if($entry_id)
+            $query .= "id=". (int)$entry_id;
+        if($ip)
+            $query .= "ip='". (($ip == true) ? $_SERVER['REMOTE_ADDR'] : $ip) ."'";
+        $query .= " ORDER BY created_at DESC LIMIT 1";
+        $entry = $wpdb->get_row($query);
+        if(!$entry)
+            return;
+            
+        $atts = array();
+        $value = FrmProEntryMetaHelper::get_post_or_meta_value($entry, $field, $atts);
+        
+        $value = FrmProEntryMetaHelper::display_value($value, $field, 
+            array('type' => $field->type, 'post_id' => $entry->post_id, 'entry_id' => $entry->id)
+        );
+        
+        return $value;
+    }
+    
+    function show_entry_shortcode($atts){
+        extract(shortcode_atts(array(
+            'id' => false, 'entry' => false, 'fields' => false, 'plain_text' => false,
+            'user_info' => false, 'include_blank' => false
+        ), $atts));
+        
+        global $frmpro_settings, $frm_entry;
+        
+        if(!$entry or !is_object($entry)){
+            if(!$id)
+                return '';
+            
+            $entry = $frm_entry->getOne($id, true);
+        }
+        
+        if(!$fields or !is_array($fields)){
+            global $frm_field;
+            $fields = $frm_field->getAll(array('fi.form_id' => $entry->form_id), 'field_order');
+        }
+        
+        $content = '';
+        $odd = true;
+            
+        if(!$plain_text){
+            $content .= "<table cellspacing='0' style='font-size:12px;line-height:135%; border-bottom:{$frmpro_settings->field_border_width} solid #{$frmpro_settings->border_color};'><tbody>\r\n";
+            $bg_color = " style='background-color:#{$frmpro_settings->bg_color};'";
+            $bg_color_alt = " style='background-color:#{$frmpro_settings->bg_color_active};'";
+        }
+        
+        foreach($fields as $f){
+            if(!isset($entry->metas[$f->id])){
+                if(!$include_blank)
+                    continue;
+                    
+                $entry->metas[$f->id] = '';
+            }
+            
+            $prev_val = maybe_unserialize($entry->metas[$f->id]);
+            $meta = array('item_id' => $entry->id, 'field_id' => $f->id, 'meta_value' => $prev_val, 'field_type' => $f->type);
+            $val = apply_filters('frm_email_value', $prev_val, (object)$meta, $entry);
+
+            if($f->type == 'textarea' and !$plain_text)
+                $val = str_replace(array("\r\n", "\r", "\n"), ' <br/>', $val);
+            
+            if (is_array($val))
+                $val = implode(', ', $val);
+                
+            if($plain_text){
+                $content .= $f->name . ': ' . $val . "\r\n\r\n";
+            }else{
+                $row_style = "valign='top' style='text-align:left;color:#{$frmpro_settings->text_color};padding:7px 9px;border-top:{$frmpro_settings->field_border_width} solid #{$frmpro_settings->border_color}'";
+                $content .= "<tr".(($odd) ? $bg_color : $bg_color_alt)."><th $row_style>$f->name</th><td $row_style>$val</td></tr>\r\n";
+                $odd = ($odd) ? false : true;
+            }
+            
+            unset($f);
+        }
+        
+        if($user_info){
+            $data = maybe_unserialize($entry->description);
+            if($plain_text){
+                $content .= "\r\n\r\n" . __('User Information', 'formidable') ."\r\n";
+                $content .= __('IP Address', 'formidable') . ": ". $entry->ip ."\r\n";
+                $content .= __('User-Agent (Browser/OS)', 'formidable') . ": ". $data['browser']."\r\n";
+                $content .= __('Referrer', 'formidable') . ": ". $data['referrer']."\r\n";
+            }else{
+                $content .= "<tr".(($odd) ? $bg_color : $bg_color_alt)."><th $row_style>". __('IP Address', 'formidable') . "</th><td $row_style>". $entry->ip ."</td></tr>\r\n";
+                $odd = ($odd) ? false : true;
+                $content .= "<tr".(($odd) ? $bg_color : $bg_color_alt)."><th $row_style>".__('User-Agent (Browser/OS)', 'formidable') . "</th><td $row_style>". $data['browser']."</td></tr>\r\n";
+                $odd = ($odd) ? false : true;
+                $content .= "<tr".(($odd) ? $bg_color : $bg_color_alt)."><th $row_style>".__('Referrer', 'formidable') . "</th><td $row_style>". str_replace("\r\n", '<br/>', $data['referrer']) ."</td></tr>\r\n";
+            }
+        }
+
+        if(!$plain_text)
+            $content .= "</tbody></table>";
+        
+        return $content;
     }
     
     /* AJAX */
@@ -1802,13 +1928,13 @@ success:function(msg){jQuery('#frm_create_entry').fadeOut('slow');}
             $where['item_key'] = $entry_key;
         
         $entry = $frmdb->get_one_record( $frmdb->entries, $where, 'id, form_id' );
-        
-        if($form_id and $entry->form_id != (int)$form_id)
+
+        if($form_id and $entry and $entry->form_id != (int)$form_id)
             return;
-        
+            
         $entry_id = $entry->id;
         
-        apply_filters('frm_allow_delete', $entry_id, $entry_key, $form_id);
+        $entry_id = apply_filters('frm_allow_delete', $entry_id, $entry_key, $form_id);
 
         if(!$entry_id){
             $message = __('There was an error deleting that entry', 'formidable');
@@ -1919,14 +2045,15 @@ $('#frm_form_". $id ."_container .frm-show-form').submit(function(e){e.preventDe
     }
     
     function send_email($entry_id, $form_id, $type){
-        if(current_user_can('frm_view_forms') or current_user_can('frm_edit_forms')){
+        if(current_user_can('frm_view_forms') or current_user_can('frm_edit_forms') or current_user_can('frm_edit_entries')){
+            global $frmpro_notification;
             if($type=='autoresponder')
-                $sent_to = FrmProNotification::autoresponder($entry_id, $form_id);
+                $sent_to = $frmpro_notification->autoresponder($entry_id, $form_id);
             else
-                $sent_to = FrmProNotification::entry_created($entry_id, $form_id);
+                $sent_to = $frmpro_notification->entry_created($entry_id, $form_id);
             
             if(is_array($sent_to))
-                echo implode(',', $sent_to);
+                echo implode(', ', $sent_to);
             else
                 echo $sent_to;
         }else{

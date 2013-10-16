@@ -38,31 +38,55 @@ class FrmProEntryMeta{
 
         foreach ($fields as $field){
             $field->field_options = maybe_unserialize($field->field_options);
-            if( isset($_FILES['file'.$field->id]) and !empty($_FILES['file'.$field->id]['name']) and (int)$_FILES['file'.$field->id]['size'] > 0){
+            if( isset($_FILES['file'. $field->id]) and !empty($_FILES['file'. $field->id]['name']) and (int)$_FILES['file'. $field->id]['size'] > 0){
                     
                 if(!$frm_loading)
                     $frm_loading = true;
                 
-                $media_id = FrmProAppHelper::upload_file('file'.$field->id);
+                $media_ids = FrmProAppHelper::upload_file('file'. $field->id);
+                $mids = array();
                 
-                if (is_numeric($media_id)){
+                foreach((array)$media_ids as $media_id){
+                    if (is_numeric($media_id)){
+                       $mids[] = $media_id;
+                    }else{
+                        foreach ($media_id->errors as $error){
+                            if(!is_array($error[0]))
+                                echo $error[0];
+                            unset($error);
+                        }
+                    }
+                    
+                    unset($media_id);
+                }
+                
+                if(!empty($mids)){
                     $frm_entry_meta->delete_entry_meta($entry->id, $field->id);
                     //TODO: delete media?
-                    $frm_entry_meta->update_entry_meta($entry->id, $field->id, $field->field_key, $media_id);
                     
-                    if($_POST['item_meta'][$field->id] != $media_id)
-                        $frm_detached_media[] = $_POST['item_meta'][$field->id];
-                    
-                    $_POST['item_meta'][$field->id] = $media_id;
-                    if(isset($_POST['frm_wp_post']) and isset($field->field_options['post_field']) and $field->field_options['post_field']){
-                        global $frm_media_id;
-                        $frm_media_id[$field->id] = $media_id;
-                        $_POST['frm_wp_post_custom'][$field->id.'='.$field->field_options['custom_field']] = $media_id;
+                    if(isset($field->field_options['multiple']) and $field->field_options['multiple']){
+                        if(isset($_POST['item_meta'][$field->id]))
+                            $mids = array_merge((array)$_POST['item_meta'][$field->id], $mids);
+                        
+                        $frm_entry_meta->update_entry_meta($entry->id, $field->id, $field->field_key, serialize($mids));
+                    }else{
+                        $mids = reset($mids);
+                        $frm_entry_meta->update_entry_meta($entry->id, $field->id, $field->field_key, $mids);
+                        
+                        if(isset($_POST['item_meta'][$field->id]) and count($_POST['item_meta'][$field->id]) == 1 and $_POST['item_meta'][$field->id] != $mids)
+                            $frm_detached_media[] = $_POST['item_meta'][$field->id];
+
                     }
-                }else{
-                    foreach ($media_id->errors as $error)
-                        echo $error[0];
+                    
+                    $_POST['item_meta'][$field->id] = $mids;
+                    global $frm_media_id;
+                    $frm_media_id[$field->id] = $mids;
+                    
+                    if(isset($_POST['frm_wp_post']) and isset($field->field_options['post_field']) and $field->field_options['post_field'])
+                        $_POST['frm_wp_post_custom'][$field->id .'='. $field->field_options['custom_field']] = $mids;
+
                 }
+                
             }
 
             if($field->type == 'tag'){
@@ -101,16 +125,16 @@ class FrmProEntryMeta{
     }
 
     function validate($errors, $field, $value){
-        global $frm_field, $frm_show_fields;
+        global $frm_field, $frm_show_fields, $frm_settings;
         $field->field_options = maybe_unserialize($field->field_options);
         
         if((($field->type != 'tag' and $value == 0) or ($field->type == 'tag' and $value == '')) and isset($field->field_options['post_field']) and $field->field_options['post_field'] == 'post_category' and $field->required == '1'){
-            $errors['field'. $field->id] = (!isset($field->field_options['blank']) or $field->field_options['blank'] == '' or $field->field_options['blank'] == 'Untitled cannot be blank') ? (__('This field cannot be blank', 'formidable')) : $field->field_options['blank']; 
+            $errors['field'. $field->id] = (!isset($field->field_options['blank']) or $field->field_options['blank'] == '' or $field->field_options['blank'] == 'Untitled cannot be blank') ? $frm_settings->blank_msg : $field->field_options['blank']; 
         }
         
         //Don't require fields hidden with shortcode fields="25,26,27"
         if(!empty($frm_show_fields) and is_array($frm_show_fields) and $field->required == '1' and isset($errors['field'.$field->id]) and !in_array($field->id, $frm_show_fields) and !in_array($field->field_key, $frm_show_fields)){
-            unset($errors['field'.$field->id]);
+            unset($errors['field'. $field->id]);
         }
         
         //Don't require a conditionally hidden field
@@ -154,39 +178,71 @@ class FrmProEntryMeta{
         $errors = $this->set_post_fields($field, $value, $errors);
         
         //if the field is a file upload, check for a file
-        if($field->type == 'file' and isset($_FILES['file'.$field->id]) and !empty($_FILES['file'.$field->id]['name'])){
-            unset($errors['field'.$field->id]);
+        if($field->type == 'file' and isset($_FILES['file'. $field->id]) and !empty($_FILES['file'. $field->id]['name'])){
+            unset($errors['field'. $field->id]);
             if(isset($field->field_options['restrict']) and $field->field_options['restrict'] and isset($field->field_options['ftypes']) and !empty($field->field_options['ftypes'])){
                 $mimes = $field->field_options['ftypes'];
             }else{
                 $mimes = null;
             }
+            
             //check allowed mime types for this field
-            $file_type = wp_check_filetype( $_FILES['file'.$field->id]['name'], $mimes ); 
+            if(is_array($_FILES['file'. $field->id]['name'])){
+                foreach($_FILES['file'. $field->id]['name'] as $name){
+                    if(empty($name))
+                        continue;
+                        
+                    $file_type = wp_check_filetype( $name, $mimes );
+                    unset($name);
+                    
+                    if(!$file_type['ext'])
+                        break;
+                }
+            }else{
+                $file_type = wp_check_filetype( $_FILES['file'. $field->id]['name'], $mimes );
+            } 
 
-            if(!$file_type['ext'])
-                $errors['field'.$field->id] = ($field->field_options['invalid'] == __('This field is invalid', 'formidable') or $field->field_options['invalid'] == '' or $field->field_options['invalid'] == $field->name.' '. __('is invalid', 'formidable')) ? __('Sorry, this file type is not permitted for security reasons.', 'formidable') : $field->field_options['invalid'];
+            if(isset($file_type) and !$file_type['ext'])
+                $errors['field'. $field->id] = ($field->field_options['invalid'] == __('This field is invalid', 'formidable') or $field->field_options['invalid'] == '' or $field->field_options['invalid'] == $field->name.' '. __('is invalid', 'formidable')) ? __('Sorry, this file type is not permitted for security reasons.', 'formidable') : $field->field_options['invalid'];
+            
+            unset($file_type);
         }else if($field->type == 'user_id'){
             //add user id to post variables to be saved with entry
             $_POST['frm_user_id'] = $value;
         }
+        
+        if($field->type == 'website' or $field->type == 'url' or $field->type == 'image'){
+            if(trim($value) == 'http://'){
+                $_POST['item_meta'][$field->id] = $value = '';
+            }else{    
+                $value = esc_url_raw( $value );
+		        $_POST['item_meta'][$field->id] = $value = preg_match('/^(https?|ftps?|mailto|news|irc|gopher|nntp|feed|telnet):/is', $value) ? $value : 'http://'. $value;
+	        }
+		}
 
         //Don't validate the format if field is blank
         if ($value == '' or is_array($value)) return $errors;
         
         $value = trim($value);
+		
         //validate the format
         if (($field->type == 'number' and !is_numeric($value)) or 
             ($field->type == 'email' and !is_email($value)) or 
-            (($field->type == 'website' or $field->type == 'url' or $field->type == 'image') and !preg_match('/^http.?:\/\/.*\..*$/', $value)) or 
+            (($field->type == 'website' or $field->type == 'url' or $field->type == 'image') and !preg_match('/^http(s)?:\/\//i', $value)) or 
             ($field->type == 'phone' and !preg_match('/^((\+\d{1,3}(-|.| )?\(?\d\)?(-| |.)?\d{1,5})|(\(?\d{2,6}\)?))(-|.| )?(\d{3,4})(-|.| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/', $value))){
             $errors['field'.$field->id] = ($field->field_options['invalid'] == __('This field is invalid', 'formidable') || $field->field_options['invalid'] == '')?($field->name.' '. __('is invalid', 'formidable')) : $field->field_options['invalid'];
         }
         
         if($field->type == 'date'){ 
-            if(!preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)){ 
+            if(!preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)){
                 global $frmpro_settings;
-                $value = FrmProAppHelper::convert_date($value, $frmpro_settings->date_format, 'Y-m-d');
+                $formated_date = FrmProAppHelper::convert_date($value, $frmpro_settings->date_format, 'Y-m-d');
+                //check format before converting
+                if($value != date($frmpro_settings->date_format, strtotime($formated_date)))
+                    $errors['field'.$field->id] = ($field->field_options['invalid'] == __('This field is invalid', 'formidable') || $field->field_options['invalid'] == '') ? ($field->name.' '. __('is invalid', 'formidable')) : $field->field_options['invalid'];
+                
+                $value = $formated_date;
+                unset($formated_date);
             }
             $date = explode('-', $value);
 
@@ -197,7 +253,7 @@ class FrmProEntryMeta{
         return $errors;
     }
     
-    function set_post_fields($field, $value, $errors=false){
+    function set_post_fields($field, $value, $errors=null){
         $field->field_options = maybe_unserialize($field->field_options);
         
         if(isset($field->field_options['post_field']) and $field->field_options['post_field'] != ''){
@@ -211,8 +267,8 @@ class FrmProEntryMeta{
                     $post_id = $frmdb->get_var($frmdb->entries, array('id' => $entry_id), 'post_id');
                 else
                     $post_id = false;
-                    
-                if($errors and $this->post_value_exists($field->field_options['post_field'], $value, $post_id, $field->field_options['custom_field'])){
+                      
+                if(isset($errors) and $this->post_value_exists($field->field_options['post_field'], $value, $post_id, $field->field_options['custom_field'])){
                     $errors['field'.$field->id] = $field->name.' '. __('must be unique', 'formidable');
                 }
                     
@@ -220,13 +276,14 @@ class FrmProEntryMeta{
                 unset($post_id);
             }
             
+            if($field->type == 'file'){
+                global $frm_media_id;
+                $frm_media_id[$field->id] = $value;
+            }
+            
             if($field->field_options['post_field'] == 'post_custom'){
-                if ($field->type == 'date' and !preg_match('/^\d{4}-\d{2}-\d{2}/', trim($value))){
+                if ($field->type == 'date' and !preg_match('/^\d{4}-\d{2}-\d{2}/', trim($value)))
                     $value = FrmProAppHelper::convert_date($value, $frmpro_settings->date_format, 'Y-m-d');
-                }else if($field->type == 'file'){
-                    global $frm_media_id;
-                    $frm_media_id[$field->id] = $value;
-                }
                     
                 $_POST['frm_wp_post_custom'][$field->id.'='.$field->field_options['custom_field']] = $value;
                 
@@ -263,13 +320,18 @@ class FrmProEntryMeta{
                     
                 }else if($field->type == 'tag' and $field->field_options['post_field'] == 'post_category'){
                     //$tags = explode(',', $value);
+                    $value = trim($value);
                     
                     $tax_type = (isset($field->field_options['taxonomy']) and !empty($field->field_options['taxonomy'])) ? $field->field_options['taxonomy'] : 'frm_tag';
 
                     if(!isset($_POST['frm_tax_input']))
                         $_POST['frm_tax_input'] = array();
                     
-                    $_POST['frm_tax_input'][$tax_type] = $value;
+                    if(!isset($_POST['frm_tax_input'][$tax_type])){
+                        $_POST['frm_tax_input'][$tax_type] = $value;
+                    }else if(!empty($value)){
+                        $_POST['frm_tax_input'][$tax_type] = array_merge($_POST['frm_tax_input'][$tax_type], array_map('trim', explode(',', $value)));
+                    }
 
                     //unset($tags);
                 }
@@ -279,7 +341,7 @@ class FrmProEntryMeta{
             }
         }
         
-        if($errors)
+        if(isset($errors))
             return $errors;
     }
     
@@ -342,7 +404,7 @@ class FrmProEntryMeta{
                 $query .= " and ID != ". $post_id;
         }
         $query .= " and post_status in ('publish','draft','pending','future')";
-        
+
         return $wpdb->get_var($query);
     }
     

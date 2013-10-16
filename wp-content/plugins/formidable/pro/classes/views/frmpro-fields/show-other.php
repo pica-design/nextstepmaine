@@ -28,8 +28,10 @@ if (is_array($field['value'])){
         echo FrmFieldsHelper::replace_shortcodes($field['custom_html'], $field, array(), $form);
         
         $previous_fields = $frm_field->getAll("fi.type not in ('divider','captcha','break','html') and fi.form_id=$field[form_id] and fi.field_order < $field[field_order]"); 
-        foreach ($previous_fields as $prev){ 
-            if (isset($_POST['item_meta'][$prev->id])){ 
+        foreach ($previous_fields as $prev){
+            if (isset($_POST['item_meta'][$prev->id]) or $prev->type == 'checkbox'){ 
+                if(!isset($_POST['item_meta'][$prev->id]) or empty($_POST['item_meta'][$prev->id]))
+                    $_POST['item_meta'][$prev->id] = array('');
                 if (is_array($_POST['item_meta'][$prev->id])){
                     foreach ($_POST['item_meta'][$prev->id] as $checked){
                         $checked = apply_filters('frm_hidden_value', $checked, (array)$prev);

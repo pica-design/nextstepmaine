@@ -4,6 +4,7 @@
     <select id="where_field_id" name="options[where][<?php echo $where_key; ?>]" onchange="javascript:frm_insert_where_options(this.value, <?php echo $where_key ?>)">
         <option value="">- <?php _e('Select Field', 'formidable') ?> -</option>
         <option value="created_at" <?php selected($where_field, 'created_at') ?>><?php _e('Entry creation date', 'formidable') ?></option>
+        <option value="updated_at" <?php selected($where_field, 'updated_at') ?>><?php _e('Entry updated date', 'formidable') ?></option>
         <option value="id" <?php selected($where_field, 'id') ?>><?php _e('Entry ID', 'formidable') ?></option>
         <option value="item_key" <?php selected($where_field, 'item_key') ?>><?php _e('Entry Key', 'formidable') ?></option>
         <?php if (is_numeric($form_id)) FrmProFieldsHelper::get_field_options($form_id, $where_field, 'not', "'break','divider','file'"); ?>

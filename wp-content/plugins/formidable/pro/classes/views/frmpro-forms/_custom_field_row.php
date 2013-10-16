@@ -4,7 +4,7 @@
     <?php _e('Add Custom Field', 'formidable') ?>
     <input type="text" value="<?php echo ($echo) ? esc_attr($custom_data['meta_name']) : '' ?>" name="options[post_custom_fields][<?php echo $custom_data['meta_name'] ?>][meta_name]"/>
     <?php _e('from', 'formidable') ?>
-    <select name="options[post_custom_fields][<?php echo $custom_data['meta_name'] ?>][field_id]">
+    <select name="options[post_custom_fields][<?php echo $custom_data['meta_name'] ?>][field_id]" class="frm_single_post_field">
         <option value="">- <?php echo _e('Select Field', 'formidable') ?> -</option>
         <?php 
         if(!empty($values['fields'])){

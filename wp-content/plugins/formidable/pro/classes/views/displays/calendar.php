@@ -1,8 +1,8 @@
 <?php
 
-for ($i=0; $i<($maxday+$startday); $i++){
+for ($i=$week_begins; $i<($maxday+$startday); $i++){
     $end_tr = false;
-    if(($i % 7) == 0 ) echo "<tr>\n";
+    if(($i % 7) == $week_begins ) echo "<tr>\n";
     
     $day = $i - $startday + 1;
     
@@ -13,7 +13,7 @@ for ($i=0; $i<($maxday+$startday); $i++){
     if(isset($today) and $day == $today)
         $day_class .= ' frmcal-today';
         
-    if((($i % 7) == 0) or (($i % 7) == 6))
+    if((($i % 7) == $week_begins) or (($i % 7) == $week_ends))
         $day_class .= ' frmcal-week-end';
     
 ?>   
@@ -23,8 +23,8 @@ unset($day_class);
   
     if(($i < $startday)){
         echo '</div>';
-    }else{
-       echo $day; ?></div> <div class="frmcal-content">
+    }else{ 
+        ?><div class="frmcal_num"><?php echo $day ?></div></div> <div class="frmcal-content">
 <?php
         if(isset($daily_entries) and isset($daily_entres[$i]) and !empty($daily_entres[$i])){
             foreach($daily_entres[$i] as $entry){
@@ -43,7 +43,7 @@ unset($day_class);
     ?></div>
 </td>
 <?php
-    if(($i % 7) == 6 ){
+    if(($i % 7) == $week_ends ){
         $end_tr = true;
         echo "</tr>\n";
     }

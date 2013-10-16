@@ -40,6 +40,7 @@
                     
                     <strong>Type:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_type', true) ?><br />
                     <strong>Format:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_format', true) ?><br />
+                    <strong>Level:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_level', true) ?><br />
                     <strong>Location:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_location', true) ?><br />
                     <strong>Schedule:</strong> <?php echo get_post_meta($post->ID, '_nsm_program_schedule', true) ?><br />
                     <strong>Url:</strong> <a href="<?php echo get_post_meta($post->ID, '_nsm_program_url', true) ?>" title="<?php the_title() ?>" target="_blank"><?php echo get_post_meta($post->ID, '_nsm_program_url', true) ?></a><br />
@@ -75,7 +76,7 @@
 	            endif;
 			?>
             <br /><br />
-            <em>* = University College supported program.  As the University of Maine System’s distance education organization, University College offers access to courses and programs from the seven universities at dozens of locations and online.</em>
+            <em>* = University College supported program.  As the University of Maine System’s distance education organization, University College offers access to courses and programs from the seven universities at dozens of locations and online. <a href="http://learn.maine.edu" title="Univeristy College Programs" target="_blank">Click here to learn more.</a></em>
             <br /><br />
             <em>
                 Data obtained directly from the institution listed above. Programs change often, so please inquire with the institution to ensure their data has not changed. 

@@ -60,7 +60,10 @@ class FrmProFieldsController{
     
     function use_field_key_value($opt, $opt_key, $field){
         //if(in_array($field['post_field'], array('post_category', 'post_status')) or ($field['type'] == 'user_id' and is_admin() and current_user_can('administrator')))
-        if((isset($field['use_key']) and $field['use_key']) or (isset($field['type']) and $field['type'] == 'data'))
+        if((isset($field['use_key']) and $field['use_key']) or 
+            (isset($field['type']) and $field['type'] == 'data') or 
+            (isset($field['post_field']) and $field['post_field'] == 'post_status')
+        )
             $opt = $opt_key;
         return $opt;
     }
@@ -221,7 +224,7 @@ class FrmProFieldsController{
     
     function options_form($field, $display, $values){
         global $frm_field, $frm_settings, $frm_ajax_url;
-        $form_fields = $frm_field->getAll("fi.form_id = ".$field['form_id']." and (type in ('select','radio','checkbox','10radio','scale','data') or (type = 'data' and (field_options LIKE '\"data_type\";s:6:\"select\"%' OR field_options LIKE '%\"data_type\";s:5:\"radio\"%' OR field_options LIKE '%\"data_type\";s:8:\"checkbox\"%') )) and fi.id != ".$field['id'], " ORDER BY field_order");
+        $form_fields = $frm_field->getAll("fi.form_id = ".$field['form_id']." and (type in ('select','radio','checkbox','10radio','scale','data','number','text','time','email','url','hidden') or (type = 'data' and (field_options LIKE '\"data_type\";s:6:\"select\"%' OR field_options LIKE '%\"data_type\";s:5:\"radio\"%' OR field_options LIKE '%\"data_type\";s:8:\"checkbox\"%') )) and fi.id != ".$field['id'], " ORDER BY field_order");
         
         $post_type = FrmProForm::post_type($values);
         if(function_exists('get_object_taxonomies'))
@@ -316,6 +319,8 @@ class FrmProFieldsController{
         $current_field_id = $_POST['current_field'];
         $new_field = $frm_field->getOne($_POST['field_id']);
         $new_field->field_options = maybe_unserialize($new_field->field_options);
+        if(!empty($_POST['name']) and $_POST['name'] != 'undefined')
+            $field_name = $_POST['name'];
             
         require(FRMPRO_VIEWS_PATH.'/frmpro-fields/field-values.php');
         die();
@@ -402,7 +407,7 @@ class FrmProFieldsController{
         $current = $frm_field->getOne($current_field);
         $meta_value = FrmProEntryMetaHelper::get_post_or_meta_value($entry_id, $data_field);
         
-        $value = FrmProFieldsHelper::get_display_value($meta_value, $data_field);
+        $value = FrmProFieldsHelper::get_display_value($meta_value, $data_field, array('html' => true));
         
         if($value and !empty($value))
             echo "<p class='frm_show_it'>". $value ."</p>\n";
@@ -569,7 +574,7 @@ class FrmProFieldsController{
 	    $field_id = FrmAppHelper::get_param('field_id');
 	    $hide_field = '';
         
-        $form_fields = FrmField::getAll("fi.form_id = ". $form_id ." and (type in ('select','radio','checkbox','10radio','scale','data') or (type = 'data' and (field_options LIKE '\"data_type\";s:6:\"select\"%' OR field_options LIKE '%\"data_type\";s:5:\"radio\"%' OR field_options LIKE '%\"data_type\";s:8:\"checkbox\"%') )) and fi.id != ". $field_id, " ORDER BY field_order");
+        $form_fields = FrmField::getAll("fi.form_id = ". $form_id ." and (type in ('select','radio','checkbox','10radio','scale','data','number','text','time','email','url','hidden') or (type = 'data' and (field_options LIKE '\"data_type\";s:6:\"select\"%' OR field_options LIKE '%\"data_type\";s:5:\"radio\"%' OR field_options LIKE '%\"data_type\";s:8:\"checkbox\"%') )) and fi.id != ". $field_id, " ORDER BY field_order");
         
         $field = FrmField::getOne($field_id);
         $field = FrmFieldsHelper::setup_edit_vars($field);

@@ -21,19 +21,24 @@ if(!empty($frm_hidden_fields) or (!empty($frm_datepicker_loaded) and is_array($f
 or (isset($load_lang) and !empty($load_lang)) or !empty($frm_timepicker_loaded) or !empty($frm_calc_fields)){
 if(!empty($frm_hidden_fields)){
 global $frm_field;
-    $checked_fields = array();
+    $checked_fields = $hideme = array();
     foreach($frm_hidden_fields as $field){
         foreach($field['hide_field'] as $i => $hide_field){
-            if(!is_numeric($hide_field) or in_array($hide_field, $checked_fields))
+            if(!is_numeric($hide_field))
                 continue;
-             
+
+            if(in_array($hide_field, $checked_fields)){
+                //$hideme[] = $field['id'];
+                continue;
+            }
+
             $checked_fields[] = $hide_field; 
             
             $observed_field = $frm_field->getOne($hide_field);
             
             if($observed_field){
                 $observed_field->field_options = maybe_unserialize($observed_field->field_options);
-                if (isset($field['hide_opt'][$i]) and $field['hide_opt'][$i] != ''){
+                if (isset($field['hide_opt'][$i])){
                     switch($observed_field->type){
                     case "radio":
                     case "10radio":
@@ -44,7 +49,7 @@ global $frm_field;
                         require(FRMPRO_VIEWS_PATH.'/frmpro-fields/show-checkbox-js.php');
                         break;
                     case "data":
-                        if (in_array($observed_field->field_options['data_type'], array('radio', 'checkbox', 'select'))) 
+                        if ($field['hide_opt'][$i] != '' and in_array($observed_field->field_options['data_type'], array('radio', 'checkbox', 'select'))) 
                             require(FRMPRO_VIEWS_PATH.'/frmpro-fields/show-'.$observed_field->field_options['data_type'].'-js.php');
                         break;
                     default:
@@ -110,6 +115,7 @@ foreach($frm_calc_fields as $result => $calc){
     foreach ($matches[0] as $match_key => $val){
         $val = trim(trim($val, '['), ']');
         $calc_fields[$val] = FrmField::getOne($val); //get field
+        if(!$calc_fields[$val]) continue;
         
         if($calc_fields[$val] and in_array($calc_fields[$val]->type, array('radio', 'scale', '10radio'))){
             $field_keys[$calc_fields[$val]->id] = 'input[name="item_meta['. $calc_fields[$val]->id .']"]';
@@ -127,8 +133,9 @@ var vals=new Array();
 <?php foreach($calc_fields as $calc_field){ 
 if($calc_field->type == 'checkbox'){
 ?>$('<?php echo $field_keys[$calc_field->id] ?>:checked, <?php echo $field_keys[$calc_field->id] ?>[type=hidden]').each(function(){ 
-    if(isNaN(vals['<?php echo $calc_field->id ?>'])){vals['<?php echo $calc_field->id ?>']=0;}
-    vals['<?php echo $calc_field->id ?>'] += parseFloat($(this).val().match(/\d*(\.\d*)?$/)); });
+if(isNaN(vals['<?php echo $calc_field->id ?>'])){vals['<?php echo $calc_field->id ?>']=0;}
+var n=parseFloat($(this).val().match(/\d*(\.\d*)?$/));if(isNaN(n))n=0;
+vals['<?php echo $calc_field->id ?>'] += n; });
 <?php }else if($calc_field->type == 'date') { 
 ?>var d=$('<?php echo $field_keys[$calc_field->id]; ?>').val();
 <?php 

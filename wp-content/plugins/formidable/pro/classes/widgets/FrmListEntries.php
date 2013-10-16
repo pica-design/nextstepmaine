@@ -11,37 +11,37 @@ class FrmListEntries extends WP_Widget {
         global $frmdb, $frm_entry, $frmpro_display, $frm_entry_meta;
         
         extract($args);
-        $display = $frmpro_display->getOne($instance['display_id']);
-		$title = apply_filters('widget_title', (empty($instance['title']) and $display) ? $display->name : $instance['title']);
+        $display = $frmpro_display->getOne($instance['display_id'], false, true);
+
+		$title = apply_filters('widget_title', (empty($instance['title']) and $display) ? $display->post_title : $instance['title']);
         $limit = empty($instance['limit']) ? '' : " LIMIT {$instance['limit']}";
-        $post_id = (!$display or empty($display->post_id)) ? $instance['post_id'] : $display->post_id;
+        $post_id = (!$display or empty($display->frm_post_id)) ? $instance['post_id'] : $display->frm_post_id;
         $page_url = get_permalink($post_id);
         
         $order_by = '';
-        
-        if ($display and is_numeric($display->form_id)){
-            $options = maybe_unserialize($display->options);
+
+        if ($display and is_numeric($display->frm_form_id)){
             
-            if (is_array($options)){                    
-                if (isset($options['order_by']) && $options['order_by'] != ''){
-                    $order = (isset($options['order'])) ? ' '.$options['order'] : '';
-                    if ($options['order_by'] == 'rand')
+                              
+                if (isset($display->frm_order_by) && $display->frm_order_by != ''){
+                    $order = (isset($display->frm_order)) ? ' '. $display->frm_order : '';
+                    if ($display->frm_order_by == 'rand')
                         $order_by = ' RAND()';
-                    else if (is_numeric($options['order_by'])){
+                    else if (is_numeric($display->frm_order_by)){
                         global $frm_entry_meta;
-                        $metas = $frm_entry_meta->getAll('fi.form_id='.$display->form_id.' and fi.id='.$options['order_by'], ' ORDER BY meta_value'.$order, $limit);
+                        $metas = $frm_entry_meta->getAll('fi.form_id='. $display->frm_form_id.' and fi.id='. $display->frm_order_by, ' ORDER BY meta_value'. $order, $limit);
                         
                         if (is_array($metas) and !empty($metas)){
                             $rev_order = ($order == 'DESC' or $order == '') ? ' ASC' : ' DESC';
                             foreach ($metas as $meta)
-                                $order_by .= 'it.id='.$meta->item_id . $rev_order.', ';
+                                $order_by .= 'it.id='. $meta->item_id . $rev_order.', ';
                             
                             $order_by = rtrim($order_by, ', ');  
                         }else
-                            $order_by .= 'it.created_at'.$order;
+                            $order_by .= 'it.created_at'. $order;
                     }else
-                        $order_by = 'it.'.$options['order_by'].$order;
-                    $order_by = ' ORDER BY '.$order_by;
+                        $order_by = 'it.'. $display->frm_order_by . $order;
+                    $order_by = ' ORDER BY '. $order_by;
                 }
                 
                 if (isset($instance['cat_list']) and (int)$instance['cat_list'] == 1 and is_numeric($instance['cat_id'])){
@@ -49,14 +49,14 @@ class FrmListEntries extends WP_Widget {
                     if ($cat_field = $frm_field->getOne($instance['cat_id']))
                         $categories = maybe_unserialize($cat_field->options);
                 }
-            }
+            
         }
        
 		echo $before_widget;
 		if ( $title )
 			echo $before_title . $title . $after_title;
         
-        echo "<ul id='frm_entry_list". (($display) ? $display->form_id : '') ."'>\n";
+        echo "<ul id='frm_entry_list". (($display) ? $display->frm_form_id : '') ."'>\n";
         if (isset($instance['cat_list']) and (int)$instance['cat_list'] == 1 and is_array($categories)){
             foreach ($categories as $cat_order => $cat){
                 if ($cat == '') continue;
@@ -76,18 +76,18 @@ class FrmListEntries extends WP_Widget {
                     $entry_ids = $frm_entry_meta->getEntryIds("meta_value LIKE '%$cat%' and fi.id=".$instance['cat_id']);
                     $items = false;
                     if ($entry_ids)
-                        $items = $frm_entry->getAll("it.id in (".implode(',', $entry_ids).") and it.form_id =". (int)$display->form_id, $order_by, $limit);                
+                        $items = $frm_entry->getAll("it.id in (".implode(',', $entry_ids).") and it.form_id =". (int)$display->frm_form_id, $order_by, $limit);                
                         
                     if ($items){
                         echo '<ul>';
                         foreach ($items as $item){
-                            $url_id = $display->type == 'id' ? $item->id : $item->item_key;
-                            $current = (isset($_GET[$display->param]) and $_GET[$display->param] == $url_id) ? ' class="current_page"' : '';
+                            $url_id = $display->frm_type == 'id' ? $item->id : $item->item_key;
+                            $current = (isset($_GET[$display->frm_param]) and $_GET[$display->frm_param] == $url_id) ? ' class="current_page"' : '';
 
                             if($item->post_id)
                                 $entry_link = get_permalink($item->post_id);
                             else
-                                $entry_link = add_query_arg(array($display->param => $url_id), $page_url);
+                                $entry_link = add_query_arg(array($display->frm_param => $url_id), $page_url);
                             
                             echo "<li". $current ."><a href='".$entry_link."'>".stripslashes($item->name) ."</a></li>\n";
                         }
@@ -98,15 +98,15 @@ class FrmListEntries extends WP_Widget {
              }  
          }else{
              if($display)
-                 $items = $frm_entry->getAll(array('it.form_id' => $display->form_id), $order_by, $limit);
+                 $items = $frm_entry->getAll(array('it.form_id' => $display->frm_form_id), $order_by, $limit);
              else
                 $items = array();
                 
              foreach ($items as $item){
-                  $url_id = $display->type == 'id' ? $item->id : $item->item_key;
-                  $current = (isset($_GET[$display->param]) and $_GET[$display->param] == $url_id) ? ' class="current_page"' : '';
+                  $url_id = $display->frm_type == 'id' ? $item->id : $item->item_key;
+                  $current = (isset($_GET[$display->frm_param]) and $_GET[$display->frm_param] == $url_id) ? ' class="current_page"' : '';
 
-                  echo "<li". $current ."><a href='".add_query_arg(array($display->param => $url_id), $page_url)."'>".stripslashes($item->name) ."</a></li>\n";
+                  echo "<li". $current ."><a href='".add_query_arg(array($display->frm_param => $url_id), $page_url)."'>".stripslashes($item->name) ."</a></li>\n";
               }
          }
          
@@ -122,7 +122,7 @@ class FrmListEntries extends WP_Widget {
 	function form( $instance ) { 
 	    global $frmpro_display, $frm_ajax_url; 
         $pages = get_posts( array('post_type' => 'page', 'post_status' => 'publish', 'numberposts' => 999, 'order_by' => 'post_title', 'order' => 'ASC'));
-        $displays = $frmpro_display->getAll("show_count = 'dynamic'");
+        $displays = $frmpro_display->getAll(array('meta_key' => 'show_count', 'meta_value' => 'dynamic'));
         
         //Defaults
 		$instance = wp_parse_args( (array) $instance, array('title' => false, 'display_id' => false, 'post_id' => false, 'title_id' => false, 'cat_list' => false, 'cat_name' => false, 'cat_count' => false, 'cat_id' => false, 'limit' => false) );
@@ -131,7 +131,11 @@ class FrmListEntries extends WP_Widget {
 		if ($instance['display_id']){
 		    global $frm_field;
 		    $selected_display = $frmpro_display->getOne($instance['display_id']);
-		    $title_opts = $frm_field->getAll("fi.form_id=$selected_display->form_id and type not in ('divider','captcha','break','html')", ' ORDER BY field_order');
+		    if($selected_display){
+		        $selected_form_id = get_post_meta($selected_display->ID, 'frm_form_id', true);
+		        $title_opts = $frm_field->getAll("fi.form_id=". (int)$selected_form_id ." and type not in ('divider','captcha','break','html')", ' ORDER BY field_order');
+		        $instance['display_id'] = $selected_display->ID;
+		    }
 		}
 ?>
 	<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'formidable') ?>:</label>
@@ -141,7 +145,7 @@ class FrmListEntries extends WP_Widget {
 	    <select name="<?php echo $this->get_field_name('display_id'); ?>" id="<?php echo $this->get_field_id('display_id'); ?>" class="widefat" onchange="frm_get_display_fields(this.value)">
 	        <option value=""></option>
             <?php foreach ($displays as $display)
-                echo "<option value=". $display->id . selected( $instance['display_id'], $display->id ) . ">" . $display->name . "</option>"; 
+                echo "<option value=". $display->ID . selected( $instance['display_id'], $display->ID ) .">" . $display->post_title . "</option>"; 
             ?>
         </select>
 	</p>

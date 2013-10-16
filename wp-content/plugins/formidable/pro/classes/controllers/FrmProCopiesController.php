@@ -2,7 +2,7 @@
  
 class FrmProCopiesController{
     function FrmProCopiesController(){
-        $this->install();
+        add_action('init', array(&$this, 'install'));
         add_action('frm_after_install', array(&$this, 'install'), 20);
         add_action('frm_after_uninstall', array(&$this, 'uninstall'));
         add_action('frm_update_form', array(&$this, 'save_copied_form'), 20, 2);
@@ -26,6 +26,12 @@ class FrmProCopiesController{
     function save_copied_display($id, $values){
         if (isset($values['options']['copy'])){
             global $frmpro_copy;
+            $old_id = get_post_meta($id, 'frm_old_id', true);
+            if($old_id){
+                //remove old ID from copies
+                global $wpdb, $blog_id;
+                $wpdb->delete($frmpro_copy->table_name, array('form_id' => $id, 'type' => 'display', 'blog_id' => $blog_id));
+            }
             $created = $frmpro_copy->create(array('form_id' => $id, 'type' => 'display'));
         }
     }

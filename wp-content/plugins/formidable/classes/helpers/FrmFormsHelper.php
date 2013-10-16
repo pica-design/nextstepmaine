@@ -60,10 +60,23 @@ class FrmFormsHelper{
         $values['form_key'] = ($_POST and isset($_POST['form_key'])) ? $_POST['form_key'] : (FrmAppHelper::get_unique_key('', $frmdb->forms, 'form_key'));
         
         $defaults = FrmFormsHelper::get_default_opts();
-        foreach ($defaults as $var => $default)
-            $values[$var] = ($_POST and isset($_POST['options'][$var])) ? $_POST['options'][$var] : $default;
+        foreach ($defaults as $var => $default){
+            if($var == 'notification'){
+                $values[$var] = array();
+                foreach($default as $k => $v){
+                    $values[$var][$k] = (isset($_POST) and $_POST and isset($_POST['notification'][$var])) ? $_POST['notification'][$var] : $v;
+                    unset($k);
+                    unset($v);
+                }
+            }else{
+                $values[$var] = (isset($_POST) and $_POST and isset($_POST['options'][$var])) ? $_POST['options'][$var] : $default;
+            }
             
-        $values['custom_style'] = ($_POST and isset($_POST['options']['custom_style'])) ? $_POST['options']['custom_style'] : ($frm_settings->load_style != 'none');
+            unset($var);
+            unset($default);
+        }
+            
+        $values['custom_style'] = (isset($_POST) and $_POST and isset($_POST['options']['custom_style'])) ? $_POST['options']['custom_style'] : ($frm_settings->load_style != 'none');
         $values['before_html'] = FrmFormsHelper::get_default_html('before');
         $values['after_html'] = FrmFormsHelper::get_default_html('after');
         
@@ -84,7 +97,10 @@ class FrmFormsHelper{
         global $frm_settings;
         
         return array(
-            'email_to' => $frm_settings->email_to, 'reply_to' => '', 'reply_to_name' => '',
+            'notification' => array(
+                array('email_to' => $frm_settings->email_to, 'reply_to' => '', 'reply_to_name' => '',
+                'cust_reply_to' => '', 'cust_reply_to_name' => '')
+            ),
             'submit_value' => $frm_settings->submit_value, 'success_action' => 'message',
             'success_msg' => $frm_settings->success_msg, 'show_form' => 0, 'akismet' => '',
             'no_save' => 0
@@ -127,9 +143,6 @@ BEFORE_HTML;
         
         //replace [form_key]
         $html = str_replace('[form_key]', $form->form_key, $html);
-        
-        if(class_exists('FrmProEntriesController'))
-            $html = str_replace('[deletelink]', FrmProEntriesController::entry_delete_link(array()), $html);
         
         return apply_filters('frm_form_replace_shortcodes', stripslashes($html), $form);
     }

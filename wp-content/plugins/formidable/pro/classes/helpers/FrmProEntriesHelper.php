@@ -8,7 +8,7 @@ class FrmProEntriesHelper{
     }
     
     function redirect_url($url){
-        $url = str_replace(array(' ', '[', ']', '|'), array('%20', '%5B', '%5D', '%7C'), $url);
+        $url = str_replace(array(' ', '[', ']', '|', '@'), array('%20', '%5B', '%5D', '%7C', '%40'), $url);
         return $url;
     }
     
@@ -40,8 +40,11 @@ class FrmProEntriesHelper{
         
         $allowed = false;
         
-        if(current_user_can('frm_delete_entries'))
+        if(current_user_can('frm_delete_entries')){
             $allowed = true;
+        }else{
+            //TODO: isset($form_options['editable_role']) and !FrmAppHelper::user_has_permission($form_options['editable_role'])
+        }
         
         if($user_ID and !$allowed){
             if(is_numeric($entry)){
@@ -69,9 +72,7 @@ class FrmProEntriesHelper{
     }
     
     function resend_email_links($entry_id, $form_id){ ?>
-<a href="javascript:frm_resend_email(<?php echo $entry_id ?>,<?php echo $form_id ?>,'email')" id="frm_resend_email" title="<?php _e('Resend Email Notification', 'formidable') ?>"><?php _e('Resend Email Notification', 'formidable') ?></a><br/>
-<a href="javascript:frm_resend_email(<?php echo $entry_id ?>,<?php echo $form_id ?>,'autoresponder')" id="frm_resend_autoresponder" title="<?php _e('Resend Autoresponse', 'formidable') ?>"><?php _e('Resend Autoresponse', 'formidable') ?></a>
-
+<a href="#" onclick="frm_resend_email(<?php echo $entry_id ?>,<?php echo $form_id ?>,'email');return false;" id="frm_resend_email" title="<?php _e('Resend Email Notifications', 'formidable') ?>"><?php _e('Resend Email Notifications', 'formidable') ?></a>
 <script type="text/javascript">
 //<![CDATA[
 function frm_resend_email(entry_id,form_id,type){
@@ -89,22 +90,20 @@ success:function(msg){ jQuery('#frm_resend_'+type).replaceWith('<?php _e('Email 
         if($footer)
             return;
             
-        if ($_GET['page'] == 'formidable-entries'){ ?>
-            <div class="alignleft actions">
-            <?php FrmFormsHelper::forms_dropdown('frm_redirect_to_list', '', __('Switch Form', 'formidable'), false,  "frmRedirectToForm(this.value,'list')"); ?>
-            </div>
-            <?php            
-            if ($form_id){ 
-                if(current_user_can('frm_create_entries')){ ?>
-                <div class="alignleft"><a href="?page=formidable-entries&amp;frm_action=new&amp;form=<?php echo $form_id ?>" class="button-secondary"><?php _e('Add New Entry to this form', 'formidable') ?></a></div>
-            <?php } 
-            }
-        }else if($_GET['page'] == 'formidable-entry-templates' and $form_id){ ?>
-            <div class="alignleft actions">
-            <?php FrmFormsHelper::forms_dropdown('frm_redirect_to_list', '', __('Switch Form', 'formidable'), false,  "frmRedirectToDisplay(this.value,'list')"); ?>
-            </div>
-        <?php    
-        }
+        if ($_GET['page'] != 'formidable-entries')
+            return;
+        
+        ?>
+        <div class="alignleft actions">
+            <?php FrmFormsHelper::forms_dropdown('form', ($form_id ? $form_id : ''), __('Switch Form', 'formidable')); ?>
+            <input type="submit" class="button-secondary" value="<?php _e('Filter', 'formidable') ?>" />
+        </div>
+        <?php            
+        if ($form_id){ 
+            if(current_user_can('frm_create_entries')){ ?>
+            <div class="alignleft"><a href="?page=formidable-entries&amp;frm_action=new&amp;form=<?php echo $form_id ?>" class="button-secondary"><?php _e('Add New Entry to this form', 'formidable') ?></a></div>
+        <?php } 
+        } 
     }
     
     function get_search_ids($s, $form_id){

@@ -157,7 +157,7 @@ class FrmProField{
               
             $observed_value = (isset($values['item_meta'][$hide_field])) ? $values['item_meta'][$hide_field] : '';
             
-            if($field->type == 'data' and empty($field->field_options['hide_opt'][$hide_key]) and is_numeric($observed_value)){
+            if($field->type == 'data' and empty($field->field_options['hide_opt'][$hide_key]) and (is_numeric($observed_value) or is_array($observed_value))){
                 $observed_field = $frm_field->getOne($hide_field);
                 if($observed_field->type == 'data')
                     $field->field_options['hide_opt'][$hide_key] = $observed_value;
@@ -165,7 +165,7 @@ class FrmProField{
                 unset($observed_field);
             }
 
-            $hidden = FrmProFieldsHelper::value_meets_condition($observed_value, $field->field_options['hide_field_cond'][$hide_key], $field->field_options['hide_opt'][$hide_key]);
+            $hidden = FrmProFieldsHelper::value_meets_condition($observed_value, $field->field_options['hide_field_cond'][$hide_key], $field->field_options['hide_opt'][$hide_key]); 
             if($field->field_options['show_hide'] == 'show')
                 $hidden = ($hidden) ? false : true;
 

@@ -4,12 +4,9 @@ class FrmProCopy{
     var $table_name;
 
     function FrmProCopy(){
-      global $wpmuBaseTablePrefix, $wpdb;
-      if($wpmuBaseTablePrefix)
-          $prefix = $wpmuBaseTablePrefix;
-      else
-          $prefix = $wpdb->base_prefix;
-      $this->table_name = "{$prefix}frmpro_copies";
+        global $wpmuBaseTablePrefix, $wpdb;
+        $prefix = ($wpmuBaseTablePrefix) ? $wpmuBaseTablePrefix : $wpdb->base_prefix;
+        $this->table_name = "{$prefix}frmpro_copies";
     }
     
     function create( $values ){
@@ -29,7 +26,7 @@ class FrmProCopy{
             $new_values['copy_key'] = $form_copied->form_key;
         }else{
             $form_copied = $frmpro_display->getOne($new_values['form_id']);
-            $new_values['copy_key'] = $form_copied->display_key;
+            $new_values['copy_key'] = $form_copied->post_name;
         }
         $new_values['created_at'] = current_time('mysql', 1);
         
@@ -80,16 +77,16 @@ class FrmProCopy{
             }
 
             /* Create/Upgrade Display Table */
-            $sql = "CREATE TABLE `{$this->table_name}` (
-                    `id` int(11) NOT NULL auto_increment,
-                    `type` varchar(255) default NULL,
-                    `copy_key` varchar(255) default NULL,
-                    `form_id` int(11) default NULL,
-                    `blog_id` int(11) default NULL,
-                    `created_at` datetime NOT NULL,
-                    PRIMARY KEY `id` (`id`),
-                    KEY `form_id` (`form_id`),
-                    KEY `blog_id` (`blog_id`)
+            $sql = "CREATE TABLE {$this->table_name} (
+                    id int(11) NOT NULL auto_increment,
+                    type varchar(255) default NULL,
+                    copy_key varchar(255) default NULL,
+                    form_id int(11) default NULL,
+                    blog_id int(11) default NULL,
+                    created_at datetime NOT NULL,
+                    PRIMARY KEY id (id),
+                    KEY form_id (form_id),
+                    KEY blog_id (blog_id)
             ) {$charset_collate};";
 
             dbDelta($sql);

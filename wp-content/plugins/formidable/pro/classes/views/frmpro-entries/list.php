@@ -16,7 +16,6 @@ if(class_exists('WP_List_Table')){ ?>
     <input type="hidden" name="frm_action" value="list" />
 <?php $wp_list_table->search_box( __( 'Search', 'formidable' ), 'entry' ); 
 
-require(FRM_VIEWS_PATH.'/shared/nav.php');
 if($form) FrmAppController::get_form_nav($form->id, true);
 
 $wp_list_table->display(); ?>
@@ -24,7 +23,7 @@ $wp_list_table->display(); ?>
 </form>
 <?php }else{  
 do_action('frm_before_item_nav', $sort_str, $sdir_str, $search_str, $fid);
-require(FRM_VIEWS_PATH.'/shared/nav.php');
+
 if($form) FrmAppController::get_form_nav($form->id, true);
 ?>  
 <form class="form-fields item-list-form" name="item_list_form" id="posts-filter" method="post" >
