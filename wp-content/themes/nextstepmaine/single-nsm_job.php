@@ -4,7 +4,7 @@
 	
 	//Connect to our O*NET database
 	//Pica DEV
-	$onet = new wpdb('root', '1309piCa', 'onet', 'localhost');
+	$onet = new wpdb('root_remote', '1309piCa', 'nsm_onet', 'mysql.picadesign.com');
 
 	//Pica VPS
 	//$onet = new wpdb('nsm_onetuser', 'Zso[D5_W3xVb', 'nsm_onet', 'localhost');
