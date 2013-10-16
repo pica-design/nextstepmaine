@@ -33,7 +33,7 @@ class FrmEntry{
             if($user_ID)
                 $new_values['user_id'] = $new_values['updated_by'] = $user_ID;
         }
-
+        
         //check for duplicate entries created in the last 5 minutes
         $create_entry = true;
         if(!defined('WP_IMPORTING')){
@@ -96,7 +96,7 @@ class FrmEntry{
         $new_values = array();
         $new_values['item_key'] = FrmAppHelper::get_unique_key('', $frmdb->entries, 'item_key');
         $new_values['name'] = $values->name;
-        $new_values['user_id'] = $new_values['updated_by'] = $values->user_id;
+        $new_values['user_id'] = $new_values['updated_by'] = (int)$values->user_id;
         $new_values['form_id'] = ($values->form_id)?(int)$values->form_id: null;
         $new_values['created_at'] = $new_values['updated_at'] = current_time('mysql', 1);
 
@@ -186,14 +186,14 @@ class FrmEntry{
             $metas = $frm_entry_meta->getAll("item_id=$entry->id and field_id != 0");
             $entry_metas = array();
             foreach($metas as $meta_val)
-                $entry_metas[$meta_val->field_id] = $entry_metas[$meta_val->field_key] = $meta_val->meta_value;
+                $entry_metas[$meta_val->field_id] = $entry_metas[$meta_val->field_key] = maybe_unserialize($meta_val->meta_value);
 
             $entry->metas = $entry_metas;
 
             wp_cache_set( $entry->id, $entry, 'frm_entry');
         }
 
-        return $entry;
+        return stripslashes_deep($entry);
     }
     
     function &exists( $id ){
@@ -216,7 +216,7 @@ class FrmEntry{
     }
 
     function getAll($where = '', $order_by = '', $limit = '', $meta=false, $inc_form=true){
-        global $wpdb, $frmdb, $frm_app_helper;
+        global $wpdb, $frmdb;
         
         if(is_numeric($limit))
             $limit = " LIMIT {$limit}";
@@ -224,11 +224,11 @@ class FrmEntry{
         if($inc_form){
             $query = "SELECT it.*, fr.name as form_name,fr.form_key as form_key
                 FROM $frmdb->entries it LEFT OUTER JOIN $frmdb->forms fr ON it.form_id=fr.id" .
-                $frm_app_helper->prepend_and_or_where(' WHERE ', $where) . $order_by . $limit;
+                FrmAppHelper::prepend_and_or_where(' WHERE ', $where) . $order_by . $limit;
         }else{
             $query = "SELECT it.id, it.item_key, it.name, it.ip, it.form_id, it.post_id, it.user_id, it.updated_by,
                 it.created_at, it.updated_at FROM $frmdb->entries it" .
-                $frm_app_helper->prepend_and_or_where(' WHERE ', $where) . $order_by . $limit;
+                FrmAppHelper::prepend_and_or_where(' WHERE ', $where) . $order_by . $limit;
         }
         $entries = $wpdb->get_results($query, OBJECT_K);
         unset($query);
@@ -257,7 +257,7 @@ class FrmEntry{
                     if(!isset($entries[$meta_val->item_id]->metas))
                         $entries[$meta_val->item_id]->metas = array();
                         
-                    $entries[$meta_val->item_id]->metas[$meta_val->field_id] = $entries[$meta_val->item_id]->metas[$meta_val->field_key] = $meta_val->meta_value;
+                    $entries[$meta_val->item_id]->metas[$meta_val->field_id] = $entries[$meta_val->item_id]->metas[$meta_val->field_key] = maybe_unserialize($meta_val->meta_value);
                 }
                 
                 foreach($entries as $entry){
@@ -282,17 +282,18 @@ class FrmEntry{
                 */
             }
         }
-        return $entries;
+        
+        return stripslashes_deep($entries);
     }
 
     // Pagination Methods
     function getRecordCount($where=''){
-        global $wpdb, $frmdb, $frm_app_helper;
+        global $wpdb, $frmdb;
         if(is_numeric($where)){
             $query = "SELECT COUNT(*) FROM $frmdb->entries WHERE form_id=". $where;
         }else{
             $query = "SELECT COUNT(*) FROM $frmdb->entries it LEFT OUTER JOIN $frmdb->forms fr ON it.form_id=fr.id" .
-                $frm_app_helper->prepend_and_or_where(' WHERE ', $where);
+                FrmAppHelper::prepend_and_or_where(' WHERE ', $where);
         }
         return $wpdb->get_var($query);
     }
@@ -305,7 +306,7 @@ class FrmEntry{
     }
 
     function getPage($current_p, $p_size, $where = '', $order_by = ''){
-      global $wpdb, $frmdb, $frm_app_helper;
+      global $wpdb, $frmdb;
       $end_index = $current_p * $p_size;
       $start_index = $end_index - $p_size;
       $results = $this->getAll($where, $order_by, " LIMIT $start_index,$p_size;", true);
@@ -320,15 +321,17 @@ class FrmEntry{
             $errors['form'] = __('There was a problem with your submission. Please try again.', 'formidable');
             return $errors;
         }
-
-        if( !isset($values['item_key']) or $values['item_key'] == '' )
+        
+        if( !isset($values['item_key']) or $values['item_key'] == '' ){
             $_POST['item_key'] = $values['item_key'] = FrmAppHelper::get_unique_key('', $frmdb->entries, 'item_key');
+            $gen_key = true;
+        }
         
         $where = apply_filters('frm_posted_field_ids', 'fi.form_id='. (int)$values['form_id']);
         if($exclude)
             $where .= " and fi.type not in ('". implode("','", $exclude) ."')";
             
-        $posted_fields = $frm_field->getAll($where, 'fi.field_order');
+        $posted_fields = $frm_field->getAll($where, 'field_order');
 
         foreach($posted_fields as $posted_field){ 
             $posted_field->field_options = maybe_unserialize($posted_field->field_options);
@@ -337,20 +340,26 @@ class FrmEntry{
                 $value = $values['item_meta'][$posted_field->id];
                 
             if (isset($posted_field->field_options['default_blank']) and $posted_field->field_options['default_blank'] and $value == $posted_field->default_value)
-                $_POST['item_meta'][$posted_field->id] = $value = '';
+                $value = '';
             
             if(is_array($value) and count($value) === 1)
-                $_POST['item_meta'][$posted_field->id] = $value = reset($value); 
+                $value = reset($value); 
                   
             if($posted_field->type == 'rte' and !is_array($value) and (trim($value) == '<br>'))
                 $value = '';
             
             if ($posted_field->required == '1' and !is_array($value) and trim($value) == ''){
-                $errors['field'.$posted_field->id] = (!isset($posted_field->field_options['blank']) or $posted_field->field_options['blank'] == '' or $posted_field->field_options['blank'] == 'Untitled cannot be blank') ? $frm_settings->blank_msg : $posted_field->field_options['blank'];  
+                $errors['field'. $posted_field->id] = (!isset($posted_field->field_options['blank']) or $posted_field->field_options['blank'] == '' or $posted_field->field_options['blank'] == 'Untitled cannot be blank') ? $frm_settings->blank_msg : $posted_field->field_options['blank'];  
             }else if ($posted_field->type == 'text' and !isset($_POST['name'])){
                 $_POST['name'] = $value;
+                if(isset($gen_key) and $gen_key){
+                    $_POST['item_key'] = $values['item_key'] = FrmAppHelper::get_unique_key($value, $frmdb->entries, 'item_key');
+                    $gen_key = false;
+                }
             }
-                
+            
+            $_POST['item_meta'][$posted_field->id] = $value;
+             
             if ($posted_field->type == 'captcha' and isset($_POST['recaptcha_challenge_field'])){
                 global $frm_settings;
 
@@ -364,7 +373,7 @@ class FrmEntry{
 
                 if (!$response->is_valid) {
                     // What happens when the CAPTCHA was entered incorrectly
-                    $errors['captcha-'.$response->error] = $errors['field'.$posted_field->id] = (!isset($posted_field->field_options['invalid']) or $posted_field->field_options['invalid'] == '') ? $frm_settings->re_msg : $posted_field->field_options['invalid'];
+                    $errors['captcha-'. $response->error] = $errors['field'. $posted_field->id] = (!isset($posted_field->field_options['invalid']) or $posted_field->field_options['invalid'] == '') ? $frm_settings->re_msg : $posted_field->field_options['invalid'];
                 }
 
             }
@@ -426,4 +435,3 @@ class FrmEntry{
     }
     
 }
-?>

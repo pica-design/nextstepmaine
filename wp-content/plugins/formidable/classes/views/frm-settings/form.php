@@ -27,7 +27,9 @@
     <div class="postbox">
         <h3 class="hndle"><div id="icon-ms-admin" class="icon32 frm_postbox_icon"><br/></div> <?php _e('Formidable Pro Account Information', 'formidable')?></h3>
         <div class="inside">
-            <?php $frm_update->pro_cred_form(); ?>
+            <?php 
+            $upd = new FrmUpdatesController();
+            $upd->pro_cred_form(); ?>
         </div>
     </div>
 <?php } ?>
@@ -143,7 +145,7 @@
                 <td valign="top"><?php _e('Default Messages', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('You can override the success message and submit button settings on individual forms.', 'formidable') ?>" /></td>
                 <td>        
                     <?php _e('Blank Field', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The message seen when a required field is left blank.', 'formidable') ?>" /><br/>
-                    <input type="text" id="frm_blank_msg" name="frm_blank_msg" class="frm_long_input" value="<?php echo esc_attr(stripslashes($frm_settings->blank_msg)) ?>" />
+                    <input type="text" id="frm_blank_msg" name="frm_blank_msg" class="frm_long_input" value="<?php echo esc_attr($frm_settings->blank_msg) ?>" />
                 </td>
             </tr>
             
@@ -151,7 +153,19 @@
                 <td></td> 
                 <td>        
                     <?php _e('Incorrect Field', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The message seen when a field response is either incorrect or missing.', 'formidable') ?>" /><br/>
-                    <input type="text" id="frm_invalid_msg" name="frm_invalid_msg" class="frm_long_input" value="<?php echo esc_attr(stripslashes($frm_settings->invalid_msg)) ?>" />
+                    <input type="text" id="frm_invalid_msg" name="frm_invalid_msg" class="frm_long_input" value="<?php echo esc_attr($frm_settings->invalid_msg) ?>" />
+        
+        <?php if($frmpro_is_installed){ ?>
+                </td>
+            </tr>
+            <tr class="form-field">
+                <td></td>
+                <td>        
+                    <?php _e('Unique Value', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The message seen when a user selects a value in a unique field that has already been used.', 'formidable') ?>" /><br/>
+                    <input type="text" id="frm_unique_msg" name="frm_unique_msg" class="frm_long_input" value="<?php echo esc_attr($frm_settings->unique_msg) ?>" />
+        <?php }else{ ?>
+            <input type="hidden" id="frm_unique_msg" name="frm_unique_msg" value="<?php echo esc_attr($frm_settings->unique_msg) ?>" />    
+        <?php } ?>    
                 </td>
             </tr>
             
@@ -159,15 +173,14 @@
                 <td></td>
                 <td>
                     <?php _e('Success Message', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The default message seen after a form is submitted.', 'formidable') ?>" /><br/>
-                    <input type="text" id="frm_success_msg" name="frm_success_msg" class="frm_long_input" value="<?php echo esc_attr(stripslashes($frm_settings->success_msg)) ?>" />
+                    <input type="text" id="frm_success_msg" name="frm_success_msg" class="frm_long_input" value="<?php echo esc_attr($frm_settings->success_msg) ?>" />
                 </td>
             </tr>
-            
             <tr class="form-field">
                 <td></td>
                 <td>        
                     <?php _e('Failed or Duplicate Entry Message', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The message seen when a form is submitted and passes validation, but something goes wrong.', 'formidable') ?>" /><br/>
-                    <input type="text" id="frm_failed_msg" name="frm_failed_msg" class="frm_long_input" value="<?php echo esc_attr(stripslashes($frm_settings->failed_msg)) ?>" />
+                    <input type="text" id="frm_failed_msg" name="frm_failed_msg" class="frm_long_input" value="<?php echo esc_attr($frm_settings->failed_msg) ?>" />
                 </td>
             </tr> 
             
@@ -175,7 +188,7 @@
                 <td></td>
                 <td>        
                     <?php _e('Login Message', 'formidable'); ?> <img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('The message seen when a user who is not logged-in views a form only logged-in users can submit.', 'formidable') ?>" /><br/>
-                    <input type="text" id="frm_login_msg" name="frm_login_msg" class="frm_long_input" value="<?php echo esc_attr(stripslashes($frm_settings->login_msg)) ?>" />
+                    <input type="text" id="frm_login_msg" name="frm_login_msg" class="frm_long_input" value="<?php echo esc_attr($frm_settings->login_msg) ?>" />
                 </td>
             </tr>
             
@@ -183,7 +196,7 @@
                 <td></td>
                 <td>    
                     <?php _e('Default Submit Button', 'formidable'); ?><br/>
-                    <input type="text" value="<?php echo esc_attr(stripslashes($frm_settings->submit_value)) ?>" id="frm_submit_value" name="frm_submit_value" />
+                    <input type="text" value="<?php echo esc_attr($frm_settings->submit_value) ?>" id="frm_submit_value" name="frm_submit_value" />
                 </td>
             </tr>
             
@@ -233,7 +246,7 @@
 function frm_uninstall_now(){ 
 if(confirm("<?php _e('Are you sure you want to do this? Clicking OK will delete all forms, form data, and all other Formidable data. There is no Undo.', 'formidable') ?>")){
     jQuery('.frm_uninstall a').replaceWith('<img src="<?php echo FRM_IMAGES_URL; ?>/wpspin_light.gif" alt="Loading..." />');
-    jQuery.ajax({type:"POST",url:"<?php echo $frm_ajax_url ?>",data:"action=frm_uninstall",
+    jQuery.ajax({type:"POST",url:"<?php echo admin_url('admin-ajax.php') ?>",data:"action=frm_uninstall",
     success:function(msg){jQuery(".frm_uninstall").fadeOut("slow");}
     });
 }

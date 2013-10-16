@@ -1,10 +1,10 @@
 === Formidable Forms ===
 Contributors: sswells, srwells
 Donate link: http://formidablepro.com/donate
-Tags: admin, AJAX, captcha, contact, contact form, database, email, feedback, form, forms, javascript, jquery, page, plugin, poll, Post, spam, survey, template, widget, wpmu
+Tags: admin, AJAX, captcha, contact, contact form, database, email, feedback, form, forms, javascript, jquery, page, plugin, poll, Post, spam, survey, template, widget, wpmu, form builder
 Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 1.06.08
+Tested up to: 3.6
+Stable tag: 1.07.01
 
 Quickly and easily build forms with a simple drag-and-drop interface and in-place editing. 
 
@@ -61,6 +61,130 @@ A. Try clearing your browser cache. As plugin modifications are made, frequent j
 [See more FAQs](http://formidablepro.com/formidable-faqs/ "Formidable Pro FAQs")
 
 == Changelog ==
+= 1.07.01 =
+* Added for attribute to labels for newly created fields
+* Fixed issue with slashes showing in content if retrieved from cache
+* Prevent multiple checks for updates when pro is authorized, but free version is installed
+* Added frm_form_fields_class hook
+* PRO: Fixed days events are shown on the calendar with months starting on Sunday and week start day set to Monday
+* PRO: Added option to not load a JQuery UI stylesheet
+* PRO: Added "Entry ID" option to the back-end entry search options
+* PRO: Added frm_csv_filename hook for changing the csv file name
+
+= 1.07.0 =
+* Submit build form in one input with ajax to prevent max_input_vars limitations
+* Load fields on the build page with ajax for long forms and other form builder page optimization
+* Added submit button to customizable HTML
+* Added clickable styling classes to form builder sidebar
+* Create entry key from first required text field
+* Set the default name of a field to the field type instead of "Untitled"
+* Added minified version of formidable.js
+* Added warning message if a non-unique value is added as a field value
+* Removed messages for strict standards
+* Fixed inline and left labels for checkboxes
+* PRO: Added back button on multi-paged forms
+* PRO: Added conditional logic on page breaks for skipping pages
+* PRO: Added loading indicator by submit button and on dependent data from entries fields
+* PRO: Switched out username and passwords for license numbers
+* PRO: Updated timestamp in CSV to adjust for WordPress timezone selection
+* PRO: Updated value in CSV for file upload fields
+* PRO: Include comments in the CSV export
+* PRO: Made dynamic default values clickable on form builder page
+* PRO: Added column in CSV for value for fields that are set to use separate values
+* PRO: Allow for quotation marks in field labels for the CSV export
+* PRO: Added frm_import_val hook for CSV importing
+* PRO: Removed border styling from the container around radio and checkbox fields
+* PRO: Added frm_order_display hook
+* PRO: Added utf8 support to sanitize_url=1 option
+* PRO: Added "confirm" option to frm-entry-links shortocode that is used before an entry is deleted
+* PRO: Copy conditional logic and field calculations into duplicated forms
+* PRO: Allow clickable=1 and images to be used with Google formresults shortcode
+* PRO: Allow [25 show="user_email"] for data from entries fields to get user info from the user ID from the linked form, and [25 show="30" show_info="user_email"] to get values from a field linked through 2 data from entries fields
+* PRO: Allow tags fields to be used with hierarchal taxonomies
+* PRO: No longer require fields in a conditionally hidden section heading
+* PRO: Added option for frmThemeOverride_frmAfterSubmit function for custom javascript after ajax submit
+* PRO: Updated star rating javascript version
+* PRO: Check field key when creating a form from a template to see if the trailing "2" can be removed
+* PRO: Don't show custom display content for password protected posts until allowed
+* PRO: Switch the cancel link to edit link after a form is submitted with in-place-edit and ajax
+* PRO: Switched front-end ajax to use hooks (frm_ajax_{controller}_{action})
+* PRO: Call ajax later on the init hook to prevent php notices when WooCommerce is active
+* PRO: Delete entries on the same page as the frm-entry-links shortcode, and added a confirmation message: confirm="Are you sure?"
+* PRO: Correctly check if jQuery on() function exists
+* PRO: Fixed calendar display for months starting on Sunday when the week start day is set to Monday
+* PRO: Removed "custom display" from the post type options on the "create posts" settings tab
+* PRO: Allow multiple values to be imported into an entry via csv in a multi-select dropdown field
+
+= 1.06.11 =
+* Added styling classes: two thirds, scroll box, columns (frm_first_two_thirds, frm_last_two_thirds, frm_scroll_box, frm_total, frm_two_col, frm_three_col, frm_four_col, )
+* Added container in default html for new check box and radio fields
+* PRO: Added a print link on the view entry page in the back-end
+* PRO: Added support for category stats in the frm-stats shortcode
+* PRO: Allow the edit link to dynamically get the id of the entry when used on a post page. Ex: [frm-entry-edit-link id=current label="Edit" page_id=92]
+* PRO: Allow non-admin users to see the user ID drop down in the back-end when they have permission to edit entries from the back-end
+* PRO: Added frm_data_sort hook for sorting data from entries options
+* PRO: Allow dropdown fields to be selected as the post title
+* PRO: Switched data from entries drop downs to use field key in the html id instead of the field id for consistency
+* PRO: When importing templates, use the path shown in the box whether it has been saved or not
+* PRO: Fixed admin-only fields to still save to created post
+* PRO: Fixed issue preventing required multiple file upload fields from being required
+* PRO: Updated input mask script to 1.3.1
+* PRO: Added hooks for entries in the admin: frm_row_actions, frm_edit_entry_publish_box, frm_show_entry_publish_box, frm_edit_entry_sidebar
+
+= 1.06.10 =
+* Allow the usage of any html attributes inside the [input] tag in the customizable HTML
+* PRO: Added "Chosen" autocomplete to dropdown fields
+* PRO: Added automatic width option to data from entries fields
+* PRO: Extended the "admin only" field option to all user roles, or only logged-in or logged-out users
+* PRO: Added multiple-select to data from entries dropdowns
+* PRO: Added more info to the form settings sidebar
+* PRO: Resolved conflict between ajax submit and plugins/themes with whitespace in php files
+* PRO: Fixed template export to properly serialize and escape for multiple choice fields
+
+= 1.06.09 =
+* DROPPED PHP4 SUPPORT. Do not update if you run PHP4.
+* Added the "create template" link into the free version
+* Added quotes around the menu position number to minimize menu position conflicts with other plugins
+* Moved all stripslashes to the point the data is retrieved from the database
+* Switched the field options bulk edit to use the admin ajax url to minimize plugin conflicts
+* Changed all occurrences of .live() to .on() for jQuery 1.9 compatibility
+* PRO: Added AJAX form submit
+* PRO: Dropped Open Flash Chart support due to security vulnerabilities
+* PRO: Added multiple option to dropdown fields
+* PRO: Added unique error message into global and field settings
+* PRO: Added option to limit by ranges in the frm-stats shortcode. Ex: [frm-stats id=50 '-1 month'<45<'-3 days']
+* PRO: Automatically strip javascript before displaying entries through a custom display
+* PRO: Added striphtml=1 and keepjs=1 options for use in custom displays
+* PRO: Added option to get the field description with [125 show="description"]
+* PRO: Added separate value column on entries page
+* PRO: Added link to delete entry only and leave post
+* PRO: Added box for custom css in the styling settings
+* PRO: Added buttons to insert default HTML or plain text for those who wish to modify the default message without starting from scratch
+* PRO: Added link to uploaded files in the entry edit form
+* PRO: Added "like" and "not like" options to the conditional logic for hiding and showing fields
+* PRO: Switched section headings to use h3 tags by default instead of h2
+* PRO: Migrated "Allow Only One Entry for Each" fields to the unique checkbox on each field
+* PRO: Allow for multiple uses of frm-entry-update-field for the same field and entry
+* PRO: Allow external short codes in the email recipients box
+* PRO: Allow the frm-search shortcode to be used in text widgets
+* PRO: Switched conditional fields to show and hide instead of fadeIn and fadeOut
+* PRO: Switched rich text fields to default to TinyMCE
+* PRO: Correctly send emails to [admin_email], and allow the same email address to receive multiple notifications from the same form
+* PRO: Filter shortcodes in success message when the form is limited to one entry per user and editable
+* PRO: Correctly show the taxonomy name even if it is not linked to a post
+* PRO: Fixed read-only option to work with dropdown fields
+* PRO: Fixed post password setting
+* PRO: Fixed post content replacement when entry is updated instead of only on creation
+* PRO: Fixed frm-stats shortcode to allow field keys when using the value option
+* PRO: Fixed custom displays getting used if they are in the trash
+* PRO: Fixed custom display pages to not include the unfiltered post content when there are no entries to display
+* PRO: Fixed the bulk delete option showing for users without permission to delete in the bulk actions dropdown on the admin entry listing page
+* PRO: Fixed the delete link in entry edit links shortcode to prevent it from going to a blank form when using the page_id param
+* PRO: Fixed calendar to show the correct number of extra boxes when not starting on Sunday
+* PRO: Fixed repeated, inline conditional logic in custom displays
+* PRO: Fixed option to copy forms to other sites in multi-site installs, so they will no longer be copied when the box is unchecked 
+* PRO: Fixed admin-only fields to not validate for users who can't see the field
+
 = 1.06.08 =
 * Changed class names on action links on the form listing table to prevent conflicts with themes and other plugins
 * PRO: Filter shortcodes if any in the login message
@@ -123,7 +247,6 @@ A. Try clearing your browser cache. As plugin modifications are made, frequent j
 * PRO: Removed separate values checkbox for post status and taxonomy fields
 * PRO: Fixed double filtering forms if inserted in the dynamic box of a custom display used for posts
 * PRO: Fixed page size and limit overriding single entry displays
-
 
 = 1.06.05 =
 * Fixed WP 3.4 layout issues with missing sidebars
@@ -612,7 +735,7 @@ $[25 decimal=2 dec_point='.' thousands_sep=',']
 = 1.02.01 =
 * Emailer now works for everyone! (hopefully)
 * Optionally Reset HTML. Just clear out the box for the HTML for that field and hit update.
-* PRO: Fixed collapsable section to use correct default HTML. 
+* PRO: Fixed collapsible section to use correct default HTML. 
 * PRO: Only call rich text javascript on entries pages
 * PRO: A few small reports modifications. Report for the User ID field will show the percentage of your users who have submitted the form if you are allowing edits with only one submission per user.
 

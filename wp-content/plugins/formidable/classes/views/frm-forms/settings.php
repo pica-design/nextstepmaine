@@ -34,16 +34,16 @@
     
     <div class="clear"></div> 
 
-        <input type="hidden" name="id" value="<?php echo $id; ?>" />
-        <input type="hidden" name="frm_action" value="update_settings" />
+    <input type="hidden" name="id" value="<?php echo $id; ?>" />
+    <input type="hidden" name="frm_action" value="update_settings" />
     <div id="poststuff" class="metabox-holder">
     <div id="post-body">
         <div class="meta-box-sortables">
         <div class="categorydiv postbox">
-        <h3 class="hndle"><span><?php echo FrmAppHelper::truncate(stripslashes($values['name']), 40) .' '. __('Settings', 'formidable') ?></span></h3>
+        <h3 class="hndle"><span><?php echo FrmAppHelper::truncate($values['name'], 40) .' '. __('Settings', 'formidable') ?></span></h3>
         <div class="inside">
         <div class="contextual-help-tabs">
-        <ul class="frm-category-tabs <?php if(version_compare( $GLOBALS['wp_version'], '3.3.0', '<')) echo 'category-tabs" id="category-tabs'; ?>">
+        <ul class="frm-category-tabs <?php if(version_compare( $GLOBALS['wp_version'], '3.3.0', '<')) echo 'category-tabs" id="category-tabs'; ?> frm-form-setting-tabs">
         	<li class="tabs active"><a onclick="frmSettingsTab(jQuery(this),'advanced');"><?php _e('General', 'formidable') ?></a></li>
         	<li><a href="#notification_settings"><?php _e('Emails', 'formidable') ?></a></li>
             <li><a href="#html_settings"><?php _e('Customize HTML', 'formidable') ?></a></li>
@@ -56,24 +56,16 @@
         <div style="display:block;" class="advanced_settings tabs-panel">
         	<table class="form-table">
                 <tr>
-                    <td width="200px"><label><?php _e('Form ShortCodes', 'formidable') ?></label> <a href="http://formidablepro.com/knowledgebase/publish-your-forms/" target="_blank"><img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('Key and id are generally synonymous. For more information on using this shortcode, click now.', 'formidable') ?>" /></a></td>
-                    <td><input type="text" style="width:255px; border:none; background:transparent;" readonly="true" onclick="this.select();" onfocus="this.select();" value="[formidable id=<?php echo $id; ?> title=true description=true]" /> <?php _e('or', 'formidable') ?>
-                        <input type="text" style="width:200px; border:none; background:transparent;" readonly="true" onclick="this.select();" onfocus="this.select();" value="[formidable key=<?php echo $values['form_key']; ?>]" />
-                    </td>
-                </tr>
-
-                <tr>
                     <td><label><?php _e('Form Key', 'formidable') ?></label></td>
                     <td><input type="text" name="form_key" value="<?php echo esc_attr($values['form_key']); ?>" /></td>
                 </tr>
 
-                <tr><td><label><?php _e('Styling', 'formidable') ?></label></td>
-                    <td><input type="checkbox" name="options[custom_style]" id="custom_style" <?php echo ($values['custom_style']) ? ' checked="checked"' : ''; ?> value="1" />
-                    <label for="custom_style"><?php _e('Use Formidable styling for this form', 'formidable') ?></label></td>
-                </tr> 
-
                 <tr><td><label><?php _e('Submit Button Text', 'formidable') ?></label></td>
                     <td><input type="text" name="options[submit_value]" value="<?php echo esc_attr($values['submit_value']); ?>" /></td>
+                </tr>
+                
+                <tr><td colspan="2"><input type="checkbox" name="options[custom_style]" id="custom_style" <?php echo ($values['custom_style']) ? ' checked="checked"' : ''; ?> value="1" />
+                    <label for="custom_style"><?php _e('Use Formidable styling for this form', 'formidable') ?></label></td>
                 </tr>
                 
                 <tr><td valign="top" colspan="2"><label><?php _e('Action After Form Submission', 'formidable') ?></label><br/>
@@ -87,21 +79,31 @@
                     </td>
                 </tr>
                 
-                <tr class="success_action_redirect_box success_action_box" <?php echo ($values['success_action'] == 'redirect') ? '' : 'style="display:none;"'; ?>><td valign="top" colspan="2"><label><?php _e('Redirect to URL', 'formidable') ?></label>
-                    <input type="text" name="options[success_url]" id="success_url" value="<?php if(isset($values['success_url'])) echo esc_attr($values['success_url']); ?>" size="55"></td>
+                <tr class="success_action_redirect_box success_action_box" <?php echo ($values['success_action'] == 'redirect') ? '' : 'style="display:none;"'; ?>><td valign="top" colspan="2">
+                    <input type="text" name="options[success_url]" id="success_url" value="<?php if(isset($values['success_url'])) echo esc_attr($values['success_url']); ?>" style="width:98%" placeholder="http://example.com" /></td>
                 </tr>
                 
                 <tr class="success_action_message_box success_action_box" <?php echo ($values['success_action'] == 'message') ? '' : 'style="display:none;"'; ?>><td valign="top" colspan="2"><label><?php _e('Confirmation Message', 'formidable') ?></label>
-                    <textarea id="success_msg" name="options[success_msg]" cols="50" rows="4" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea($values['success_msg']); ?></textarea> <br/>
+                    <textarea id="success_msg" name="options[success_msg]" cols="50" rows="3" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea($values['success_msg']); ?></textarea> <br/>
                     <div class="frm_show_form_opt">
                     <input type="checkbox" name="options[show_form]" id="show_form" value="1" <?php checked($values['show_form'], 1) ?> /> <label for="show_form"><?php _e('Show the form with the success message.', 'formidable')?></label>
                     </div>
                     <td>
                 </tr>
+                <?php if($frmpro_is_installed){ ?>
+                <tr class="success_action_page_box success_action_box" <?php echo ($values['success_action'] == 'page') ? '' : 'style="display:none;"'; ?>><td><label><?php _e('Use Content from Page', 'formidable') ?></label></td>
+                    <td>
+                        <?php FrmAppHelper::wp_pages_dropdown( 'options[success_page_id]', $values['success_page_id'] ) ?>
+                    </td>
+                </tr>
+                <?php } ?>
+                
+                <tr><td colspan="2"><input type="checkbox" name="options[ajax_load]" id="ajax_load" value="1"<?php echo ($values['ajax_load']) ? ' checked="checked"' : ''; ?> /> <label for="ajax_load"><?php _e('Load and save form builder page with AJAX', 'formidable') ?></label><img src="<?php echo FRM_IMAGES_URL ?>/tooltip.png" alt="?" class="frm_help" title="<?php _e('Recommended for long forms.', 'formidable') ?>" /></td></tr>
+
 
                 <?php do_action('frm_additional_form_options', $values); ?> 
                 
-                <tr><td colspan="2"><input type="checkbox" name="options[no_save]" id="no_save" value="1" <?php checked($values['no_save'], 1); ?> /> <?php _e('Do not store any entries submitted from this form.', 'formidable') ?> <span class="howto"><?php _e('Warning: There is no way retrieve unsaved entries.', 'formidable') ?></span></td></tr>
+                <tr><td colspan="2"><input type="checkbox" name="options[no_save]" id="no_save" value="1" <?php checked($values['no_save'], 1); ?> /> <?php _e('Do not store any entries submitted from this form.', 'formidable') ?> <span class="howto"><?php _e('Warning: There is no way to retrieve unsaved entries.', 'formidable') ?></span></td></tr>
                 
                 <?php if (function_exists( 'akismet_http_post' )){ ?>
                 <tr><td colspan="2"><?php _e('Use Akismet to check entries for spam for', 'formidable') ?>
@@ -142,7 +144,7 @@
                         foreach($values['fields'] as $field){
                             if (apply_filters('frm_show_custom_html', true, $field['type'])){ ?>
                                 <p><label class="frm_primary_label"><?php echo $field['name'] ?></label>
-                                <textarea name="field_options[custom_html_<?php echo $field['id'] ?>]" rows="7" id="custom_html_<?php echo $field['id'] ?>" class="field_custom_html frm_long_input"><?php echo FrmAppHelper::esc_textarea($field['custom_html']) ?></textarea></p>
+                                <textarea name="field_options[custom_html_<?php echo $field['id'] ?>]" rows="7" id="custom_html_<?php echo $field['id'] ?>" class="field_custom_html frm_long_input"><?php echo FrmAppHelper::esc_textarea(stripslashes($field['custom_html'])) ?></textarea></p>
                             <?php }
                             unset($field);
                         }
@@ -151,6 +153,9 @@
 
                 <p><label class="frm_primary_label"><?php _e('After Fields', 'formidable') ?></label>
                 <textarea name="options[after_html]" rows="3" id="after_html" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea(stripslashes($values['after_html'])) ?></textarea></p> 
+                
+                <p><label class="frm_primary_label"><?php _e('Submit Button', 'formidable') ?></label>
+                <textarea name="options[submit_html]" rows="3" id="submit_html" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea(stripslashes($values['submit_html'])) ?></textarea></p>
             </div>
         </div>
         <div id="post_settings" class="tabs-panel" style="display:none;">
@@ -195,5 +200,5 @@
 </div>
 </div>
 <script type="text/javascript">
-__FRMURL='<?php echo $frm_ajax_url ?>';
+__FRMURL='<?php echo admin_url("admin-ajax.php") ?>';
 </script>

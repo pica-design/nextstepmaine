@@ -28,7 +28,7 @@ class FrmListHelper extends WP_List_Table {
 	}
 
 	function prepare_items() {
-	    global $frmdb, $wpdb, $per_page, $frm_settings, $frm_form, $frm_app_helper;
+	    global $frmdb, $wpdb, $per_page, $frm_settings, $frm_form;
 		$paged = $this->get_pagenum();
 		$default_orderby = 'name';
 		$default_order = 'ASC';
@@ -63,7 +63,7 @@ class FrmListHelper extends WP_List_Table {
 	    }
 	    
         $this->items = $frm_form->getAll($s_query, " ORDER BY $orderby $order", " LIMIT $start, $per_page", true, false);
-        $total_items = $frm_app_helper->getRecordCount($s_query, $this->table_name);
+        $total_items = FrmAppHelper::getRecordCount($s_query, $this->table_name);
 		
 
 		$this->set_pagination_args( array(
@@ -112,7 +112,7 @@ class FrmListHelper extends WP_List_Table {
 		
 		// Set up the hover actions for this user
 		$actions = array();
-		$title = esc_attr(strip_tags(stripslashes($item->name)));
+		$title = esc_attr(strip_tags($item->name));
 		
 		$edit_link = "?page=formidable&frm_action=edit&id={$item->id}";
 		$actions['frm_edit'] = "<a href='" . wp_nonce_url( $edit_link ) . "'>". __('Edit', 'formidable') ."</a>";
@@ -137,10 +137,7 @@ class FrmListHelper extends WP_List_Table {
         	
         	$actions['frm_duplicate'] = "<a href='" . wp_nonce_url( $duplicate_link ) . "' title='". __('Copy', 'formidable') ." $title'>". __('Duplicate', 'formidable') ."</a>";
         	
-        	if($frmpro_is_installed){
-        	    $actions['frm_template'] = "<a href='" . wp_nonce_url( "?page=formidable&frm_action=duplicate&id={$item->id}&template=1" ) . "' title='". __('Create Template', 'formidable') ."'>". __('Create Template', 'formidable') ."</a>";
-        	    
-        	}
+        	$actions['frm_template'] = "<a href='" . wp_nonce_url( "?page=formidable&frm_action=duplicate&id={$item->id}&template=1" ) . "' title='". __('Create Template', 'formidable') ."'>". __('Create Template', 'formidable') ."</a>";
         }
         
         if($frmpro_is_installed){
@@ -200,11 +197,11 @@ class FrmListHelper extends WP_List_Table {
 					break;
 				case 'id':
 				case 'form_key':
-				    $val = stripslashes($item->{$column_name});
+				    $val = $item->{$column_name};
 				    break;
 				case 'name':
 				case 'description':
-				    $val = FrmAppHelper::truncate(strip_tags(stripslashes($item->{$column_name})), 50);
+				    $val = FrmAppHelper::truncate(strip_tags($item->{$column_name}), 50);
 				    break;
 				case 'created_at':
 				    $format = 'Y/m/d'; //get_option('date_format');
@@ -250,7 +247,4 @@ class FrmListHelper extends WP_List_Table {
 		return $r;
 	}
 	
-
 }
-
-?>

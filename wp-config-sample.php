@@ -15,19 +15,16 @@
  */
 
 // ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'database_name_here');
 
-//LIVE PICA VPS
-/*
-define('DB_NAME', 'nsm_wordpress');
-define('DB_USER', 'nsm_wpuser');
-define('DB_PASSWORD', '{QT.^g#-7,nH');
-define('DB_HOST', 'localhost');
-*/
+/** MySQL database username */
+define('DB_USER', 'username_here');
 
-//LOCAL PICA DEV
-define('DB_NAME', 'nextstepmaine_wordpress');
-define('DB_USER', 'root');
-define('DB_PASSWORD', '1309piCa');
+/** MySQL database password */
+define('DB_PASSWORD', 'password_here');
+
+/** MySQL hostname */
 define('DB_HOST', 'localhost');
 
 /** Database Charset to use in creating database tables. */
@@ -45,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'gXd/yqubFT4`jD 46cRG$sen!^bihjPw%pb,6L[C|Tor3JvdN)|CAqKkXwg*3w7[');
-define('SECURE_AUTH_KEY',  'g/9x!7YeL0InOao/608SyDyZ)bq/B5jOkW3g|[PHYo7QQ.k/jf5cuk$DFvdby_)&');
-define('LOGGED_IN_KEY',    's6Edo(b(8wc&8qIAw%/C)ow|:yZC*3j^tECC*&uGTb_(y7PKQf6|q9ou7Z?5Hv;H');
-define('NONCE_KEY',        ',/ gal&>F yccAwJp^FCJ^6M:1=fmd0N@fMq71v|N}.x?Ppnj=3TVQBM6+x|S{Dz');
-define('AUTH_SALT',        '!%DA@n%`9rBY[2{g*u*|,*N(JH0&0*D~o}o~/@+5qY&{2p#RW >uLQ-@-hMQG2-Q');
-define('SECURE_AUTH_SALT', 'MK`*%7r548h$A3APeGcX.4S?3PAo}1<TFT^1Qf~@7}4?DlCM`1N9i-mVpSO7Ij7 ');
-define('LOGGED_IN_SALT',   'Sp&8-93g4ttc;(_-`%&DjEPIe`x^8|j Wm+}tKz6>?gsV7f;nXQmXcn h?Jn1<cg');
-define('NONCE_SALT',       ')eQHR} +S%C.xTMzQI+epO5LzQ?V-Z+vrnxYCz2K@v1=PGMkLS<p/rM`_|hc5E+,');
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
 
 /**#@-*/
 
@@ -62,7 +59,7 @@ define('NONCE_SALT',       ')eQHR} +S%C.xTMzQI+epO5LzQ?V-Z+vrnxYCz2K@v1=PGMkLS<p
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'nsm_wp_';
+$table_prefix  = 'wp_';
 
 /**
  * WordPress Localized Language, defaults to English.
@@ -81,9 +78,7 @@ define('WPLANG', '');
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', true);
-
-//define('RELOCATE',true);
+define('WP_DEBUG', false);
 
 /* That's all, stop editing! Happy blogging. */
 
