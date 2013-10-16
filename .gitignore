@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+.htaccess
+wp-config.php
+*.sublime-project
+*.sublime-workspace
+config.rb
+.sass-cache
+wp-content/themes/nextstepmaine-wp-theme/stylesheets/
