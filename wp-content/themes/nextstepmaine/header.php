@@ -1,4 +1,7 @@
 <?php 
+    //Make the global variables we need available
+    global $cdn ;
+
     //Determine if the user is viewing a nextstep page
     if (is_object($post)) : 
         switch ($post->post_name) :
@@ -22,6 +25,7 @@
     else :
          $nextstep = false ;
     endif;
+
     //If they are we'll set a cookie with the step value (so we can keep the menu positioned on their step)
         //e.g. Viewed 'Change my Career' and then clicked around the website, we want to keep 'Change my Career' highlighted
     if ($nextstep !== false) : setcookie("nextstep", $nextstep, time() + 3600, "/"); endif ;
@@ -29,6 +33,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <meta charset="UTF-8">
     	<!--
              ____                            ____                                          
             /\  _`\   __                    /\  _`\                  __                    
@@ -42,17 +47,14 @@
                                                                                                                                                          
             Design + Marketing | www.picadesign.com
         -->
-        <meta charset="UTF-8">
         <title><?php wp_title() ?></title>
         <meta name="msvalidate.01" content="5EEAF8559BB30800CEB7EB72D4B159B9" />
         <meta property="og:title" content="<?php bloginfo('name') ?>" />
         <meta property="og:description" content="<?php bloginfo('description') ?>" />
-        <meta property="og:image" content="<?php bloginfo('template_directory') ?>/images/content/nextstepmaine-logo.jpg" />
-        <link rel="stylesheet" href="<?php bloginfo('template_directory') ?>/stylesheets/style.css" />
+        <meta property="og:image" content="<?php echo $cdn->template_images_url ?>content/nextstepmaine-logo.jpg" />
+        <link type="text/plain" rel="author" href="//<?php echo $cdn->template_directory ?>humans.txt" />
         <link rel="shortcut icon" href="<?php bloginfo('template_directory') ?>/images/content/favicon.jpg" />
-        <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-        <!--[if gte IE 9]><style type="text/css">.gradient { filter: none; }</style><![endif]-->
-        <?php //wp_head() ?>
+        <?php wp_head() ?>
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-4265805-56']);

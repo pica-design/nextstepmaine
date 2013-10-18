@@ -1,0 +1,49 @@
+ ____                            ____                                          
+/\  _`\   __                    /\  _`\                  __                    
+\ \ \L\ \/\_\    ___     __     \ \ \/\ \     __    ____/\_\     __     ___    
+ \ \ ,__/\/\ \  /'___\ /'__`\    \ \ \ \ \  /'__`\ /',__\/\ \  /'_ `\ /' _ `\  
+  \ \ \/  \ \ \/\ \__//\ \L\.\_   \ \ \_\ \/\  __//\__, `\ \ \/\ \L\ \/\ \/\ \ 
+   \ \_\   \ \_\ \____\ \__/.\_\   \ \____/\ \____\/\____/\ \_\ \____ \ \_\ \_\
+    \/_/    \/_/\/____/\/__/\/_/    \/___/  \/____/\/___/  \/_/\/___L\ \/_/\/_/
+	                                                          	 /\____/ 
+	                                                          	 \_/__/  
+/* AGENCY *************************************************************************/
+    
+Pica Design + Marketing
+P.O. Box 225 
+111 Church Street 
+Belfast, ME 04915-0225
+USA
+
+www.picadesign.com
+web@picadesign.com
+
+/* TEAM ****************************************************************************/
+
+Role .............. : Management
+Staff ............. : Rob Dietz, James Mehorter
+
+Role .............. : Design
+Staff ............. : Micah Ellis
+
+Role .............. : Development
+Staff ............. : James Mehorter, Jason Walker
+
+Role .............. : Support
+Staff ............. : Cassidy Parmley
+
+/* INFO ****************************************************************************/
+
+Website ........... : American Conifer Society
+Launch Date ....... : August, 2013
+Standards.......... : HTML5, CSS3
+Components ........ : jQuery, WordPress
+Software .......... : Photoshop, Illustrator, Sublime 2, Git, SASS, Compass.
+
+/***********************************************************************************/
+
+We’re a creative services agency that balances possibilities with pragmatism. We help 
+companies define and communicate their purpose. We use our collective talents to 
+challenge convention and create impact for our clients. 
+
+This is how we make a difference.

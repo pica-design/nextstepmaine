@@ -13,199 +13,48 @@
 		Graphic Design & Marketing | www.picadesign.com
 	*/
 	
-	
-	/************************
-			OVERRIDES
-	************************/
-	remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
-	remove_action( 'wp_head', 'feed_links', 2 ); // Display the links to the general feeds: Post and Comment Feed
-	remove_action( 'wp_head', 'rsd_link' ); // Display the link to the Really Simple Discovery service endpoint, EditURI link
-	remove_action( 'wp_head', 'wlwmanifest_link' ); // Display the link to the Windows Live Writer manifest file.
-	remove_action( 'wp_head', 'index_rel_link' ); // index link
-	remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 ); // prev link
-	remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); // start link
-	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 ); // Display relational links for the posts adjacent to the current post.
-	remove_action( 'wp_head', 'wp_generator' ); // Display the XHTML generator that is generated on the wp_head hook, WP version
-	remove_action( 'wp_head', 'rel_canonical'); //Remove the wp canonical url
-	add_filter( 'next_post_rel_link', 'disable_stuff' );
-	function disable_stuff( $data ) { return false; }
-	
-	/*
-	
-	//Both functions below we chopped, and instead we modified the relavent search plugin starting at line 100
-	//See evernote 'changelogs' note for more information.
-	//Leaving these here for reference if we need them later on
-
-	//Increase the default search result limit
-	add_filter('pre_get_posts', 'increase_search_results',10,1); 
-	function increase_search_results($query) {
-		if ( $query->is_search == 1) :
-			$query->query_vars['posts_per_page'] = -1;
-			return $query; // Return our modified query variables
-		endif;
-	}
-	*/
-	/*
-	//Order search results by post_type
-	add_filter('posts_orderby','order_search_results',10,2);
-	function order_search_results( $orderby, $query ){
-		global $wpdb;
-		if ( $query->is_search ) :
-		    $orderby =  "$wpdb->posts.post_type ASC";
-		else :
-			$orderby = "$wpdb->posts.post_date DESC, $wpdb->posts.menu_order ASC";
-	    endif;
-	    return $orderby;
-	}
-	*/
-
-	/************************
-			SETUP
-	************************/
+	//Theme Setup
 	add_action( 'init', 'nextstepmaine_theme_setup' );
-		
-		//Adding thumbnail images into Posts
-		add_theme_support( 'post-thumbnails', array('nsm_institution'));
-		
-		//Additional attachment dimensions
-		add_image_size('slideshow', 800, 287, true);
-		
-		/************************
-   		 CUSTOM QUERY VARIABLES
-		************************/
-		/*
-			The following created a query_var called 'program_type', so..
-			site.com/programs/foo  ==  site.com/programs?program_type=foo
+	function nextstepmaine_theme_setup() {
+		//The theme namespace is used for menu of the operations below. 
+		//The namespace NEEDS to mirror the name of the theme folder
+		//And the primary js script file should also use this same namespace
+		global $theme_namespace; $theme_namespace = 'nextstepmaine';
 
-			NOTE: Your 'programs' page can not have any child
-		*/
-		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?program_type=foo
-		add_rewrite_tag('%program_type%', '([^&]+)');
-		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?program_type=foo 
-		add_rewrite_rule('^programs/([^/]*)/?', 'index.php?pagename=programs&program_type=$matches[1]', 'top');
-		/*
-		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo
-		add_rewrite_tag('%faq_item%', '([^&]+)');
-		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 
-		add_rewrite_rule('^faq/([^/]*)/?', 'index.php?pagename=faq&faq_item=$matches[1]', 'top');
-*/
-		//Register our custom $_GET variable (aka query var, aka rewrite tag) ?prog_edu_lvl=foo
-		add_rewrite_tag('%education_requirement%', '([^&]+)');
-		//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?prog_edu_lvl=foo 
-		add_rewrite_rule('^jobs/([^/]*)/?', 'index.php?pagename=jobs&education_requirement=$matches[1]', 'top');
-		
-		function nextstepmaine_theme_setup() {
-			// This theme styles the visual editor with editor-style.css to match the theme style.
-			add_editor_style('stylesheets/editor.css');		
-			// This theme uses wp_nav_menu() in one location.
-			register_nav_menus( array(
-				'primary' => __( 'Masthead Navigation', 'nextstepmaine' ),
-				'secondary' => __( 'Next Step', 'nextstepmaine' ),
-				'tertiary' => __( 'Footer Navigation', 'nextstepmaine' )
-			) );
-			
-			/************************
-				CUSTOM POST TYPES
-			************************/
-			include('inc/nextstep-post-types.php') ;
-			
-			/************************
-				Posts 2 Posts Connection Types
-			************************/
-			include('inc/nextstep-connection-types.php') ;
-			
-			/************************
-				CUSTOM ADMIN PAGES
-			************************/
-			include('inc/nextstep-admin-pages.php') ;
-			
-			/************************
-				CUSTOM META BOXES
-			************************/
-			include('inc/nextstep-meta-boxes.php') ;
-		}
-		
-		
-	/************************
-			CLASSES
-	************************/
-	include('inc/nextstep-classes.php') ;
-	
-	
-	/************************
-			GALLERY
-	************************/
-	/* Adding custom attachment fields */
-	add_filter("attachment_fields_to_edit", "post_attachment_new_fields", null, 2);
-	/* Save custom attachment fields on update */
-	add_filter("attachment_fields_to_save", "update_post_attachment_new_fields", null , 2);
-	
-	/* Adding custom attachment fields */
-	function post_attachment_new_fields ($form_fields, $post) {
-		$form_fields["attachment-exclude-from-gallery"] = array(
-			"label" => __("Exclude"),
-			"input" => "html",
-			"html"  => "<input type='checkbox' name='attachments[$post->ID][attachment-exclude-from-gallery]' " . checked( get_post_meta($post->ID, "_attachment-exclude-from-gallery", true), 'on', 0 ) . " /> &nbsp;" . __("Don't show this attachment in the gallery.")
-		);
-		$form_fields["attachment-slide-link"] = array(
-			"label" => __("Slide Link"),
-			"input" => "text",
-			"value" => get_post_meta($post->ID, '_attachment-slide-link', true)
-		);
-	   return $form_fields;
-	}
-	
-	/* Save custom attachment fields */ 
-	function update_post_attachment_new_fields ($post, $attachment) {
-		if (isset($attachment['attachment-exclude-from-gallery'])) : 
-			update_post_meta($post['ID'], '_attachment-exclude-from-gallery', $attachment['attachment-exclude-from-gallery']);
-		else :
-			update_post_meta($post['ID'], '_attachment-exclude-from-gallery', 'off');
-		endif;
-		update_post_meta($post['ID'], '_attachment-slide-link', $attachment['attachment-slide-link']);
-		return $post;
-	}
-	
-	
-	/************************
-			SIDEBARS
-	************************/
-	//Homepage Sidebar
-	register_sidebar(array(
-		'name' => __('Homepage'),
-		'id' => 'homepage-sidebar',
-		'description' => __('Widgets in this sidebar will display on the website homepage'),
-		'before_title' => '',
-		'after_title' => ''
-	));
-	
-	//Page Sidebar
-	register_sidebar(array(
-		'name' => __('Page'),
-		'id' => 'page-sidebar',
-		'description' => __('Widgets in this sidebar will display in the right-hand sidebar on pages'),
-		'before_title' => '',
-		'after_title' => ''
-	));
-	
-	
-	/************************
-			WIDGETS
-	************************/
-	//Include our widgets
-	include('inc/nextstep-widgets.php') ;
-	
-	//Register our widgets
-	add_action( 'widgets_init', 'register_widgets');
-	function register_widgets () {
-		register_widget( "NEXTSTEP_Financial_Aid_Widget" );
-		register_widget( "NEXTSTEP_Jobs_in_Demand_Widget" );
-		register_widget( "NEXTSTEP_Institutions_Widget" );
-	};
-	
-	
-	/***********************
-			SHORTCODES
-	***********************/
-	include('inc/nextstep-shortcodes.php');
-?>
+		//Load our psuedo-cdn/subdomain url generation
+		include('inc/cdn-url-generation.php');
+		//Instantiate our CDN url class
+		//This variable with be used throughout the theme to point to website assets
+		global $cdn;
+		$cdn = new CDN(0) ;
+
+		// This theme styles the visual editor with editor-style.css to match the theme style.
+		add_editor_style('stylesheets/editor.css');		
+	}//nextstepmaine_theme_setup
+
+	//Helper Functions
+	include('inc/helper-functions.php');
+	//Load our WordPress Core Overrides
+	include('inc/overrides.php');
+	//wp_head() and wp_footer() scripts and styles
+	include('inc/styles-scripts.php');
+	//Menus
+	include('inc/menus.php');
+	//Classes
+	include('inc/classes.php');
+	//Custom Post Types
+	include('inc/post-types.php');
+	//Posts 2 Posts
+	include('inc/connection-types.php');
+	//WP-Admin Modifications
+	include('inc/admin-pages.php');
+	//Meta Boxes
+	include('inc/meta-boxes.php');
+	//Post Attachments
+	include('inc/post-attachments.php');
+	//Shortcodes
+	include('inc/shortcodes.php');
+	//Sidebars
+	include('inc/sidebars.php');
+	//Widgets
+	include('inc/widgets.php');

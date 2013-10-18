@@ -1,92 +1,8 @@
 <?php
-	
-	/********************************************
-	FINANCIAL AID WIDGET
-	********************************************/
-	class NEXTSTEP_Financial_Aid_Widget extends WP_Widget {
-		
-		public function __construct () {
-			parent::__construct(
-				'nextstep-financial-aid-widget', // Base ID
-				'Financial Aid Widget', // Name
-				array( 'description' => __( 'Display useful financial aid information in a widget.', 'nextstepmaine' ), ) // Args
-			);
-		}
-		
-		public function form ($instance) {
-		}
-		
-		public function update ($new_instance, $old_instance) {
-		}
-		
-		public function widget ($args, $instance) {
-			?>
-            <section class="widget" id="financial-aid">
-                <h3>Financial Aid</h3>
-                <a href="<?php bloginfo('url') ?>/financial-aid/" title="Learn about Financial Aid">
-	                <p class="slogan">Get help paying<br />for college.</p>
-	                <!--<p class="tooltip">Click the link below<br />for more information</p>-->
-	                <img src="<?php bloginfo('template_directory') ?>/images/content/fafsa-logo.jpg" alt="Federal Student Aid Logo" />
-                </a>
-            </section>
-            <?php
-		}
-	}
-	
-	
-	/********************************************
-	JOBS IN DEMAND WIDGET
-	********************************************/
-	class NEXTSTEP_Jobs_In_Demand_Widget extends WP_Widget {
-		
-		public function __construct () {
-			parent::__construct(
-				'nextstep-jobs-in-demand-widget', // Base ID
-				'Jobs in Demand Widget', // Name
-				array( 'description' => __( 'Display a short list of some jobs in demand (Pulled from the Jobs section)', 'nextstepmaine' ), ) // Args
-			);
-		}
-		
-		public function form ($instance) {
-		}
-		
-		public function update ($new_instance, $old_instance) {
-		}
-		
-		public function widget ($args, $instance) {
-			global $post;
-			?>
-            <section class="widget" id="jobs-in-demand">
-                <h3>Jobs In Demand<br />In Maine</h3>
-                <ul>
-                    <?php
-						$jobs = new WP_Query('post_type=nsm_job&posts_per_page=4&orderby=rand');
-						while ($jobs->have_posts()) : $jobs->the_post(); ?>
-                        
-							<li><a href="<?php the_permalink() ?>" title="Learn about <?php the_title() ?>">
-								<?php 
-									$title = get_the_title($post->ID) ;
-									if (strlen($title) > 25) : 
-										echo substr($title, 0, 25) . "..";
-									else :
-										echo $title;
-									endif;
-								?>
-                            </a></li>
-					
-					<?php endwhile ?>
-                </ul>
-                <p class="tooltip"><a href="<?php bloginfo('url') ?>/resources/jobs" title="View all jobs in demand in Maine">See more jobs</a></p>
-            </section>
-            <?php
-		}
-	}
-	
-	
 	/********************************************
 	PROGRAMS & INSTITUTIONS WIDGET
 	********************************************/
-	class NEXTSTEP_Institutions_Widget extends WP_Widget {
+	class Widget_Institutions extends WP_Widget {
 		
 		public function __construct () {
 			parent::__construct(
@@ -170,6 +86,4 @@
             </section>
             <?php
 		}
-	}
-	
-?>
+	}//Widget_Institutions
