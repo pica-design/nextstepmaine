@@ -91,14 +91,22 @@
                             <?php
                                 if (isset($slide->meta_data['_wp_attachment_metadata']['sizes']['slideshow'])) :
                                     $slide_source = get_bloginfo('url') . "/wp-content/uploads/" . $slide->meta_data['_wp_attachment_metadata']['sizes']['slideshow']['file'];
-                                    //echo get_post_meta($post->ID, '_attachment-slide-link', true);
                                 else :
                                     $slide_source = $slide->guid;
                                 endif;
-                            ?>
-                            <a href="<?php echo $slide->meta_data['_attachment-slide-link'][0] ?>" title="<?php echo $slide->post_title ?>" />
-                                <img src="<?php echo $slide_source ?>" alt="<?php echo $slide->post_title ?>" />
-                            </a>
+
+                                if (isset($slide->meta_data['_attachment-slide-link'][0]) && !empty($slide->meta_data['_attachment-slide-link'][0])) : 
+                                    $slide_link = $slide->meta_data['_attachment-slide-link'][0] ;
+                                endif;
+                                
+                                if (isset($slide_link)) : ?>
+
+                            <a href="<?php echo $slide->meta_data['_attachment-slide-link'][0] ?>" title="<?php echo $slide->post_title ?>" /><?php endif ?>
+                                
+                                <img src="<?php echo $slide_source ?>" alt="<?php echo $slide->post_title ?>" /><?php if (isset($slide_link)) : ?>
+
+                            </a><?php endif ?>
+
                         </figure><?php endforeach ?>
                 </section>
             	<figure class="slideshow-next"></figure>                
