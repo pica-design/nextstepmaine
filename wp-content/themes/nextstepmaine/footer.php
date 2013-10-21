@@ -52,7 +52,7 @@
                     	<figure class="pica">
                         	<a href="http://www.picadesign.com" title="Crafted by Pica Design + Marketing" class="link-fill-container" target="_blank"></a>
                         </figure>
-                        2012 &copy; Maine Development Foundation. All Rights Reserved.
+                        <?php echo date('Y', time()) ?> &copy; Maine Development Foundation. All Rights Reserved.
                         <br />
                         <a href="<?php bloginfo('url') ?>/disclaimer" title="Website Disclaimer">Disclaimer</a> 
                         /
