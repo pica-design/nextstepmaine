@@ -323,8 +323,8 @@
 						$post_id = wp_insert_post(array(
 							'post_type'	  => 'nsm_program',
 							'post_status' => 'publish',
-							'post_title'  => ucwords(strtolower($row[2])),
-							'post_content' => $row[12]
+							'post_title'  => ucwords(strtolower($row[3])),
+							'post_content' => $row[13]
 						));	
 					
 						/*
@@ -333,9 +333,9 @@
 						*/
 
 						//Add the category terms to the post
-						if (strpos($row[11], ',')) :
+						if (strpos($row[12], ',')) :
 							//If there are multiple categories seperated by a comma insert them one by one
-							$terms = explode(',', $row[11]);
+							$terms = explode(',', $row[12]);
 							foreach ($terms as $term) :
 								//echo ucwords(strtolower($term));
 								wp_set_object_terms($post_id, ucwords(strtolower($term)), 'nsm_program_category');
@@ -343,20 +343,20 @@
 						else :
 							//Else insert the singular category
 							//echo ucwords(strtolower($row[11]));
-							wp_set_object_terms($post_id, ucwords(strtolower($row[11])), 'nsm_program_category');
+							wp_set_object_terms($post_id, ucwords(strtolower($row[12])), 'nsm_program_category');
 						endif;
-
 						
 						//Add the remaining data as post meta
 						update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
-						update_post_meta($post_id, '_nsm_program_type', $row[3]);
-						update_post_meta($post_id, '_nsm_program_level', $row[4]);
-						update_post_meta($post_id, '_nsm_program_format', $row[5]);
-						update_post_meta($post_id, '_nsm_program_location', $row[6]);
-						update_post_meta($post_id, '_nsm_program_schedule', $row[7]);
-						update_post_meta($post_id, '_nsm_program_url', $row[8]);
-						update_post_meta($post_id, '_nsm_program_timeframe', $row[9]);
-						update_post_meta($post_id, '_nsm_program_cost', $row[10]);
+						update_post_meta($post_id, '_nsm_program_cip', $row[2]);
+						update_post_meta($post_id, '_nsm_program_type', $row[4]);
+						update_post_meta($post_id, '_nsm_program_level', $row[5]);
+						update_post_meta($post_id, '_nsm_program_format', $row[6]);
+						update_post_meta($post_id, '_nsm_program_location', $row[7]);
+						update_post_meta($post_id, '_nsm_program_schedule', $row[8]);
+						update_post_meta($post_id, '_nsm_program_url', $row[9]);
+						update_post_meta($post_id, '_nsm_program_timeframe', $row[10]);
+						update_post_meta($post_id, '_nsm_program_cost', $row[11]);
 						
 						//Select the institution that this program belongs to based on the Title IV Code
 						$institution = new WP_Query(array(

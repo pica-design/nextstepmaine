@@ -3,6 +3,7 @@
 	include('post-types/nsm_faq.php');
 	include('post-types/nsm_institution.php');
 	include('post-types/nsm_program.php');
+	include('post-types/attachment.php');
 	// Define icon styles for the custom post types
 	add_action( 'admin_enqueue_scripts', 'post_type_icons' );
 	function post_type_icons() {

@@ -50,8 +50,6 @@
 	include('inc/admin-pages.php');
 	//Meta Boxes
 	include('inc/meta-boxes.php');
-	//Post Attachments
-	include('inc/post-attachments.php');
 	//Shortcodes
 	include('inc/shortcodes.php');
 	//Sidebars
