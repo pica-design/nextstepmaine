@@ -3,7 +3,6 @@
 	NEXT STEP MAINE REGISTER IMPORT PAGES
 	*********************************************************/
 	add_action('admin_menu', 'register_subpage_menus');
-	
 	function register_subpage_menus () {
 		add_submenu_page(
 			'edit.php?post_type=nsm_job',
@@ -29,8 +28,7 @@
 			'import-programs-excel-file',
 			'import_programs_excel_file_page_contents'
 		);
-	} /* END register_import_dol_excel_file_submenu_page */
-	
+	}//register_import_dol_excel_file_submenu_page
 	
 	/*********************************************************
 	NEXT STEP MAINE DOL JOBS IN DEMAND - IMPORT PAGE
@@ -40,15 +38,12 @@
 		//A form has been submitted
 		if ($_POST) :
 			global $post ;
-			
 			//Connect to our O*NET database
 			$onet = new wpdb(DB_USER, DB_PASSWORD, 'onet', DB_HOST);
-
 			//First off we need to remove the previous institution posts
 			$nsm_jobs = new WP_Query('post_type=nsm_job&posts_per_page=-1');
 			while ($nsm_jobs->have_posts()) : $nsm_jobs->the_post(); wp_delete_post($post->ID, true); endwhile;
-			
-			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
+			$file_path = WP_CONTENT_DIR . "/uploads/";
 			$file_name = $_FILES['file-upload']['name'];
 			//Move the uploaded file to it's final resting place
 			move_uploaded_file($_FILES['file-upload']['tmp_name'], $file_path . $file_name);
@@ -56,12 +51,9 @@
 			if (($uploaded_csv = fopen($file_path . $file_name, "r")) !== false) :
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
 				$row_count = 0;
-
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
-					
 					//DEBUGGING
 					//echo "<pre>" . print_r($row, true) . "</pre>";
-
 					/*
 					Array
 					(
@@ -79,10 +71,8 @@
 					    [11] => O*NET Summary Report URL
 					)
 					*/
-					
 					//Ignore the header row
 					if ($row_count > 0) : 
-					
 						//Select some information about the current occupation
 						$occupation_description = "";
 						$occupation = $onet->get_results("SELECT description FROM occupation_data WHERE onetsoc_code LIKE '%{$row[1]}%'");
@@ -90,7 +80,6 @@
 						if (is_array($occupation) && isset($occupation[0])) : 
 							$occupation_description = $occupation[0]->description;
 						endif;
-
 						//Create a custom post for each row
 						$post_id = wp_insert_post(array(
 							'post_type'	  => 'nsm_job',
@@ -98,10 +87,8 @@
 							'post_title'  => $row[2],
 							'post_content' => $occupation_description
 						));	
-						
 						//Add the category term to the post
 						wp_set_object_terms($post_id, $row[9], 'nsm_job_education_requirement');
-							
 						//Add the remaining data as post meta
 						update_post_meta($post_id, '_nsm_job_soc_code', $row[1]);
 						update_post_meta($post_id, '_nsm_job_base_employment', $row[3]);
@@ -119,9 +106,7 @@
 				//Set an update notice
 				$nsm_update_notice = "Inserted $row_count Jobs";
 			endif;
-		endif;
-	
-		?>
+		endif; ?>
         	<div id="wpbody-content">
             	<div class="wrap">
 	            	<div id="icon-edit" class="icon32 icon32-posts-nsm_job"></div>
@@ -148,7 +133,7 @@
 	} /* END import_dol_excel_file_page_contents */
 	
 	
-	
+	/*
 	function import_insitutions_excel_file_page_contents () {
 		$nsm_update_notice = "";
 		//A form has been submitted
@@ -159,25 +144,20 @@
 			while ($nsm_institutions->have_posts()) : $nsm_institutions->the_post();
 				wp_delete_post($post->ID, true);
 			endwhile;
-			
-			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
+			//Build the newly uploaded file's path
+			$file_path = WP_CONTENT_DIR . "/uploads/";
 			$file_name = $_FILES['file-upload']['name'];
-			
 			//Move the uploaded file to it's final resting place
 			move_uploaded_file($_FILES['file-upload']['tmp_name'], $file_path . $file_name);
-		
 			//Open the uploaded csv	
 			if (($uploaded_csv = fopen($file_path . $file_name, "r")) !== false) :
-				
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
-				$row_count = 0;
+				//$row_count = 0;
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
-					
-					if ($row_count > 1) :
-					
+					//if ($row_count > 1) :
 						//DEBUGGING
 						//echo "<pre>" . print_r($row, true) . "</pre>";
-						
+						*/
 						/*
 						Array
 						(
@@ -193,50 +173,39 @@
 						    [9] => Description
 						)
 						*/
-						
-						//Create a custom post for each row
-						$post_id = wp_insert_post(array(
-							'post_type'	  => 'nsm_institution',
-							'post_status' => 'publish',
-							'post_title'  => $row[0],
-							'post_content' => $row[9]
-						));	
-					
-						
-						//Add the category term to the post
-						wp_set_object_terms($post_id, $row[8], 'nsm_institution_category');
-							
-						//Add the remaining data as post meta
-						update_post_meta($post_id, '_nsm_institution_title_iv_code', $row[1]);
-						update_post_meta($post_id, '_nsm_institution_website_url', $row[2]);
-						update_post_meta($post_id, '_nsm_institution_logo', $row[3]);
-						update_post_meta($post_id, '_nsm_institution_address', $row[4]);
-						update_post_meta($post_id, '_nsm_institution_phone', $row[5]);
-						update_post_meta($post_id, '_nsm_institution_finaid_contact', $row[6]);
-						update_post_meta($post_id, '_nsm_institution_admission_contact', $row[7]);
-						
-
 						/*
-							REMOVE!! - we used these for a period but ultimately decided not to use them
-							_nsm_institution_finaid_phone
-							_nsm_institution_finaid_email
-							_nsm_institution_finaid_website
-							_nsm_institution_admission_phone
-							_nsm_institution_admission_email
-						*/
-					endif;
-					
+						$user_id = wp_insert_user(array(
+							'user_login' => $row[0],
+							'user_url' => $row[2],
+							'user_pass' => $row[1], //by default we'll use the Institution's Title IV Code as the password
+							'description' => $row[9]
+						));
+
+						if (is_wp_error($user_id)) : 
+							//print_r($user_id);
+						else :
+							update_user_meta($user_id, 'title_iv_code', $row[1]);
+							update_user_meta($user_id, 'address', $row[4]);
+							update_user_meta($user_id, 'phone', $row[5]);
+							update_user_meta($user_id, 'finaid_contact', $row[6]);
+							update_user_meta($user_id, 'admission_contact', $row[7]);
+							update_user_meta($user_id, 'type', $row[8]);
+								
+							//Assign the user the 'Author' role
+							wp_update_user(array('ID' => $user_id, 'role' => 'author')) ;
+						endif;
+
+					//endif;
 					$row_count++;
 				endwhile;
 				//Close the opened file
 				fclose($uploaded_csv);
+				//Delete the uploaded CSV file
+				unlink($file_path . $file_name);
 				//Set an update notice
-				$nsm_update_notice = "Inserted " . ($row_count - 1) ." Institutions";
+				//$nsm_update_notice = "Inserted " . ($row_count - 1) ." Institutions";
 			endif;
-			
-		endif;
-	
-		?>
+		endif ?>
         <div id="wpbody-content">
             <div class="wrap">
                 <div id="icon-edit" class="icon32 icon32-posts-nsm_institution"></div>
@@ -260,8 +229,8 @@
             </div>
         </div>
         <?php
-	}
-	
+	}//import_insitutions_excel_file_page_contents
+	*/
 	
 	function import_programs_excel_file_page_contents () {
 		$nsm_update_notice = "";
@@ -275,30 +244,20 @@
 				wp_delete_post($post->ID, true);
 				$program_count++;
 			endwhile;
-
-			$file_path = WP_CONTENT_DIR . "/uploads/dol-data/";
+			$file_path = WP_CONTENT_DIR . "/uploads/";
 			$file_name = $_FILES['file-upload']['name'];
-			
 			//Move the uploaded file to it's final resting place
 			move_uploaded_file($_FILES['file-upload']['tmp_name'], $file_path . $file_name);
-			
 			//Open the uploaded csv	
 			if (($uploaded_csv = fopen($file_path . $file_name, "r")) !== false) :
-				
 				ini_set("auto_detect_line_endings", true);
-				
 				//Loop through each row in the csv and parse the contents by the comma delimiter and double-quote quantifier
 				$row_count = 0;
 				while (($row = fgetcsv($uploaded_csv, 0, ',', '"')) !== false) :
-					
-					
-					
 					//Omit the first 'headings' row	
-					if ($row_count > 2) :
-						
+					//if ($row_count > 2) :
 						//DEBUGGING
 						//echo "<pre>" . print_r($row, true) . "</pre>";
-						
 						/*
 						Array
 						(
@@ -317,20 +276,24 @@
 						    [12] => Program Description
 						)
 						*/
-						
-						
+						/*
+						$institution = get_users(
+							array(
+								'meta_key' => 'title_iv_code',
+								'meta_value' => $row[1]
+							)
+						);
+						*/
+
+						//The author institution should automatically pull from the currently logged in user whom executed the import
 						//Create a custom post for each row
 						$post_id = wp_insert_post(array(
 							'post_type'	  => 'nsm_program',
 							'post_status' => 'publish',
 							'post_title'  => ucwords(strtolower($row[3])),
-							'post_content' => $row[13]
+							'post_content' => $row[13],
+							//'post_author' => $institution[0]->ID
 						));	
-					
-						/*
-							THIS IS NOT PROPERLY LOWERCASING THE CATEGORY NAMES
-								* ODD - this works fine on the live server
-						*/
 
 						//Add the category terms to the post
 						if (strpos($row[12], ',')) :
@@ -345,7 +308,6 @@
 							//echo ucwords(strtolower($row[11]));
 							wp_set_object_terms($post_id, ucwords(strtolower($row[12])), 'nsm_program_category');
 						endif;
-						
 						//Add the remaining data as post meta
 						update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $row[1]);
 						update_post_meta($post_id, '_nsm_program_cip', $row[2]);
@@ -357,25 +319,13 @@
 						update_post_meta($post_id, '_nsm_program_url', $row[9]);
 						update_post_meta($post_id, '_nsm_program_timeframe', $row[10]);
 						update_post_meta($post_id, '_nsm_program_cost', $row[11]);
-						
-						//Select the institution that this program belongs to based on the Title IV Code
-						$institution = new WP_Query(array(
-							'post_type'	 => 'nsm_institution',						
-							'meta_key' 	 => '_nsm_institution_title_iv_code',
-							'meta_value' => $row[1]
-						));
-						
-						//Connect this program with the parent institution 
-						p2p_type('Program Institution')->connect($post_id, $institution->posts[0]->ID, array(
-							'date' => current_time('mysql')
-						));
-						
-					endif;
-					
+					//endif;
 					$row_count++;	
 				endwhile;
 				//Close the opened file
 				fclose($uploaded_csv);
+				//Delete the uploaded CSV file
+				unlink($file_path . $file_name);
 				//Set an update notice
 				$nsm_update_notice = "Inserted " . ($row_count - 1) ." programs";
 			endif;
@@ -404,5 +354,5 @@
             </div>
         </div>
         <?php
-	}
+	}//import_programs_excel_file_page_contents
 ?>

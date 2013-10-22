@@ -7,6 +7,7 @@
 	// Define icon styles for the custom post types
 	add_action( 'admin_enqueue_scripts', 'post_type_icons' );
 	function post_type_icons() {
+		global $cdn ;
 		wp_register_style('nextstep-admin-icons', $cdn->template_styles_url . "admin.css");
 		wp_enqueue_style('nextstep-admin-icons');
 	}

@@ -20,7 +20,7 @@
 				'singular_name' => __( 'Program' ),
 				'add_new_item' => 'Add New Program',
 				'human_friendly' => __('Maine Educational Program(s)'),
-				'edit_item' => 'Edit Programs',
+				'edit_item' => 'Edit Program',
 				'new_item' => 'New Program',
 				'search_items' => 'Search Programs',
 				'not_found' => 'No programs found',
@@ -28,7 +28,7 @@
 		   ),
 			'public' => true,
 			'hierarchical' => true,
-			'supports' => array('title','editor','thumbnail','gallery'),
+			'supports' => array('title','editor','thumbnail','gallery','author'),
 			'rewrite' => array('slug' => 'program', 'with_front' => true)
 		)	
 	);
@@ -41,36 +41,47 @@
 			'query_var' => true,	// enable taxonomy-specific querying
 			'rewrite' => array( 'slug' => 'program-categories', 'with_front' => false),	// pretty permalinks for your taxonomy?
 		)
-	);
+	);	
 	
+	add_action('admin_head', 'column_widths');
+	function column_widths() { 
+		if (get_current_post_type() == 'nsm_program') : ?>
+			<style type="text/css">
+				th.column-title {
+					width: 25% !important ;
+				}
+				th.column-author {
+					width: 25% !important ;
+				}
+				th.column-nsm_program_category {
+					width: 25% !important ;
+				}
+			</style><?php
+		endif;
+	}//column_widths
+
+	//We want to tap in and add a column for the location ID and a column for the location region taxonomy term
 	//Create a new column 'Type' on the admin 'Work' page to display the types of each work item
 	add_filter('manage_edit-nsm_program_columns', 'manage_nsm_program_admin_columns');
-	//Populate the contents of the new columns we just created
-	add_action('manage_nsm_program_posts_custom_column', 'manage_nsm_program_admin_columns_content');
-	//Tell WordPress those new columns can be sortable within the admin
-	add_filter('manage_edit-nsm_program_sortable_columns', 'nsm_program_category_column_register_sortable' );
-	//Allow taxonomy sorting for the pica work cpt
-	add_action( 'restrict_manage_posts', 'nsm_program_cpt_taxonomy_filters' );
-	
-	//We want to tap in and add a column for the location ID and a column for the location region taxonomy term
 	function manage_nsm_program_admin_columns ($columns) {
 		$new_columns['cb'] = '<input type="checkbox" />';
 		$new_columns['title'] = _x('Program Name', 'column name');			
-		//$new_columns['nsm_program_institution'] = __('Institution');
+		$new_columns['author'] = __('Institution');
 		$new_columns['nsm_program_category'] = __('Category');
-		$new_columns['author'] = __('Author');
 		$new_columns['date'] = _x('Date', 'column name');
 		return $new_columns;
 	}//end function manage_nsm_program_admin_columns
 	
-	// Register the new 'Location' columns as sortable
+	//Tell WordPress those new columns can be sortable within the admin
+	add_filter('manage_edit-nsm_program_sortable_columns', 'nsm_program_category_column_register_sortable' );
 	function nsm_program_category_column_register_sortable( $columns ) {
+		$columns['author'] = 'author';
 		$columns['nsm_program_category'] = 'nsm_program_category';
-		//$columns['nsm_program_institution'] = 'nsm_program_institution';
 		return $columns;
 	}//end function nsm_program_category_column_register_sortable
 	
-	//Create the contents of our new 'Location' columns
+	//Populate the contents of the new columns we just created
+	add_action('manage_nsm_program_posts_custom_column', 'manage_nsm_program_admin_columns_content');
 	function manage_nsm_program_admin_columns_content ($column) {
 		global $post;
 		switch ($column) :
@@ -90,6 +101,24 @@
 		endswitch;
 	}//end function manage_nsm_program_admin_columns_content
 	
+	//Allow taxonomy sorting for the pica work cpt
+	add_action( 'restrict_manage_posts', 'nsm_program_cpt_taxonomy_filters' );
 	function nsm_program_cpt_taxonomy_filters() {
 		generate_html_taxonomy_filter ('nsm_program', 'nsm_program_category');
+		//generate_html_author_filter ('nsm_program');
 	}//end function nsm_program_cpt_taxonomy_filters
+
+	add_action('restrict_manage_posts', 'restrict_manage_authors');
+	function restrict_manage_authors() {
+		if (isset($_GET['post_type']) && post_type_exists($_GET['post_type']) && in_array(strtolower($_GET['post_type']), array('nsm_program'))) {
+			wp_dropdown_users(array(
+				'show_option_all'	=> 'Show all Authors',
+				'show_option_none'	=> false,
+				'name'				=> 'author',
+				'selected'			=> !empty($_GET['author']) ? $_GET['author'] : 0,
+				'include_selected'	=> false,
+				'exclude'			=> array(2)
+			));
+		}
+	}//restrict_manage_authors
+	

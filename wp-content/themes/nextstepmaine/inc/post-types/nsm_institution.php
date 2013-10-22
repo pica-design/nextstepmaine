@@ -48,7 +48,7 @@
 		$new_columns['title'] = _x('Institution Name', 'column name');	
 		
 		$new_columns['nsm_institution_phone'] = _x('Phone', 'column name');		
-		$new_columns['nsm_institution_address'] = _x('Phone', 'column name');		
+		$new_columns['nsm_institution_address'] = _x('Address', 'column name');		
 		$new_columns['nsm_institution_category'] = __('Category');
 		$new_columns['author'] = __('Author');
 		$new_columns['date'] = _x('Date', 'column name');

@@ -2,13 +2,9 @@
 
 	get_header(); 
 	
-	//Connect to our O*NET database
-	//Pica DEV
-	$onet = new wpdb('root_remote', '1309piCa', 'nsm_onet', 'mysql.picadesign.com');
+    //Connect to our onet database
+    $onet = new wpdb(DB_USER, DB_PASSWORD, 'nsm_onet', DB_HOST);
 
-	//Pica VPS
-	//$onet = new wpdb('nsm_onetuser', 'Zso[D5_W3xVb', 'nsm_onet', 'localhost');
-	
 	//Grab the current occupation soc code
 	$onetsoc_code = get_post_meta($post->ID, '_nsm_job_soc_code', true);
 ?>
