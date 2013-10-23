@@ -161,6 +161,7 @@
                         <td><?php echo get_post_meta($post->ID, '_nsm_program_cost', true) ?></td>
                         <td>
                         	<?php
+                                /*
 								// Find connected pages
                         		$previous_post = $post;
 								$institution = p2p_type( 'Program Institution' )->get_connected( $post );
@@ -169,7 +170,12 @@
 									<a href="<?php the_permalink()?>" title="<?php the_title() ?>"><?php the_title() ?></a>
 								<?php endwhile; wp_reset_postdata(); 
 								$post = $previous_post;
-								
+								*/
+                                $institution = get_user_by('id', $post->post_author);  
+                                ?>
+                                <a href="<?php echo get_user_profile_url($post->post_author) ?>" title="<?php echo $institution->display_name ?>"><?php echo $institution->display_name ?></a>
+                                <?php
+
 								$location = get_post_meta($post->ID, '_nsm_program_location', true);
 
 								if (strtolower($location) != 'n/a') : 

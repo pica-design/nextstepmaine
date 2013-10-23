@@ -190,7 +190,7 @@
     }); 
 	
 	$('table.tablesorter.programs').tablesorter({
-		sortList: [[1,0]]
+		sortList: [[0,0]]
 	})
 	
 	$('table.tablesorter.jobs').tablesorter({

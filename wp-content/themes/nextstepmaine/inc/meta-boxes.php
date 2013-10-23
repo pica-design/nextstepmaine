@@ -1,6 +1,4 @@
 <?php
-	
-	
 	add_action( 'add_meta_boxes', 'nsm_create_meta_boxes' );
 	function nsm_create_meta_boxes() {
 		//Edit Institution Data
@@ -23,7 +21,8 @@
 			'timeframe' => get_post_meta($post->ID, '_nsm_program_timeframe', true),
 			'cost' => get_post_meta($post->ID, '_nsm_program_cost', true),
 			'location' => get_post_meta($post->ID, '_nsm_program_location', true),
-			'url' => get_post_meta($post->ID, '_nsm_program_url', true)
+			'url' => get_post_meta($post->ID, '_nsm_program_url', true),
+			'cip' => get_post_meta($post->ID, '_nsm_program_cip', true)
 		);
 		?>
       	<table>
@@ -94,6 +93,12 @@
                 	<label for="nsm_program_url" title="Enter the web page address for the program, if one exists. This web page should include all additional program data not listed on Next Step Maine, and the page should have clear instructions on the user's next step, whether it's to call Admissions or do another action. When a user clicks on the Next Step Maine website to view additional program details they'll be taken to this page. NOTE: This value must include http:// at the beginning of the url, i.e. http://www.nextstepmaine.org/">URL</label>
             	</td><td>
                 	<input type="text" name="nsm_program_url" value="<?php echo $program['url'] ?>" />
+                </td>
+        	</tr><tr>
+        		<td>
+                	<label for="nsm_program_cip" title="The Classification of Instructional Programs (CIP) provides a taxonomic scheme that supports the accurate tracking and reporting of fields of study and program completions activity. Valid CIP codes are ##. or ##.## or ##.####  http://nces.ed.gov/ipeds/cipcode/browse.aspx?y=55">CIP</label>
+            	</td><td>
+                	<input type="text" name="nsm_program_cip" value="<?php echo $program['cip'] ?>" />
                 </td>
         	</tr>
         </table>

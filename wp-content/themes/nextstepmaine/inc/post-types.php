@@ -1,7 +1,7 @@
 <?php
 	include('post-types/nsm_job.php');
 	include('post-types/nsm_faq.php');
-	include('post-types/nsm_institution.php');
+	//include('post-types/nsm_institution.php');
 	include('post-types/nsm_program.php');
 	include('post-types/attachment.php');
 	// Define icon styles for the custom post types

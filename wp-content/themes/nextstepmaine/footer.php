@@ -1,3 +1,4 @@
+            <div class="clear"></div><br />
 			<footer>
             	<div class="inner">
                 	<section class="column first">

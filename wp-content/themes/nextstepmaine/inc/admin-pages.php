@@ -237,13 +237,16 @@
 		//A form has been submitted
 		if ($_POST) :
 			global $post ;
-			//First off we need to remove the previous program posts
-			$nsm_programs = new WP_Query('post_type=nsm_program&posts_per_page=-1');
-			$program_count = 0;
+			//First off we need to remove the previous program posts authored by the current user
+			$nsm_programs = new WP_Query(array(
+				'post_type' => 'nsm_program',
+				'post_author' => get_current_user_id(),
+				'posts_per_page' => -1
+			));
 			while ($nsm_programs->have_posts()) : $nsm_programs->the_post();
 				wp_delete_post($post->ID, true);
-				$program_count++;
 			endwhile;
+
 			$file_path = WP_CONTENT_DIR . "/uploads/";
 			$file_name = $_FILES['file-upload']['name'];
 			//Move the uploaded file to it's final resting place
@@ -292,6 +295,7 @@
 							'post_status' => 'publish',
 							'post_title'  => ucwords(strtolower($row[3])),
 							'post_content' => $row[13],
+							'post_author' => get_current_user_id()
 							//'post_author' => $institution[0]->ID
 						));	
 

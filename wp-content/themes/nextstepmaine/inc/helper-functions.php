@@ -26,6 +26,11 @@
 	  return null;
 	}
 
+	function get_user_profile_url ($post_author) {
+         $nice_name = get_the_author_meta( 'user_nicename', $post_author );
+         return get_site_url(1, "/institutions/$nice_name");
+    }
+
 	//generate_html_taxonomy_filter
 	function generate_html_taxonomy_filter ($cpt, $taxonomy) {
 		global $typenow;
@@ -55,43 +60,3 @@
 			endforeach;
 		endif;
 	}//generate_html_taxonomy_filter
-
-	/*
-	//generate_html_taxonomy_filter
-	function generate_html_author_filter ($cpt) {
-		global $typenow, $wpdb;
-		// an array of all the taxonomyies you want to display. Use the taxonomy name or slug
-		//$taxonomies = array($taxonomy);
-		// must set this to the post type you want the filter(s) displayed on
-		if($typenow == $cpt) :
-
-			//Build the custom database query to fetch all user IDs
-			$users = $wpdb->get_results("
-				SELECT *
-				FROM $wpdb->users
-				ORDER BY user_login ASC
-			"); ?>
-			<select name='post_author' id='author' class='postform'>
-			<option value=''>Show All Institutions</option><?php
-
-				foreach ($users as $user) :
-					$is_selected = "";
-
-					if (isset($_GET['post_author'])) : 
-						if ($_GET['post_author'] == $user->ID) $is_selected = ' selected="selected"' ;
-					endif; 
-
-					$author_post_count = $wpdb->get_results("
-						SELECT count(*) as post_count
-						FROM $wpdb->posts
-						WHERE post_author = $user->ID
-					"); ?>
-
-					<option value='<?php echo $user->ID ?>' <?php echo $is_selected ?>><?php echo $user->user_login ?> (<?php echo $author_post_count[0]->post_count ?>)</option><?php 
-
-				endforeach; ?>
-			</select><?php 
-		endif;
-	}//generate_html_author_filter
-	*/
-

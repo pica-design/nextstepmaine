@@ -36,6 +36,8 @@
 	include('inc/helper-functions.php');
 	//Load our WordPress Core Overrides
 	include('inc/overrides.php');
+	//Load our URL Rewrites / Custom Query Variables
+	include('inc/url-rewrites.php');
 	//wp_head() and wp_footer() scripts and styles
 	include('inc/styles-scripts.php');
 	//Menus
@@ -56,3 +58,5 @@
 	include('inc/sidebars.php');
 	//Widgets
 	include('inc/widgets.php');
+	//Users
+	include('inc/users.php');

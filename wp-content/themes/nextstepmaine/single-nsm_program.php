@@ -6,31 +6,21 @@
         	<?php if (have_posts()) : ?>
             	<?php while (have_posts()) : the_post() ?>
                     <p>Below are the details about the program you’ve chosen.  Contact the school directly for admissions and financial aid information, or use the link to go directly to the school’s website for more details.</p>
-
 					<?php
-						// Find connected pages
-						$institution = p2p_type( 'Program Institution' )->get_connected( $post );
-						
-						while ( $institution->have_posts() ) : $institution->the_post(); 
-							$institution_post = $post;
-							$institution_title = get_the_title($post->ID); 
-							$institution_internal_url = get_permalink($post->ID); 
-						?>
-							<?php
-                        $image_url = get_post_meta($post->ID, '_nsm_institution_logo', true) ;
+                        $institution = get_user_by('id', $post->post_author);  
+                        $institution->data->meta = get_user_meta($institution->ID);
+                        $institution->data->meta['simple_local_avatar'][0] = unserialize($institution->data->meta['simple_local_avatar'][0]);
+                        $image_url = $institution->meta['simple_local_avatar'][0]['full'] ;
                         if ($image_url != "") :
                     ?>
-                    <img class="institution-image" src="<?php echo $image_url ?>" alt="<?php the_title() ?> Logo" />
+                    <img class="institution-image" src="<?php echo $image_url ?>" alt="<?php echo $institution->display_name ?> Logo" />
                     <?php else : ?>
                     <br />
-                    <h2><?php the_title() ?></h2>
+                    <h2><?php echo $institution->display_name ?></h2>
                     <?php endif ?>
+
                     <div class="clear"></div>
                     <br />
-                            
-					<?php endwhile; wp_reset_postdata(); ?>
-                    
-                    
                     <h3><?php the_title() ?></h3>
                     <br />
                     
@@ -51,16 +41,18 @@
                     <?php
 						//Pull other programs at the parent institution
 						$programs = new WP_Query( array(
-							'connected_type' => 'Program Institution',
-							'connected_items' => $institution_post,
-							'nopaging' => true,
+                            'post_type' => 'nsm_program',
+                            'author' => $institution->ID,
+                            'order' => 'ASC',
+                            'orderby' => 'title',
+                            'posts_per_page' => -1,
 							'post__not_in' => array($post->ID)
-						) );
+						));
 						
 						?>
 						<section class='accordion closed'>
                             <header>
-                                <figcaption>Other programs at <?php echo $institution_title ?></figcaption>
+                                <figcaption>Other programs at <?php echo $institution->display_name ?></figcaption>
                                 <div><figure></figure></div>
                             </header>
                             <article>
