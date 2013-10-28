@@ -84,6 +84,9 @@
             
             <?php if (!empty($gallery->attachments)) : ?>
             <section class="slideshow">
+                <center><iframe width="800" height="425" src="//www.youtube.com/embed/AeT2fkA9zuw?rel=0&theme=light" frameborder="0" allowfullscreen></iframe></center>
+                <br /><br />
+                <!--
             	<figure class="slideshow-prev"></figure>
             	<section class="slides">
                     <?php foreach ($gallery->attachments as $key => $slide) : $slide_class = ($key == 0) ? "first" : ""; ?>
@@ -109,7 +112,8 @@
 
                         </figure><?php endforeach ?>
                 </section>
-            	<figure class="slideshow-next"></figure>                
+            	<figure class="slideshow-next"></figure>      
+                -->          
             </section><!-- .slideshow -->
             <?php endif ?>
             
