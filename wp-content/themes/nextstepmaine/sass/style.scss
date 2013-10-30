@@ -1,113 +1,38 @@
+//The layout sprite is created with a reference to $layout-sprite, 
+//so we can have more control with it, like calling the image with coordinates in a single declaration
+//This is mostly so we can use sprite images in background() for laying backgrounds, like gradients + images
+$layout-layout: vertical ;
+$layout-sprite: sprite-map("layout/*.png") ;
 
-//////////// SASS INTERNALS //////////////////
+//Generate our browser icon sprite
+$browser-icons-layout: vertical ;
+@import "content/browser-icons/*.png";
 
-	//---------------------------
-	//	COMPASS CORE
-	//---------------------------
-	@import 'compass';
-	//---------------------------
-	//	SASS MIXINS
-	//---------------------------
-	@import 'mixins' ;
-	//---------------------------
-	//	COLORS
-	//---------------------------
-	@import 'colors';
-	//---------------------------
-	//	GRADIENTS
-	//---------------------------
-	@import 'gradients';
+//Assets
+@import 'compass/css3';
+@import 'assets/mixins' ;
+@import 'assets/colors';
+@import 'assets/gradients';
+@import 'assets/normalize';
+@import 'assets/fonts';
+@import 'assets/selection';
+@import 'assets/common';
+@import 'assets/tablesorter';
+@import 'assets/formidable';
+@import 'assets/slideshow';
+@import 'assets/select-box';
+@import 'assets/browser-icons' ;
 
-
-
-//////////// THEME SETUP //////////////////
-
-	/**********************************************
-		BROWSER CORRECTIONS
-	***********************************************/	
-	@import 'normalize';
-
-	/**********************************************
-		FONTS
-	***********************************************/	
-	@import 'fonts';
-
-	/**********************************************
-		IMAGE SPRITES
-	***********************************************/
-	//The layout sprite is created with a reference to $layout-sprite, 
-	//so we can have more control with it, like calling the image with coordinates in a single declaration
-	//This is mostly so we can use sprite images in background() for laying backgrounds, like gradients + images
-	$layout-layout: vertical ;
-	$layout-sprite: sprite-map("layout/*.png") ;
-
-	//Generate our browser icon sprite
-	$browser-icons-layout: vertical ;
-	@import "content/browser-icons/*.png";
-	
-	/**********************************************
-		HTML DECLARATIONS 
-	**********************************************/
-	@import 'html-base';
-
-	/****************************************** 	
-		CSS TEXT SELECTION
-	******************************************/
-	@import 'selection';
-
-	/**********************************************
-		COMMONLY USED DECLARATIONS 
-	**********************************************/
-	@import 'common';
-
-
-
-//////////// TEMPLATE STYLES //////////////////
-
+//Layout
 //This wrapper encompasses the entire website
 section.website-wrapper {
 	background-color: $white ;
 	position: relative ;
 	width: 100% ;
 	min-height: 100% ;
-}
+}//section.website-wrapper
 
-	/**********************************************
-		HEADER DECLARATIONS 
-	**********************************************/
-	@import 'header';
-
-	/**********************************************
-		WEBSITE CONTROLS DECLARATIONS 
-	**********************************************/
-	@import 'search-field';
-
-	/**********************************************
-		SLIDESHOW DECLARATIONS 
-	**********************************************/
-	@import 'slideshow';
-
-	/**********************************************
-		NEXT STEP MENU DECLARATIONS 
-	**********************************************/
-	@import 'next-step-menu';
-
-	/**********************************************
-		CONTENT DECLARATIONS 
-	**********************************************/
-	@import 'content';
-	
-	/**********************************************
-		TABLESORTER jQUERY DECLARATIONS 
-	**********************************************/
-	@import 'tablesorter';
-
-	/**********************************************
-		FORMIDABLE FORMS WORDPRESS PLUGIN DECLARATIONS 
-	**********************************************/
-	@import 'formidable';
-	
-	/**********************************************
-		FOOTER DECLARATIONS 
-	**********************************************/
-	@import 'footer';
+@import 'layout/html-base';
+@import 'layout/header';
+@import 'layout/content';
+@import 'layout/footer';

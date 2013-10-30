@@ -1,36 +1,12 @@
 
-//////////// SASS INTERNALS //////////////////
+@import 'compass/css3';
+@import 'assets/mixins' ;
+@import 'assets/colors';
+@import 'assets/gradients';
+@import 'assets/fonts';
 
-	//---------------------------
-	//	COMPASS CORE
-	//---------------------------
-	@import 'compass';
-	//---------------------------
-	//	SASS MIXINS
-	//---------------------------
-	@import 'mixins' ;
-	//---------------------------
-	//	COLORS
-	//---------------------------
-	@import 'colors';
-	//---------------------------
-	//	GRADIENTS
-	//---------------------------
-	@import 'gradients';
-
-
-/**********************************************
-	FONTS
-***********************************************/	
-@import 'fonts';
-
-/**********************************************
-	HTML DECLARATIONS 
-**********************************************/
-@import 'html-base';
-
-//Bring in our styles for the prgram type menu
-@import 'program-type-menu';
+@import 'layout/html-base';
+@import 'layout/content/program-type-menu';
 
 /**********************************************
 	EDITOR OVERRIDES 

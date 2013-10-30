@@ -64,18 +64,12 @@ section.content-wrapper {
 			}
 		} /* ul */
 
-		//Bring in our styles for the prgram type menu
-		@import 'program-type-menu';
-
 		//This is applied to the institution logo/seal on single institution & program pages
 		.institution-image {
 			max-height: 100px ;
 			float: left ;
 			margin: 0 10px 5px 0 ;
 		}
-		
-		//Import our browser icons scss partial
-		@import 'browser-icons' ;
 	} /* .page-content */
 	
 	/* SIDEBARS & WIDGETS */
@@ -132,6 +126,11 @@ section.content-wrapper {
 					font-size: 0.95em !important ;
 					padding-top: 3px !important ;
 				}
+				&#financial-aid {
+					img {
+						width: 170px ;
+					}
+				}
 			} /* .widget */
 		} /* .vertical */
 		
@@ -170,9 +169,6 @@ section.content-wrapper {
 					font-size: 0.85em ;
 					line-height: 1.2em ;
 				}
-				
-				//Bring in our partial for select box styling
-				@import 'select-box';
 			} /* #institutions */
 
 			&#jobs-in-demand {
@@ -183,7 +179,12 @@ section.content-wrapper {
 
 		} /* .widget */
 	} /* .aside */
-	
-	//Bring in our search results styling
-	@import 'search-results' ;
 } /* section.content-wrapper */
+
+//Bring in our styles for the prgram type menu
+@import 'content/program-type-menu';
+//Bring in our search styling
+@import 'content/search-field';
+@import 'content/search-results' ;
+//Load the next step menu styles
+@import 'content/next-step-menu';
