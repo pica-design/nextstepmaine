@@ -28,6 +28,21 @@
 		   ),
 			'public' => true,
 			'hierarchical' => true,
+			'capability_type' => array('program', 'programs'),
+			'map_meta_cap' => true,
+			/*
+				The above creates the following capabilities
+				read_private_programs
+				publish_programs
+				edit_programs
+				edit_published_programs
+				edit_others_programs
+				delete_programs
+				delete_others_programs
+
+				We then used the 'Members' plugin to create a custom Role 'Conifer Editor'
+				And manually added each of the above caps to that role
+			*/
 			'supports' => array('title','editor','thumbnail','gallery','author'),
 			'rewrite' => array('slug' => 'program', 'with_front' => true)
 		)	
@@ -39,6 +54,12 @@
 			'hierarchical' => true,
 			'label' => 'Categories',	// the human-readable taxonomy name
 			'query_var' => true,	// enable taxonomy-specific querying
+			'capabilities' => array(
+				'manage_terms' => 'manage_nsm_program_category_terms',
+				'edit_terms' => 'manage_nsm_program_category_terms',
+				'delete_terms' => 'manage_nsm_program_category_terms',
+				'assign_terms' => 'edit_programs'
+			),
 			'rewrite' => array( 'slug' => 'program-categories', 'with_front' => false),	// pretty permalinks for your taxonomy?
 		)
 	);	

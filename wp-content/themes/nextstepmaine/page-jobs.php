@@ -55,14 +55,14 @@
                 <tbody>
 		            <?php 
 					//Select the Education Requirement Taxonomy terns applied to NSM Jobs 
-					$job_education_levels = get_terms('nsm_job_education_requirement', array(
+					$occupation_education_levels = get_terms('nsm_job_education_requirement', array(
 						'orderby' => 'custom_sort',
 						'include' => $education_requirement_obj
 					));
 					
 					//Loop through each term
-					foreach ($job_education_levels as $education_level) : ?>
-						<?php $jobs = new WP_Query(array(
+					foreach ($occupation_education_levels as $education_level) : ?>
+						<?php $occupations = new WP_Query(array(
 							'post_type' => 'nsm_job',
 							'posts_per_page' => -1,
 							'orderby' => 'title',
@@ -76,17 +76,16 @@
 							)
 						));
 						?>
-						<?php
-						while ($jobs->have_posts()) : $jobs->the_post(); ?>
+						<?php while ($occupations->have_posts()) : $occupations->the_post() ; $occupation_data = get_post_custom($post->ID) ?>
 					   	<tr>
 					   		<td><?php echo $education_level->name ?></td>
 					   		<td><a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a></td>
-					   		<td><?php echo get_post_meta($post->ID, '_nsm_job_base_employment', true) ?></td>
-							<td><?php echo get_post_meta($post->ID, '_nsm_job_projected_employment', true) ?></td>
-		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_growth_rate', true) ?></td>
-		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_annual_openings', true) ?></td>
-		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_entry_wage', true) ?></td>
-		                    <td><?php echo get_post_meta($post->ID, '_nsm_job_median_wage', true) ?></td>
+					   		<td><?php echo $occupation_data['_nsm_job_base_employment'][0] ?></td>
+							<td><?php echo $occupation_data['_nsm_job_projected_employment'][0] ?></td>
+		                    <td><?php echo $occupation_data['_nsm_job_growth_rate'][0] ?></td>
+		                    <td><?php echo $occupation_data['_nsm_job_annual_openings'][0] ?></td>
+		                    <td><?php echo $occupation_data['_nsm_job_entry_wage'][0] ?></td>
+		                    <td><?php echo $occupation_data['_nsm_job_median_wage'][0] ?></td>
 					   	</tr>
 						<?php endwhile ; $last_updated_date = get_the_date(); ?>
 					<?php endforeach ?>

@@ -37,6 +37,40 @@
                     		endif;
                     	endforeach;
                     ?>
+
+                    <?php
+                        //Connect to our CIP to SOC Crosswalk database
+                        $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nsm_cip_to_soc', DB_HOST);
+                        //Select the SOC codes which pair with the current program's CIP code
+                        $cip_codes = $cip_to_soc->get_results("SELECT CIP FROM cip_soc WHERE SOC = '$onetsoc_code'");
+
+                        foreach ($cip_codes as $cip) : 
+                            //echo $cip->CIP . "<br />";
+
+                            //Pull the related occupation nsm_job post so we can get it's permalink
+                            $programs = new WP_Query(array(
+                                'post_type' => 'nsm_program',
+                                'posts_per_page' => -1,
+                                'meta_key' => '_nsm_program_cip',
+                                'meta_value' => $cip->CIP,
+                                'orderby' => 'title',
+                                'order' => 'ASC'
+                            ));
+
+                            //print_r($programs->posts);
+
+                            if ($programs->have_posts()) : ?>
+                                <br /><br />This occupation requires that candidates take a program similar to those listed below:<br />
+                                <?php while ($programs->have_posts()) : $programs->the_post(); 
+                                        $author = get_user_by('id', $post->post_author); //print_r($author);
+                                    ?>
+                                    <a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a> at 
+                                    <a href="<?php echo get_user_profile_url($author->user_nicename) ?>" title="Learn more about <?php the_author() ?>"><?php the_author() ?></a><br />
+                                <?php endwhile ;
+                            endif ;
+                        endforeach;
+                    ?>
+
                     <?php
 						/********************************
 							WORK TASKS

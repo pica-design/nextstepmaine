@@ -1,6 +1,10 @@
 <?php
 	add_action( 'add_meta_boxes', 'nsm_create_meta_boxes' );
 	function nsm_create_meta_boxes() {
+        //Remove the WordPress SEO Meta box
+        if (!current_user_can('manage_options')) remove_meta_box('wpseo_meta', 'nsm_program', 'normal');
+
+
 		//Edit Institution Data
 		add_meta_box( 
 			'nsm_program_meta_information',
@@ -17,12 +21,13 @@
 			'type' => get_post_meta($post->ID, '_nsm_program_type', true),
 			'level' => get_post_meta($post->ID, '_nsm_program_level', true),
 			'format' => get_post_meta($post->ID, '_nsm_program_format', true),
-			'schedule' => get_post_meta($post->ID, '_nsm_program_format', true),
+			'schedule' => get_post_meta($post->ID, '_nsm_program_schedule', true),
 			'timeframe' => get_post_meta($post->ID, '_nsm_program_timeframe', true),
 			'cost' => get_post_meta($post->ID, '_nsm_program_cost', true),
 			'location' => get_post_meta($post->ID, '_nsm_program_location', true),
 			'url' => get_post_meta($post->ID, '_nsm_program_url', true),
-			'cip' => get_post_meta($post->ID, '_nsm_program_cip', true)
+			'cip' => get_post_meta($post->ID, '_nsm_program_cip', true),
+            'uc' => get_post_meta($post->ID, '_nsm_program_uc', true),
 		);
 		?>
       	<table>
@@ -100,7 +105,13 @@
             	</td><td>
                 	<input type="text" name="nsm_program_cip" value="<?php echo $program['cip'] ?>" />
                 </td>
-        	</tr>
+        	</tr><tr>
+                <td align="right">
+                    <input type="checkbox" name="nsm_program_uc" value="<?php echo $program['uc'] ?>" />
+                </td><td>
+                    <label for="nsm_program_uc" title="University College supported program. As the University of Maine System’s distance education organization, University College offers access to courses and programs from the seven universities at dozens of locations and online.">University College Program</label>
+                </td>
+            </tr>
         </table>
         <br />
         <em><strong>Note:</strong> Be sure to update your program spreadsheet if making edits above</em><?php
