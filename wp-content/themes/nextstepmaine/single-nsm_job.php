@@ -7,6 +7,13 @@
 
 	//Grab the current occupation soc code
 	$onetsoc_code = get_post_meta($post->ID, '_nsm_job_soc_code', true);
+
+    $occupation_data = $onet->get_results("
+        SELECT * 
+        FROM occupation_data
+        WHERE onetsoc_code LIKE '$onetsoc_code%'
+    ");
+
 ?>
     <section class="content-wrapper">
         <div class="page-content">
@@ -16,11 +23,8 @@
             	<?php while (have_posts()) : the_post() ?>
                 	<h2><?php the_title() ?></h2>
                     <br />
-                    <?php $content = get_the_content() ;
-					if (!empty($content)) : echo $content ; ?><br /><br />
-					<?php endif ?>
-                    <a class="button gray rounded padded" href="<?php echo get_post_meta($post->ID, '_nsm_job_onet_link', true) ?>" title="<?php echo $post->post_title ?>" target="_blank">Learn more about this job</a> 
-                    <br /><br />
+                    <p><?php echo $occupation_data[0]->description ?></p>
+
 					<strong>Number of Jobs in 2010:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_base_employment', true) ?><br />
 					<strong>Number of Jobs in 2020:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_projected_employment', true) ?><br />
                     <strong>Yearly Job Growth Rate:</strong> <?php echo get_post_meta($post->ID, '_nsm_job_growth_rate', true) ?><br />
@@ -37,6 +41,9 @@
                     		endif;
                     	endforeach;
                     ?>
+                    <br /><br />
+                    <a class="button gray rounded padded" href="<?php echo get_post_meta($post->ID, '_nsm_job_onet_link', true) ?>" title="<?php echo $post->post_title ?>" target="_blank">Learn more about this job</a> 
+                    <br /><br />
 
                     <?php
                         //Connect to our CIP to SOC Crosswalk database
@@ -57,16 +64,20 @@
                                 'order' => 'ASC'
                             ));
 
-                            //print_r($programs->posts);
-
                             if ($programs->have_posts()) : ?>
-                                <br /><br />This occupation requires that candidates take a program similar to those listed below:<br />
-                                <?php while ($programs->have_posts()) : $programs->the_post(); 
-                                        $author = get_user_by('id', $post->post_author); //print_r($author);
-                                    ?>
-                                    <a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a> at 
-                                    <a href="<?php echo get_user_profile_url($author->user_nicename) ?>" title="Learn more about <?php the_author() ?>"><?php the_author() ?></a><br />
-                                <?php endwhile ;
+                                <section class='accordion closed'>
+                                    <header>
+                                        <figcaption>Maine Educational Programs</figcaption>
+                                        <div><figure></figure></div>
+                                    </header>
+                                    <article>
+                                        This occupation requires candidates complete a program similar to those listed below:<br />
+                                        <?php while ($programs->have_posts()) : $programs->the_post(); $author = get_user_by('id', $post->post_author); //print_r($author); ?>
+                                        <a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a> at 
+                                        <a href="<?php echo get_user_profile_url($author->user_nicename) ?>" title="Learn more about <?php the_author() ?>"><?php the_author() ?></a><br /><?php endwhile ?>
+
+                                    </article>
+                                </section><?php 
                             endif ;
                         endforeach;
                     ?>
@@ -84,7 +95,6 @@
 						");
 						if (count($tasks) > 0) : 
 					?>
-                    <br />
                     <section class='accordion closed'>
                         <header>
                         	<figcaption>Job Tasks</figcaption>
@@ -186,10 +196,10 @@
 									if ($occupation->have_posts()) : 
 										//Single loop the returned related occupation and display the title + a link
 										while ($occupation->have_posts()) : $occupation->the_post(); ?>	
-										<li><a href="<?php echo get_permalink($post->ID) ?>" title="<?php echo $related_occupation->title ?>"><?php echo $related_occupation->title ?></a>
+										<li><a href="<?php echo get_permalink($post->ID) ?>" title="<?php echo $related_occupation->title ?>"><?php echo $related_occupation->title ?></a><span class="annotation">*</span>
 										<?php endwhile ?>
                                     <?php else : $show_annotation = true; ?>
-                                    	<li><a href="http://www.onetonline.org/link/summary/<?php echo $related_occupation->onetsoc_code_related ?>" title="<?php echo $related_occupation->title ?>" target="_blank"><?php echo $related_occupation->title ?></a> <span class="annotation">*</span></li>
+                                    	<li><a href="http://www.onetonline.org/link/summary/<?php echo $related_occupation->onetsoc_code_related ?>" title="<?php echo $related_occupation->title ?>" target="_blank"><?php echo $related_occupation->title ?></a></li>
                                     <?php endif ?>
                                 <?php endforeach ?>
                             </ul>
@@ -204,15 +214,16 @@
             <?php endif ?>
             <br /><br />
             <em>
-            	Data obtained from the 
-            	<a href="http://www.maine.gov/labor/cwri/data/oes/hwid.html" title="Maine Department of Labor" target="_blank">Maine Department of Labor</a> 
+            	Data obtained from the <a href="http://www.maine.gov/labor/cwri/data/oes/hwid.html" title="Maine Department of Labor" target="_blank">Maine Department of Labor</a> 
             	and <a href="http://www.onetcenter.org/" title="O*NET Resoruce Center" target="_blank">O*NET</a>
+                <br />
             	Last updated on <?php the_date() ?>
             </em>
-            <br /><br />
         </div>
         <div class="aside vertical">
             <?php get_sidebar('page') ?>
         </div>
+        <div class="clear"></div>
+        <br /><br /><br />
     </section>          
 <?php get_footer(); ?>

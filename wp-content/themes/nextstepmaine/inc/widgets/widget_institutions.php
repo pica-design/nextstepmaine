@@ -45,6 +45,8 @@
 						endif;
 						//VIEWING SINGLE INSTITUTION
 						//If the user is currently viewing an institution mark the matching institution / parent institution as selected 
+						$current_insitution = "";
+						
 						if (is_author()) :
 							if (get_query_var('author_name') == $user->user_nicename) : 
 								$current_insitution = "selected='selected'";
