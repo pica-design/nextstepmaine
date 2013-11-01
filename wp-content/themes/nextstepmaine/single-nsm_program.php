@@ -7,8 +7,9 @@
         <div class="page-content">
         	<?php $breadcrumbs = new Breadcrumbs ?>
             <?php if (is_user_logged_in()) : ?>
+                <?php //print_r($post); ?>
                 <?php if (current_user_can('manage_options') || current_user_can('edit_pages') || $post->post_author == $current_user->ID) : ?>
-                    <a href="<?php echo get_edit_post_link() ?>" class="button blue padded rounded alignright">Edit this Program</a>
+                    <a href="<?php echo get_edit_post_link($post->ID) ?>" class="button blue padded rounded alignright">Edit this Program</a>
                 <?php endif ?>
             <?php endif ?>
             
@@ -27,6 +28,8 @@
                             'cip' => get_post_meta($post->ID, '_nsm_program_cip', true),
                             'uc' => get_post_meta($post->ID, '_nsm_program_uc', true)
                         );
+
+                        //print_r($program);
                     ?>
                     <!--<p>Below are the details about the program you’ve chosen.  Contact the school directly for admissions and financial aid information, or use the link to go directly to the school’s website for more details.</p>-->
 					<?php
@@ -82,76 +85,81 @@
 
                     <?php 
                         $show_annotation = false ;
-                        if (!empty($program['cip'])) : ?>
-                        This program qualifies students for the following occupation(s):<br />
+                        if (!empty($program['cip'])) : 
 
-                        <section class='accordion closed'>
-                            <header>
-                                <figcaption>Occupations</figcaption>
-                                <div><figure></figure></div>
-                            </header>
-                            <article>
-                        <?php
+                            //echo $program['cip'];
+
                             //Connect to our CIP to SOC Crosswalk database
                             $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nsm_cip_to_soc', DB_HOST);
                             //Select the SOC codes which pair with the current program's CIP code
                             $soc_codes = $cip_to_soc->get_results("SELECT SOC FROM cip_soc WHERE CIP = '{$program['cip']}'");
 
-                            //Connect to our onet database
-                            $onet = new wpdb(DB_USER, DB_PASSWORD, 'nsm_onet', DB_HOST);
+                            //print_r($soc_codes);
 
-                            foreach ($soc_codes as $soc) : 
-                                $sql = "SELECT * 
-                                        FROM occupation_data
-                                        WHERE onetsoc_code LIKE '$soc->SOC%'";
-                                $soc_occupations = $onet->get_results($sql);
+                            if (!empty($soc_codes)) : ?>
+                                This program qualifies students for the following occupation(s):<br />
+                                <section class='accordion closed'>
+                                    <header>
+                                        <figcaption>Occupations</figcaption>
+                                        <div><figure></figure></div>
+                                    </header>
+                                    <article><?php 
+                                //Connect to our onet database
+                                $onet = new wpdb(DB_USER, DB_PASSWORD, 'nsm_onet', DB_HOST);
 
-                                //Loop through the occupations and build an array of the titles for multi-sort
-                                foreach ($soc_occupations as $occ) : 
-                                    $occupations[] = array(
-                                        'title' => $occ->title,
-                                        'onetsoc_code' => $occ->onetsoc_code
-                                    );
-                                    $occ_titles[]['title'] = $occ->title;
+                                foreach ($soc_codes as $soc) : 
+                                    $sql = "SELECT * 
+                                            FROM occupation_data
+                                            WHERE onetsoc_code LIKE '$soc->SOC%'";
+                                    $soc_occupations = $onet->get_results($sql);
+
+                                    //Loop through the occupations and build an array of the titles for multi-sort
+                                    foreach ($soc_occupations as $occ) : 
+                                        $occupations[] = array(
+                                            'title' => $occ->title,
+                                            'onetsoc_code' => $occ->onetsoc_code
+                                        );
+                                        $occ_titles[]['title'] = $occ->title;
+                                    endforeach;
                                 endforeach;
-                            endforeach;
 
-                            //Sort the occupations by title
-                            array_multisort($occupations, $occ_titles);
+                                //Sort the occupations by title
+                                array_multisort($occupations, $occ_titles);
 
-                            //Loop through the occupations and output them
-                            foreach ($occupations as $occupation) : ?>
-                                <?php
-                                    //Unfortunetly we have two different soc_code types
-                                        //The imported data from DOL has codes like 25-4021
-                                        //BUT the imported data from onet has codes like 25-4021.00
-                                        //This little explosion removes the . and anything after it
-                                    $onetsoc_code = explode('.', $occupation['onetsoc_code']);
-                                    $onetsoc_code = $onetsoc_code[0];
-                                    
-                                    //Pull the related occupation nsm_job post so we can get it's permalink
-                                    $high_occupation = new WP_Query(array(
-                                        'post_type' => 'nsm_job',
-                                        'posts_per_page' => -1,
-                                        'meta_key' => '_nsm_job_soc_code',
-                                        'meta_value' => $onetsoc_code
-                                    ));
+                                //Loop through the occupations and output them
+                                foreach ($occupations as $occupation) : ?>
+                                    <?php
+                                        //Unfortunetly we have two different soc_code types
+                                            //The imported data from DOL has codes like 25-4021
+                                            //BUT the imported data from onet has codes like 25-4021.00
+                                            //This little explosion removes the . and anything after it
+                                        $onetsoc_code = explode('.', $occupation['onetsoc_code']);
+                                        $onetsoc_code = $onetsoc_code[0];
+                                        
+                                        //Pull the related occupation nsm_job post so we can get it's permalink
+                                        $high_occupation = new WP_Query(array(
+                                            'post_type' => 'nsm_job',
+                                            'posts_per_page' => -1,
+                                            'meta_key' => '_nsm_job_soc_code',
+                                            'meta_value' => $onetsoc_code
+                                        ));
 
-                                    if ($high_occupation->have_posts()) : 
-                                        //Single loop the returned related occupation and display the title + a link
-                                        while ($high_occupation->have_posts()) : $high_occupation->the_post(); ?> 
-                                        <a href="<?php echo the_permalink() ?>" title="<?php echo $occupation['title'] ?>"><?php echo $occupation['title'] ?></a> <span class="annotation">*</span><br />
-                                        <?php endwhile ?>
-                                    <?php else : $show_annotation = true; ?>
-                                        <a href="http://www.onetonline.org/link/summary/<?php echo $occupation['onetsoc_code'] ?>" title="<?php echo $occupation['title'] ?>" target="_blank"><?php echo $occupation['title'] ?></a><br />
-                                    <?php endif ?>
-                            <?php endforeach ?>
-                            
-                            <?php if ($show_annotation) : ?>
-                            <br /><em><span class="annotation">*</span> This occupation is listed as 'In-Demand' or 'High-growth' in the State of Maine.</em><br />
+                                        if ($high_occupation->have_posts()) : 
+                                            //Single loop the returned related occupation and display the title + a link
+                                            while ($high_occupation->have_posts()) : $high_occupation->the_post(); ?> 
+                                            <a href="<?php echo the_permalink() ?>" title="<?php echo $occupation['title'] ?>"><?php echo $occupation['title'] ?></a> <span class="annotation">*</span><br />
+                                            <?php endwhile ?>
+                                        <?php else : $show_annotation = true; ?>
+                                            <a href="http://www.onetonline.org/link/summary/<?php echo $occupation['onetsoc_code'] ?>" title="<?php echo $occupation['title'] ?>" target="_blank"><?php echo $occupation['title'] ?></a><br />
+                                        <?php endif ?>
+                                <?php endforeach ?>
+                                
+                                <?php if ($show_annotation) : ?>
+                                <br /><em><span class="annotation">*</span> This occupation is listed as 'In-Demand' or 'High-growth' in the State of Maine.</em><br />
+                                <?php endif ?>
+                                </article>
+                            </section>  
                             <?php endif ?>
-                            </article>
-                        </section>  
                     <?php endif ?>
 
                     <?php

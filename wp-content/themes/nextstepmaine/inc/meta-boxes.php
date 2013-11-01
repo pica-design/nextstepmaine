@@ -36,7 +36,7 @@
                 	<label for="nsm_program_type" title="Program types are used to sort programs on the website. Valid values are 'bachelor', 'associate', 'certificate', and 'master'.">Type</label>
             	</td><td>
                 	<select name="nsm_program_type">
-                		<option>Select One</option>
+                		<option value="">Select One</option>
                 		<option value="certificate" <?php selected($program['type'], 'certificate') ?>>Certificate</option>
                 		<option value="associate" <?php selected($program['type'], 'associate') ?>>Associate</option>
                 		<option value="bachelor" <?php selected($program['type'], 'bachelor') ?>>Bachelor</option>
@@ -48,7 +48,7 @@
                 	<label for="nsm_program_level" title="Valid values for program level include, but are not limited to: 'graduate', 'undergraduate', and 'non-credit'.">Level</label>
             	</td><td>
                 	<select name="nsm_program_level">
-                		<option>Select One</option>
+                		<option value="">Select One</option>
                 		<option value="non-credit" <?php selected($program['level'], 'non-credit') ?>>Non-Credit</option>
                 		<option value="undergraduate" <?php selected($program['level'], 'undergraduate') ?>>Undergraduate</option>
                 		<option value="graduate" <?php selected($program['level'], 'graduate') ?>>Graduate</option>
@@ -59,7 +59,7 @@
                 	<label for="nsm_program_format" title="Program format is used by users to filter & sort programs in the programs list. Valid values include 'online', 'classroom', and 'hybrid' (meaning the course meets both online and in the classroom).">Format</label>
             	</td><td>
                 	<select name="nsm_program_format">
-                		<option>Select One</option>
+                		<option value="">Select One</option>
                 		<option value="classroom" <?php selected($program['format'], 'classroom') ?>>Classroom</option>
                 		<option value="online" <?php selected($program['format'], 'online') ?>>Online</option>
                 		<option value="hybrid" <?php selected($program['format'], 'hybrid') ?>>Hybrid</option>
@@ -70,7 +70,7 @@
                 	<label for="nsm_program_schedule" title="Program schedule only has two values, 'flexible' or 'fixed'. For example, a stay-at-home dad might only be able to take online courses at night, and is looking for a program with a 'flexible' schedule.">Schedule</label>
             	</td><td>
                 	<select name="nsm_program_schedule">
-                		<option>Select One</option>
+                		<option value="">Select One</option>
                 		<option value="fixed" <?php selected($program['schedule'], 'fixed') ?>>Fixed</option>
                 		<option value="flexible" <?php selected($program['schedule'], 'flexible') ?>>Flexible</option>
                 	</select>
@@ -107,7 +107,7 @@
                 </td>
         	</tr><tr>
                 <td align="right">
-                    <input type="checkbox" name="nsm_program_uc" value="<?php echo $program['uc'] ?>" />
+                    <input type="checkbox" name="nsm_program_uc" <?php checked('on', $program['uc']) ?> />
                 </td><td>
                     <label for="nsm_program_uc" title="University College supported program. As the University of Maine System’s distance education organization, University College offers access to courses and programs from the seven universities at dozens of locations and online.">University College Program</label>
                 </td>
@@ -121,17 +121,24 @@
 	function nsm_save_meta_box_data ($post_id) {
 		global $post ;
 
-		$author_institution_title_iv_code = get_user_meta($post->post_author, 'title_iv_code', true);
+        if ($post->post_type == 'nsm_program') : 
 
-		//PROGRAM UPDATES
-		if (isset($_POST['nsm_program_insitution_title_iv_code'])) update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', /*$_POST['nsm_program_insitution_title_iv_code']*/ $author_institution_title_iv_code);
-		if (isset($_POST['nsm_program_type'])) update_post_meta($post_id, '_nsm_program_type', $_POST['nsm_program_type']);
-		if (isset($_POST['nsm_program_discipline'])) update_post_meta($post_id, '_nsm_program_discipline', $_POST['nsm_program_discipline']);
-		if (isset($_POST['nsm_program_level'])) update_post_meta($post_id, '_nsm_program_level', $_POST['nsm_program_level']);
-		if (isset($_POST['nsm_program_format'])) update_post_meta($post_id, '_nsm_program_format', $_POST['nsm_program_format']);
-		if (isset($_POST['nsm_program_location'])) update_post_meta($post_id, '_nsm_program_location', $_POST['nsm_program_location']);
-		if (isset($_POST['nsm_program_schedule'])) update_post_meta($post_id, '_nsm_program_schedule', $_POST['nsm_program_schedule']);
-		if (isset($_POST['nsm_program_url'])) update_post_meta($post_id, '_nsm_program_url', $_POST['nsm_program_url']);
-		if (isset($_POST['nsm_program_timeframe'])) update_post_meta($post_id, '_nsm_program_timeframe', $_POST['nsm_program_timeframe']);
-		if (isset($_POST['nsm_program_cost'])) update_post_meta($post_id, '_nsm_program_cost', $_POST['nsm_program_cost']);
+    		$author_institution_title_iv_code = get_user_meta($post->post_author, 'title_iv_code', true);
+            update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $author_institution_title_iv_code);
+
+    		if (isset($_POST['nsm_program_type'])) update_post_meta($post_id, '_nsm_program_type', $_POST['nsm_program_type']);
+    		if (isset($_POST['nsm_program_level'])) update_post_meta($post_id, '_nsm_program_level', $_POST['nsm_program_level']);
+    		if (isset($_POST['nsm_program_format'])) update_post_meta($post_id, '_nsm_program_format', $_POST['nsm_program_format']);
+    		if (isset($_POST['nsm_program_schedule'])) update_post_meta($post_id, '_nsm_program_schedule', $_POST['nsm_program_schedule']);
+            if (isset($_POST['nsm_program_timeframe'])) update_post_meta($post_id, '_nsm_program_timeframe', $_POST['nsm_program_timeframe']);
+            if (isset($_POST['nsm_program_cost'])) update_post_meta($post_id, '_nsm_program_cost', $_POST['nsm_program_cost']);
+            if (isset($_POST['nsm_program_location'])) update_post_meta($post_id, '_nsm_program_location', $_POST['nsm_program_location']);
+    		if (isset($_POST['nsm_program_url'])) update_post_meta($post_id, '_nsm_program_url', $_POST['nsm_program_url']);
+    		if (isset($_POST['nsm_program_cip'])) update_post_meta($post_id, '_nsm_program_cip', $_POST['nsm_program_cip']);
+            if (isset($_POST['nsm_program_uc'])) :
+                update_post_meta($post_id, '_nsm_program_uc', $_POST['nsm_program_uc']);
+            else : 
+                delete_post_meta($post_id, '_nsm_program_uc');
+            endif;
+        endif;
 	}//nsm_save_meta_box_data
