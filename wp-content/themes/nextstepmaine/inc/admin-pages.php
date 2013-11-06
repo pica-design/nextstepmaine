@@ -12,6 +12,7 @@
 			'import-dol-excel-file',
 			'import_dol_excel_file_page_contents'
 		);
+		/*
 		add_submenu_page(
 			'edit.php?post_type=nsm_institution',
 			'Import Institutions Excel File',
@@ -28,6 +29,7 @@
 			'import-programs-excel-file',
 			'import_programs_excel_file_page_contents'
 		);
+		*/
 	}//register_import_dol_excel_file_submenu_page
 	
 	/*********************************************************

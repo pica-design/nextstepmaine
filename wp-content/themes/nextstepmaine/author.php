@@ -20,6 +20,19 @@
 	$user = get_user_by('slug', $user_name);  
     $user->data->meta = get_user_meta($user->ID);
     $user->data->meta['simple_local_avatar'][0] = unserialize($user->data->meta['simple_local_avatar'][0]);
+
+    $user_contact_details = array(
+        'phones' => array (
+            'General Phone' => $user->meta['general_phone'][0],
+            'Financial Aid Phone' => $user->meta['finaid_phone'][0],
+            'Admissions Phone' => $user->meta['admission_phone'][0]
+        ),
+        'General Email' => $user->meta['general_email'][0],
+        'Financial Aid Email' => $user->meta['finaid_email'][0],
+        'Admissions Email' => $user->meta['admission_email'][0],
+        'Website' => $user->user_url,
+        'Address' => $user->meta['address'][0]
+    );
 ?>
 	
 	<section class="content-wrapper">
@@ -48,13 +61,33 @@
 			if (!empty($content)) : echo $content ; ?>
 			<?php endif ?>
 
-            <strong>General Contact:</strong> <?php echo $user->meta['phone'][0] ?><br />
-            <strong>Financial Aid Contact:</strong> <?php echo $user->meta['finaid_contact'][0] ?><br />
-            <strong>Admissions Contact:</strong> <?php echo $user->meta['admission_contact'][0] ?><br /><br />
+            <?php foreach ($user_contact_details['phones'] as $title => $value) : ?>
+                <?php if (!empty($value)) : ?>
+                    <strong><?php echo $title ?></strong>: <?php echo $value ?>
+                    <br />
+                <?php endif ?>
+            <?php endforeach ?>
+            <br />
 
-            <a class="button gray padded rounded" href="<?php echo $user->user_url ?>" title="<?php $user->display_name ?> Website" target="_blank">Visit Website</a>
+            <?php if (!empty($user_contact_details['Admissions Email'])) : ?>
+            <a class="button gray padded rounded" href="<?php echo eae_encode_str("mailto:{$user_contact_details['Admissions Email']}?subject=$user->display_name Admissions Inquiry") ?>" title="Send an Email to <?php echo $user->display_name ?> Admissions">Email Admissions</a>
             &nbsp; &nbsp; 
-            <a class="button gray padded rounded" href="http://www.google.com/maps?q=<?php echo urlencode($user->meta['address'][0]) ?>" title="View at Google Maps" target="_blank">View Map</a>
+            <?php endif ?>
+
+            <?php if (!empty($user_contact_details['Financial Aid Email'])) : ?>
+            <a class="button gray padded rounded" href="<?php echo eae_encode_str("mailto:{$user_contact_details['Financial Aid Email']}?subject=$user->display_name Financial Aid Inquiry") ?>" title="Send an Email to <?php echo $user->display_name ?> Financial Aid">Email Financial Aid</a>
+            &nbsp; &nbsp; 
+            <?php endif ?>
+
+            <?php if (!empty($user_contact_details['Website'])) : ?>
+            <a class="button gray padded rounded" href="<?php echo $user_contact_details['Website'] ?>" title="Visit the <?php echo $user->display_name ?> Website" target="_blank">Visit Website</a>
+            &nbsp; &nbsp; 
+            <?php endif ?>
+
+            <?php if (!empty($user_contact_details['Address'])) : ?>
+            <a class="button gray padded rounded" href="http://www.google.com/maps?q=<?php echo urlencode($user_contact_details['Address']) ?>" title="View at Google Maps" target="_blank">View Map</a>
+            <?php endif ?>
+
             <br /><br />
             <?php
 

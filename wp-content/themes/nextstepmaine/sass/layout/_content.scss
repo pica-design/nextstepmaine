@@ -9,13 +9,15 @@ section.content-wrapper {
 	}
 	
 	.page-content {
+		overflow: auto ;
 		float: left ;
 		width: 600px ;
 		padding: 0 15px 0 0 ;
 		font: normal normal normal 1.0em/1.4em 'AvenirRoman' ;
 		
-		&.full-width {
+		&.wide {
 			width: 800px ;
+			float: none ;
 		}
 		p {
 		}
