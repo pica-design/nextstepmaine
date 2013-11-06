@@ -6,4 +6,4 @@ wp-config.php
 *.sublime-workspace
 config.rb
 .sass-cache
-wp-content/themes/nextstepmaine-wp-theme/stylesheets/
+wp-content/themes/nextstepmaine/stylesheets/
