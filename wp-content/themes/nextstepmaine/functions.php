@@ -26,7 +26,7 @@
 		//Instantiate our CDN url class
 		//This variable with be used throughout the theme to point to website assets
 		global $cdn;
-		$cdn = new CDN(0) ;
+		$cdn = new CDN(0);
 
 		// This theme styles the visual editor with editor-style.css to match the theme style.
 		add_editor_style('stylesheets/editor.css');		

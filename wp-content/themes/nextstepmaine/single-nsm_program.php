@@ -155,7 +155,7 @@
                                 <?php endforeach ?>
                                 
                                 <?php if ($show_annotation) : ?>
-                                <br /><em><span class="annotation">*</span> This occupation is listed as 'In-Demand' or 'High-growth' in the State of Maine.</em><br />
+                                <br /><em><span class="annotation">*</span> The occupation mentioned is in demand in the state of Maine, and is projected to employ new workers each year.</em><br />
                                 <?php endif ?>
                                 </article>
                             </section>  
