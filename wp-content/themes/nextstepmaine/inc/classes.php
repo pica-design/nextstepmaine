@@ -42,7 +42,6 @@
 			$this->attachments = array_values($this->attachments);
 		}//End __construct
 		
-		
 		public function has_attachments () {
 			if (empty($this->attachments)) :
 				return false;

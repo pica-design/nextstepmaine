@@ -9,7 +9,7 @@
 /*
  * Corrects block display not defined in IE6/7/8/9 & FF3
  */
-/* line 21, ../sass/assets/_normalize.scss */
+/* line 21, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 article,
 aside,
 details,
@@ -26,7 +26,7 @@ summary {
 /*
  * Corrects inline-block display not defined in IE6/7/8/9 & FF3
  */
-/* line 31, ../sass/assets/_normalize.scss */
+/* line 31, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 audio,
 canvas,
 video {
@@ -38,7 +38,7 @@ video {
  * Prevents modern browsers from displaying 'audio' without controls
  * Remove excess height in iOS5 devices
  */
-/* line 42, ../sass/assets/_normalize.scss */
+/* line 42, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 audio:not([controls]) {
   display: none;
   height: 0; }
@@ -47,7 +47,7 @@ audio:not([controls]) {
  * Addresses styling for 'hidden' attribute not present in IE7/8/9, FF3, S4
  * Known issue: no IE6 support
  */
-/* line 52, ../sass/assets/_normalize.scss */
+/* line 52, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 [hidden] {
   display: none; }
 
@@ -61,13 +61,13 @@ audio:not([controls]) {
  *    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
  */
 /* Apply a natural box layout model to all elements */
-/* line 69, ../sass/assets/_normalize.scss */
+/* line 69, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 75, ../sass/assets/_normalize.scss */
+/* line 75, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 html {
   font-size: 100%;
   /* 1 */
@@ -79,7 +79,7 @@ html {
 /*
  * Addresses font-family inconsistency between 'textarea' and other form elements.
  */
-/* line 89, ../sass/assets/_normalize.scss */
+/* line 89, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 html,
 button,
 input,
@@ -90,7 +90,7 @@ textarea {
 /*
  * Addresses margins handled incorrectly in IE6/7
  */
-/* line 97, ../sass/assets/_normalize.scss */
+/* line 97, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 body {
   margin: 0; }
 
@@ -100,7 +100,7 @@ body {
 /*
  * Addresses outline displayed oddly in Chrome
  */
-/* line 110, ../sass/assets/_normalize.scss */
+/* line 110, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 a:focus {
   outline: thin dotted; }
 
@@ -108,7 +108,7 @@ a:focus {
  * Improves readability when focused and also mouse hovered in all browsers
  * people.opera.com/patrickl/experiments/keyboard/test
  */
-/* line 120, ../sass/assets/_normalize.scss */
+/* line 120, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 a:hover,
 a:active {
   outline: 0; }
@@ -120,32 +120,32 @@ a:active {
  * Addresses font sizes and margins set differently in IE6/7
  * Addresses font sizes within 'section' and 'article' in FF4+, Chrome, S5
  */
-/* line 134, ../sass/assets/_normalize.scss */
+/* line 134, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 h1 {
   font-size: 2em;
   margin: 0.67em 0; }
 
-/* line 139, ../sass/assets/_normalize.scss */
+/* line 139, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 h2 {
   font-size: 1.5em;
   margin: 0.83em 0; }
 
-/* line 144, ../sass/assets/_normalize.scss */
+/* line 144, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 h3 {
   font-size: 1.17em;
   margin: 1em 0; }
 
-/* line 149, ../sass/assets/_normalize.scss */
+/* line 149, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 h4 {
   font-size: 1em;
   margin: 1.33em 0; }
 
-/* line 154, ../sass/assets/_normalize.scss */
+/* line 154, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 h5 {
   font-size: 0.83em;
   margin: 1.67em 0; }
 
-/* line 159, ../sass/assets/_normalize.scss */
+/* line 159, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 h6 {
   font-size: 0.75em;
   margin: 2.33em 0; }
@@ -153,33 +153,33 @@ h6 {
 /*
  * Addresses styling not present in IE7/8/9, S5, Chrome
  */
-/* line 168, ../sass/assets/_normalize.scss */
+/* line 168, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 abbr[title] {
   border-bottom: 1px dotted; }
 
 /*
  * Addresses style set to 'bolder' in FF3+, S4/5, Chrome
 */
-/* line 177, ../sass/assets/_normalize.scss */
+/* line 177, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 b,
 strong {
   font-weight: bold; }
 
-/* line 181, ../sass/assets/_normalize.scss */
+/* line 181, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 blockquote {
   margin: 1em 40px; }
 
 /*
  * Addresses styling not present in S5, Chrome
  */
-/* line 189, ../sass/assets/_normalize.scss */
+/* line 189, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 dfn {
   font-style: italic; }
 
 /*
  * Addresses styling not present in IE6/7/8/9
  */
-/* line 197, ../sass/assets/_normalize.scss */
+/* line 197, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 mark {
   background: #ff0;
   color: #000; }
@@ -187,7 +187,7 @@ mark {
 /*
  * Addresses margins set differently in IE6/7
  */
-/* line 207, ../sass/assets/_normalize.scss */
+/* line 207, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 p,
 pre {
   margin: 1em 0; }
@@ -196,7 +196,7 @@ pre {
  * Corrects font family set oddly in IE6, S4/5, Chrome
  * en.wikipedia.org/wiki/User:Davidgothberg/Test59
  */
-/* line 219, ../sass/assets/_normalize.scss */
+/* line 219, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 pre,
 code,
 kbd,
@@ -208,7 +208,7 @@ samp {
 /*
  * Improves readability of pre-formatted text in all browsers
  */
-/* line 229, ../sass/assets/_normalize.scss */
+/* line 229, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 pre {
   white-space: pre;
   white-space: pre-wrap;
@@ -219,18 +219,18 @@ pre {
  * 2. Addresses quote property not supported in S4
  */
 /* 1 */
-/* line 242, ../sass/assets/_normalize.scss */
+/* line 242, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 q {
   quotes: none; }
 
 /* 2 */
-/* line 249, ../sass/assets/_normalize.scss */
+/* line 249, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 q:before,
 q:after {
   content: '';
   content: none; }
 
-/* line 254, ../sass/assets/_normalize.scss */
+/* line 254, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 small {
   font-size: 75%; }
 
@@ -238,7 +238,7 @@ small {
  * Prevents sub and sup affecting line-height in all browsers
  * gist.github.com/413930
  */
-/* line 264, ../sass/assets/_normalize.scss */
+/* line 264, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 sub,
 sup {
   font-size: 75%;
@@ -246,11 +246,11 @@ sup {
   position: relative;
   vertical-align: baseline; }
 
-/* line 271, ../sass/assets/_normalize.scss */
+/* line 271, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 sup {
   top: -0.5em; }
 
-/* line 275, ../sass/assets/_normalize.scss */
+/* line 275, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 sub {
   bottom: -0.25em; }
 
@@ -260,21 +260,21 @@ sub {
 /*
  * Addresses margins set differently in IE6/7
  */
-/* line 291, ../sass/assets/_normalize.scss */
+/* line 291, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 dl,
 menu,
 ol,
 ul {
   margin: 1em 0; }
 
-/* line 295, ../sass/assets/_normalize.scss */
+/* line 295, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 dd {
   margin: 0 0 0 40px; }
 
 /*
  * Addresses paddings set differently in IE6/7
  */
-/* line 305, ../sass/assets/_normalize.scss */
+/* line 305, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 menu,
 ol,
 ul {
@@ -283,7 +283,7 @@ ul {
 /*
  * Corrects list images handled incorrectly in IE7
  */
-/* line 314, ../sass/assets/_normalize.scss */
+/* line 314, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 nav ul,
 nav ol {
   list-style: none;
@@ -297,7 +297,7 @@ nav ol {
  * 2. Improves image quality when scaled in IE7
  *    code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
  */
-/* line 330, ../sass/assets/_normalize.scss */
+/* line 330, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 img {
   border: 0;
   /* 1 */
@@ -307,7 +307,7 @@ img {
 /*
  * Corrects overflow displayed oddly in IE9
  */
-/* line 339, ../sass/assets/_normalize.scss */
+/* line 339, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 svg:not(:root) {
   overflow: hidden; }
 
@@ -317,7 +317,7 @@ svg:not(:root) {
 /*
  * Addresses margin not present in IE6/7/8/9, S5, O11
  */
-/* line 352, ../sass/assets/_normalize.scss */
+/* line 352, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 figure {
   margin: 0; }
 
@@ -327,14 +327,14 @@ figure {
 /*
  * Corrects margin displayed oddly in IE6/7
  */
-/* line 365, ../sass/assets/_normalize.scss */
+/* line 365, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 form {
   margin: 0; }
 
 /*
  * Define consistent border, margin, and padding
  */
-/* line 373, ../sass/assets/_normalize.scss */
+/* line 373, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
@@ -345,7 +345,7 @@ fieldset {
  * 2. Corrects text not wrapping in FF3
  * 3. Corrects alignment displayed oddly in IE6/7
  */
-/* line 385, ../sass/assets/_normalize.scss */
+/* line 385, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 legend {
   border: 0;
   /* 1 */
@@ -360,7 +360,7 @@ legend {
  * 2. Addresses margins set differently in IE6/7, FF3+, S5, Chrome
  * 3. Improves appearance and consistency in all browsers
  */
-/* line 401, ../sass/assets/_normalize.scss */
+/* line 401, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 button,
 input,
 select,
@@ -377,7 +377,7 @@ textarea {
 /*
  * Addresses FF3/4 setting line-height on 'input' using !important in the UA stylesheet
  */
-/* line 413, ../sass/assets/_normalize.scss */
+/* line 413, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 button,
 input {
   line-height: normal;
@@ -389,7 +389,7 @@ input {
  * 3. Removes inner spacing in IE7 without affecting normal text inputs
  *    Known issue: inner spacing remains in IE6
  */
-/* line 427, ../sass/assets/_normalize.scss */
+/* line 427, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 button,
 input[type="button"],
 input[type="reset"],
@@ -404,7 +404,7 @@ input[type="submit"] {
 /*
  * Re-set default cursor for disabled elements
  */
-/* line 438, ../sass/assets/_normalize.scss */
+/* line 438, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 button[disabled],
 input[disabled] {
   cursor: default; }
@@ -415,7 +415,7 @@ input[disabled] {
  * 3. Removes excess padding in IE7
       Known issue: excess padding remains in IE6
  */
-/* line 450, ../sass/assets/_normalize.scss */
+/* line 450, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 input[type="checkbox"],
 input[type="radio"] {
   box-sizing: border-box;
@@ -431,7 +431,7 @@ input[type="radio"] {
  * 1. Addresses appearance set to searchfield in S5, Chrome
  * 2. Addresses box-sizing set to border-box in S5, Chrome (include -moz to future-proof)
  */
-/* line 462, ../sass/assets/_normalize.scss */
+/* line 462, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
@@ -443,7 +443,7 @@ input[type="search"] {
 /*
  * Removes inner padding and search cancel button in S5, Chrome on OS X
  */
-/* line 474, ../sass/assets/_normalize.scss */
+/* line 474, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none; }
@@ -452,7 +452,7 @@ input[type="search"]::-webkit-search-cancel-button {
  * Removes inner padding and border in FF3+
  * www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/
  */
-/* line 484, ../sass/assets/_normalize.scss */
+/* line 484, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 button::-moz-focus-inner,
 input::-moz-focus-inner {
   border: 0;
@@ -462,7 +462,7 @@ input::-moz-focus-inner {
  * 1. Removes default vertical scrollbar in IE6/7/8/9
  * 2. Improves readability and alignment in all browsers
  */
-/* line 494, ../sass/assets/_normalize.scss */
+/* line 494, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 textarea {
   overflow: auto;
   /* 1 */
@@ -475,7 +475,7 @@ textarea {
 /*
  * Remove most spacing between table cells
  */
-/* line 508, ../sass/assets/_normalize.scss */
+/* line 508, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_normalize.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0; }
@@ -532,39 +532,39 @@ table {
   font-weight: normal;
   font-style: normal; }
 
-/* line 1, ../sass/assets/_selection.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_selection.scss */
 *::-moz-selection {
   background-color: #323232;
   color: #ffffff; }
 
-/* line 5, ../sass/assets/_selection.scss */
+/* line 5, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_selection.scss */
 *::-webkit-selection {
   background-color: #323232;
   color: #ffffff; }
 
-/* line 9, ../sass/assets/_selection.scss */
+/* line 9, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_selection.scss */
 *::-o-selection {
   background-color: #323232;
   color: #ffffff; }
 
-/* line 13, ../sass/assets/_selection.scss */
+/* line 13, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_selection.scss */
 *::selection {
   background-color: #323232;
   color: #ffffff; }
 
-/* line 1, ../sass/assets/_common.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .clear {
   clear: both; }
 
-/* line 4, ../sass/assets/_common.scss */
+/* line 4, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .alignleft {
   float: left; }
 
-/* line 7, ../sass/assets/_common.scss */
+/* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .alignright {
   float: right; }
 
-/* line 10, ../sass/assets/_common.scss */
+/* line 10, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .button {
   text-align: center;
   font: normal normal normal 0.8em/1em "AvenirHeavy";
@@ -573,16 +573,16 @@ table {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear; }
-  /* line 16, ../sass/assets/_common.scss */
+  /* line 16, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button a {
     font-size: inherit; }
-  /* line 21, ../sass/assets/_common.scss */
+  /* line 21, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.gray {
     background-color: #cccccc; }
-    /* line 23, ../sass/assets/_common.scss */
+    /* line 23, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     .button.gray a {
       color: #5f6062; }
-  /* line 25, ../sass/assets/_common.scss */
+  /* line 25, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.gray.gradient {
     /* The following requires the latest Compass, add '@import "compass"' the top of this file */
     background-color: #969696;
@@ -598,13 +598,13 @@ table {
     background-image: -moz-linear-gradient(top, #cccccc 0%, #969696 100%);
     background-image: -o-linear-gradient(top, #cccccc 0%, #969696 100%);
     background-image: linear-gradient(top, #cccccc 0%, #969696 100%); }
-  /* line 28, ../sass/assets/_common.scss */
+  /* line 28, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.active.gray {
     background-color: #afafaf; }
-    /* line 30, ../sass/assets/_common.scss */
+    /* line 30, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     .button.active.gray a {
       color: #2a2a2a; }
-  /* line 32, ../sass/assets/_common.scss */
+  /* line 32, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.active.gray.gradient {
     /* The following requires the latest Compass, add '@import "compass"' the top of this file */
     background-color: #5f6062;
@@ -620,13 +620,13 @@ table {
     background-image: -moz-linear-gradient(top, #969696 0%, #5f6062 100%);
     background-image: -o-linear-gradient(top, #969696 0%, #5f6062 100%);
     background-image: linear-gradient(top, #969696 0%, #5f6062 100%); }
-  /* line 37, ../sass/assets/_common.scss */
+  /* line 37, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.blue {
     background-color: #7cdafd; }
-    /* line 39, ../sass/assets/_common.scss */
+    /* line 39, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     .button.blue a {
       color: #5f6062; }
-  /* line 41, ../sass/assets/_common.scss */
+  /* line 41, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.blue.gradient {
     /* The following requires the latest Compass, add '@import "compass"' the top of this file */
     background-color: #028bbe;
@@ -642,13 +642,13 @@ table {
     background-image: -moz-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
     background-image: -o-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
     background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%); }
-  /* line 44, ../sass/assets/_common.scss */
+  /* line 44, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.active.blue {
     background-color: #969696; }
-    /* line 46, ../sass/assets/_common.scss */
+    /* line 46, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     .button.active.blue a {
       color: #2a2a2a; }
-  /* line 48, ../sass/assets/_common.scss */
+  /* line 48, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.active.blue.gradient {
     /* The following requires the latest Compass, add '@import "compass"' the top of this file */
     background-color: #028bbe;
@@ -664,48 +664,48 @@ table {
     background-image: -moz-linear-gradient(top, #00aeef 0%, #028bbe 100%);
     background-image: -o-linear-gradient(top, #00aeef 0%, #028bbe 100%);
     background-image: linear-gradient(top, #00aeef 0%, #028bbe 100%); }
-  /* line 53, ../sass/assets/_common.scss */
+  /* line 53, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.inline {
     float: left;
     margin-right: 5px;
     margin-bottom: 5px; }
-  /* line 58, ../sass/assets/_common.scss */
+  /* line 58, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.padded {
     padding: 8px; }
-  /* line 61, ../sass/assets/_common.scss */
+  /* line 61, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.rounded {
     -webkit-border-radius: 4px 4px;
     -moz-border-radius: 4px / 4px;
     border-radius: 4px / 4px; }
-  /* line 64, ../sass/assets/_common.scss */
+  /* line 64, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .button.hover:hover {
     -webkit-box-shadow: 0 0 8px #969696;
     -moz-box-shadow: 0 0 8px #969696;
     box-shadow: 0 0 8px #969696; }
 
 /* .button */
-/* line 69, ../sass/assets/_common.scss */
+/* line 69, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .uppercase {
   text-transform: uppercase; }
 
-/* line 72, ../sass/assets/_common.scss */
+/* line 72, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .link-fill-container, .button a, section.accordion article figure.link-icon a, .browser-icons figure a, .website-wrapper footer .inner .column .button-w-tab .button-tab .icon a {
   display: block;
   width: 100%;
   height: 100%; }
 
-/* line 77, ../sass/assets/_common.scss */
+/* line 77, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .blue-text {
   color: #00aeef; }
 
-/* line 80, ../sass/assets/_common.scss */
+/* line 80, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .annotation {
   color: #00aeef; }
 
-/* line 84, ../sass/assets/_common.scss */
+/* line 84, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 section.accordion {
   margin: 10px 0 10px 0; }
-  /* line 87, ../sass/assets/_common.scss */
+  /* line 87, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   section.accordion header {
     overflow: auto;
     margin-bottom: 10px;
@@ -717,7 +717,7 @@ section.accordion {
     -moz-transition: all 0.2s linear;
     -o-transition: all 0.2s linear;
     transition: all 0.2s linear; }
-    /* line 96, ../sass/assets/_common.scss */
+    /* line 96, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     section.accordion header figcaption {
       float: left;
       display: block;
@@ -727,11 +727,11 @@ section.accordion {
       color: white;
       line-height: 1.4em;
       width: 90%; }
-      /* line 106, ../sass/assets/_common.scss */
+      /* line 106, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
       section.accordion header figcaption a {
         font: inherit;
         color: inherit; }
-    /* line 111, ../sass/assets/_common.scss */
+    /* line 111, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     section.accordion header div {
       position: relative;
       float: right;
@@ -751,7 +751,7 @@ section.accordion {
       background-image: -moz-linear-gradient(top, #cccccc 0%, #969696 100%);
       background-image: -o-linear-gradient(top, #cccccc 0%, #969696 100%);
       background-image: linear-gradient(top, #cccccc 0%, #969696 100%); }
-      /* line 118, ../sass/assets/_common.scss */
+      /* line 118, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
       section.accordion header div figure {
         position: absolute;
         bottom: 0;
@@ -759,14 +759,14 @@ section.accordion {
         width: 24px;
         height: 32px;
         background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -16px no-repeat; }
-    /* line 126, ../sass/assets/_common.scss */
+    /* line 126, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     section.accordion header:hover {
       background-color: #969696; }
-  /* line 130, ../sass/assets/_common.scss */
+  /* line 130, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   section.accordion article {
     width: 100%;
     padding-right: 35px; }
-    /* line 134, ../sass/assets/_common.scss */
+    /* line 134, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     section.accordion article figure.link-icon {
       z-index: 100;
       float: right;
@@ -775,14 +775,14 @@ section.accordion {
       height: 16px;
       display: none;
       background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 0 no-repeat; }
-    /* line 147, ../sass/assets/_common.scss */
+    /* line 147, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     section.accordion article p {
       position: relative;
       z-index: 1; }
-  /* line 152, ../sass/assets/_common.scss */
+  /* line 152, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   section.accordion.open header {
     background-color: #969696; }
-    /* line 154, ../sass/assets/_common.scss */
+    /* line 154, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
     section.accordion.open header div {
       /* The following requires the latest Compass, add '@import "compass"' the top of this file */
       background-color: #5f6062;
@@ -798,24 +798,24 @@ section.accordion {
       background-image: -moz-linear-gradient(top, #969696 0%, #5f6062 100%);
       background-image: -o-linear-gradient(top, #969696 0%, #5f6062 100%);
       background-image: linear-gradient(top, #969696 0%, #5f6062 100%); }
-      /* line 157, ../sass/assets/_common.scss */
+      /* line 157, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
       section.accordion.open header div figure {
         background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -48px no-repeat; }
-  /* line 162, ../sass/assets/_common.scss */
+  /* line 162, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   section.accordion.closed article {
     display: none; }
 
 /* accordian */
-/* line 168, ../sass/assets/_common.scss */
+/* line 168, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .inline {
   display: inline; }
 
-/* line 172, ../sass/assets/_common.scss */
+/* line 172, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .moreleading {
   line-height: 1.25em; }
 
 /* Back to Top Elements */
-/* line 177, ../sass/assets/_common.scss */
+/* line 177, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .back-to-top {
   position: fixed;
   top: 200px;
@@ -826,85 +826,85 @@ section.accordion {
   display: none;
   cursor: pointer;
   background-color: #969696; }
-  /* line 188, ../sass/assets/_common.scss */
+  /* line 188, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
   .back-to-top div {
     width: 33px;
     height: 19px;
     margin: 13px auto 0 auto;
     background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -478px; }
 
-/* line 195, ../sass/assets/_common.scss */
+/* line 195, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_common.scss */
 .back-to-top.active {
   display: block; }
 
 /* Tables are used for data grids of job, institution, and program information in grid stuctures */
-/* line 2, ../sass/assets/_tablesorter.scss */
+/* line 2, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
 .filter-options {
   margin: 0 0 20px 0;
   overflow: auto; }
-  /* line 6, ../sass/assets/_tablesorter.scss */
+  /* line 6, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
   .filter-options .title {
     float: left;
     margin-right: 10px;
     padding-top: 3px; }
-  /* line 12, ../sass/assets/_tablesorter.scss */
+  /* line 12, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
   .filter-options .button:hover {
     background-color: #d9d9d9; }
-    /* line 15, ../sass/assets/_tablesorter.scss */
+    /* line 15, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
     .filter-options .button:hover.active {
       background-color: #afafaf; }
 
-/* line 21, ../sass/assets/_tablesorter.scss */
+/* line 21, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
 table.tablesorter {
   text-align: left; }
-  /* line 25, ../sass/assets/_tablesorter.scss */
+  /* line 25, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
   table.tablesorter thead tr {
     background-color: #d9d9d9; }
-    /* line 28, ../sass/assets/_tablesorter.scss */
+    /* line 28, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
     table.tablesorter thead tr th {
       text-align: left;
       border: 1px solid #FFF;
       padding: 4px 20px 4px 5px;
       font-size: 0.85em; }
-      /* line 34, ../sass/assets/_tablesorter.scss */
+      /* line 34, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
       table.tablesorter thead tr th.header {
         background-image: url(../images/layout/bg.gif);
         background-repeat: no-repeat;
         background-position: center right;
         cursor: pointer; }
-      /* line 40, ../sass/assets/_tablesorter.scss */
+      /* line 40, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
       table.tablesorter thead tr th.headerSortUp, table.tablesorter thead tr th.headerSortDown {
         background-color: #cccccc; }
-        /* line 43, ../sass/assets/_tablesorter.scss */
+        /* line 43, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
         table.tablesorter thead tr th.headerSortUp strong, table.tablesorter thead tr th.headerSortDown strong {
           color: #5f6062; }
-      /* line 47, ../sass/assets/_tablesorter.scss */
+      /* line 47, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
       table.tablesorter thead tr th.headerSortUp {
         background-image: url(../images/layout/asc.gif); }
-      /* line 50, ../sass/assets/_tablesorter.scss */
+      /* line 50, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
       table.tablesorter thead tr th.headerSortDown {
         background-image: url(../images/layout/desc.gif); }
-  /* line 57, ../sass/assets/_tablesorter.scss */
+  /* line 57, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
   table.tablesorter thead.tableFloatingHeader {
     -webkit-box-shadow: 0 0 20px #2a2a2a;
     -moz-box-shadow: 0 0 20px #2a2a2a;
     box-shadow: 0 0 20px #2a2a2a; }
-  /* line 63, ../sass/assets/_tablesorter.scss */
+  /* line 63, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
   table.tablesorter tbody tr:nth-child(even) {
     background-color: #d9d9d9; }
-  /* line 66, ../sass/assets/_tablesorter.scss */
+  /* line 66, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
   table.tablesorter tbody tr:nth-child(odd) {
     background-color: white; }
-  /* line 69, ../sass/assets/_tablesorter.scss */
+  /* line 69, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
   table.tablesorter tbody tr td {
     padding: 5px;
     font-family: 'HelveticaCondensed'; }
-    /* line 73, ../sass/assets/_tablesorter.scss */
+    /* line 73, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_tablesorter.scss */
     table.tablesorter tbody tr td a {
       font-family: 'HelveticaCondensed';
       font-weight: bold; }
 
-/* line 1, ../sass/assets/_formidable.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style label {
   font-size: 12px;
   float: none;
@@ -913,80 +913,80 @@ table.tablesorter {
   padding: 0;
   width: auto; }
 
-/* line 2, ../sass/assets/_formidable.scss */
+/* line 2, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style label.frm_primary_label {
   font-weight: bold;
   display: block; }
 
-/* line 3, ../sass/assets/_formidable.scss */
+/* line 3, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_top_container label.frm_primary_label {
   display: block;
   float: none;
   width: auto; }
 
-/* line 4, ../sass/assets/_formidable.scss */
+/* line 4, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_left_container label.frm_primary_label {
   float: left;
   padding-right: 10px;
   width: 150px; }
 
-/* line 5, ../sass/assets/_formidable.scss */
+/* line 5, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_right_container label.frm_primary_label {
   float: right;
   padding-left: 10px;
   width: 150px; }
 
-/* line 6, ../sass/assets/_formidable.scss */
+/* line 6, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_none_container label.frm_primary_label {
   display: none; }
 
-/* line 7, ../sass/assets/_formidable.scss */
+/* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_hidden_container label.frm_primary_label {
   visibility: hidden; }
 
-/* line 8, ../sass/assets/_formidable.scss */
+/* line 8, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_inline_container label.frm_primary_label {
   display: inline;
   padding-right: 10px; }
 
-/* line 9, ../sass/assets/_formidable.scss */
+/* line 9, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .form-field, .with_frm_style .frm_form_field {
   margin-bottom: 15px; }
 
-/* line 10, ../sass/assets/_formidable.scss */
+/* line 10, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_blank_field label, .with_frm_style .frm_error {
   color: #be2e17; }
 
-/* line 11, ../sass/assets/_formidable.scss */
+/* line 11, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_blank_field input, .with_frm_style .frm_blank_field textarea, .with_frm_style .frm_blank_field select, .with_frm_style .frm_blank_field #recaptcha_area {
   border: 1px solid #be2e17; }
 
-/* line 12, ../sass/assets/_formidable.scss */
+/* line 12, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_required {
   color: #ff0000;
   font-weight: bold; }
 
-/* line 13, ../sass/assets/_formidable.scss */
+/* line 13, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_checkbox, .with_frm_style .frm_radio {
   display: block;
   margin: 0; }
 
-/* line 14, ../sass/assets/_formidable.scss */
+/* line 14, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_left_container .frm_checkbox, .with_frm_style .frm_left_container .frm_radio {
   margin-left: 160px; }
 
-/* line 15, ../sass/assets/_formidable.scss */
+/* line 15, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style fieldset {
   border: none;
   margin: 0;
   padding: 0; }
 
-/* line 16, ../sass/assets/_formidable.scss */
+/* line 16, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style p.submit {
   padding-top: 20px;
   padding-bottom: 20px; }
 
-/* line 17, ../sass/assets/_formidable.scss */
+/* line 17, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style p.description, .with_frm_style div.description, .with_frm_style .frm_description, .with_frm_style .frm_error {
   margin: 0;
   padding: 0;
@@ -995,20 +995,20 @@ table.tablesorter {
   text-align: left;
   font-style: normal; }
 
-/* line 18, ../sass/assets/_formidable.scss */
+/* line 18, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_left_container .description, .with_frm_style .frm_left_container .frm_error, .with_frm_style .frm_left_container .frm_description {
   margin-left: 160px; }
 
-/* line 19, ../sass/assets/_formidable.scss */
+/* line 19, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_error {
   font-weight: bold; }
 
-/* line 20, ../sass/assets/_formidable.scss */
+/* line 20, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_form_fields input, .with_frm_style .frm_form_fields select, .with_frm_style .frm_form_fields textarea {
   font-size: 13px;
   margin-bottom: 0; }
 
-/* line 21, ../sass/assets/_formidable.scss */
+/* line 21, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_form_fields input, #wpcontent .with_frm_style .frm_form_fields select, .with_frm_style .frm_form_fields select, .with_frm_style .frm_form_fields textarea {
   border-width: 1px;
   border-style: solid;
@@ -1016,24 +1016,24 @@ table.tablesorter {
   font-size: 13px;
   padding: 2px; }
 
-/* line 22, ../sass/assets/_formidable.scss */
+/* line 22, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_form_fields input.auto_width, .with_frm_style .frm_form_fields select.auto_width, .with_frm_style .frm_form_fields textarea.auto_width {
   width: auto; }
 
-/* line 23, ../sass/assets/_formidable.scss */
+/* line 23, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_set_select .with_frm_style .frm_form_fields select, .frm_set_select .with_frm_style .frm_form_fields select.auto_width {
   width: 95%; }
 
-/* line 24, ../sass/assets/_formidable.scss */
+/* line 24, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_radio label, .with_frm_style .frm_checkbox label {
   display: inline; }
 
-/* line 25, ../sass/assets/_formidable.scss */
+/* line 25, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style input[type="radio"], .with_frm_style input[type="checkbox"] {
   width: auto;
   margin-right: 3px; }
 
-/* line 26, ../sass/assets/_formidable.scss */
+/* line 26, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .with_frm_style .frm_message, .with_frm_style .frm_message p {
   font-size: 14px;
   margin: 5px 0 15px;
@@ -1042,34 +1042,34 @@ table.tablesorter {
   border: 1px solid #E6DB55;
   color: #444444; }
 
-/* line 28, ../sass/assets/_formidable.scss */
+/* line 28, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_forms.with_frm_style {
   max-width: 98%; }
 
-/* line 29, ../sass/assets/_formidable.scss */
+/* line 29, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_third, .frm_form_field.frm_fourth, .frm_form_field.frm_fifth, .frm_form_field.frm_inline {
   clear: none;
   float: left; }
 
-/* line 30, ../sass/assets/_formidable.scss */
+/* line 30, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_half, .frm_form_field.frm_left_third, .frm_form_field.frm_left_fourth, .frm_form_field.frm_left_fifth, .frm_form_field.frm_left_inline, .frm_form_field.frm_first_half, .frm_form_field.frm_first_third, .frm_form_field.frm_first_fourth, .frm_form_field.frm_first_fifth, .frm_form_field.frm_first_inline {
   clear: left;
   float: left; }
 
-/* line 31, ../sass/assets/_formidable.scss */
+/* line 31, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_right_half, .frm_form_field.frm_right_third, .frm_form_field.frm_right_fourth, .frm_form_field.frm_right_fifth, .frm_form_field.frm_right_inline, .frm_form_field.frm_last_half, .frm_form_field.frm_last_third, .frm_form_field.frm_last_fourth, .frm_form_field.frm_last_fifth, .frm_form_field.frm_last_inline {
   clear: none;
   float: right; }
 
-/* line 32, ../sass/assets/_formidable.scss */
+/* line 32, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_half, .frm_form_field.frm_right_half, .frm_form_field.frm_first_half, .frm_form_field.frm_last_half {
   width: 48%; }
 
-/* line 33, ../sass/assets/_formidable.scss */
+/* line 33, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_half, .frm_form_field.frm_first_half {
   margin-right: 4%; }
 
-/* line 34, ../sass/assets/_formidable.scss */
+/* line 34, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_half.frm_left_container .frm_primary_label, .frm_form_field.frm_right_half.frm_left_container .frm_primary_label, .frm_form_field.frm_left_half.frm_right_container .frm_primary_label, .frm_form_field.frm_right_half.frm_right_container .frm_primary_label, .frm_form_field.frm_first_half.frm_left_container .frm_primary_label, .frm_form_field.frm_last_half.frm_left_container .frm_primary_label, .frm_form_field.frm_first_half.frm_right_container .frm_primary_label, .frm_form_field.frm_last_half.frm_right_container .frm_primary_label {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1078,77 +1078,77 @@ table.tablesorter {
   margin-right: 0;
   margin-left: 0; }
 
-/* line 35, ../sass/assets/_formidable.scss */
+/* line 35, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_half.frm_left_container .frm_primary_label, .frm_form_field.frm_right_half.frm_left_container .frm_primary_label, .frm_form_field.frm_first_half.frm_left_container .frm_primary_label, .frm_form_field.frm_last_half.frm_left_container .frm_primary_label {
   padding-right: 10px; }
 
-/* line 36, ../sass/assets/_formidable.scss */
+/* line 36, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_half.frm_right_container .frm_primary_label, .frm_form_field.frm_right_half.frm_right_container .frm_primary_label, .frm_form_field.frm_first_half.frm_right_container .frm_primary_label, .frm_form_field.frm_last_half.frm_right_container .frm_primary_label {
   padding-left: 10px; }
 
-/* line 37, ../sass/assets/_formidable.scss */
+/* line 37, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_container input, .frm_form_field.frm_left_container select, .frm_form_field.frm_left_container textarea, .frm_form_field.frm_right_container input, .frm_form_field.frm_right_container select, .frm_form_field.frm_right_container textarea {
   max-width: 75%; }
 
-/* line 38, ../sass/assets/_formidable.scss */
+/* line 38, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_third, .frm_form_field.frm_third, .frm_form_field.frm_right_third, .frm_form_field.frm_first_third, .frm_form_field.frm_last_third {
   width: 30%; }
 
-/* line 39, ../sass/assets/_formidable.scss */
+/* line 39, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_third, .frm_form_field.frm_first_third, .frm_form_field.frm_third {
   margin-right: 5%; }
 
-/* line 40, ../sass/assets/_formidable.scss */
+/* line 40, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_fourth, .frm_form_field.frm_fourth, .frm_form_field.frm_right_fourth, .frm_form_field.frm_first_fourth, .frm_form_field.frm_last_fourth {
   width: 22%; }
 
-/* line 41, ../sass/assets/_formidable.scss */
+/* line 41, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_fourth, .frm_form_field.frm_fourth, .frm_form_field.frm_first_fourth {
   margin-right: 4%; }
 
-/* line 42, ../sass/assets/_formidable.scss */
+/* line 42, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_fifth, .frm_form_field.frm_fifth, .frm_form_field.frm_right_fifth, .frm_form_field.frm_first_fifth, .frm_form_field.frm_last_fifth {
   width: 16%; }
 
-/* line 43, ../sass/assets/_formidable.scss */
+/* line 43, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_fifth, .frm_form_field.frm_fifth, .frm_form_field.frm_first_fifth {
   margin-right: 5%; }
 
-/* line 44, ../sass/assets/_formidable.scss */
+/* line 44, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_inline, .frm_form_field.frm_first_inline, .frm_form_field.frm_inline, .frm_form_field.frm_right_inline, .frm_form_field.frm_last_inline {
   width: auto; }
 
-/* line 45, ../sass/assets/_formidable.scss */
+/* line 45, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_form_field.frm_left_inline, .frm_form_field.frm_first_inline, .frm_form_field.frm_inline {
   margin-right: 4%; }
 
-/* line 46, ../sass/assets/_formidable.scss */
+/* line 46, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_full, .frm_full input, .frm_full select, .frm_full textarea {
   width: 100% !important; }
 
-/* line 47, ../sass/assets/_formidable.scss */
+/* line 47, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_full .wp-editor-wrap input {
   width: auto !important; }
 
-/* line 49, ../sass/assets/_formidable.scss */
+/* line 49, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
 .frm_forms {
   margin-left: 5px; }
-  /* line 52, ../sass/assets/_formidable.scss */
+  /* line 52, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
   .frm_forms .frm_checkbox {
     margin-bottom: 4px; }
-    /* line 55, ../sass/assets/_formidable.scss */
+    /* line 55, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
     .frm_forms .frm_checkbox input {
       margin-right: 4px; }
-  /* line 59, ../sass/assets/_formidable.scss */
+  /* line 59, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_formidable.scss */
   .frm_forms label {
     font-size: 1.1em; }
 
-/* line 1, ../sass/assets/_slideshow.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_slideshow.scss */
 .slideshow {
   width: 880px;
   margin: 0 auto 0 auto;
   /* .slides */ }
-  /* line 5, ../sass/assets/_slideshow.scss */
+  /* line 5, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_slideshow.scss */
   .slideshow .slideshow-prev {
     float: left;
     width: 25px;
@@ -1157,18 +1157,18 @@ table.tablesorter {
     cursor: pointer;
     background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -261px;
     margin-right: 10px; }
-  /* line 13, ../sass/assets/_slideshow.scss */
+  /* line 13, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_slideshow.scss */
   .slideshow .slides {
     float: left;
     width: 800px;
     height: 287px; }
-    /* line 18, ../sass/assets/_slideshow.scss */
+    /* line 18, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_slideshow.scss */
     .slideshow .slides .slide {
       display: none; }
-    /* line 21, ../sass/assets/_slideshow.scss */
+    /* line 21, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_slideshow.scss */
     .slideshow .slides .slide.first {
       display: block; }
-  /* line 26, ../sass/assets/_slideshow.scss */
+  /* line 26, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_slideshow.scss */
   .slideshow .slideshow-next {
     float: left;
     width: 25px;
@@ -1179,7 +1179,7 @@ table.tablesorter {
     margin-left: 10px; }
 
 /* .slideshow */
-/* line 1, ../sass/assets/_select-box.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
 select {
   /* 
   	The select will be replaced by the jquery select box plugin
@@ -1190,7 +1190,7 @@ select {
   visibility: hidden; }
 
 /* Custom Dropdown Menu Plugin - Lives in the blog sidebar */
-/* line 12, ../sass/assets/_select-box.scss */
+/* line 12, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
 div.sbHolder {
   position: relative;
   height: 34px;
@@ -1210,7 +1210,7 @@ div.sbHolder {
   background-image: -moz-linear-gradient(top, #69d5fd 0%, #00aeef 100%);
   background-image: -o-linear-gradient(top, #69d5fd 0%, #00aeef 100%);
   background-image: linear-gradient(top, #69d5fd 0%, #00aeef 100%); }
-  /* line 19, ../sass/assets/_select-box.scss */
+  /* line 19, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
   div.sbHolder a.sbToggle {
     position: absolute;
     top: 0;
@@ -1224,10 +1224,10 @@ div.sbHolder {
     -moz-transition: none 0s linear;
     -o-transition: none 0s linear;
     transition: none 0s linear; }
-    /* line 29, ../sass/assets/_select-box.scss */
+    /* line 29, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
     div.sbHolder a.sbToggle.sbToggleOpen {
       background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -114px; }
-  /* line 34, ../sass/assets/_select-box.scss */
+  /* line 34, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
   div.sbHolder a.sbSelector {
     position: absolute;
     top: 0;
@@ -1241,11 +1241,11 @@ div.sbHolder {
     line-height: 1.2em;
     letter-spacing: 0em;
     font-size: 0.9em; }
-    /* line 48, ../sass/assets/_select-box.scss */
+    /* line 48, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
     div.sbHolder a.sbSelector:link, div.sbHolder a.sbSelector:visited, div.sbHolder a.sbSelector:hover {
       color: white;
       font-weight: normal; }
-  /* line 53, ../sass/assets/_select-box.scss */
+  /* line 53, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
   div.sbHolder ul.sbOptions {
     position: absolute;
     top: 32px !important;
@@ -1259,7 +1259,7 @@ div.sbHolder {
     -webkit-box-shadow: 0 3px 8px #969696;
     -moz-box-shadow: 0 3px 8px #969696;
     box-shadow: 0 3px 8px #969696; }
-    /* line 63, ../sass/assets/_select-box.scss */
+    /* line 63, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
     div.sbHolder ul.sbOptions li {
       list-style: none;
       margin: 0;
@@ -1267,47 +1267,47 @@ div.sbHolder {
       -moz-transition: all 0.2s linear;
       -o-transition: all 0.2s linear;
       transition: all 0.2s linear; }
-      /* line 68, ../sass/assets/_select-box.scss */
+      /* line 68, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
       div.sbHolder ul.sbOptions li a {
         display: block;
         padding: 5px 20px 5px 5px;
         width: 100%;
         color: #ececec;
         font-family: 'AvenirLight'; }
-      /* line 75, ../sass/assets/_select-box.scss */
+      /* line 75, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
       div.sbHolder ul.sbOptions li.last a {
         border-bottom: none; }
-      /* line 78, ../sass/assets/_select-box.scss */
+      /* line 78, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
       div.sbHolder ul.sbOptions li:hover {
         background-color: #028bbe; }
-        /* line 81, ../sass/assets/_select-box.scss */
+        /* line 81, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_select-box.scss */
         div.sbHolder ul.sbOptions li:hover a {
           color: white; }
 
 /* .sbHolder */
 /* The following is rendered via a shortcode on the site requirements page */
-/* line 2, ../sass/assets/_browser-icons.scss */
+/* line 2, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_browser-icons.scss */
 .browser-icons {
   margin-top: 25px; }
-  /* line 5, ../sass/assets/_browser-icons.scss */
+  /* line 5, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_browser-icons.scss */
   .browser-icons figure {
     width: 75px;
     height: 75px;
     float: left;
     margin-right: 25px; }
-    /* line 10, ../sass/assets/_browser-icons.scss */
+    /* line 10, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_browser-icons.scss */
     .browser-icons figure.chrome {
       background-position: 0 -75px; }
-    /* line 13, ../sass/assets/_browser-icons.scss */
+    /* line 13, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_browser-icons.scss */
     .browser-icons figure.firefox {
       background-position: 0 -150px; }
-    /* line 16, ../sass/assets/_browser-icons.scss */
+    /* line 16, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_browser-icons.scss */
     .browser-icons figure.safari {
       background-position: 0 0; }
-    /* line 19, ../sass/assets/_browser-icons.scss */
+    /* line 19, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_browser-icons.scss */
     .browser-icons figure.opera {
       background-position: 0 -300px; }
-    /* line 22, ../sass/assets/_browser-icons.scss */
+    /* line 22, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/assets/_browser-icons.scss */
     .browser-icons figure.internet-explorer {
       background-position: 0 -225px; }
 
@@ -1318,12 +1318,12 @@ section.website-wrapper {
   width: 100%;
   min-height: 100%; }
 
-/* line 6, ../sass/layout/_html-base.scss */
+/* line 6, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
 html {
   margin: 0px;
   padding: 0px;
   height: 100%; }
-  /* line 11, ../sass/layout/_html-base.scss */
+  /* line 11, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
   html body {
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -1332,11 +1332,11 @@ html {
     min-width: 870px;
     color: #5f6062;
     letter-spacing: -0.04em; }
-    /* line 20, ../sass/layout/_html-base.scss */
+    /* line 20, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
     html body ul {
       margin: 0;
       padding: 0; }
-      /* line 24, ../sass/layout/_html-base.scss */
+      /* line 24, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
       html body ul li {
         list-style: none;
         padding: 0;
@@ -1359,27 +1359,27 @@ html {
         	} 
         } 
         */ }
-    /* line 50, ../sass/layout/_html-base.scss */
+    /* line 50, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
     html body h1, html body h2, html body h3, html body h4 {
       font-weight: normal;
       margin: 0;
       letter-spacing: 0em;
       line-height: 1.2em; }
-    /* line 56, ../sass/layout/_html-base.scss */
+    /* line 56, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
     html body h1 {
       font: normal normal normal 1.6em/1em "AvenirHeavy";
       color: #00aeef;
       text-transform: uppercase; }
-      /* line 61, ../sass/layout/_html-base.scss */
+      /* line 61, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
       html body h1 span {
         color: #5f6062;
         padding-right: 5px; }
-    /* line 66, ../sass/layout/_html-base.scss */
+    /* line 66, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
     html body h2 {
       font: normal normal normal 1.6em/1em "AvenirHeavy";
       color: #5f6062;
       /*text-transform: uppercase ;*/ }
-    /* line 71, ../sass/layout/_html-base.scss */
+    /* line 71, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
     html body a {
       font: inherit;
       color: inherit;
@@ -1393,32 +1393,32 @@ html {
       -moz-transition: all 0.2s linear;
       -o-transition: all 0.2s linear;
       transition: all 0.2s linear; }
-      /* line 82, ../sass/layout/_html-base.scss */
+      /* line 82, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
       html body a:hover {
         color: #0793c8; }
-      /* line 85, ../sass/layout/_html-base.scss */
+      /* line 85, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
       html body a img {
         border: 0px; }
-    /* line 89, ../sass/layout/_html-base.scss */
+    /* line 89, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
     html body p {
       margin-top: 0px;
       color: inherit; }
-    /* line 93, ../sass/layout/_html-base.scss */
+    /* line 93, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_html-base.scss */
     html body strong {
       font-family: 'AvenirHeavy';
       font-weight: normal;
       letter-spacing: -0.04em; }
 
-/* line 2, ../sass/layout/_header.scss */
+/* line 2, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
 section.masthead {
   width: 800px;
   margin: 20px auto 20px auto;
   overflow: auto;
   /* .website.controls */ }
-  /* line 7, ../sass/layout/_header.scss */
+  /* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
   section.masthead .website-logo {
     float: left; }
-  /* line 10, ../sass/layout/_header.scss */
+  /* line 10, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
   section.masthead .website-slogan {
     float: left;
     color: #00aeef;
@@ -1426,39 +1426,39 @@ section.masthead {
     font-size: 1.1em;
     margin: 24px 0 0 17px;
     line-height: 1.25em; }
-  /* line 18, ../sass/layout/_header.scss */
+  /* line 18, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
   section.masthead .website-controls {
     float: right; }
-    /* line 22, ../sass/layout/_header.scss */
+    /* line 22, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
     section.masthead .website-controls .website-quick-links ul {
       display: inline-block;
       float: right;
       margin: 0;
       padding: 0; }
-    /* line 28, ../sass/layout/_header.scss */
+    /* line 28, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
     section.masthead .website-controls .website-quick-links li {
       float: left;
       list-style: none;
       color: #00aeef;
       font-family: 'AvenirLight';
       font-size: 0.8em; }
-      /* line 34, ../sass/layout/_header.scss */
+      /* line 34, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
       section.masthead .website-controls .website-quick-links li a {
         color: #5f6062;
         display: inline-block;
         margin: 0 5px 0 5px;
         text-transform: uppercase;
         letter-spacing: 0.1em; }
-      /* line 41, ../sass/layout/_header.scss */
+      /* line 41, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
       section.masthead .website-controls .website-quick-links li:after {
         content: "/"; }
-      /* line 44, ../sass/layout/_header.scss */
+      /* line 44, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_header.scss */
       section.masthead .website-controls .website-quick-links li.last:after {
         content: "";
         margin-right: 0; }
 
 /* section.masthead */
-/* line 1, ../sass/layout/_content.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
 section.content-wrapper {
   position: relative;
   padding: 30px 0 270px 0;
@@ -1468,77 +1468,79 @@ section.content-wrapper {
   /* .page-content */
   /* SIDEBARS & WIDGETS */
   /* .aside */ }
-  /* line 7, ../sass/layout/_content.scss */
+  /* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
   section.content-wrapper h1 {
     color: #00aeef; }
-  /* line 11, ../sass/layout/_content.scss */
+  /* line 11, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
   section.content-wrapper .page-content {
+    overflow: auto;
     float: left;
     width: 600px;
     padding: 0 15px 0 0;
     font: normal normal normal 1em/1.4em "AvenirRoman";
     /* ul */ }
-    /* line 17, ../sass/layout/_content.scss */
-    section.content-wrapper .page-content.full-width {
-      width: 800px; }
-    /* line 22, ../sass/layout/_content.scss */
+    /* line 18, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
+    section.content-wrapper .page-content.wide {
+      width: 800px;
+      float: none; }
+    /* line 24, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
     section.content-wrapper .page-content ul.breadcrumbs {
       display: inline-block;
       float: left;
       margin: 0;
       padding: 0; }
-      /* line 28, ../sass/layout/_content.scss */
+      /* line 30, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .page-content ul.breadcrumbs li {
         float: left;
         list-style: none;
         color: #00aeef;
         font-family: 'AvenirLight';
         font-size: 0.8em; }
-        /* line 34, ../sass/layout/_content.scss */
+        /* line 36, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .page-content ul.breadcrumbs li a {
           font-family: 'AvenirHeavy'; }
-        /* line 37, ../sass/layout/_content.scss */
+        /* line 39, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .page-content ul.breadcrumbs li a, section.content-wrapper .page-content ul.breadcrumbs li span.current-post {
           color: #5f6062;
           display: inline-block;
           margin: 0 5px 0 5px;
           text-transform: uppercase;
           letter-spacing: 0.1em; }
-        /* line 44, ../sass/layout/_content.scss */
+        /* line 46, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .page-content ul.breadcrumbs li.first a, section.content-wrapper .page-content ul.breadcrumbs li.first span.current-post {
           margin-left: 0; }
-        /* line 47, ../sass/layout/_content.scss */
+        /* line 49, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .page-content ul.breadcrumbs li:after {
           content: "/"; }
-        /* line 50, ../sass/layout/_content.scss */
+        /* line 52, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .page-content ul.breadcrumbs li.last:after {
           content: "";
           margin-right: 0; }
-    /* line 57, ../sass/layout/_content.scss */
+    /* line 59, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
     section.content-wrapper .page-content ul.show-bullets {
       padding-left: 18px; }
-      /* line 60, ../sass/layout/_content.scss */
+      /* line 62, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .page-content ul.show-bullets li {
         list-style: disc;
         margin-bottom: 5px; }
-    /* line 68, ../sass/layout/_content.scss */
+    /* line 70, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
     section.content-wrapper .page-content .institution-image {
       max-height: 100px;
       float: left;
       margin: 0 10px 5px 0; }
-  /* line 76, ../sass/layout/_content.scss */
+  /* line 78, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
   section.content-wrapper .aside {
     /* The horizontal aside section is used on the website homepage */
     /* .horizontal */
     /* The vertical aside section is used on the website pages - as a sidebar */
     /* .vertical */
     /* .widget */ }
-    /* line 78, ../sass/layout/_content.scss */
+    /* line 80, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
     section.content-wrapper .aside.horizontal {
       margin: 20px 0 30px 0;
       width: 100%;
       /* widget */ }
-      /* line 82, ../sass/layout/_content.scss */
+      /* line 84, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .aside.horizontal .widget {
         float: left;
         width: 33%;
@@ -1547,16 +1549,16 @@ section.content-wrapper {
         -webkit-box-shadow: -5px 0px 5px -5px #969696;
         -moz-box-shadow: -5px 0px 5px -5px #969696;
         box-shadow: -5px 0px 5px -5px #969696; }
-        /* line 89, ../sass/layout/_content.scss */
+        /* line 91, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside.horizontal .widget:first-child {
           border-left: 0px;
           padding: 0; }
-        /* line 93, ../sass/layout/_content.scss */
+        /* line 95, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside.horizontal .widget h3 {
           font: normal normal normal 1.7em/1.2em "AvenirHeavy";
           text-transform: lowercase;
           margin-bottom: 12px; }
-    /* line 101, ../sass/layout/_content.scss */
+    /* line 103, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
     section.content-wrapper .aside.vertical {
       float: right;
       width: 190px;
@@ -1565,75 +1567,75 @@ section.content-wrapper {
       -moz-box-shadow: -5px 0px 5px -5px #969696;
       box-shadow: -5px 0px 5px -5px #969696;
       /* .widget */ }
-      /* line 107, ../sass/layout/_content.scss */
+      /* line 109, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .aside.vertical .widget {
         border-bottom: 1px solid #7cdafd;
         font-size: 0.90em;
         padding-bottom: 15px;
         margin-bottom: 25px; }
-        /* line 113, ../sass/layout/_content.scss */
+        /* line 115, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside.vertical .widget:last-child {
           border-bottom: 0px;
           padding-bottom: 0;
           margin-bottom: 0; }
-        /* line 119, ../sass/layout/_content.scss */
+        /* line 121, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside.vertical .widget h3 {
           font: normal normal normal 1.7em/1.2em "AvenirHeavy";
           text-transform: lowercase;
           margin-bottom: 12px; }
-        /* line 125, ../sass/layout/_content.scss */
+        /* line 127, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside.vertical .widget a.sbSelector {
           font-size: 0.95em !important;
           padding-top: 3px !important; }
-        /* line 130, ../sass/layout/_content.scss */
+        /* line 132, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside.vertical .widget#financial-aid img {
           width: 170px; }
-    /* line 137, ../sass/layout/_content.scss */
+    /* line 139, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
     section.content-wrapper .aside .widget {
       /* ul */
       /* #institutions */ }
-      /* line 138, ../sass/layout/_content.scss */
+      /* line 140, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .aside .widget p.slogan {
         font: normal normal normal 1.8em/1em "AvenirLight";
         margin: 0 0 15px 0;
         padding: 0; }
-      /* line 143, ../sass/layout/_content.scss */
+      /* line 145, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .aside .widget p.tooltip {
         font: normal normal normal 1em/1em "Arial";
         color: #00aeef; }
-        /* line 147, ../sass/layout/_content.scss */
+        /* line 149, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside .widget p.tooltip a {
           font: inherit; }
-      /* line 151, ../sass/layout/_content.scss */
+      /* line 153, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .aside .widget ul {
         margin: 0;
         padding: 0 0 5px 0; }
-        /* line 155, ../sass/layout/_content.scss */
+        /* line 157, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
         section.content-wrapper .aside .widget ul li {
           list-style: none;
           margin-bottom: 6px;
           font-weight: bold; }
-          /* line 160, ../sass/layout/_content.scss */
+          /* line 162, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
           section.content-wrapper .aside .widget ul li a {
             font-size: 0.85em; }
-      /* line 167, ../sass/layout/_content.scss */
+      /* line 169, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .aside .widget#institutions p {
         margin: 10px 0 10px 0;
         font-size: 0.85em;
         line-height: 1.2em; }
-      /* line 175, ../sass/layout/_content.scss */
+      /* line 177, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_content.scss */
       section.content-wrapper .aside .widget#jobs-in-demand a {
         font-weight: normal; }
 
 /* section.content-wrapper */
 /* The .program-types list is a horizontal list of buttons */
-/* line 2, ../sass/layout/content/_program-type-menu.scss */
+/* line 2, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_program-type-menu.scss */
 ul.program-types {
   overflow: auto;
   padding: 0;
   margin: 0 0 20px 0;
   height: 80px; }
-  /* line 7, ../sass/layout/content/_program-type-menu.scss */
+  /* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_program-type-menu.scss */
   ul.program-types li {
     width: 138px;
     height: 60px;
@@ -1660,22 +1662,22 @@ ul.program-types {
     background-image: -moz-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
     background-image: -o-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
     background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%); }
-    /* line 17, ../sass/layout/content/_program-type-menu.scss */
+    /* line 17, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_program-type-menu.scss */
     ul.program-types li:before {
       content: '';
       display: inline-block;
       height: 100%;
       vertical-align: middle;
       margin-right: -0.25em; }
-    /* line 24, ../sass/layout/content/_program-type-menu.scss */
+    /* line 24, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_program-type-menu.scss */
     ul.program-types li.last {
       margin-right: 0; }
-    /* line 27, ../sass/layout/content/_program-type-menu.scss */
+    /* line 27, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_program-type-menu.scss */
     ul.program-types li:hover {
       -webkit-box-shadow: 0 0 8px #969696;
       -moz-box-shadow: 0 0 8px #969696;
       box-shadow: 0 0 8px #969696; }
-    /* line 30, ../sass/layout/content/_program-type-menu.scss */
+    /* line 30, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_program-type-menu.scss */
     ul.program-types li a {
       position: relative;
       display: inline-block;
@@ -1684,12 +1686,12 @@ ul.program-types {
       margin: 0;
       padding: 0 10px 0 10px; }
 
-/* line 1, ../sass/layout/content/_search-field.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-field.scss */
 .website-search {
   position: relative;
   margin-top: 0px;
   width: 200px; }
-  /* line 7, ../sass/layout/content/_search-field.scss */
+  /* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-field.scss */
   .website-search .search-form .field {
     position: absolute;
     top: 3px;
@@ -1700,13 +1702,13 @@ ul.program-types {
     color: #5f6062;
     padding: 6px;
     font-size: 0.85em; }
-    /* line 18, ../sass/layout/content/_search-field.scss */
+    /* line 18, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-field.scss */
     .website-search .search-form .field::-webkit-input-placeholder {
       color: #5f6062; }
-    /* line 21, ../sass/layout/content/_search-field.scss */
+    /* line 21, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-field.scss */
     .website-search .search-form .field:-moz-placeholder {
       color: #5f6062; }
-  /* line 25, ../sass/layout/content/_search-field.scss */
+  /* line 25, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-field.scss */
   .website-search .search-form .submit {
     position: absolute;
     top: 0;
@@ -1731,11 +1733,11 @@ ul.program-types {
     background-image: -o-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
     background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%); }
 
-/* line 39, ../sass/layout/content/_search-field.scss */
+/* line 39, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-field.scss */
 .website-controls .website-search {
   float: right; }
 
-/* line 2, ../sass/layout/content/_search-results.scss */
+/* line 2, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
 .search-results .search-entry {
   padding: 8px;
   margin: 10px 0 20px 0;
@@ -1743,17 +1745,17 @@ ul.program-types {
   -moz-border-radius: 2px / 2px;
   border-radius: 2px / 2px;
   background-color: #ececec; }
-  /* line 7, ../sass/layout/content/_search-results.scss */
+  /* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry a {
     font-family: 'HelveticaCondensed'; }
-  /* line 10, ../sass/layout/content/_search-results.scss */
+  /* line 10, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry .entry-title {
     font-weight: bold;
     color: #5f6062; }
-  /* line 14, ../sass/layout/content/_search-results.scss */
+  /* line 14, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry .entry-excerpt {
     margin: 12px 0 5px 0; }
-    /* line 17, ../sass/layout/content/_search-results.scss */
+    /* line 17, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
     .search-results .search-entry .entry-excerpt p {
       margin: 0;
       color: #afafaf;
@@ -1761,7 +1763,7 @@ ul.program-types {
       -moz-transition: all 0.2s linear;
       -o-transition: all 0.2s linear;
       transition: all 0.2s linear; }
-  /* line 23, ../sass/layout/content/_search-results.scss */
+  /* line 23, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry .entry-link {
     display: block;
     color: #afafaf;
@@ -1769,32 +1771,32 @@ ul.program-types {
     -moz-transition: all 0.2s linear;
     -o-transition: all 0.2s linear;
     transition: all 0.2s linear; }
-  /* line 29, ../sass/layout/content/_search-results.scss */
+  /* line 29, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry:hover .entry-title {
     color: #2a2a2a; }
-  /* line 33, ../sass/layout/content/_search-results.scss */
+  /* line 33, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry:hover .entry-excerpt p {
     color: #5f6062; }
-  /* line 37, ../sass/layout/content/_search-results.scss */
+  /* line 37, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry:hover .entry-link {
     color: #5f6062; }
-  /* line 41, ../sass/layout/content/_search-results.scss */
+  /* line 41, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_search-results.scss */
   .search-results .search-entry .query {
     background-color: #69d5fd; }
 
-/* line 1, ../sass/layout/content/_next-step-menu.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
 .next-step-header {
   width: 800px;
   margin: 0 auto 0 auto;
   overflow: auto;
   padding: 10px 0 10px 0;
   clear: both; }
-  /* line 8, ../sass/layout/content/_next-step-menu.scss */
+  /* line 8, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
   .next-step-header h1 {
     float: left;
     color: #00aeef;
     font: normal normal normal 2.4em/1em "AvenirHeavy"; }
-  /* line 13, ../sass/layout/content/_next-step-menu.scss */
+  /* line 13, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
   .next-step-header .caption {
     diplay: inline-block;
     float: left;
@@ -1803,29 +1805,29 @@ ul.program-types {
     font-size: 0.75em; }
 
 /* .next-step-header */
-/* line 22, ../sass/layout/content/_next-step-menu.scss */
+/* line 22, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
 nav.next-step {
   width: 100%;
   background-color: #cccccc;
   /* .inner */ }
-  /* line 26, ../sass/layout/content/_next-step-menu.scss */
+  /* line 26, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
   nav.next-step .inner {
     width: 800px;
     margin: 0 auto 0 auto;
     padding: 20px 0 20px 0;
     /* ul */ }
-    /* line 30, ../sass/layout/content/_next-step-menu.scss */
+    /* line 30, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
     nav.next-step .inner li.backLava {
       top: 0px !important;
       z-index: 1;
       background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -359px; }
-    /* line 35, ../sass/layout/content/_next-step-menu.scss */
+    /* line 35, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
     nav.next-step .inner ul {
       margin: 0;
       padding: 4px;
       overflow: auto;
       /* li */ }
-      /* line 40, ../sass/layout/content/_next-step-menu.scss */
+      /* line 40, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
       nav.next-step .inner ul li {
         float: left;
         width: 189px;
@@ -1851,22 +1853,22 @@ nav.next-step {
         background-image: -moz-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
         background-image: -o-linear-gradient(top, #7cdafd 0%, #028bbe 100%);
         background-image: linear-gradient(top, #7cdafd 0%, #028bbe 100%); }
-        /* line 50, ../sass/layout/content/_next-step-menu.scss */
+        /* line 50, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
         nav.next-step .inner ul li:before {
           content: '';
           display: inline-block;
           height: 100%;
           vertical-align: middle;
           margin-right: -0.25em; }
-        /* line 57, ../sass/layout/content/_next-step-menu.scss */
+        /* line 57, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
         nav.next-step .inner ul li.last {
           margin-right: 0; }
-        /* line 60, ../sass/layout/content/_next-step-menu.scss */
+        /* line 60, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
         nav.next-step .inner ul li.selectedLava, nav.next-step .inner ul li:hover {
           -webkit-box-shadow: 0 0 8px #969696;
           -moz-box-shadow: 0 0 8px #969696;
           box-shadow: 0 0 8px #969696; }
-        /* line 63, ../sass/layout/content/_next-step-menu.scss */
+        /* line 63, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
         nav.next-step .inner ul li h2 {
           position: relative;
           z-index: 2;
@@ -1874,7 +1876,7 @@ nav.next-step {
           vertical-align: middle;
           margin: 0;
           text-transform: none; }
-          /* line 72, ../sass/layout/content/_next-step-menu.scss */
+          /* line 72, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/content/_next-step-menu.scss */
           nav.next-step .inner ul li h2 a {
             position: relative;
             z-index: 3;
@@ -1884,14 +1886,14 @@ nav.next-step {
             text-shadow: 0px 1px 3px #0793c8; }
 
 /* nav.next-step */
-/* line 1, ../sass/layout/_footer.scss */
+/* line 1, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
 .website-wrapper footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   background-color: #cccccc;
   /* .inner */ }
-  /* line 7, ../sass/layout/_footer.scss */
+  /* line 7, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
   .website-wrapper footer .inner {
     width: 800px;
     margin: 0 auto 0 auto;
@@ -1899,31 +1901,31 @@ nav.next-step {
     padding: 0 10px 0 10px;
     /* .column */
     /* .row */ }
-    /* line 13, ../sass/layout/_footer.scss */
+    /* line 13, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
     .website-wrapper footer .inner .column {
       float: left;
       margin: 30px 35px 0 0;
       /* ul */ }
-      /* line 17, ../sass/layout/_footer.scss */
+      /* line 17, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
       .website-wrapper footer .inner .column .button {
         float: left;
         width: 120px;
         height: 30px;
         margin: 0 12px 15px 0;
         padding: 9px 0 0 0; }
-      /* line 24, ../sass/layout/_footer.scss */
+      /* line 24, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
       .website-wrapper footer .inner .column .button-w-tab {
         position: relative;
         width: 120px;
         height: 30px;
         float: left;
         margin: 0 12px 15px 0; }
-        /* line 31, ../sass/layout/_footer.scss */
+        /* line 31, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
         .website-wrapper footer .inner .column .button-w-tab .button {
           position: absolute;
           float: none;
           z-index: 2; }
-        /* line 36, ../sass/layout/_footer.scss */
+        /* line 36, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
         .website-wrapper footer .inner .column .button-w-tab .button-tab {
           position: absolute;
           top: 0;
@@ -1938,7 +1940,7 @@ nav.next-step {
           -moz-transition: all 0.2s linear;
           -o-transition: all 0.2s linear;
           transition: all 0.2s linear; }
-          /* line 48, ../sass/layout/_footer.scss */
+          /* line 48, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
           .website-wrapper footer .inner .column .button-w-tab .button-tab .icon {
             height: 16px;
             float: left;
@@ -1949,18 +1951,18 @@ nav.next-step {
             -moz-transition: all 0.2s linear;
             -o-transition: all 0.2s linear;
             transition: all 0.2s linear; }
-            /* line 55, ../sass/layout/_footer.scss */
+            /* line 55, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
             .website-wrapper footer .inner .column .button-w-tab .button-tab .icon.email {
               width: 21px;
               margin-left: 10px;
               background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -245px; }
-            /* line 60, ../sass/layout/_footer.scss */
+            /* line 60, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
             .website-wrapper footer .inner .column .button-w-tab .button-tab .icon.twitter {
               width: 20px;
               margin-left: 13px;
               margin-right: 13px;
               background: url('//dev.picadesign.com/nextstep/wp-content/themes/nextstepmaine/images/layout-s21881420f4.png') 0 -343px; }
-            /* line 66, ../sass/layout/_footer.scss */
+            /* line 66, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
             .website-wrapper footer .inner .column .button-w-tab .button-tab .icon.facebook {
               width: 17px;
               margin-left: 13px;
@@ -1970,52 +1972,52 @@ nav.next-step {
               	background-image: none !important ;
               }
               */ }
-              /* line 79, ../sass/layout/_footer.scss */
+              /* line 79, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
               .website-wrapper footer .inner .column .button-w-tab .button-tab .icon.facebook iframe {
                 opacity: 0; }
-            /* line 86, ../sass/layout/_footer.scss */
+            /* line 86, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
             .website-wrapper footer .inner .column .button-w-tab .button-tab .icon:hover {
               filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
               opacity: 1; }
-          /* line 92, ../sass/layout/_footer.scss */
+          /* line 92, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
           .website-wrapper footer .inner .column .button-w-tab .button-tab.facebook-like iframe {
             margin: 4px 0 0 17px; }
-        /* line 100, ../sass/layout/_footer.scss */
+        /* line 100, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
         .website-wrapper footer .inner .column .button-w-tab:hover .button-tab {
           top: 30px; }
-      /* line 106, ../sass/layout/_footer.scss */
+      /* line 106, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
       .website-wrapper footer .inner .column h4 {
         font: normal normal normal 0.9em/1em "AvenirHeavy";
         margin-bottom: 10px; }
-      /* line 111, ../sass/layout/_footer.scss */
+      /* line 111, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
       .website-wrapper footer .inner .column ul {
         margin: 0;
         padding: 0; }
-        /* line 115, ../sass/layout/_footer.scss */
+        /* line 115, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
         .website-wrapper footer .inner .column ul li {
           list-style: none;
           font-size: 0.8em;
           line-height: 1.3em;
           margin-bottom: 0; }
-          /* line 121, ../sass/layout/_footer.scss */
+          /* line 121, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
           .website-wrapper footer .inner .column ul li a {
             color: #5f6062;
             font-size: inherit; }
-        /* line 127, ../sass/layout/_footer.scss */
+        /* line 127, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
         .website-wrapper footer .inner .column ul#menu-footer-menu li a {
           text-transform: uppercase; }
-      /* line 133, ../sass/layout/_footer.scss */
+      /* line 133, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
       .website-wrapper footer .inner .column.first {
         /* First Column */
         width: 265px; }
-      /* line 137, ../sass/layout/_footer.scss */
+      /* line 137, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
       .website-wrapper footer .inner .column.last {
         /* Last Column */
         margin-right: 0; }
-    /* line 143, ../sass/layout/_footer.scss */
+    /* line 143, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
     .website-wrapper footer .inner .row {
       /* .copyright */ }
-      /* line 145, ../sass/layout/_footer.scss */
+      /* line 145, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
       .website-wrapper footer .inner .row.copyright {
         padding: 45px 0 25px 0;
         font-size: 0.7em;
@@ -2023,14 +2025,14 @@ nav.next-step {
         overflow: auto;
         /* a */
         /* .pica */ }
-        /* line 151, ../sass/layout/_footer.scss */
+        /* line 151, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
         .website-wrapper footer .inner .row.copyright a {
           font-size: inherit;
           color: inherit; }
-          /* line 155, ../sass/layout/_footer.scss */
+          /* line 155, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
           .website-wrapper footer .inner .row.copyright a:hover {
             text-decoration: underline; }
-        /* line 160, ../sass/layout/_footer.scss */
+        /* line 160, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
         .website-wrapper footer .inner .row.copyright .pica {
           float: right;
           width: 20px;
@@ -2042,7 +2044,7 @@ nav.next-step {
           -moz-transition: all 0.2s linear;
           -o-transition: all 0.2s linear;
           transition: all 0.2s linear; }
-          /* line 168, ../sass/layout/_footer.scss */
+          /* line 168, /Applications/MAMP/htdocs/nextstep/wp-content/themes/nextstepmaine/sass/layout/_footer.scss */
           .website-wrapper footer .inner .row.copyright .pica:hover {
             filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
             opacity: 1; }

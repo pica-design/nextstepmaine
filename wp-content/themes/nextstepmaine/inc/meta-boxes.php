@@ -121,24 +121,26 @@
 	function nsm_save_meta_box_data ($post_id) {
 		global $post ;
 
-        if ($post->post_type == 'nsm_program') : 
+        if (isset($post->post_type)) : 
+            if ($post->post_type == 'nsm_program') : 
 
-    		$author_institution_title_iv_code = get_user_meta($post->post_author, 'title_iv_code', true);
-            update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $author_institution_title_iv_code);
+        		$author_institution_title_iv_code = get_user_meta($post->post_author, 'title_iv_code', true);
+                update_post_meta($post_id, '_nsm_program_insitution_title_iv_code', $author_institution_title_iv_code);
 
-    		if (isset($_POST['nsm_program_type'])) update_post_meta($post_id, '_nsm_program_type', $_POST['nsm_program_type']);
-    		if (isset($_POST['nsm_program_level'])) update_post_meta($post_id, '_nsm_program_level', $_POST['nsm_program_level']);
-    		if (isset($_POST['nsm_program_format'])) update_post_meta($post_id, '_nsm_program_format', $_POST['nsm_program_format']);
-    		if (isset($_POST['nsm_program_schedule'])) update_post_meta($post_id, '_nsm_program_schedule', $_POST['nsm_program_schedule']);
-            if (isset($_POST['nsm_program_timeframe'])) update_post_meta($post_id, '_nsm_program_timeframe', $_POST['nsm_program_timeframe']);
-            if (isset($_POST['nsm_program_cost'])) update_post_meta($post_id, '_nsm_program_cost', $_POST['nsm_program_cost']);
-            if (isset($_POST['nsm_program_location'])) update_post_meta($post_id, '_nsm_program_location', $_POST['nsm_program_location']);
-    		if (isset($_POST['nsm_program_url'])) update_post_meta($post_id, '_nsm_program_url', $_POST['nsm_program_url']);
-    		if (isset($_POST['nsm_program_cip'])) update_post_meta($post_id, '_nsm_program_cip', $_POST['nsm_program_cip']);
-            if (isset($_POST['nsm_program_uc'])) :
-                update_post_meta($post_id, '_nsm_program_uc', $_POST['nsm_program_uc']);
-            else : 
-                delete_post_meta($post_id, '_nsm_program_uc');
+        		if (isset($_POST['nsm_program_type'])) update_post_meta($post_id, '_nsm_program_type', $_POST['nsm_program_type']);
+        		if (isset($_POST['nsm_program_level'])) update_post_meta($post_id, '_nsm_program_level', $_POST['nsm_program_level']);
+        		if (isset($_POST['nsm_program_format'])) update_post_meta($post_id, '_nsm_program_format', $_POST['nsm_program_format']);
+        		if (isset($_POST['nsm_program_schedule'])) update_post_meta($post_id, '_nsm_program_schedule', $_POST['nsm_program_schedule']);
+                if (isset($_POST['nsm_program_timeframe'])) update_post_meta($post_id, '_nsm_program_timeframe', $_POST['nsm_program_timeframe']);
+                if (isset($_POST['nsm_program_cost'])) update_post_meta($post_id, '_nsm_program_cost', $_POST['nsm_program_cost']);
+                if (isset($_POST['nsm_program_location'])) update_post_meta($post_id, '_nsm_program_location', $_POST['nsm_program_location']);
+        		if (isset($_POST['nsm_program_url'])) update_post_meta($post_id, '_nsm_program_url', $_POST['nsm_program_url']);
+        		if (isset($_POST['nsm_program_cip'])) update_post_meta($post_id, '_nsm_program_cip', $_POST['nsm_program_cip']);
+                if (isset($_POST['nsm_program_uc'])) :
+                    update_post_meta($post_id, '_nsm_program_uc', $_POST['nsm_program_uc']);
+                else : 
+                    delete_post_meta($post_id, '_nsm_program_uc');
+                endif;
             endif;
         endif;
 	}//nsm_save_meta_box_data

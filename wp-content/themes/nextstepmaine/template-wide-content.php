@@ -1,16 +1,14 @@
 <?php 
+    /* Template Name: Wide Content */
     get_header() ;
     the_post() ;
 ?>
     <section class="content-wrapper">
-        <div class="page-content">
+        <div class="page-content wide">
         	<?php $breadcrumbs = new Breadcrumbs ?>
-
+            
             <?php the_content() ?>
         </div>
-        <div class="aside vertical">
-            <?php get_sidebar('page') ?>
-        </div>
-    </section>      
-        
+    </section>
+
 <?php get_footer(); ?>
