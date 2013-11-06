@@ -51,7 +51,7 @@
                     <div class="clear"></div>
                     <section class="row copyright">
                     	<figure class="pica">
-                        	<a href="http://www.picadesign.com" title="Crafted by Pica Design + Marketing" class="link-fill-container" target="_blank"></a>
+                        	<a href="http://www.pica.is" title="Crafted by Pica" target="_blank" class="link-fill-container"></a> 
                         </figure>
                         <?php echo date('Y', time()) ?> &copy; Maine Development Foundation. All Rights Reserved.
                         <br />
@@ -59,7 +59,7 @@
                         /
                         <a href="<?php bloginfo('url') ?>/site-requirements" title="Website Requirements">Site Requirements</a> 
                         / 
-                        <a href="mailto:web@picadesign.com?subject=Bug Submission: <?php bloginfo('name')?> Website - Page: <?php echo $post->post_title ?>&body=Please detail the issue you've found and how to repeat it. Please let us know what web browser/version you are using. Thank You! - Team Pica" title="Submit a problem with this website">Submit an issue with this website</a>
+                        <a href="mailto:web@pica.is?subject=Bug Submission: <?php bloginfo('name')?> Website - Page: <?php echo $post->post_title ?>&body=Please detail the issue you've found and how to repeat it. Please let us know what web browser/version you are using. Thank You! - Team Pica" title="Submit a problem with this website">Submit an issue with this website</a>
                         <br />
                         <a href="http://www.gedtestingservice.com/" title="GED® Testing Service Website" target="_blank">GED® is a registered trademark of the American Council on Education.</a>
                     </section>                                                      
