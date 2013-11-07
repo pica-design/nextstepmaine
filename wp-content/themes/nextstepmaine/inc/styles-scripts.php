@@ -15,6 +15,8 @@
 			//wp_register_script("jquery-cycle", $cdn->template_scripts_url . "jquery.cycle.all.min.js", array('jquery'), '', true);
 			//wp_enqueue_script("jquery-cycle");
 
+		    wp_enqueue_script('jquery-ui-tooltip');
+
 			//Load the theme jquery file - LAST, so it can use the above scripts
 			wp_register_script("jquery-$theme_namespace", $cdn->template_scripts_url . "jquery.$theme_namespace.js", array("jquery"), '', true);
 			wp_enqueue_script("jquery-$theme_namespace");
