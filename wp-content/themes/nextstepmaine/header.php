@@ -66,7 +66,7 @@
           })();
         </script>
     </head>
-    <body>
+    <body <?php body_class() ?>>
     	<section class="website-wrapper">
             <section class="masthead">
             	<figure class="website-logo">

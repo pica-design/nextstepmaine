@@ -1,7 +1,7 @@
 section.content-wrapper {
 	position: relative ;
 	padding: 30px 0 270px 0 ;
-	//overflow: auto ;
+	overflow: auto ;
 	@include centered ;
 	
 	h1 {
@@ -172,6 +172,10 @@ section.content-wrapper {
 				}
 			} /* ul */
 			
+			&#financial-aid {
+				padding-left: 10px ;
+			}
+			
 			&#institutions {
 				p {
 					margin: 10px 0 10px 0 ;
@@ -189,6 +193,10 @@ section.content-wrapper {
 		} /* .widget */
 	} /* .aside */
 } /* section.content-wrapper */
+
+body.page.home section.content-wrapper {
+	overflow: visible ;
+}
 
 //Bring in our styles for the prgram type menu
 @import 'content/program-type-menu';

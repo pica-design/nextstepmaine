@@ -199,5 +199,7 @@
         <div class="aside vertical">
             <?php get_sidebar('page') ?>
         </div>
-    </section>          
+    </section>
+    <div class="clear"></div>
+    <br /><br />          
 <?php get_footer(); ?>
