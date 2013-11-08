@@ -53,6 +53,13 @@
  * By Pica Design, LLC
 **/
 (function($){
+	//Enable jQuery UI Tooltips
+	$('label').tooltip({
+		position: {
+			my: 'left+60'
+		},
+		track: true
+	});
 
 	//Scroll to an element
 	$.fn.scrollHere = function (adjustment) {

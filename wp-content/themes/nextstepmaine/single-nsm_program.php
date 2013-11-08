@@ -57,25 +57,25 @@
                     <?php endif ?>
                     
                     <?php if (!empty($program['type'])) : ?>
-                    <strong>Program Type:</strong> <?php echo ucfirst($program['type']) ?><br />
+                    <label title="Program types include Certificate, Associate, Bachelor, and Master."><strong>Program Type:</strong> <?php echo ucfirst($program['type']) ?></label><br />
                     <?php endif ?>
                     <?php if (!empty($program['format'])) : ?>
-                    <strong>Program Format:</strong> <?php echo ucfirst($program['format']) ?><br />
+                    <label title="Program Format indicates where you physically attend the program. I.e. in the 'Classroom' or 'Online'."><strong>Program Format:</strong> <?php echo ucfirst($program['format']) ?></label><br />
                     <?php endif ?>
                     <?php if (!empty($program['level'])) : ?>
-                    <strong>Program Level:</strong> <?php echo ucfirst($program['level']) ?><br />
+                    <label title="Program Level indicates the level of course credit you'll recieve. I.e. 'Undergraduate' credits apply towardes an undergraduate degree."><strong>Program Level:</strong> <?php echo ucfirst($program['level']) ?></label><br />
                     <?php endif ?>
                     <?php if (!empty($program['schedule'])) : ?>
-                    <strong>Program Schedule:</strong> <?php echo ucfirst($program['schedule']) ?><br />
+                    <label title="Program schedule is either 'Fixed' or 'Flexible'. Meaning the course is flexible to your needs and may afford you non-traditional options like taking a test at your convenience."><strong>Program Schedule:</strong> <?php echo ucfirst($program['schedule']) ?></label><br />
                     <?php endif ?>
                     <?php if (!empty($program['timeframe'])) : ?>
-                    <strong>Program Timeframe:</strong> <?php echo $program['timeframe'] ?><br />
+                    <label title="The program timeframe gives you an idea how long it typically takes to complete the program."><strong>Program Timeframe:</strong> <?php echo $program['timeframe'] ?></label><br />
                     <?php endif ?>
                     <?php if (!empty($program['location'])) : ?>
-                    <strong>Program Location:</strong> <?php echo ucfirst($program['location']) ?><br />
+                    <label title="Location describes the physical location where you would attend the program (If there is one)."><strong>Program Location:</strong> <?php echo ucfirst($program['location']) ?></label><br />
                     <?php endif ?>
                     <?php if (!empty($program['cost'])) : ?>
-                    <strong>Program Cost:</strong> <?php echo $program['cost'] ?><br />
+                    <label title="Completing a program affords you a certain number of credit hours. I.e. Many programs give you 3 credit hours upon completion. This cost is per credit hour. I.e. a program worth 3 credit hours at $200 per credit = $600 program."><strong>Program Cost:</strong> <?php echo $program['cost'] ?></label><br />
                     <?php endif ?>
                     <?php if (!empty($program['url'])) : ?>
                     <br /><a class="button gray padded rounded" href="<?php echo $program['url'] ?>" title="<?php the_title() ?>" target="_blank">Click here to Learn More</a><br />
@@ -97,13 +97,13 @@
                             //print_r($soc_codes);
 
                             if (!empty($soc_codes)) : ?>
-                                This program qualifies students for the following occupation(s):<br />
                                 <section class='accordion closed'>
                                     <header>
                                         <figcaption>Occupations</figcaption>
                                         <div><figure></figure></div>
                                     </header>
-                                    <article><?php 
+                                    <article>
+                                        This program qualifies students for the following occupation(s):<br /><?php 
                                 //Connect to our onet database
                                 $onet = new wpdb(DB_USER, DB_PASSWORD, 'nsm_onet', DB_HOST);
 

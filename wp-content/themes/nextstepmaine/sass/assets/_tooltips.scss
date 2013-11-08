@@ -1,0 +1,7 @@
+.ui-tooltip {
+    background: $light-gray ;
+    width: 325px ;
+    padding: 10px ;
+    color: $dark-gray ;
+    @include border-radius(5px);
+}

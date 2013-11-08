@@ -9,7 +9,7 @@ section.content-wrapper {
 	}
 	
 	.page-content {
-		overflow: auto ;
+		//overflow: auto ;
 		float: left ;
 		width: 600px ;
 		padding: 0 15px 0 0 ;
@@ -97,6 +97,9 @@ section.content-wrapper {
 					text-transform: lowercase ;
 					margin-bottom: 12px ;
 				}
+				div.sbHolder {
+					width: 200px !important ;
+				}
 			} /* widget */
 		} /* .horizontal */
 		/* The vertical aside section is used on the website pages - as a sidebar */
@@ -124,9 +127,13 @@ section.content-wrapper {
 					margin-bottom: 12px ;
 				}
 
-				a.sbSelector {
-					font-size: 0.95em !important ;
-					padding-top: 3px !important ;
+				div.sbHolder {
+					width: 175px !important ;
+
+					a.sbSelector {
+						font-size: 0.95em !important ;
+						padding-top: 3px !important ;
+					}
 				}
 				&#financial-aid {
 					img {
