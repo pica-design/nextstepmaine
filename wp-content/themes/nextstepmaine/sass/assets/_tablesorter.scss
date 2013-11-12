@@ -1,23 +1,4 @@
 /* Tables are used for data grids of job, institution, and program information in grid stuctures */
-.filter-options {
-	margin: 0 0 20px 0 ;
-	overflow: auto ;
-	
-	.title {
-		float: left ;
-		margin-right: 10px ;
-		padding-top: 3px ;
-	}
-	.button {
-		&:hover {
-			background-color: $lightest-gray ;
-
-			&.active {
-				background-color: $lighter-than-medium-gray ;
-			}
-		}
-	}
-}
 table.tablesorter {
 	text-align: left;
 

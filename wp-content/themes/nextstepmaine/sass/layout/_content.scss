@@ -198,8 +198,37 @@ body.page.home section.content-wrapper {
 	overflow: visible ;
 }
 
+//Used on the program filter options
+.filter-options {
+	margin: 0 0 20px 0 ;
+	//overflow: auto ;
+	
+	.title {
+		float: left ;
+		margin-right: 10px ;
+		padding-top: 3px ;
+	}
+	.program-categories {
+		width: 300px ;
+		float: left ;
+
+		select {
+
+		}
+	}
+	.button {
+		&:hover {
+			background-color: $lightest-gray ;
+
+			&.active {
+				background-color: $lighter-than-medium-gray ;
+			}
+		}
+	}
+}
+
 //Bring in our styles for the prgram type menu
-@import 'content/program-type-menu';
+//@import 'content/program-type-menu';
 //Bring in our search styling
 @import 'content/search-field';
 @import 'content/search-results' ;

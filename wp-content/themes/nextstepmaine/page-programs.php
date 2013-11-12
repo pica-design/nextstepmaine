@@ -6,7 +6,7 @@
 	$program_type = get_query_var('program_type');
 ?>
     <section class="content-wrapper">
-        <div class="page-content full-width">
+        <div class="page-content wide">
         	<?php $breadcrumbs = new Breadcrumbs ?>
     		<h1><?php the_title() ?></h1>
     		<br />
@@ -31,6 +31,23 @@
         	<figure class="back-to-top"><div></div></figure>
         	<div class="filter-options">
         		<div class="title">View: </div>
+
+                <div class="program-categories">
+                    <select name="program-categories"><?php 
+                        $categories = get_terms(
+                            'nsm_program_category',
+                            array()
+                        );
+
+                        foreach ($categories as $category) : ?>
+
+                            <option value="<?php echo $category->slug ?>"><?php echo $category->name ?> Programs</option><?php 
+                        endforeach ?>
+
+                    </select>
+                </div>
+                <div class="clear"></div>
+
         		<div class="button gray inline padded rounded <?php echo $all_programs_active ?>">
                     <?php
                         $all_programs = get_posts(array(
@@ -120,6 +137,7 @@
 					if (empty($program_type)) : 
 						$programs = new WP_Query(array(
                             'post_type' => 'nsm_program',
+                            'nsm_program_category' => 'accounting',
                             'nopaging' => true,
                             'order' => 'ASC',
                             'orderby' => 'title'
@@ -130,7 +148,8 @@
 						//and accessed via get_query_var('program_type'); above
 						$programs = new WP_Query(array(
 							'post_type' => 'nsm_program',
-							'posts_per_page' => '-1',
+							'nsm_program_category' => 'accounting',
+                            'posts_per_page' => '-1',
 							'order' => 'ASC',
                             'orderby' => 'title',
 							'meta_query' => array(
@@ -191,13 +210,10 @@
 				</tbody>
             </table>
             <br /><br />
-            <em>* = University College supported program. As the University of Maine System’s distance education organization, University College offers access to courses and programs from the seven universities at dozens of locations and online. <a href="http://learn.maine.edu" title="Univeristy College Programs" target="_blank">Click here to learn more.</a></em>
-            <br /><br />
             <em>
             	Data obtained from the individual institutions listed above. Programs change often, so please inquire with the host institution in question to ensure their data has not changed. 
             	Last updated on <?php echo $last_updated_date ?>
             </em>
-            <br /><br />
         </div>
     </section>          
 <?php get_footer(); ?>

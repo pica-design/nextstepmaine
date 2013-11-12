@@ -179,6 +179,8 @@
 			}
 		}
 	})
+	
+	$('select[name=program-categories]').selectbox({})
 
 
 	// add parser through the tablesorter addParser method 

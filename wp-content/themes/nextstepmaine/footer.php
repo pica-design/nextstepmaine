@@ -16,9 +16,6 @@
                                 </figure>-->
                                 <figure class="icon facebook">
                                     <a name="fb_share" title="Share this website on Facebook" type="icon" share_url="<?php bloginfo('url') ?>"></a> 
-                                    <!--[if !IE]> -->
-                                    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
-                                    <!-- <![endif]-->
                                 </figure>
                             </div>
                         </div>
