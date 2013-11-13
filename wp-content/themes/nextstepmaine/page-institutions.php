@@ -2,7 +2,7 @@
 	get_header() ;
 ?>
     <section class="content-wrapper">
-        <div class="page-content full-width">
+        <div class="page-content wide">
         	<?php $breadcrumbs = new Breadcrumbs ?>
     		<h1><?php echo $post->post_title ?></h1>
     		<br />

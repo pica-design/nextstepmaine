@@ -13,7 +13,7 @@
 	endif;
 ?>
     <section class="content-wrapper">
-        <div class="page-content full-width">
+        <div class="page-content wide">
         	<?php $breadcrumbs = new Breadcrumbs ?>
             <h1><?php the_title() ?></h1>
             <br />
@@ -21,7 +21,6 @@
             	//Display the page content entered within WordPress for the 'Jobs' page
 				while (have_posts()) : the_post() ; the_content(); endwhile;
 			?>
-			<figure class="back-to-top"><div></div></figure>
             <div class="filter-options">
 	            <div class="title">View by education requirement:</div>
 	            <div class="button gray inline padded rounded <?php echo $education_requirement == '' ? 'active' : '' ?>">
@@ -39,6 +38,8 @@
 		            </div>
 	            <?php endforeach ?>
         	</div>
+            <div class="clear"></div>
+            <br />
             <table cellpadding="0" cellspacing="0" border="0" class="tablesorter jobs">
             	<thead>
                 	<tr>

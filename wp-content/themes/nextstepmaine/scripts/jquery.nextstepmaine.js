@@ -196,10 +196,11 @@
     }); 
 	
 	$('table.tablesorter.programs').tablesorter({
-		sortList: [[0,0]]
+		sortList: [[1,0]]
 	})
 	
 	$('table.tablesorter.jobs').tablesorter({
+        sortList: [[1,0]],
 		headers: { 
 	        2: { 
 	            sorter:'numericWithComma' 

@@ -1,4 +1,6 @@
 <?php 
+    /*UPDATE nsm_wp_postmeta SET meta_value = REPLACE(meta_value, 'minor', 'associate') WHERE meta_key = '_nsm_program_type'*/
+
     global $wp;
 
 	get_header() ;
@@ -32,18 +34,8 @@
     		<br />
         	<?php the_content() ?>
             <br />
-        	<figure class="back-to-top"><div></div></figure>
         	<div class="filter-options">
-        		<div class="filter-divider">Show me just</div>
-                <!--<div class="all-programs button gray inline padded rounded <?php echo empty($current_program_type) && empty($current_program_category) ? 'active' : '' ?>">
-                    <?php
-                        $all_programs = get_posts(array(
-                            'numberposts' => -1,
-                            'post_type' => 'nsm_program'
-                        ));
-                    ?>
-                    <a href="<?php echo get_permalink($post->ID) ?>" title="All Programs">All (<?php echo count($all_programs) ?>)</a>
-                </div>-->
+        		<div class="filter-divider">Show me</div>
                 <div class="program-categories">
                     <select name="program-categories">
                         <option value="<?php echo remove_query_arg('category', $current_url) ?>"><?php echo empty($current_program_category) ? 'Choose a Category' : 'Remove Category Filter' ?></option><?php 
@@ -56,17 +48,16 @@
 
                     </select>
                 </div>
-                <div class="filter-divider">&amp;</div>
                 <div class="program-types">
                     <select name="program-types">
                         <option value="<?php echo remove_query_arg('type', $current_url) ?>"><?php echo empty($current_program_type) ? 'Choose a Type' : 'Remove Type Filter' ?></option><?php foreach ($program_types as $key => $value) : ?><?php
                         $args = array(
-                            'numberposts' => -1,
                             'post_type' => 'nsm_program',
                             'meta_query' => array(array(
                                 'key' => '_nsm_program_type',
                                 'value' => $key
-                            ))
+                            )),
+                            'posts_per_page' => -1
                         );
                         //If a category filter is in place piggyback onto it and compound the filtering prowess
                         if (!empty($current_program_category)) $args['nsm_program_category'] = $current_program_category ;
@@ -82,8 +73,8 @@
                 //We want to display a little tooltip/help info for certain program types
 
                 //Display a link for users to learn more about certificate programs
-                if ($program_type == 'certificate') : ?>
-                    <p>Are you confused about the different types of certificates? Find out more and learn the <a href='".get_bloginfo('url')."/faq/#what-are-all-of-these-certificate-programs' title='Certificiate Program FAQ'>difference between certificates and degrees here</a>.</p><br /><?php endif ?>                    
+                if ($current_program_type == 'certificate') : ?>
+                    Confused about the different types of certificates?  <a href='<?php bloginfo('url') ?>/faq/#what-are-all-of-these-certificate-programs' title='Certificiate Program FAQ'>Learn More here</a>.<br /><br /><?php endif ?>                    
 
             <table cellpadding="0" cellspacing="0" border="0" class="tablesorter programs">
             	<thead>
@@ -102,7 +93,8 @@
                     $program_args = array(
                         'post_type' => 'nsm_program',
                         'order' => 'ASC',
-                        'orderby' => 'title'
+                        'orderby' => 'title',
+                        'posts_per_page' => 20
                     );
 
                     if(isset($paged)) $program_args['paged'] = $paged ;

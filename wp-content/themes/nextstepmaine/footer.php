@@ -63,6 +63,7 @@
                     </section>                                                      
                 </div>
             </footer>
+            <figure class="back-to-top"><div></div></figure>
         </section><!-- .website-wrapper -->
         <?php wp_footer() ?>
     </body>

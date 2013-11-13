@@ -180,15 +180,20 @@ section.accordion {
 /* Back to Top Elements */
 .back-to-top {
 	position: fixed ;
-	top: 200px ;
-	right: 0px ;
+	bottom: 100px ;
+	right: 45px ;
 	width: 45px ;
 	height: 45px ;
 	color: rgb(255,255,255) ;
 	display: none ;
 	cursor: pointer ;
 	background-color: $medium-gray ;
+	z-index: 99 ;
+	@include single-transition(all, 0.2s, linear) ;
 
+	&:hover {
+		background-color: $dark-gray ;
+	}
 	div {
 		width: 33px ;
 		height: 19px ;
