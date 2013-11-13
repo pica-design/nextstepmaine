@@ -19,15 +19,19 @@
 	}
 
 	&.gray {
-		background-color: $light-gray ;
+		background-color: $lightest-gray ;
 		a { color: $dark-gray ; }
+
+		&:hover {
+			background-color: $lighter-than-medium-gray !important ;
+		}
 	}
 		&.gray.gradient {
 			@include gray-gradient ;
 		}
 			&.active.gray {
-				background-color: $lighter-than-medium-gray ;
-				a { color: $darkest-gray ; }
+				background-color: $medium-gray ;
+				a { color: $white ; }
 			}
 			&.active.gray.gradient {
 				@include darkest-gray-gradient ;
@@ -195,3 +199,26 @@ section.accordion {
 	.back-to-top.active {
 		display: block ;
 	}
+
+.loop-controls {
+	margin-top: 15px ;
+
+	div.pagination {
+		.page-numbers {
+			display: block ;
+			float: left ;
+			list-style: none ;
+			margin-right: 8px ; padding: 4px 4px 8px 4px ;
+			color: $dark-gray ;
+			text-decoration:none;
+			background-color: $light-gray;
+			cursor: pointer;
+			padding: 4px ;
+
+			&.current, &:hover {
+				background-color: $medium-gray ;
+				color: $white ;
+			}
+		}
+	}
+}

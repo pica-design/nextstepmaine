@@ -9,9 +9,10 @@
 		NOTE: Your 'programs' page can not have any child
 	*/
 	//Register our custom $_GET variable (aka query var, aka rewrite tag) ?program_type=foo
-	add_rewrite_tag('%program_type%', '([^&]+)');
+	add_rewrite_tag('%type%', '([^&]+)');
+	add_rewrite_tag('%category%', '([^&]+)');
 	//Create the rewrite write rule to convert site.com/programs/foo to site.com/programs/?program_type=foo 
-	add_rewrite_rule('^programs/([^/]*)/?', 'index.php?pagename=programs&program_type=$matches[1]', 'top');
+	//add_rewrite_rule('^programs/([^/]*)/?', 'index.php?pagename=programs&program_type=$matches[1]', 'top');
 
 	register_post_type( 'nsm_program',
 		array(

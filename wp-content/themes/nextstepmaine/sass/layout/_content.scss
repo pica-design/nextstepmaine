@@ -200,7 +200,9 @@ body.page.home section.content-wrapper {
 
 //Used on the program filter options
 .filter-options {
-	margin: 0 0 20px 0 ;
+	//overflow: auto ;
+	height: 28px ;
+	margin: 0 0 10px 0 ;
 	//overflow: auto ;
 	
 	.title {
@@ -208,13 +210,54 @@ body.page.home section.content-wrapper {
 		margin-right: 10px ;
 		padding-top: 3px ;
 	}
-	.program-categories {
-		width: 300px ;
+	.filter-divider {
 		float: left ;
+		margin-top: 6px ;
+		margin-right: 10px ;
+		font-size: 1.2em ;
+	}
+	.program-categories, .program-types {
+		float: left ;
+		margin-right: 10px ;
 
 		select {
 
 		}
+		div.sbHolder {
+			height: 28px ;
+			@include light-gray-gradient ;
+
+			a.sbSelector {
+				padding-top: 6px ;
+				&:link, 
+				&:visited, 
+				&:hover {
+					color: $dark-gray ;
+					font-weight: bold ;
+					font-style: italic ;
+				}
+			}
+			ul.sbOptions {
+				background-color: $light-gray ;
+
+				li {
+					&:hover {
+						background-color: $medium-gray ;
+
+						a { color: $white ; }
+					}
+					a {
+						color: $dark-gray ;
+					}
+				}
+			}
+		}
+	}
+	.program-categories {
+		width: 300px ;
+	}
+	.program-types {
+		width: 220px ;
 	}
 	.button {
 		&:hover {

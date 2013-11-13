@@ -24,7 +24,7 @@
             <section class="widget" id="institutions">
                 <h3>Institutions</h3>
                 <select>
-                	<option value="">Choose an Institution to View Programs Available</option><?php
+                	<option value="">Choose an Institution</option><?php
 					//Build the custom database query to fetch all user IDs
 					global $wpdb ;
 					$all_user_ids = $wpdb->get_col("

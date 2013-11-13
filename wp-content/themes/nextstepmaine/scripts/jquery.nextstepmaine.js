@@ -172,16 +172,13 @@
 		}
 	})
 
-	$('.widget#institutions select').selectbox({
+	$('.widget#institutions select, select[name=program-categories], select[name=program-types]').selectbox({
 		onChange: function (val, inst) {
 			if (val != "") {
 				window.location = val
 			}
 		}
 	})
-	
-	$('select[name=program-categories]').selectbox({})
-
 
 	// add parser through the tablesorter addParser method 
 	$.tablesorter.addParser({ 

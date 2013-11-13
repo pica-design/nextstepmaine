@@ -11,23 +11,25 @@ select {
 /* Custom Dropdown Menu Plugin - Lives in the blog sidebar */
 div.sbHolder {
 	position: relative;
-	height: 34px;
+	height: 32px;
 	width: 100% ;
-	margin: 5px 0 0 0 ;
+	margin: 0 ;
 	@include light-blue-gradient ;
 
 	a.sbToggle {
 		position: absolute;
 		top: 0; right: 0;
 		display: block;
-		height: 34px;
+		height: 32px;
 		width: 30px;
 		z-index: 20 ;
-		background: sprite($layout-sprite, dropdown-arrow-inactive) ;
+		background: sprite($layout-sprite, down-arrow) ;
 		@include single-transition(none, 0s, linear) ;
+		border-left: 4px solid $white ;
+		//@include light-blue-gradient ;
 
 		&.sbToggleOpen {
-			background: sprite($layout-sprite, dropdown-arrow-active) ;
+			background: sprite($layout-sprite, up-arrow) ;
 		}
 	}
 
@@ -35,9 +37,9 @@ div.sbHolder {
 		position: absolute;
 		top: 0; left: 0;
 		display: block;
-		height: 34px;
+		height: 32px;
 		width: 100% ;
-		padding: 1px 30px 2px 4px ;
+		padding: 8px 30px 2px 8px ;
 		overflow: hidden;
 		font-family: 'AvenirLight';
 		line-height: 1.2em ;
@@ -53,7 +55,7 @@ div.sbHolder {
 	ul.sbOptions {
 		position: absolute;
 		top: 36px !important ; left: 0px !important ;
-		margin: 5px; padding: 0;
+		margin: 0; padding: 0;
 		width: 100% ;
 		z-index: 1;
 		overflow-y: auto !important ;
