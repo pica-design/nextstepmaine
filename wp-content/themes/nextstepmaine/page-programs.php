@@ -1,6 +1,4 @@
 <?php 
-    /*UPDATE nsm_wp_postmeta SET meta_value = REPLACE(meta_value, 'minor', 'associate') WHERE meta_key = '_nsm_program_type'*/
-
     global $wp;
 
 	get_header() ;
