@@ -10,11 +10,12 @@ $browser-icons-layout: vertical ;
 
 //Assets
 @import 'compass/css3';
+@import 'assets/normalize';
 @import 'assets/mixins' ;
 @import 'assets/colors';
-@import 'assets/gradients';
-@import 'assets/normalize';
 @import 'assets/fonts';
+@import 'layout/html-base';
+@import 'assets/gradients';
 @import 'assets/selection';
 @import 'assets/common';
 @import 'assets/tablesorter';
@@ -33,7 +34,6 @@ section.website-wrapper {
 	min-height: 100% ;
 }//section.website-wrapper
 
-@import 'layout/html-base';
 @import 'layout/header';
 @import 'layout/content';
 @import 'layout/footer';

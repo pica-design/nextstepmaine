@@ -16,11 +16,11 @@
 	a {
 		@extend .link-fill-container ;
 		font-size: inherit ;
+		color: inherit;
 	}
-
 	&.gray {
 		background-color: $lightest-gray ;
-		a { color: $dark-gray ; }
+		color: $dark-gray !important ;
 
 		&:hover {
 			background-color: $lighter-than-medium-gray !important ;
@@ -29,9 +29,9 @@
 		&.gray.gradient {
 			@include gray-gradient ;
 		}
-			&.active.gray {
+			&.active.gray, &.gray:hover {
 				background-color: $medium-gray ;
-				a { color: $white ; }
+				color: $white !important ;
 			}
 			&.active.gray.gradient {
 				@include darkest-gray-gradient ;
@@ -40,14 +40,14 @@
 
 	&.blue {
 		background-color: $light-blue ;
-		a { color: $dark-gray ; }
+		color: $dark-gray !important ;
 	}
 		&.blue.gradient {
 			@include blue-gradient ;
 		}
-			&.active.blue {
-				background-color: $medium-gray ;
-				a { color: $darkest-gray ; }
+			&.active.blue, &.blue:hover {
+				background-color: $medium-blue ;
+				color: $darkest-gray !important ;
 			}
 			&.active.blue.gradient {
 				@include dark-blue-gradient ;

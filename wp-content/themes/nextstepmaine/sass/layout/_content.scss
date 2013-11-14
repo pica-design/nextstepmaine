@@ -15,6 +15,13 @@ section.content-wrapper {
 		padding: 0 15px 0 0 ;
 		font: normal normal normal 1.0em/1.4em 'AvenirRoman' ;
 		
+		a {
+			color: $dark-blue ;
+			
+			&:hover {
+				color: $light-blue;
+			}
+		}
 		&.wide {
 			width: 800px ;
 			float: none ;
