@@ -79,6 +79,8 @@
                 <article class="website-slogan">Launch your future.<br />Fuel your desire to do more.</article>
             </section><!-- .masthead --><?php if (!empty($gallery->attachments)) : ?>
 
+            <article class="tagline">Continue with your education.</article>
+
             <section class="slideshow">
                 <center><iframe width="800" height="425" src="//www.youtube.com/embed/AeT2fkA9zuw?rel=0&theme=light" frameborder="0" allowfullscreen></iframe></center>
                 <br /><br />
@@ -114,7 +116,7 @@
             
             <section class="next-step-header">
             	<h1>What's your next step?</h1>
-                <span class="caption">Choose a goal below.<br />Start on your way today.</span>
+                <span class="caption">(Choose a goal below.<br />Start on your way today.)</span>
             </section><!-- .next-step-header -->
             <nav class="next-step">
             	<div class="inner">

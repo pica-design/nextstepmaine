@@ -55,3 +55,14 @@ section.masthead {
 		line-height: 1.25em ;
 	}
 } /* section.masthead */
+
+article.tagline {
+	display: block ;
+	width: 800px ;
+	margin: 20px auto 0px auto ;
+	padding: 15px 10px 15px 10px ;
+	color: $medium-blue ;
+	font-family: 'AvenirHeavy';
+	font-size: 1.4em ;
+	background-color: black ;
+}
