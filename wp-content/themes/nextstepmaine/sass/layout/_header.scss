@@ -7,48 +7,51 @@ section.masthead {
 	.website-logo {
 		float: left ;
 	}
+	.website-quick-links {
+		float: right ;
+
+		ul {
+			display: inline-block ;
+			//float: right ;
+			margin: 0 ; padding: 0 ;
+		}	
+			li {
+				float: left ;
+				list-style: none ;
+				color: $medium-blue ;
+				font-family: 'AvenirLight';
+				font-size: 0.8em ;
+				margin-bottom: 0 ;
+
+				a {
+					color: $dark-gray ;
+					display: inline-block ;
+					margin: 0 5px 0 5px ;
+					text-transform: uppercase ;
+					letter-spacing: 0.1em ;
+				}
+				&:after {
+					content: "/";
+				}
+				&.last:after {
+					content: "";
+					margin-right: 0 ;
+				}
+				&.current-menu-item a {
+					//text-decoration: underline ;
+				}
+			}
+	}
+	.website-search {
+		float: right ;
+		margin-top: 18px ;
+	}
 	.website-slogan {
 		float: left ;
 		color: $medium-blue ;
 		font-family: 'AvenirHeavy';
 		font-size: 1.1em ;
-		margin: 24px 0 0 17px ;
+		margin: 8px 0 0 17px ;
 		line-height: 1.25em ;
 	}
-	.website-controls {
-		float: right ;
-		
-		.website-quick-links {
-			ul {
-				display: inline-block ;
-				float: right ;
-				margin: 0 ;
-				padding: 0 ;
-			}	
-				li {
-					float: left ;
-					list-style: none ;
-					color: $medium-blue ;
-					font-family: 'AvenirLight';
-					font-size: 0.8em ;
-					a {
-						color: $dark-gray ;
-						display: inline-block ;
-						margin: 0 5px 0 5px ;
-						text-transform: uppercase ;
-						letter-spacing: 0.1em ;
-					}
-					&:after {
-						content: "/";
-					}
-					&.last:after {
-						content: "";
-						margin-right: 0 ;
-					}
-					&.current-menu-item a {
-						//text-decoration: underline ;
-					}
-				}
-		}
-	} /* .website.controls */
 } /* section.masthead */

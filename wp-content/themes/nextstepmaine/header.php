@@ -74,15 +74,11 @@
 	                	<img src="<?php bloginfo('template_directory') ?>/images/content/nextstepmaine-logo.jpg" alt="Next Step Maine Logo" />
                     </a>
                 </figure>
-                <article class="website-slogan">Connect to education.<br />Launch your future.</article>
-                <section class="website-controls">
-                    <div class="website-quick-links"><?php wp_nav_menu(array('menu' => 'Mastehad Quick Menu', 'container' => '')) ?></div>
-                    <div class="clear"></div>
-                    <div class="website-search"><?php get_search_form(); ?></div>
-                </section>
-            </section><!-- .masthead -->
-            
-            <?php if (!empty($gallery->attachments)) : ?>
+                <div class="website-quick-links"><?php wp_nav_menu(array('menu' => 'Mastehad Quick Menu', 'container' => '')) ?></div>
+                <div class="website-search"><?php get_search_form(); ?></div>
+                <article class="website-slogan">Launch your future.<br />Fuel your desire to do more.</article>
+            </section><!-- .masthead --><?php if (!empty($gallery->attachments)) : ?>
+
             <section class="slideshow">
                 <center><iframe width="800" height="425" src="//www.youtube.com/embed/AeT2fkA9zuw?rel=0&theme=light" frameborder="0" allowfullscreen></iframe></center>
                 <br /><br />
@@ -114,14 +110,12 @@
                 </section>
             	<figure class="slideshow-next"></figure>      
                 -->          
-            </section><!-- .slideshow -->
-            <?php endif ?>
+            </section><!-- .slideshow --><?php endif ?>
             
             <section class="next-step-header">
             	<h1>What's your next step?</h1>
-                <span class="caption">(CHOOSE ONE OF THE OPTIONS<br />BELOW TO GET STARTED TODAY)</span>
+                <span class="caption">Choose a goal below.<br />Start on your way today.</span>
             </section><!-- .next-step-header -->
-            
             <nav class="next-step">
             	<div class="inner">
                     <?php wp_nav_menu(array('menu' => 'Next Step Menu', 'container' => '', 'before' => '<h2>', 'after' => '</h2>')) ?>
