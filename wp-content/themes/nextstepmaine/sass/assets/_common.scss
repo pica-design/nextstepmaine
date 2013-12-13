@@ -13,11 +13,6 @@
 	letter-spacing: 1px ;
 	@include single-transition(all, 0.2s, linear) ;
 	
-	a {
-		@extend .link-fill-container ;
-		font-size: inherit ;
-		color: inherit;
-	}
 	&.gray {
 		background-color: $lightest-gray ;
 		color: $dark-gray !important ;
@@ -68,7 +63,11 @@
 	&.hover:hover {
 		@include single-box-shadow($medium-gray, 0, 0, 8px, false, false) ;
 	}
-
+	a {
+		@extend .link-fill-container ;
+		font-size: inherit ;
+		color: inherit !important ;
+	}
 } /* .button */
 .uppercase {
 	text-transform: uppercase ;
