@@ -88,6 +88,7 @@
 	function manage_nsm_program_admin_columns ($columns) {
 		$new_columns['cb'] = '<input type="checkbox" />';
 		$new_columns['title'] = _x('Program Name', 'column name');			
+		$new_columns['cip'] = _x('CIP Code', 'column name');			
 		$new_columns['author'] = __('Institution');
 		$new_columns['nsm_program_category'] = __('Category');
 		$new_columns['date'] = _x('Date', 'column name');
@@ -98,6 +99,7 @@
 	add_filter('manage_edit-nsm_program_sortable_columns', 'nsm_program_category_column_register_sortable' );
 	function nsm_program_category_column_register_sortable( $columns ) {
 		$columns['author'] = 'author';
+		$columns['cip'] = 'cip';
 		$columns['nsm_program_category'] = 'nsm_program_category';
 		return $columns;
 	}//end function nsm_program_category_column_register_sortable
@@ -119,6 +121,9 @@
 						$count++;
 					endforeach;
 				endif;
+			break;
+			case 'cip':
+				echo get_post_meta($post->ID, '_nsm_program_cip', true) ;
 			break;
 		endswitch;
 	}//end function manage_nsm_program_admin_columns_content
