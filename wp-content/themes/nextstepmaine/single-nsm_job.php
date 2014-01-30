@@ -76,7 +76,7 @@
 
             <?php
                 //Connect to our CIP to SOC Crosswalk database
-                $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nsm_cip_to_soc', DB_HOST);
+                $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nextstep_cip_to_soc', DB_HOST);
                 //Select the SOC codes which pair with the current program's CIP code
                 $cip_codes = $cip_to_soc->get_results("SELECT CIP FROM cip_soc WHERE SOC = '$onetsoc_code'");
                 $cip_soc_match = false;

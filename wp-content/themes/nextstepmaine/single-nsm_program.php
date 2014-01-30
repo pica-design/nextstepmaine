@@ -90,7 +90,7 @@
                         if (!empty($program['cip'])) : 
 
                             //Connect to our CIP to SOC Crosswalk database
-                            $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nsm_cip_to_soc', DB_HOST);
+                            $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nextstep_cip_to_soc', DB_HOST);
                             //Select the SOC codes which pair with the current program's CIP code
                             $sql = "SELECT SOC FROM cip_soc WHERE CIP IN ({$program['cip']}) AND SOC != 'NO MATCH'";
                             $soc_codes = $cip_to_soc->get_results($sql);
@@ -104,7 +104,7 @@
                                     <article>
                                         This program qualifies students for the following occupation(s):<br /><?php 
                                 //Connect to our onet database
-                                $onet = new wpdb(DB_USER, DB_PASSWORD, 'nsm_onet', DB_HOST);
+                                $onet = new wpdb(DB_USER, DB_PASSWORD, 'nextstep_onet', DB_HOST);
 
                                 foreach ($soc_codes as $soc) : 
                                     //Select occupations with the current SOC code
