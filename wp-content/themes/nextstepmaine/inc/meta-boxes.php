@@ -101,7 +101,7 @@
                 </td>
         	</tr><tr>
         		<td>
-                	<label for="nsm_program_cip" title="The Classification of Instructional Programs (CIP) provides a taxonomic scheme that supports the accurate tracking and reporting of fields of study and program completions activity. Valid CIP codes are ##. or ##.## or ##.####  http://nces.ed.gov/ipeds/cipcode/browse.aspx?y=55">CIP</label>
+                	<label for="nsm_program_cip" title="The Classification of Instructional Programs (CIP) provides a taxonomic scheme that supports the accurate tracking and reporting of fields of study and program completions activity. Valid CIP codes are ##. or ##.## or ##.#### Multiple codes can be entered and seperated by commas, i.e. ##.####, ##.####, ##.####  http://nces.ed.gov/ipeds/cipcode/browse.aspx?y=55">CIP</label>
             	</td><td>
                 	<input type="text" name="nsm_program_cip" value="<?php echo $program['cip'] ?>" />
                 </td>

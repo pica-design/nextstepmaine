@@ -85,6 +85,8 @@
 
                     <?php 
                         $show_annotation = false ;
+                        $occupations = array();
+
                         if (!empty($program['cip'])) : 
 
                             //Connect to our CIP to SOC Crosswalk database
@@ -182,10 +184,12 @@
 
             <br /><br />
             <em>
-                Occupations for the given program are determined from <a href="http://nces.ed.gov/ipeds/cipcode/Default.aspx?y=55" title="What is the CIP?" target="_blank">CIP codes</a> entered for the program, which are then correlated to <a href="http://www.onetcenter.org/database.html" title="O*NET Occupations" target="_blank">O*NET SOC Codes</a> via the <a href="http://www.bls.gov/soc/soccrosswalks.htm" title="2010 CIP to SOC Crosswalk" target="_blank">2010 CIP to SOC Crosswalk</a>. 
-                <br /><br />
                 Data entered and maintained by the institution listed above. Programs change often; please inquire with the institution to ensure their data has not changed. 
                 <br /><br />
+                <?php if (!empty($occupations)) : ?>
+                Occupations for the given program are determined from <a href="http://nces.ed.gov/ipeds/cipcode/Default.aspx?y=55" title="What is the CIP?" target="_blank">CIP codes</a> entered for the program, which are then correlated to <a href="http://www.onetcenter.org/database.html" title="O*NET Occupations" target="_blank">O*NET SOC Codes</a> via the <a href="http://www.bls.gov/soc/soccrosswalks.htm" title="2010 CIP to SOC Crosswalk" target="_blank">2010 CIP to SOC Crosswalk</a>. 
+                <br /><br />
+                <?php endif ?>
                 Last updated on <?php the_date() ?>
             </em>
         </div>
