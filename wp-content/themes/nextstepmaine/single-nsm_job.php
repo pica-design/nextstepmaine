@@ -3,7 +3,7 @@
     the_post();
 
     //Connect to our onet database
-    $onet = new wpdb(DB_USER, DB_PASSWORD, 'nsm_onet', DB_HOST);
+    $onet = new wpdb(DB_USER, DB_PASSWORD, 'nextstep_onet', DB_HOST);
 
     $occupation_title = get_the_title();
     $occupation_wp_id = get_the_ID();
