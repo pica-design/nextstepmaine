@@ -88,43 +88,11 @@
                         $occupations = array();
 
                         if (!empty($program['cip'])) : 
-
                             //Connect to our CIP to SOC Crosswalk database
-                            //wpdb is unable to connect??? lets try with plain 'ol php
-                            //$cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nextstep_cip_to_soc', DB_HOST);
-
-
-                            /*
+                            $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nextstep_cip_to_soc', DB_HOST);
 
                             //Select the SOC codes which pair with the current program's CIP code
-                            $sql = "SELECT SOC FROM cip_soc WHERE CIP IN ({$program['cip']}) AND SOC != 'NO MATCH'";
-
-
-                            //Database Connection
-                            $conn = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die("Site could not connect to the database.");
-                            mysql_select_db('nextstep_onet') or die("Unable to select database");
-                            
-                            $res = mysql_query($sql, $conn);
-                            if ($res !== false) :
-                                if (mysql_num_rows($res) > 0) :
-                                    $arr = array();
-                                    while ($row = mysql_fetch_assoc($res)) : $arr[] = $row; endwhile;
-                                    
-                                    
-
-                                else : echo "no results" ; endif;
-                            else : echo "Invalid SQL" ; endif;
-
-                            print_r($arr);
-                            */
-
-                            //print_r($cip_to_soc->error);
-
-                            //echo $sql;
-
-                            //$soc_codes = $cip_to_soc->get_results($sql);
-
-                            //print_r($soc_codes);
+                            $soc_codes = $cip_to_soc->get_results("SELECT SOC FROM cip_soc WHERE CIP IN ({$program['cip']}) AND SOC != 'NO MATCH'");
 
                             if (!empty($soc_codes)) : ?>
                                 <section class='accordion closed'>
