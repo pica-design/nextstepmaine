@@ -88,12 +88,11 @@
                         $occupations = array();
 
                         if (!empty($program['cip'])) : 
-
                             //Connect to our CIP to SOC Crosswalk database
                             $cip_to_soc = new wpdb(DB_USER, DB_PASSWORD, 'nextstep_cip_to_soc', DB_HOST);
+
                             //Select the SOC codes which pair with the current program's CIP code
-                            $sql = "SELECT SOC FROM cip_soc WHERE CIP IN ({$program['cip']}) AND SOC != 'NO MATCH'";
-                            $soc_codes = $cip_to_soc->get_results($sql);
+                            $soc_codes = $cip_to_soc->get_results("SELECT SOC FROM cip_soc WHERE CIP IN ({$program['cip']}) AND SOC != 'NO MATCH'");
 
                             if (!empty($soc_codes)) : ?>
                                 <section class='accordion closed'>
