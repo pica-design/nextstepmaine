@@ -68,6 +68,7 @@
     </head>
     <body <?php body_class() ?>>
     	<section class="website-wrapper">
+            <section id="sticky-footer-root">
             <section class="masthead">
             	<figure class="website-logo">
                 	<a href="<?php bloginfo('url') ?>" title="Next Step Maine Homepage">
@@ -78,6 +79,15 @@
                 <div class="website-search"><?php get_search_form(); ?></div>
                 <article class="website-slogan">Launch your future.<br />Fuel your desire to do more.</article>
             </section><!-- .masthead --><?php if (!empty($gallery->attachments)) : ?>
+            <section class="next-step-header">
+                <h1>What's your next step?</h1>
+                <span class="caption">(Choose a goal below.<br />Start on your way today.)</span>
+            </section><!-- .next-step-header -->
+            <nav class="next-step">
+                <div class="inner">
+                    <?php wp_nav_menu(array('menu' => 'Next Step Menu', 'container' => '', 'before' => '<h2>', 'after' => '</h2>')) ?>
+                </div>
+            </nav><!-- nav.next-step -->
 
             <article class="tagline">Continue with your education.</article>
 
@@ -114,12 +124,4 @@
                 -->          
             </section><!-- .slideshow --><?php endif ?>
             
-            <section class="next-step-header">
-            	<h1>What's your next step?</h1>
-                <span class="caption">(Choose a goal below.<br />Start on your way today.)</span>
-            </section><!-- .next-step-header -->
-            <nav class="next-step">
-            	<div class="inner">
-                    <?php wp_nav_menu(array('menu' => 'Next Step Menu', 'container' => '', 'before' => '<h2>', 'after' => '</h2>')) ?>
-                </div>
-            </nav><!-- nav.next-step -->
+            

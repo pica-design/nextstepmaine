@@ -1,7 +1,7 @@
 <div id="form_entries_page" class="wrap">
     <div class="frmicon icon32"><br/></div>
     <h2><?php _e('View Entry', 'formidable') ?>
-        <a href="?page=formidable-entries&amp;frm_action=new" class="add-new-h2"><?php _e('Add New'); ?></a>
+        <a href="?page=formidable-entries&amp;frm_action=new" class="add-new-h2"><?php _e('Add New', 'formidable'); ?></a>
     </h2>
     
     <div>
@@ -119,7 +119,7 @@
                     <div class="inside">
                         <table class="form-table"><tbody> 
                         <?php foreach($comments as $comment){
-                            $meta = maybe_unserialize($comment->meta_value);
+                            $meta = $comment->meta_value;
                             if(!isset($meta['comment']))
                                 continue;
                         ?>

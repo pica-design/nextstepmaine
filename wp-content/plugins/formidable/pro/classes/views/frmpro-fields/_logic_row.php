@@ -32,7 +32,7 @@ $field['hide_field_cond'][$meta_name] = htmlspecialchars_decode($field['hide_fie
     <option value="not LIKE" <?php selected($field['hide_field_cond'][$meta_name], 'not LIKE') ?>><?php _e('not like', 'formidable') ?> &nbsp;</option>
 </select>
 
-<span id="frm_show_selected_values_<?php echo $field['id']; ?>_<?php echo $meta_name ?>" class="no_taglist">
+<span id="frm_show_selected_values_<?php echo $field['id']; ?>_<?php echo $meta_name ?>">
 <?php 
     if ($hide_field and is_numeric($hide_field)){
         global $frm_field;

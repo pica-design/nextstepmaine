@@ -19,9 +19,9 @@
         <option value="not LIKE" <?php selected($where_is, 'not LIKE') ?>><?php _e('NOT like', 'formidable') ?></option>
     </select>
     <span id="where_field_options_<?php echo $where_key; ?>" style="display:inline;">
-        <?php $this->add_where_options($where_field, $where_key, $where_val); ?>
+        <?php FrmProDisplaysController::add_where_options($where_field, $where_key, $where_val); ?>
     </span>
-    <a class="frm_remove_tag frm_icon_font" data-removeid="frm_where_field_<?php echo $where_key; ?>"></a>
+    <a class="frm_remove_tag frm_icon_font" data-removeid="frm_where_field_<?php echo $where_key; ?>" data-showlast="#frm_where_options .frm_add_where_row"></a>
     <a class="frm_add_where_row frm_add_tag frm_icon_font"></a>
     
 </div>

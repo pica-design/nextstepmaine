@@ -1,9 +1,7 @@
 <?php
 FrmProFieldsHelper::set_field_js($field, (isset($entry_id) ? $entry_id : 0));
 if ($field['type'] == 'hidden'){
-    global $frmpro_field;
-    $frm_action = (isset($_GET) and isset($_GET['frm_action'])) ? 'frm_action' : 'action';
-    if (is_admin() and !defined('DOING_AJAX') and (!isset($_GET[$frm_action]) or $_GET[$frm_action] != 'new') and $frmpro_field->on_current_page($field['id'])){ ?>
+    if ( is_admin() && !defined('DOING_AJAX') && (!isset($args['action']) || $args['action'] != 'create') && FrmProFieldsHelper::field_on_current_page($field['id']) ) { ?>
 <div id="frm_field_<?php $field['id'] ?>_container" class="frm_form_field form-field frm_top_container">
 <label class="frm_primary_label"><?php echo $field['name'] ?>:</label> <?php echo $field['value']; ?>
 </div>
@@ -23,8 +21,10 @@ if (is_array($field['value'])){
 
 }else if ($field['type'] == 'user_id'){
     $user_ID = get_current_user_id();
-    echo '<input type="hidden" id="field_'. $field['field_key'] .'" name="'. $field_name .'" value="'. esc_attr((is_numeric($field['value'])) ? $field['value'] : ($user_ID ? $user_ID : '' )) .'"/>'."\n";
-
+    $value = ( is_numeric($field['value']) || ( is_admin() && !defined('DOING_AJAX') && $_POST && isset($_POST['item_meta'][$field['id']]) ) || (isset($args['action']) && $args['action'] == 'update') ) ? $field['value'] : ($user_ID ? $user_ID : '' );
+    echo '<input type="hidden" id="field_'. $field['field_key'] .'" name="'. $field_name .'" value="'. esc_attr($value) .'"/>'."\n";
+    unset($value);
+    
 }else if ($field['type'] == 'break'){   
     global $frm_vars;
 

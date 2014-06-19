@@ -1,7 +1,9 @@
 <div id="form_entries_page" class="wrap">
     <div class="frmicon icon32"><br/></div>
     <h2><?php _e('Edit Entry', 'formidable') ?>
-        <a href="?page=formidable-entries&amp;frm_action=new" class="add-new-h2"><?php _e('Add New'); ?></a>
+        <?php if(current_user_can('frm_create_entries')){ ?>
+        <a href="?page=formidable-entries&amp;frm_action=new&amp;form=<?php echo $form->id; ?>" class="add-new-h2"><?php _e('Add New', 'formidable') ?></a>
+        <?php } ?>
     </h2>
 	<?php if($form) FrmAppController::get_form_nav($form->id, true); ?>
 	<div class="clear"></div>

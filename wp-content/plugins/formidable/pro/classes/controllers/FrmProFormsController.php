@@ -1,8 +1,7 @@
 <?php
 
 class FrmProFormsController{
-    function FrmProFormsController(){
-        add_filter('frm_admin_list_form_action', 'FrmProFormsController::process_bulk_form_actions');
+    public static function load_hooks() {
         add_action('frm_additional_form_options', 'FrmProFormsController::add_form_options');
         add_action('frm_additional_form_notification_options', 'FrmProFormsController::notifications', 10, 2);
         add_action('wp_ajax_frm_add_email_list', 'FrmProFormsController::add_email_list');
@@ -11,9 +10,6 @@ class FrmProFormsController{
         add_action('frm_extra_form_instruction_tabs', 'FrmProFormsController::instruction_tabs');
         add_action('frm_extra_form_instructions', 'FrmProFormsController::instructions');
         add_filter('get_frm_stylesheet', 'FrmProFormsController::custom_stylesheet');
-        add_action('frm_template_action_links', 'FrmProFormsController::template_action_links');
-        add_action('wp_ajax_frm_forms_export', 'FrmProFormsController::export_template');
-        add_action('wp_ajax_frm_forms_import', 'FrmProFormsController::import_templates');
         add_filter('frmpro_field_links', 'FrmProFormsController::add_field_link', 10, 3);
         add_filter('frm_drag_field_class', 'FrmProFormsController::drag_field_class');
         add_action('formidable_shortcode_atts', 'FrmProFormsController::formidable_shortcode_atts', 10, 2);
@@ -24,53 +20,16 @@ class FrmProFormsController{
         add_filter('frm_form_replace_shortcodes', 'FrmProFormsController::replace_shortcodes', 10, 3);
         add_action('wp_ajax_frm_add_form_logic_row', 'FrmProFormsController::_logic_row');
         add_action('wp_ajax_frm_get_default_html', 'FrmProFormsController::get_email_html');
-    }
-    
-    public static function process_bulk_form_actions($errors){
-        if(!isset($_POST)) return;
         
-        $bulkaction = FrmAppHelper::get_param('action');
-        if($bulkaction == -1)
-            $bulkaction = FrmAppHelper::get_param('action2');
-
-        if(!empty($bulkaction) and strpos($bulkaction, 'bulk_') === 0){
-            if(isset($_GET) and isset($_GET['action']))
-                $_SERVER['REQUEST_URI'] = str_replace('&action='.$_GET['action'], '', $_SERVER['REQUEST_URI']);
-            if(isset($_GET) and isset($_GET['action2']))
-                $_SERVER['REQUEST_URI'] = str_replace('&action='.$_GET['action2'], '', $_SERVER['REQUEST_URI']);
-            
-            $bulkaction = str_replace('bulk_', '', $bulkaction);
-        }else{
-            $bulkaction = '-1';
-            if(isset($_POST['bulkaction']) and $_POST['bulkaction'] != '-1')
-                $bulkaction = $_POST['bulkaction'];
-            else if(isset($_POST['bulkaction2']) and $_POST['bulkaction2'] != '-1')
-                $bulkaction = $_POST['bulkaction2'];
-        }
-
-        $ids = FrmAppHelper::get_param('item-action', '');
-        if (empty($ids)){
-            $errors[] = __('No forms were specified', 'formidable');
-        }else{                
-            if($bulkaction == 'delete'){
-                if(!current_user_can('frm_delete_forms')){
-                    global $frm_settings;
-                    $errors[] = $frm_settings->admin_permission;
-                }else{
-                    if(!is_array($ids))
-                        $ids = explode(',', $ids);
-                        
-                    if(is_array($ids)){
-                        if($bulkaction == 'delete'){
-                            $frm_form = new FrmForm();
-                            foreach($ids as $form_id)
-                                $frm_form->destroy($form_id);
-                        }
-                    }
-                }
-            }
-        }
-        return $errors;
+        add_filter('frm_setup_new_form_vars', 'FrmProFormsController::setup_new_vars');
+        add_filter('frm_setup_edit_form_vars', 'FrmProFormsController::setup_edit_vars');
+        
+        // trigger form model
+        add_filter('frm_form_options_before_update', 'FrmProFormsController::update_options', 10, 2);
+        add_filter('frm_update_form_field_options', 'FrmProFormsController::update_form_field_options', 10, 3);
+        add_action('frm_update_form', 'FrmProFormsController::update', 10, 2);
+        add_filter('frm_after_duplicate_form_values', 'FrmProFormsController::after_duplicate', 10, 2);
+        add_filter('frm_validate_form', 'FrmProFormsController::validate', 10, 2);
     }
     
     public static function add_form_options($values){ 
@@ -93,13 +52,20 @@ class FrmProFormsController{
     public static function notifications($values, $atts){
         global $wpdb, $frmdb;
         extract($atts);
+        $form_fields = $values['fields'];
+        unset($values['fields']);
         require(FrmAppHelper::plugin_path() .'/pro/classes/views/frmpro-forms/notifications.php');
     }
     
     public static function add_email_list(){
         global $frm_field, $frm_vars;
         $email_key = $_POST['list_id'];
+        
         $form_id = $_POST['form_id'];
+        $frm_form = new FrmForm();
+        $form = $frm_form->getOne($form_id);
+        unset($frm_form);
+        
         $first_email = $email_key ? false : true;
         
         $notification = FrmProFormsHelper::get_default_notification_opts();
@@ -118,9 +84,8 @@ class FrmProFormsController{
         $post_types = FrmProAppHelper::get_custom_post_types();
         if(!$post_types) return;
         
-        $post_type = FrmProForm::post_type($values);
-        if(function_exists('get_object_taxonomies'))
-            $taxonomies = get_object_taxonomies($post_type);
+        $post_type = FrmProFormsHelper::post_type($values);
+        $taxonomies = get_object_taxonomies($post_type);
         
         $echo = true;
         $show_post_type = false;
@@ -174,8 +139,9 @@ class FrmProFormsController{
         $post_type = $_POST['post_type'];
         
         
-        if($post_type and function_exists('get_object_taxonomies'))
+        if ( $post_type ) {
             $taxonomies = get_object_taxonomies($post_type);
+        }
         
         $values = array();
         
@@ -211,7 +177,8 @@ class FrmProFormsController{
             'post_meta key=whatever' => __('Post Meta', 'formidable'),
             'ip' => __('IP Address', 'formidable'), 
             'auto_id start=1' => __('Increment', 'formidable'), 
-            'get param=whatever' => array('label' => __('GET/POST', 'formidable'), 'title' => __('A variable from the URL or value posted from previous page.', 'formidable') .' '. __('Replace \'whatever\' with the parameter name. In url.com?product=form, the variable is \'product\'. You would use [get param=product] in your field.', 'formidable'))
+            'get param=whatever' => array('label' => __('GET/POST', 'formidable'), 'title' => __('A variable from the URL or value posted from previous page.', 'formidable') .' '. __('Replace \'whatever\' with the parameter name. In url.com?product=form, the variable is \'product\'. You would use [get param=product] in your field.', 'formidable')),
+            'server param=whatever' => array('label' => __('SERVER', 'formidable'), 'title' => __('A variable from the PHP SERVER array.', 'formidable') .' '. __('Replace \'whatever\' with the parameter name. To get the url of the current page, use [server param="REQUEST_URI"] in your field.', 'formidable')),
         );
         include(FrmAppHelper::plugin_path() .'/pro/classes/views/frmpro-forms/instructions.php');
     }
@@ -237,39 +204,6 @@ class FrmProFormsController{
         return $css_file;
     }
     
-    public static function template_action_links($form){
-        echo '| <span><a href="'. admin_url('admin-ajax.php') .'?action=frm_forms_export&id='. $form->id .'" title="'. __('Export Template', 'formidable') . ' '. $form->name .'">'. __('Export Template', 'formidable') .'</a></span>';
-    }
-    
-    public static function export_template(){
-        $form_id = FrmAppHelper::get_param('id');
-        if(current_user_can('frm_edit_forms')){
-            global $frmdb, $wpdb, $frm_field, $current_user, $frm_settings, $frmpro_settings;
-            $frm_form = new FrmForm();
-            $form = $frm_form->getOne($form_id);
-            $form->options = maybe_unserialize($form->options);
-            $fields = $frm_field->getAll(array('fi.form_id' => $form_id), 'field_order');
-            
-            require(FrmAppHelper::plugin_path() .'/pro/classes/views/frmpro-forms/export_template.php');
-        }else{
-            global $frm_settings;
-            wp_die($frm_settings->admin_permission);
-        }
-        die();
-    }
-    
-    public static function import_templates(){
-        if(current_user_can('frm_edit_forms')){
-            global $frmpro_settings;
-            $path = (isset($_POST) and isset($_POST['path'])) ? $_POST['path'] : $frmpro_settings->template_path;         
-            FrmFormsController::add_default_templates($path, false);
-        }else{
-            global $frm_settings;
-            wp_die($frm_settings->admin_permission);
-        }
-        die();
-    }
-    
     public static function add_field_link($field_type, $id, $field_key){
         return "<a href=\"javascript:add_frm_field_link($id,'$field_key');\">$field_type</a>";
     }
@@ -293,13 +227,9 @@ class FrmProFormsController{
             if(!is_array($atts['exclude_fields']))
                 $atts['exclude_fields'] = explode(',', $atts['exclude_fields']);
             
-            foreach($atts['exclude_fields'] as $k => $fid){
-                $atts['exclude_fields'][$k] = (int)$fid;
-                unset($k);
-                unset($fid);
-            }
+            $atts['exclude_fields'] = array_filter( $atts['exclude_fields'], 'sanitize_key' );
             
-            $frm_vars['show_fields'] = $wpdb->get_col("SELECT id FROM $frmdb->fields WHERE form_id=". (int)$atts['id'] ." AND id not in (". implode(',', $atts['exclude_fields']) .")");
+            $frm_vars['show_fields'] = $wpdb->get_col("SELECT id FROM $frmdb->fields WHERE form_id=". (int)$atts['id'] ." AND id NOT in ('". implode("','", $atts['exclude_fields']) ."') AND field_key NOT in ('". implode("','", $atts['exclude_fields']) ."')");
         }
             
         if($atts['entry_id'] == 'last'){
@@ -314,15 +244,19 @@ class FrmProFormsController{
         }
         
         foreach($atts as $unset => $val){
-            unset($all_atts[$unset]);
+            if ( is_array($all_atts) && isset($all_atts[$unset]) ) {
+                unset($all_atts[$unset]);
+            }
             unset($unset);
             unset($val);
         }
         
-        foreach($all_atts as $att => $val){
-            $_GET[$att] = urlencode($val);
-            unset($att);
-            unset($val);
+        if ( is_array($all_atts) ){
+            foreach($all_atts as $att => $val){
+                $_GET[$att] = urlencode($val);
+                unset($att);
+                unset($val);
+            }
         }
     }
     
@@ -385,19 +319,21 @@ class FrmProFormsController{
                 case 'back_label':
                     $replace_with = __('Previous', 'formidable');
                 break;
-                case 'back_hook':
-                    $classes = apply_filters('frm_back_button_class', array(), $form);
-                    if(!empty($classes))
-                        $replace_with = ' class="'. implode(' ', $classes) .'" ';
-                    
-                    $replace_with .= apply_filters('frm_back_button_action', '', $form);
+                case 'back_hook':                    
+                    $replace_with = apply_filters('frm_back_button_action', '', $form);
                 break;
                 case 'back_button':
                     global $frm_vars;
-                    if(!$frm_vars['prev_page'] or !is_array($frm_vars['prev_page']) or !isset($frm_vars['prev_page'][$form->id]) or empty($frm_vars['prev_page'][$form->id]))
+                    if ( !$frm_vars['prev_page'] || !is_array($frm_vars['prev_page']) || !isset($frm_vars['prev_page'][$form->id]) || empty($frm_vars['prev_page'][$form->id]) ) {
                         unset($replace_with);
-                    else
+                    } else {
+                        $classes = apply_filters('frm_back_button_class', array(), $form);
+                        if ( !empty($classes) ) {
+                            $html = str_replace('class="frm_prev_page', 'class="frm_prev_page '. implode(' ', $classes), $html);
+                        }
+                        
                         $html = str_replace('[/if back_button]', '', $html);
+                    }
                 break;
                 case 'draft_label':
                     $replace_with = __('Save Draft', 'formidable');
@@ -426,20 +362,59 @@ class FrmProFormsController{
         return $html;
     }
     
+    public static function include_logic_row($atts) {
+        $defaults = array(
+            'meta_name' => '',
+            'condition' => array(
+                'hide_field'        => '',
+                'hide_field_cond'   => '==',
+                'hide_opt'          => '',
+            ),
+            'key' => '', 'type' => 'form',
+            'form_id' => 0, 'id' => '' ,
+            'name' => '', 'names' => array(),
+            'showlast' => '', 'onchange' => '',
+        );
+        
+        extract(wp_parse_args($atts, $defaults));
+        
+        if ( empty($id) ) {
+            $id = 'frm_logic_'. $key .'_'. $meta_name;
+        }
+        
+        if ( empty($name) ) {
+            $name = 'notification['. $key .'][conditions]['. $meta_name .']';
+        }
+        
+        if ( empty($names) ) {
+            $names = array(
+                'hide_field' => $name .'[hide_field]',
+                'hide_field_cond' => $name .'[hide_field_cond]',
+                'hide_opt' => $name .'[hide_opt]',
+            );
+        }
+        
+        if ( $onchange == '' ) {
+            $onchange = "frmGetFieldValues(this.value,'$key','$meta_name','". (isset($field['type']) ? $field['type'] : '') ."','". $names['hide_opt'] ."')";
+        }
+        
+        $frm_field = new FrmField();
+        $form_fields = $frm_field->getAll( array('fi.form_id' => (int)$form_id), 'field_order' );
+        
+        include(FrmAppHelper::plugin_path() .'/pro/classes/views/frmpro-forms/_logic_row.php');
+    }
+    
     public static function _logic_row(){
 	    global $frm_field;
 	    
 	    $meta_name = FrmAppHelper::get_param('meta_name');
 	    $form_id = FrmAppHelper::get_param('form_id');
-	    $email_key = FrmAppHelper::get_param('email_id');
-	    $hide_field = '';
-        
-        $form_fields = $frm_field->getAll("fi.form_id = ". (int)$form_id ." and (type in ('select','radio','checkbox','scale','data') or (type = 'data' and (field_options LIKE '\"data_type\";s:6:\"select\"%' OR field_options LIKE '%\"data_type\";s:5:\"radio\"%' OR field_options LIKE '%\"data_type\";s:8:\"checkbox\"%') ))", " ORDER BY field_order");
+	    $key = FrmAppHelper::get_param('email_id');
         
         $frm_form = new FrmForm();
         $form = $frm_form->getOne($form_id);
         $form->options = maybe_unserialize($form->options);
-        $notification = (isset($form->options['notification']) and isset($form->options['notification'][$email_key])) ? $form->options['notification'][$email_key] : array();
+        $notification = (isset($form->options['notification']) and isset($form->options['notification'][$key])) ? $form->options['notification'][$key] : array();
         
         if(!isset($notification['conditions']))
             $notification['conditions'] = array();
@@ -451,8 +426,15 @@ class FrmProFormsController{
             
         if(!isset($condition['hide_field_cond']))
             $condition['hide_field_cond'] = '==';
-
-        include(FrmAppHelper::plugin_path() .'/pro/classes/views/frmpro-forms/_logic_row.php');
+        
+        self::include_logic_row(array(
+            'form_id' => $form->id,
+            'form' => $form,
+            'meta_name' => $meta_name,
+            'condition' => $condition,
+            'key' => $key,
+        ));
+        
         die();
 	}
 	
@@ -460,4 +442,38 @@ class FrmProFormsController{
 	    echo FrmProEntriesController::show_entry_shortcode(array('form_id' => $_POST['form_id'], 'default_email' => true, 'plain_text' => $_POST['plain_text']));
 	    die();
 	}
+	
+	public static function setup_new_vars($values) {
+	    return FrmProFormsHelper::setup_new_vars($values);
+	}
+	
+	public static function setup_edit_vars($values) {
+	    return FrmProFormsHelper::setup_edit_vars($values);
+	}
+	
+	/* Trigger model actions */
+	public static function update_options($options, $values){
+        $frmpro_form = new FrmProForm();
+        return $frmpro_form->update_options($options, $values);
+    }
+    
+    public static function update_form_field_options($field_options, $field, $values){        
+        $frmpro_form = new FrmProForm();
+        return $frmpro_form->update_form_field_options($field_options, $field, $values);
+    }
+    
+    public static function update($id, $values){
+        $frmpro_form = new FrmProForm();
+        $frmpro_form->update($id, $values);
+    }
+    
+    public static function after_duplicate($new_opts, $id) {
+        $frmpro_form = new FrmProForm();
+        return $frmpro_form->after_duplicate($new_opts, $id);
+    }
+
+    public static function validate( $errors, $values ){
+        $frmpro_form = new FrmProForm();
+        return $frmpro_form->validate( $errors, $values );
+    }
 }

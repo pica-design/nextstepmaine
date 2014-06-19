@@ -65,4 +65,8 @@ article.tagline {
 	font-family: 'AvenirHeavy';
 	font-size: 1.4em ;
 	background-color: black ;
+
+	&.mei{
+		background-color: #ccc;
+	}
 }

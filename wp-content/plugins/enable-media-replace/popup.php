@@ -19,7 +19,7 @@ $table_name = $wpdb->prefix . "posts";
 
 $sql = "SELECT guid, post_mime_type FROM $table_name WHERE ID = " . (int) $_GET["attachment_id"];
 
-list($current_filename, $current_filetype) = mysql_fetch_array(mysql_query($sql));
+list($current_filename, $current_filetype) = $wpdb->get_row($sql, ARRAY_N);
 
 $current_filename = substr($current_filename, (strrpos($current_filename, "/") + 1));
 
@@ -56,6 +56,7 @@ $current_filename = substr($current_filename, (strrpos($current_filename, "/") +
 
 		<label for="replace_type_2"><input id="replace_type_2" type="radio" name="replace_type" value="replace_and_search"> <?php echo __("Replace the file, use new file name and update all links", "enable-media-replace"); ?></label>
 		<p class="howto"><?php echo __("Note: If you check this option, the name and type of the file you are about to upload will replace the old file. All links pointing to the current file (", "enable-media-replace"); ?><?php echo $current_filename; ?><?php echo __(") will be updated to point to the new file name.", "enable-media-replace"); ?></p>
+		<p class="howto"><?php echo __("Please note that if you upload a new image, only embeds/links of the original size image will be replaced in your posts."); ?></p>
 
 		<input type="submit" class="button" value="<?php echo __("Upload", "enable-media-replace"); ?>" /> <a href="#" onclick="history.back();"><?php echo __("Cancel", "enable-media-replace"); ?></a>
 

@@ -10,6 +10,6 @@
         <option value="ASC" <?php selected($order, 'ASC') ?>><?php _e('Ascending', 'formidable'); ?></option>
         <option value="DESC" <?php selected($order, 'DESC') ?>><?php _e('Descending', 'formidable'); ?> &nbsp;</option>
     </select>
-		<a class="frm_remove_tag frm_icon_font" data-removeid="frm_order_field_<?php echo $order_key; ?>"></a>
+		<a class="frm_remove_tag frm_icon_font" data-removeid="frm_order_field_<?php echo $order_key; ?>" data-showlast="#frm_order_options .frm_add_order_row"></a>
 	    <a class="frm_add_order_row frm_add_tag frm_icon_font"></a>
 </div>

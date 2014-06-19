@@ -1,6 +1,6 @@
 <?php
 class FrmProNotification{    
-    function FrmProNotification(){
+    function __construct(){
         add_filter('frm_stop_standard_email', '__return_true');
         add_action('frm_after_create_entry', 'FrmProNotification::entry_created', 41, 2);
         add_action('frm_after_update_entry', 'FrmProNotification::entry_updated', 41, 2);
@@ -15,6 +15,9 @@ class FrmProNotification{
 
         $frm_form = new FrmForm();
         $form = $frm_form->getOne($form_id);
+        if ( !$form ) {
+            return;
+        }
         $form_options = maybe_unserialize($form->options);
         $entry = $frm_entry->getOne($entry_id, true);
         if(!$entry or $entry->form_id != $form_id or $entry->is_draft)
@@ -286,7 +289,8 @@ class FrmProNotification{
             unset($default);
         }
         
-        $to_emails = apply_filters('frm_to_email', $to_emails, $values, $form_id, compact('email_key'));
+        $to_emails = apply_filters('frm_to_email', $to_emails, $values, $form_id, compact('email_key', 'entry'));
+        
         $to_emails = array_unique((array)$to_emails);
         $sent = array();
         foreach((array)$to_emails as $to_email){
@@ -359,6 +363,9 @@ class FrmProNotification{
 
         $frm_form = new FrmForm();
         $form = $frm_form->getOne($form_id);
+        if ( !$form ) {
+            return;
+        }
         $form_options = maybe_unserialize($form->options);
 
         if (!isset($form_options['auto_responder']) or !$form_options['auto_responder'] or !isset($form_options['ar_email_message']) or $form_options['ar_email_message'] == '') 
@@ -465,7 +472,10 @@ class FrmProNotification{
                 $condition['hide_opt'] = reset($condition['hide_opt']);
                 
             $observed_value = (isset($entry->metas[$condition['hide_field']])) ? $entry->metas[$condition['hide_field']] : '';
-
+            if ( $condition['hide_opt'] == 'current_user' ) {
+                $condition['hide_opt'] = get_current_user_id();
+            }
+            
             $stop = FrmProFieldsHelper::value_meets_condition($observed_value, $condition['hide_field_cond'], $condition['hide_opt']);
 
             if($notification['conditions']['send_stop'] == 'send')
@@ -474,10 +484,11 @@ class FrmProNotification{
             $met[$stop] = $stop;
         }
         
-        if($notification['conditions']['any_all'] == 'all' and !empty($met) and isset($met[0]) and isset($met[1]))
+        if ( $notification['conditions']['any_all'] == 'all' && !empty($met) && isset($met[0]) && isset($met[1]) ) {
             $stop = ($notification['conditions']['send_stop'] == 'send') ? true : false;
-        else if($notification['conditions']['any_all'] == 'any' and $notification['conditions']['send_stop'] == 'send' and isset($met[0]))
+        } else if ( $notification['conditions']['any_all'] == 'any' && $notification['conditions']['send_stop'] == 'send' && isset($met[0]) ) {
             $stop = false;
+        }
 
         return $stop;
     }

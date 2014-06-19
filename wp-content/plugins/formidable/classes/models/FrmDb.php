@@ -5,12 +5,8 @@ if(class_exists('FrmDb'))
     return;
 
 class FrmDb{
-    var $fields;
-    var $forms;
-    var $entries;
-    var $entry_metas;
     
-    function FrmDb(){
+    function __construct(){
         global $wpdb;
         $this->fields         = $wpdb->prefix . "frm_fields";
         $this->forms          = $wpdb->prefix . "frm_forms";
@@ -64,10 +60,10 @@ class FrmDb{
                 form_key varchar(255) default NULL,
                 name varchar(255) default NULL,
                 description text default NULL,
-                logged_in boolean default NULL,
-                editable boolean default NULL,
-                is_template boolean default 0,
-                default_template boolean default 0,
+                logged_in tinyint(1) default NULL,
+                editable tinyint(1) default NULL,
+                is_template tinyint(1) default 0,
+                default_template tinyint(1) default 0,
                 status varchar(255) default NULL,
                 prli_link_id int(11) default NULL,
                 options longtext default NULL,
@@ -89,7 +85,7 @@ class FrmDb{
                 post_id int(11) default NULL,
                 user_id int(11) default NULL,
                 parent_item_id int(11) default NULL,
-                is_draft boolean default 0,
+                is_draft tinyint(1) default 0,
                 updated_by int(11) default NULL,
                 created_at datetime NOT NULL,
                 updated_at datetime NOT NULL,
@@ -158,7 +154,7 @@ DEFAULT_HTML;
             $new_default_html = FrmFieldsHelper::get_default_html('text');
             foreach($fields as $field){
                 $field->field_options = maybe_unserialize($field->field_options);
-                if(!isset($field->field_options['custom_html']) or empty($field->field_options['custom_html']) or (stripslashes($field->field_options['custom_html']) == $default_html) or (stripslashes($field->field_options['custom_html']) == $old_default_html)){
+                if ( !isset($field->field_options['custom_html']) || empty($field->field_options['custom_html']) || $field->field_options['custom_html'] == $default_html || $field->field_options['custom_html'] == $old_default_html ) {
                     $field->field_options['custom_html'] = $new_default_html;
                     $wpdb->update($this->fields, array('field_options' => maybe_serialize($field->field_options)), array( 'id' => $field->id ));
                 }
@@ -190,7 +186,7 @@ DEFAULT_HTML;
                 if(!isset($form->options['submit_html']) or empty($form->options['submit_html']))
                     continue;
                 
-                if((stripslashes($form->options['submit_html']) != $new_default_html) and (stripslashes($form->options['submit_html']) == $old_default_html)){
+                if ( $form->options['submit_html'] != $new_default_html && $form->options['submit_html'] == $old_default_html ) {
                     $form->options['submit_html'] = $new_default_html;
                     $wpdb->update($this->forms, array('options' => serialize($form->options)), array( 'id' => $form->id ));
                 }else if(!strpos($form->options['submit_html'], 'save_draft')){
@@ -205,7 +201,9 @@ DEFAULT_HTML;
         
 
         /**** ADD/UPDATE DEFAULT TEMPLATES ****/
-        FrmFormsController::add_default_templates(FrmAppHelper::plugin_path().'/classes/templates');
+        if ( class_exists('FrmXMLController') ) {
+            FrmXMLController::add_default_templates();
+        }
 
       
         /***** SAVE DB VERSION *****/
@@ -231,8 +229,8 @@ DEFAULT_HTML;
             foreach($args as $key => $value){
                 $where .= (!empty($where)) ? ' AND' : ' WHERE';
                 $where .= " {$key}=";
-                $where .= (is_numeric($value)) ? "%d" : "%s";
-
+                $where .= is_numeric($value) ? (strpos($value, ".") !== false ? '%f' : '%d') : '%s';
+				
                 $values[] = $value;
             }
         }
@@ -280,11 +278,13 @@ DEFAULT_HTML;
 
         extract(FrmDb::get_where_clause_and_values( $args ));
 
-        if(!empty($order_by))
+        if ( !empty($order_by) && strpos($order_by, ' ORDER BY ') === false ) {
             $order_by = " ORDER BY {$order_by}";
+        }
 
-        if(!empty($limit))
+        if ( !empty($limit) && strpos($order_by, ' LIMIT ') === false ) {
             $limit = " LIMIT {$limit}";
+        }
 
         $query = "SELECT {$fields} FROM {$table}{$where}{$order_by}{$limit}";
         $query = $wpdb->prepare($query, $values);
@@ -292,7 +292,7 @@ DEFAULT_HTML;
     }
     
     function uninstall(){
-        if(!is_super_admin()){
+        if ( !current_user_can('administrator') ) {
             global $frm_settings;
             wp_die($frm_settings->admin_permission);
         }

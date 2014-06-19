@@ -1,210 +1,116 @@
 <?php
 class FrmProSettings{
-    var $form_width;
-    var $edit_msg;
-    var $update_value;
-    var $already_submitted;
-    var $rte_off;
-    var $template_path;
-    var $csv_format;
-    
-    var $date_format;
-    var $cal_date_format;
-    
-    var $theme_css;
-    var $theme_name;
-    var $theme_nicename;
-    
-    var $permalinks;
-    
-    var $form_align;
-    var $fieldset;
-    var $fieldset_color;
-    var $fieldset_padding;
-    
-    var $font;
-    var $font_size;
-    var $label_color;
-    var $weight;
-    var $position;
-    var $align;
-    var $width;
-    var $required_color;
-    var $required_weight;
-    
-    var $description_font;
-    var $description_font_size;
-    var $description_color;
-    var $description_weight;
-    var $description_style;
-    var $description_align;
-    
-    var $field_font_size;
-    var $field_width;
-    var $auto_width;
-    var $field_pad;
-    var $field_margin;
-    
-    var $bg_color;
-    var $text_color;
-    var $border_color;
-    var $field_border_width;
-    var $field_border_style;
-    
-    //var $bg_color_hv;
-    //var $border_color_hv;
-    
-    var $bg_color_active;
-    var $border_color_active;
-    
-    var $bg_color_error;
-    var $text_color_error;
-    var $border_color_error;
-    var $border_width_error;
-    var $border_style_error;
-    
-    var $radio_align;
-    var $check_align;
-    var $check_font;
-    var $check_font_size;
-    var $check_label_color;
-    var $check_weight;
-    
-    var $submit_style;
-    var $submit_font_size;
-    var $submit_width;
-    var $submit_height;
-    var $submit_bg_color;
-    var $submit_bg_color2;
-    var $submit_border_color;
-    var $submit_border_width;
-    var $submit_text_color;
-    var $submit_weight;
-    var $submit_border_radius;
-    var $submit_bg_img;
-    var $submit_margin;
-    var $submit_padding;
-    var $submit_shadow_color;
-    
-    var $border_radius;
-    
-    var $error_bg;
-    var $error_border;
-    var $error_text;
-    var $error_font_size;
-    
-    var $success_bg;
-    var $success_border;
-    var $success_text;
-    var $success_font_size;
-    
-    var $custom_css;
 
-    function FrmProSettings(){
+    function __construct(){
         $this->set_default_options();
     }
     
     function default_options(){
         return array(
+            'edit_msg'          => __('Your submission was successfully saved.', 'formidable'),
+            'update_value'      => __('Update', 'formidable'),
             'already_submitted' => __('You have already submitted that form', 'formidable'),
-            'template_path' => '',
-            'rte_off'   => false,
-            'csv_format' => 'UTF-8',
-            'theme_css' => 'ui-lightness',
-            'theme_name' => 'UI Lightness',
+            'rte_off'           => false,
+            'csv_format'        => 'UTF-8',
+            'theme_css'         => 'ui-lightness',
+            'theme_name'        => 'UI Lightness',
             
-            'form_width' => '700px',
-            'form_align' => 'left', 
-            'fieldset' => '0px', 
-            'fieldset_color' => '000000',
-            'fieldset_padding' => '0px',
+            'form_width'        => '700px',
+            'form_align'        => 'left', 
+            'fieldset'          => '0px', 
+            'fieldset_color'    => '000000',
+            'fieldset_padding'  => '0px',
             
-            'font' => '"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif', 
-            'font_size' => '12px', 
-            'label_color' => '444444',
-            'weight' => 'bold',
-            'position' => 'none',
-            'align' => 'left',
-            'width' => '150px',
-            'required_color' => 'B94A48',
-            'required_weight' => 'bold',
+            'font'              => '"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif', 
+            'font_size'         => '12px', 
+            'label_color'       => '444444',
+            'weight'            => 'bold',
+            'position'          => 'none',
+            'align'             => 'left',
+            'width'             => '150px',
+            'required_color'    => 'B94A48',
+            'required_weight'   => 'bold',
             
-            'description_font' => '"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif',
+            'description_font'  => '"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif',
             'description_font_size' => '11px',
             'description_color' => '666666',
             'description_weight' => 'normal',
             'description_style' => 'normal',
             'description_align' => 'left',
             
-            'field_font_size' => '13px',
-            'field_width' => '100%',
-            'auto_width' => false,
-            'field_pad' => '2px',
-            'field_margin' => '20px',
-            'text_color' => '444444',
-            'border_color_hv' => 'dddddd',
-            'border_color' => 'dddddd',
+            'field_font_size'   => '13px',
+			'field_height' 		=> 'auto',
+			'line_height'		=> 'normal',
+            'field_width'       => '100%',
+            'auto_width'        => false,
+            'field_pad'         => '2px',
+            'field_margin'      => '20px',
+            'text_color'        => '444444',
+            'border_color_hv'   => 'dddddd',
+            'border_color'      => 'dddddd',
             'field_border_width' => '1px',
             'field_border_style' => 'solid',
             
-            'bg_color' => 'f7f7f7',
-            'bg_color_hv' => 'f7f7f7',
-            'bg_color_active' => 'ffffff',
+            'bg_color'          => 'f7f7f7',
+            'bg_color_hv'       => 'f7f7f7',
+            'bg_color_active'   => 'ffffff',
             'border_color_active' => 'dddddd',
-            'text_color_error' => '444444',
-            'bg_color_error' => 'f7f7f7',
+            'text_color_error'  => '444444',
+            'bg_color_error'    => 'f7f7f7',
             'border_color_error' => 'B94A48',
             'border_width_error' => '1px',
             'border_style_error' => 'solid',
             
-            'radio_align' => 'block',
-            'check_align' => 'block',
-            'check_font' => '"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif',
-            'check_font_size' => '12px',
+            'radio_align'       => 'block',
+            'check_align'       => 'block',
+            'check_font'        => '"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif',
+            'check_font_size'   => '12px',
             'check_label_color' => '444444',
-            'check_weight' => 'normal',
+            'check_weight'      => 'normal',
             
-            'submit_style' => false,
-            'submit_font_size' => '14px',
-            'submit_width' => 'auto',
-            'submit_height' => 'auto',
-            'submit_bg_color' => 'eeeeee',
-            'submit_bg_color2' => 'cccccc',
+            'submit_style'      => false,
+            'submit_font_size'  => '14px',
+            'submit_width'      => 'auto',
+            'submit_height'     => 'auto',
+            'submit_bg_color'   => 'eeeeee',
+            'submit_bg_color2'  => 'cccccc',
             'submit_border_color' => 'dddddd',
             'submit_border_width' => '1px',
             'submit_text_color' => '444444',
-            'submit_weight' => 'normal',
-            'submit_border_radius' => '11px',
-            'submit_bg_img' => '',
-            'submit_margin' => '0px',
-            'submit_padding' => '3px 8px',
+            'submit_weight'     => 'normal',
+            'submit_border_radius' => '4px',
+            'submit_bg_img'     => '',
+            'submit_margin'     => '0px',
+            'submit_padding'    => '6px 12px',
             'submit_shadow_color' => '999999',
             
-            'border_radius' => '4px',
-            'error_bg' => 'F2DEDE',
-            'error_border' => 'EBCCD1',
-            'error_text' => 'B94A48',
-            'error_font_size' => '14px',
+            'border_radius'     => '4px',
+            'error_bg'          => 'F2DEDE',
+            'error_border'      => 'EBCCD1',
+            'error_text'        => 'B94A48',
+            'error_font_size'   => '14px',
             
-            'success_bg_color' => 'DFF0D8',
+            'success_bg_color'  => 'DFF0D8',
             'success_border_color' => 'D6E9C6',
             'success_text_color' => '468847',
             'success_font_size' => '14px',
             
-            'custom_css' => ''
+            'important_style'   => false,
+            
+            'custom_css'        => ''
         );
     }
 
     function set_default_options(){
-        $this->edit_msg = __('Your submission was successfully saved.', 'formidable');
-        $this->update_value = __('Update', 'formidable');
         
         if(!isset($this->date_format))
             $this->date_format = 'm/d/Y';
         if(!isset($this->cal_date_format))
             $this->cal_date_format = 'mm/dd/yy';
-               
-        $this->theme_nicename = sanitize_title_with_dashes($this->theme_name);
+        
+        if ( isset($this->theme_nicename) ) {       
+            $this->theme_nicename = sanitize_title_with_dashes($this->theme_name);
+        }
             
         //if(!isset($this->permalinks))
             $this->permalinks = false;
@@ -220,12 +126,7 @@ class FrmProSettings{
                     $this->{$setting} = $default;
             }
         }
-
-        foreach($this as $k => $v){
-            //$this->{$k} = stripslashes_deep($v);
-            unset($k);
-            unset($v);
-        }
+		$this->line_height = ($this->field_height == '' || $this->field_height == 'auto') ? 'normal' : $this->field_height;
     }
 
     function validate($errors, $params){
@@ -271,14 +172,8 @@ class FrmProSettings{
         }
         
         $this->submit_style = isset($params['frm_submit_style']) ? $params['frm_submit_style'] : 0;
+        $this->important_style = isset($params['frm_important_style']) ? $params['frm_important_style'] : 0;
         $this->auto_width = isset($params['frm_auto_width']) ? $params['frm_auto_width'] : 0;
-        $this->template_path = trim($this->template_path);
-        
-        foreach($this as $k => $v){
-            $this->{$k} = stripslashes_deep($v);
-            unset($k);
-            unset($v);
-        }
     }
 
     function store(){

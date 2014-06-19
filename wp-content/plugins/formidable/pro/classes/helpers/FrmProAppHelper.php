@@ -3,7 +3,7 @@
 class FrmProAppHelper{
     
     public static function jquery_themes(){
-        return array(
+        $themes = array(
             'ui-lightness'  => 'UI Lightness',
             'ui-darkness'   => 'UI Darkness',
             'smoothness'    => 'Smoothness',
@@ -29,6 +29,9 @@ class FrmProAppHelper{
             'trontastic'    => 'Trontastic',
             'swanky-purse'  => 'Swanky Purse'
         );
+        
+        $themes = apply_filters('frm_jquery_themes', $themes);
+        return $themes;
     }
     
     public static function jquery_css_url($theme_css){
@@ -69,20 +72,26 @@ class FrmProAppHelper{
     }
     
     public static function get_user_id_param($user_id){
-        if($user_id and !empty($user_id) and !is_numeric($user_id)){
-            if($user_id == 'current'){
-                $user_ID = get_current_user_id();
-                $user_id = $user_ID;
-            }else{
-                if(function_exists('get_user_by'))
-                    $user = get_user_by('login', $user_id);
-                else
-                    $user = get_userdatabylogin($user_id);
-                if($user)
-                    $user_id = $user->ID;
-                unset($user);
-            }
+        if ( !$user_id || empty($user_id) || is_numeric($user_id) ) {
+            return $user_id;
         }
+        
+        if($user_id == 'current'){
+            $user_ID = get_current_user_id();
+            $user_id = $user_ID;
+        }else{
+            if ( is_email($user_id) ) {
+                $user = get_user_by('email', $user_id);
+            } else {
+                $user = get_user_by('login', $user_id);
+            }
+            
+            if ( $user ) {
+                $user_id = $user->ID;
+            }
+            unset($user);
+        }
+        
         return $user_id;
     }
     
@@ -251,7 +260,7 @@ class FrmProAppHelper{
         global $frm_field;
         $fields = $frm_field->getAll("fi.type not in ('divider','captcha','break','html') and fi.form_id=".$form_id);
         
-        $tagregexp = 'editlink|siteurl|sitename|id|key|post[-|_]id|ip|created[-|_]at|updated[-|_]at|updated-[-|_]by';
+        $tagregexp = 'editlink|siteurl|sitename|id|key|post[-|_]id|ip|created[-|_]at|updated[-|_]at|updated[-|_]by';
         foreach ($fields as $field)
             $tagregexp .= '|'. $field->id . '|'. $field->field_key;
 
@@ -261,13 +270,11 @@ class FrmProAppHelper{
     }
     
     public static function get_custom_post_types(){
-        if(function_exists('get_post_types')){
-            $custom_posts = get_post_types(array(), 'object');
-            foreach(array('revision', 'attachment', 'nav_menu_item') as $unset)
-                unset($custom_posts[$unset]);
-            return $custom_posts;
+        $custom_posts = get_post_types(array(), 'object');
+        foreach (array('revision', 'attachment', 'nav_menu_item') as $unset) {
+            unset($custom_posts[$unset]);
         }
-        return false;
+        return $custom_posts;
     }
     
     public static function get_custom_taxonomy($post_type, $field){
@@ -322,7 +329,7 @@ class FrmProAppHelper{
         $defaults = array(
             'where_opt' => false, 'where_is' => '=', 'where_val' => '', 
             'form_id' => false, 'form_posts' => array(), 'after_where' => false,
-            'display' => false
+            'display' => false, 'drafts' => 0
         );
         
         extract(wp_parse_args($args, $defaults));
@@ -368,7 +375,7 @@ class FrmProAppHelper{
         }
 
         //Filter by DFE text 
-		if($where_field->type == 'data' and !is_numeric($where_val) and $orig_where_val != '' and $field_options['post_field'] != 'post_category'){			
+		if ( $where_field->type == 'data' && !is_numeric($where_val) && $orig_where_val != '' && (!isset($field_options['post_field']) || $field_options['post_field'] != 'post_category')){			
 			//Get entry IDs by DFE text
 			if ($where_is == 'LIKE' or $where_is == 'not LIKE'){
 				$linked_id = $frm_entry_meta->search_entry_metas($orig_where_val, $where_field->field_options['form_select'], $temp_where_is);
@@ -400,14 +407,14 @@ class FrmProAppHelper{
             unset($linked_id);
         }
     
-        $where_statement = "(meta_value ". ($where_field->type == 'number' ? ' +0 ' : '') . $temp_where_is ." ". $where_val ." ";
+        $where_statement = "(meta_value ". ( in_array($where_field->type, array('number', 'scale')) ? ' +0 ' : '') . $temp_where_is ." ". $where_val ." ";
         if(isset($where_val_esc) and $where_val_esc != $where_val)
-            $where_statement .= " OR meta_value ". ($where_field->type == 'number' ? ' +0 ' : '') . $temp_where_is ." ". $where_val_esc;
+            $where_statement .= " OR meta_value ". ( in_array($where_field->type, array('number', 'scale')) ? ' +0 ' : '') . $temp_where_is ." ". $where_val_esc;
         
         $where_statement .= ") and fi.id=". (int)$where_opt;
         $where_statement = apply_filters('frm_where_filter', $where_statement, $args);
- 
-        $new_ids = $frm_entry_meta->getEntryIds($where_statement);
+		
+        $new_ids = $frm_entry_meta->getEntryIds($where_statement, '', '', true, $drafts);
         
         if ($where_is != $temp_where_is)
             $new_ids = array_diff($entry_ids, $new_ids);
@@ -447,9 +454,9 @@ class FrmProAppHelper{
                         }
                     }else if($field_options['post_field'] == 'post_custom' and $field_options['custom_field'] != ''){
                         //check custom fields
-                        $add_posts = $wpdb->get_col("SELECT post_id FROM $wpdb->postmeta WHERE post_id in (". implode(',', array_keys($post_ids)) .") AND meta_key='".$field_options['custom_field']."' AND meta_value ". ($where_field->type == 'number' ? ' +0 ' : ''). $where_is." ".$where_val);
+                        $add_posts = $wpdb->get_col("SELECT post_id FROM $wpdb->postmeta WHERE post_id in (". implode(',', array_keys($post_ids)) .") AND meta_key='".$field_options['custom_field']."' AND meta_value ". ( in_array($where_field->type, array('number', 'scale')) ? ' +0 ' : ''). $where_is." ".$where_val);
                     }else{ //if field is post field
-                        $add_posts = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE ID in (". implode(',', array_keys($post_ids)) .") AND ".$field_options['post_field'] .($where_field->type == 'number' ? ' +0 ' : ' '). $where_is." ".$where_val);
+                        $add_posts = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE ID in (". implode(',', array_keys($post_ids)) .") AND ".$field_options['post_field'] .( in_array($where_field->type, array('number', 'scale')) ? ' +0 ' : ' '). $where_is." ".$where_val);
                     }
                         
                     if($add_posts and !empty($add_posts)){
@@ -571,262 +578,6 @@ class FrmProAppHelper{
         return $uploads;
     }
     
-    public static function import_csv($path, $form_id, $field_ids, $entry_key=0, $start_row=2, $del=','){
-        global $importing_fields, $wpdb;
-        if(!defined('WP_IMPORTING'))
-            define('WP_IMPORTING', true);
-
-        $form_id = (int)$form_id;
-        if(!$form_id)
-            return $start_row;
-         
-        if(!$importing_fields)
-            $importing_fields = array();
-        
-        if( !ini_get('safe_mode') )
-            set_time_limit(0); //Remove time limit to execute this function
-        
-        if ($f = fopen($path, "r")) {
-            unset($path);
-            global $frm_entry, $frmdb, $frm_field;
-            $row = 0;
-            //setlocale(LC_ALL, get_locale());
-            
-            while (($data = fgetcsv($f, 100000, $del)) !== FALSE) {
-                $row++;
-                if($start_row > $row) continue;
-                
-                $values = array('form_id' => $form_id);
-                $values['item_meta'] = array();
-                foreach($field_ids as $key => $field_id){
-                    $data[$key] = (isset($data[$key])) ? $data[$key] : '';
-                    //if($data[$key] == ''){ 
-                    //    error_log($row .' key:'. $key .' $data[$key] empty'); 
-                    //    return $row-1;
-                    //}
-                    
-                    if(is_numeric($field_id)){
-                        if(isset($importing_fields[$field_id])){
-                            $field = $importing_fields[$field_id];
-                        }else{
-                            $field = $frm_field->getOne($field_id);
-                            $importing_fields[$field_id] = $field;
-                        }
-                        
-                        $values['item_meta'][$field_id] = apply_filters('frm_import_val', $data[$key], $field);
-                        
-                        if($field->type == 'user_id'){
-                            $values['item_meta'][$field_id] = trim($values['item_meta'][$field_id]);
-                            if(!is_numeric($values['item_meta'][$field_id])){
-                                if(!isset($user_array)){
-                                    $users = $wpdb->get_results("SELECT ID, user_login, display_name FROM {$wpdb->users} ORDER BY display_name ASC");
-                                    $user_array = array();
-                                    foreach($users as $user){
-                                        $ukey = (!empty($user->display_name)) ? $user->display_name : $user->user_login;
-                                        $user_array[$ukey] = $user->ID;
-                                        if($ukey != $user->user_login)
-                                            $user_array[$user->user_login] = $user->ID;
-                                        unset($ukey);
-                                        unset($user);
-                                    }
-                                    unset($users);
-                                }
-                                 
-                                if(isset($user_array[$values['item_meta'][$field_id]]))
-                                    $values['item_meta'][$field_id] = (int)$user_array[$values['item_meta'][$field_id]];
-                            }
-                                
-                            $values['frm_user_id'] = $values['item_meta'][$field_id];
-                        }else if(($field->type == 'checkbox' or ($field->type == 'select' and isset($field->field_options['multiple']) and $field->field_options['multiple'])) and !empty($values['item_meta'][$field_id])){
-                            if(!in_array($values['item_meta'][$field_id], (array)$field->options)){
-                                $checked = maybe_unserialize($values['item_meta'][$field_id]);
-                                if(!is_array($checked))
-                                    $checked = explode(',', $checked);
-                                    
-                                if($checked and count($checked) > 1)
-                                    $values['item_meta'][$field_id] = array_map('trim', $checked);
-                            }
-                        }else if($field->type == 'data'){
-                            $field->field_options = maybe_unserialize($field->field_options);
-                            if($field->field_options['data_type'] != 'data'){
-                                $new_id = $wpdb->get_var($wpdb->prepare(
-                                    "SELECT item_id FROM $frmdb->entry_metas WHERE field_id=%d and meta_value=%s", 
-                                    $field->field_options['form_select'],
-                                    $values['item_meta'][$field_id]
-                                ));
-                                
-                                if($new_id and is_numeric($new_id))
-                                    $values['item_meta'][$field_id] = $new_id;
-                                unset($new_id);
-                            }
-                        }else if($field->type == 'file'){
-                            if(!is_array($values['item_meta'][$field_id]))
-                                $values['item_meta'][$field_id] = explode(',', $values['item_meta'][$field_id]);
-                            
-                            foreach((array)$values['item_meta'][$field_id] as $pos => $m){
-                                $m = trim($m);
-                                if(empty($m))
-                                    continue;
-                                
-                                if(!is_numeric($m)){
-                                    //get the ID from the URL if on this site
-                                    $m = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE guid='%s';", $m ));
-                                }
-                                
-                                if(!is_numeric($m))
-                                    unset($values['item_meta'][$field_id][$pos]);
-                                else
-                                    $values['item_meta'][$field_id][$pos] = $m;
-                                
-                                unset($pos);
-                                unset($m);
-                            }
-                            
-                        }else if($field->type == 'date'){
-                            if(!empty($values['item_meta'][$field_id]))
-                                $values['item_meta'][$field_id] = date('Y-m-d', strtotime($values['item_meta'][$field_id]));
-                        }
-                        
-                        if(isset($_POST['item_meta'][$field_id]) and ($field->type == 'checkbox' or ($field->type == 'data' and $field->field_options['data_type'] != 'checkbox'))){
-                            if(empty($values['item_meta'][$field_id])){
-                                $values['item_meta'][$field_id] = $_POST['item_meta'][$field_id];
-                            }else if(!empty($_POST['item_meta'][$field_id])){
-                                $values['item_meta'][$field_id] = array_merge((array)$_POST['item_meta'][$field_id], (array)$values['item_meta'][$field_id]);
-                            }
-                        }
-                        
-                        $_POST['item_meta'][$field_id] = $values['item_meta'][$field_id];
-                        
-                        global $frmpro_entry_meta;
-                        $frmpro_entry_meta->set_post_fields($field, $values['item_meta'][$field_id]);
-                        unset($field);    
-                    }else if(is_array($field_id)){
-                        $field_type = isset($field_id['type']) ? $field_id['type'] : false;
-                        $linked = isset($field_id['linked']) ? $field_id['linked'] : false;
-                        $field_id = $field_id['field_id'];
-
-                        if($field_type == 'data'){
-                            if($linked){
-                                $entry_id = $frmdb->get_var($frmdb->entry_metas, array('meta_value' => $data[$key], 'field_id' => $linked), 'item_id');
-                            }else{
-                                //get entry id of entry with item_key == $data[$key]
-                                $entry_id = $frmdb->get_var($frmdb->entries, array('item_key' => $data[$key]));
-                            }
-
-                            if($entry_id)
-                                $values['item_meta'][$field_id] = $entry_id;
-                        }
-                        unset($field_type);
-                        unset($linked);
-                    }else{
-                        $values[$field_id] = $data[$key];
-                    }
-                    
-               }
-               
-               if(!isset($values['item_key']) or empty($values['item_key']))
-                   $values['item_key'] = $data[$entry_key];
-                   
-               if(isset($values['created_at']) or isset($values['updated_at'])){
-                   $offset = get_option('gmt_offset') *60*60;
-                   if(isset($values['created_at']))
-                       $values['created_at'] = date('Y-m-d H:i:s', (strtotime($values['created_at']) + $offset));
-                   
-                   if(isset($values['updated_at']))
-                       $values['updated_at'] = date('Y-m-d H:i:s', (strtotime($values['updated_at']) + $offset));
-               }
-               
-               if(isset($values['user_id']) or isset($values['updated_by'])){
-                   if(!isset($user_array)){
-                       $users = $wpdb->get_results("SELECT ID, user_login, display_name FROM {$wpdb->users} ORDER BY display_name ASC");
-                       $user_array = array();
-                       foreach($users as $user){
-                           $ukey = (!empty($user->display_name)) ? $user->display_name : $user->user_login;
-                           $user_array[$ukey] = $user->ID;
-                           if($ukey != $user->user_login)
-                               $user_array[$user->user_login] = $user->ID;
-                           unset($ukey);
-                           unset($user);
-                       }
-                       unset($users);
-                   }
-                   
-                   if(isset($values['user_id']) and isset($user_array[$values['user_id']]))
-                       $values['user_id'] = (int)$user_array[$values['user_id']];
-                   
-                   if(isset($values['updated_by']) and isset($user_array[$values['updated_by']]))
-                       $values['updated_by'] = (int)$user_array[$values['updated_by']];
-               }
-
-               $created = $frm_entry->create($values);
-               unset($_POST);
-               unset($values);
-               unset($created);
-               
-               if(($row - $start_row) >= 250){ //change max rows here
-                   fclose($f);
-                   return $row;
-               }
-           }
-           fclose($f);
-           return $row;
-        }
-    }
-    
-    
-    public static function csvstring_to_array(&$string, $csv_del=',', $CSV_ENCLOSURE='"', $CSV_LINEBREAK="\n") {
-        $o = array();
-
-        $cnt = strlen($string);
-        $esc = $escesc = false;
-        $num = $i = 0;
-        while ($i < $cnt){
-            $s = $string[$i];
-
-            if ($s == $CSV_LINEBREAK){
-                if ($esc){
-                    $o[$num] .= $s;
-                }else{
-                    $i++;
-                    break;
-                }
-            }else if ($s == $csv_del){
-                if ($esc){
-                    $o[$num] .= $s;
-                }else{
-                    $num++;
-                    $esc = $escesc = false;
-                }
-            }else if ($s == $CSV_ENCLOSURE){
-                if ($escesc){
-                    $o[$num] .= $CSV_ENCLOSURE;
-                    $escesc = false;
-                }
-
-                if ($esc){
-                    $esc = false;
-                    $escesc = true;
-                }else{
-                    $esc = true;
-                    $escesc = false;
-                }
-            }else{
-                if ($escesc){
-                    $o[$num] .= $CSV_ENCLOSURE;
-                    $escesc = false;
-                }
-
-                $o[$num] .= $s;
-            }
-
-            $i++;
-        }
-
-        //  $string = substr($string, $i);
-
-        return $o;
-    }
-    
     public static function get_rand($length){
         $all_g = "ABCDEFGHIJKLMNOPQRSTWXZ";
         $pass = "";
@@ -844,5 +595,11 @@ class FrmProAppHelper{
             if(is_array($v)) return true;
         }
         return false;
+    }
+    
+    public static function import_csv($path, $form_id, $field_ids, $entry_key=0, $start_row=2, $del=',', $max=250) {
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProXMLHelper::import_csv()' );
+        include_once(FrmAppHelper::plugin_path() .'/pro/classes/helpers/FrmProXMLHelper.php');
+        return FrmProXMLHelper::import_csv($path, $form_id, $field_ids, $entry_key, $start_row, $del, $max);
     }
 }

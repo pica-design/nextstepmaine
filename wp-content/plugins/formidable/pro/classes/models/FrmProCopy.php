@@ -3,7 +3,7 @@
 class FrmProCopy{
     var $table_name;
 
-    function FrmProCopy(){
+    function __construct(){
         global $wpmuBaseTablePrefix, $wpdb;
         $prefix = ($wpmuBaseTablePrefix) ? $wpmuBaseTablePrefix : $wpdb->base_prefix;
         $this->table_name = "{$prefix}frmpro_copies";
@@ -127,7 +127,7 @@ class FrmProCopy{
     }
     
     function uninstall(){
-        if(!is_super_admin()){
+        if ( !current_user_can('administrator') ) {
             global $frm_settings;
             wp_die($frm_settings->admin_permission);
         }

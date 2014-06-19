@@ -12,7 +12,7 @@
             if($record->post_id){ ?>
             <a href="<?php echo get_permalink($record->post_id) ?>" class="button-secondary alignright" style="margin-left:10px"><?php _e('View Post', 'formidable') ?></a>
             <?php } ?>
-            <a href="?page=formidable-entries&amp;frm_action=show&amp;id=<?php echo $record->id; ?>" class="button-secondary alignright"><?php _e('View') ?></a>
+            <a href="?page=formidable-entries&amp;frm_action=show&amp;id=<?php echo $record->id; ?>" class="button-secondary alignright"><?php _e('View', 'formidable') ?></a>
             <a href="?page=formidable-entries&amp;frm_action=duplicate&amp;form=<?php echo $form->id ?>&amp;id=<?php echo $record->id; ?>" class="button-secondary alignright" style="margin-right:10px"><?php _e('Duplicate', 'formidable') ?></a>
             <div class="clear"></div>
 
@@ -31,11 +31,7 @@
     	    <?php } ?>
     	    </div>
     	    <div id="publishing-action">
-    	    <?php if(function_exists('submit_button')){
-    	        submit_button($submit, 'primary', 'submit', false);
-    	        }else{ ?>
-            <input type="submit" value="<?php echo esc_attr($submit) ?>" class="button-primary" />
-            <?php } ?>
+    	    <?php submit_button($submit, 'primary', 'submit', false); ?>
             </div>
             <div class="clear"></div>
         </div>

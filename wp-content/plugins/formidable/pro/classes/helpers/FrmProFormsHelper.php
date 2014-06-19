@@ -1,15 +1,12 @@
 <?php
 
 class FrmProFormsHelper{
-    function FrmProFormsHelper(){
-        add_filter('frm_setup_new_form_vars', array(&$this, 'setup_new_vars'));
-        add_filter('frm_setup_edit_form_vars', array(&$this, 'setup_edit_vars'));
-    }
     
     public static function setup_new_vars($values){
         
-        foreach (FrmProFormsHelper::get_default_opts() as $var => $default)
+        foreach ( self::get_default_opts() as $var => $default ) {
             $values[$var] = FrmAppHelper::get_param($var, $default);
+        }
         return $values;
     }
     
@@ -39,17 +36,19 @@ class FrmProFormsHelper{
                         unset($v);
                     }
                     
-                    $values[$opt][$key]['also_email_to'] = (array)$values[$opt][$key]['also_email_to'];
-                    foreach((array)$values[$opt][$key]['also_email_to'] as $e){
-                        if(is_numeric($e)){
-                            $values[$opt][$key]['email_to'] .= ', ['. $e .']';
-                        }else if(preg_match('/|/', $e)){
-                            $email_fields = explode('|', $e);
-                            if(!empty($email_fields[0]))
-                                $values[$opt][$key]['email_to'] .= ', ['. $email_fields[0] .' show='. $email_fields[1] .']';
-                            unset($email_fields);
+                    if ( isset($values[$opt][$key]['also_email_to']) ) {
+                        $values[$opt][$key]['also_email_to'] = (array)$values[$opt][$key]['also_email_to'];
+                        foreach((array)$values[$opt][$key]['also_email_to'] as $e){
+                            if(is_numeric($e)){
+                                $values[$opt][$key]['email_to'] .= ', ['. $e .']';
+                            }else if(preg_match('/|/', $e)){
+                                $email_fields = explode('|', $e);
+                                if(!empty($email_fields[0]))
+                                    $values[$opt][$key]['email_to'] .= ', ['. $email_fields[0] .' show='. $email_fields[1] .']';
+                                unset($email_fields);
+                            }
+                            unset($e);
                         }
-                        unset($e);
                     }
                     
                     unset($key);
@@ -102,7 +101,8 @@ class FrmProFormsHelper{
         global $frmpro_settings;
         
         return array(
-            'edit_value' => $frmpro_settings->update_value, 'edit_msg' => $frmpro_settings->edit_msg, 
+            'edit_value' => $frmpro_settings->update_value, 'edit_msg' => $frmpro_settings->edit_msg,
+            'edit_action' => 'message', 'edit_url' => '', 'edit_page_id' => 0,
             'logged_in' => 0, 'logged_in_role' => '', 'editable' => 0, 'save_draft' => 0,
             'draft_msg' => __('Your draft has been saved.', 'formidable'),
             'editable_role' => '', 'open_editable_role' => '-1', 
@@ -130,7 +130,7 @@ class FrmProFormsHelper{
         return array(
             'email_to' => $frm_settings->email_to, 'reply_to' => '', 'reply_to_name' => '',
             'cust_reply_to' => '', 'cust_reply_to_name' => '',
-            'plain_text' => 0, 'also_email_to' => array(), 'update_email' => 0,
+            'plain_text' => 0, 'update_email' => 0,
             'email_subject' => '', 'email_message' => '[default-message]', 
             'inc_user_info' => 0, //'ar' => 0,
             'conditions' => array('send_stop' => '', 'any_all' => '')
@@ -163,6 +163,7 @@ class FrmProFormsHelper{
         return $html;
     }
     
+    // check if this entry is currently being saved as a draft
     public static function saving_draft($form_id){
         $saving = ($_POST and isset($_POST['frm_saving_draft']) and $_POST['frm_saving_draft'] == '1' and is_user_logged_in()) ? true : false;
         return $saving;
@@ -183,18 +184,37 @@ class FrmProFormsHelper{
         return $html;
     }
     
-    public static function get_template_values($opt, $val, $key){
-        if(is_array($val)){ ?>
-$values['options']<?php echo $key ?> = array();
-<?php       foreach($val as $opt1 => $val1){
-                $new_key = $key ."['{$opt1}']";
-                self::get_template_values($opt1, $val1, $new_key);
-                unset($opt1);
-                unset($val2);
+    public static function has_field($type, $form_id, $single = true) {
+        global $wpdb;
+        
+        $frm_field = new FrmField();
+        
+        if ( $single ) {
+            $included = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}frm_fields WHERE form_id=%d AND type=%s", $form_id, $type));
+            if ( $included ) {
+                $included = $frm_field->getOne($included);
             }
-        }else{ ?>
-$values['options']<?php echo $key ?> = '<?php echo addslashes($val); ?>';
-<?php
+        } else {
+            $included = $frm_field->getAll( array('type' => $type, 'fi.form_id' => $form_id) );
         }
+        
+        return $included;
     }
+    
+    public static function &post_type($form) {
+        if ( is_numeric($form) ) {
+            $frm_form = new FrmForm();
+            $form = $frm_form->getOne($form);
+        }
+        
+        if ( is_object($form) ) {
+            $type = isset($form->options['post_type']) ? $form->options['post_type'] : 'post';
+        } else {
+            $form = (array) $form;
+            $type = isset($form['post_type']) ? $form['post_type'] : 'post';
+        }
+        
+        return $type;
+    }
+
 }

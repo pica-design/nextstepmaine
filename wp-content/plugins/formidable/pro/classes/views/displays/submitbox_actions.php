@@ -1,5 +1,5 @@
 <div class="misc-pub-section">
-	<span id="frm_shortcode"><span class="frm-buttons-icon wp-media-buttons-icon"></span> <?php _e('View') ?> <strong><?php _e('Shortcodes', 'formidable') ?></strong></span>
+	<span id="frm_shortcode"><span class="frm-buttons-icon wp-media-buttons-icon"></span> <?php _e('View', 'formidable') ?> <strong><?php _e('Shortcodes', 'formidable') ?></strong></span>
     <a href="#edit_frm_shortcode" class="edit-frm_shortcode hide-if-no-js" tabindex='4'><?php _e('Show', 'formidable') ?></a>
     <div id="frm_shortcodediv" class="hide-if-js">
         <p class="howto"><?php _e('Insert on a page, post, or text widget', 'formidable') ?>:</p>

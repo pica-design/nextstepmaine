@@ -16,7 +16,7 @@ if(in_array($display['type'], array('radio', 'checkbox', 'select')) and (!isset(
 <?php 
 }
 
-if(in_array($field['type'], array('radio', 'checkbox', 'select', 'scale', 'user_id', 'data'))){ ?>
+if ( in_array($field['type'], array('radio', 'checkbox', 'select', 'scale', 'user_id', 'data', 'file')) ) { ?>
 <tr><td><?php _e('Dynamic Default Value', 'formidable'); ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('If your radio, checkbox, dropdown, or user ID field needs a dynamic default value like [get param=whatever], insert it in the field options. If using a GET or POST value, it must match one of the options in the field in order for that option to be selected. Data from entries fields require the ID of the linked entry.', 'formidable') ?>" ></span></td>
     <td><input type="text" name="field_options[dyn_default_value_<?php echo $field['id'] ?>]" id="dyn_default_value_<?php echo $field['id'] ?>" value="<?php echo esc_attr($field['dyn_default_value']) ?>" class="dyn_default_value frm_long_input" /></td>
 </tr>
@@ -26,12 +26,16 @@ if(in_array($field['type'], array('radio', 'checkbox', 'select', 'scale', 'user_
 if ($field['type'] == 'data'){
         global $frm_field;
         $frm_form = new FrmForm();
-        $form_list = $frm_form->getAll("(status is NULL OR status = '' OR status = 'published') and is_template=0", ' ORDER BY name');
+        $form_list = $frm_form->getAll(array('status' => 'published', 'is_template' => 0), 'name');
         $selected_field = '';
         $current_field_id = $field['id'];
         if (isset($field['form_select']) && is_numeric($field['form_select'])){
             $selected_field = $frm_field->getOne($field['form_select']);
-            $fields = $frm_field->getAll(array('fi.form_id' => $selected_field->form_id));
+            if ( $selected_field ) {
+                $fields = $frm_field->getAll(array('fi.form_id' => $selected_field->form_id));
+            } else {
+                $selected_field = '';
+            }
         }else if(isset($field['form_select'])){
             $selected_field = $field['form_select'];
         }
@@ -40,7 +44,7 @@ if ($field['type'] == 'data'){
 }
 
 if ($display['type'] == 'select' or $field['type'] == 'data'){ ?>
-<tr id="frm_multiple_cont_<?php echo $field['id'] ?>" <?php echo ($field['type'] == 'data' and (!isset($field['data_type']) or $field['data_type'] != 'select')) ? ' style="display:none;"' : ''; ?>>
+<tr id="frm_multiple_cont_<?php echo $field['id'] ?>" <?php echo ($field['type'] == 'data' and (!isset($field['data_type']) or $field['data_type'] != 'select')) ? ' class="frm_hidden"' : ''; ?>>
     <td><?php _e('Multiple select', 'formidable') ?></label></td>
     <td><label for="multiple_<?php echo $field['id'] ?>"><input type="checkbox" name="field_options[multiple_<?php echo $field['id'] ?>]" id="multiple_<?php echo $field['id'] ?>" value="1" <?php echo (isset($field['multiple']) and $field['multiple'])? 'checked="checked"':''; ?> />
     <?php _e('enable multiselect', 'formidable') ?></label>
@@ -66,7 +70,8 @@ if ($display['type'] == 'select' or $field['type'] == 'data'){ ?>
     </select>
     </td>
     </tr>
-<tr><td><label><?php _e('Year Range', 'formidable') ?></label></td>   
+<tr><td><label><?php _e('Year Range', 'formidable') ?></label> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('Use four digit years or +/- years to make it dynamic. For example, use -5 for the start year and +5 for the end year.', 'formidable') ?>" ></span>
+    </td>   
     <td>
     <span><?php _e('Start Year', 'formidable') ?></span>
     <input type="text" name="field_options[start_year_<?php echo $field['id'] ?>]" value="<?php echo isset($field['start_year']) ? $field['start_year'] : ''; ?>" size="4"/>
@@ -106,21 +111,25 @@ if ($display['type'] == 'select' or $field['type'] == 'data'){ ?>
         <td>
             <label for="restrict_<?php echo $field['id'] ?>_0"><input type="radio" name="field_options[restrict_<?php echo $field['id'] ?>]" id="restrict_<?php echo $field['id'] ?>_0" value="0" <?php FrmAppHelper::checked($field['restrict'], 0); ?> onclick="frm_show_div('restrict_box_<?php echo $field['id'] ?>',this.value,1,'.')" /> <?php _e('All types', 'formidable') ?></label>
             <label for="restrict_<?php echo $field['id'] ?>_1"><input type="radio" name="field_options[restrict_<?php echo $field['id'] ?>]" id="restrict_<?php echo $field['id'] ?>_1" value="1" <?php FrmAppHelper::checked($field['restrict'], 1); ?> onclick="frm_show_div('restrict_box_<?php echo $field['id'] ?>',this.value,1,'.')" /> <?php _e('Specify allowed types', 'formidable') ?></label>
-            <label for="check_all_ftypes_<?php echo $field['id'] ?>" class="restrict_box_<?php echo $field['id'] ?>" <?php echo ($field['restrict'] == 1) ? '' : 'style="display:none"'; ?>><input type="checkbox" id="check_all_ftypes_<?php echo $field['id'] ?>" onclick="frmCheckAll(this.checked,'field_options[ftypes_<?php echo $field['id'] ?>]')" /> <span class="howto"><?php _e('Check All', 'formidable') ?></span></label>
+            <label for="check_all_ftypes_<?php echo $field['id'] ?>" class="restrict_box_<?php echo $field['id'] ?> <?php echo ($field['restrict'] == 1) ? '' : 'frm_hidden'; ?>"><input type="checkbox" id="check_all_ftypes_<?php echo $field['id'] ?>" onclick="frmCheckAll(this.checked,'field_options[ftypes_<?php echo $field['id'] ?>]')" /> <span class="howto"><?php _e('Check All', 'formidable') ?></span></label>
             
-            <div class="restrict_box_<?php echo $field['id'] ?>" <?php echo ($field['restrict'] == 1) ? '' : 'style="display:none"'; ?>>
+            <div class="restrict_box_<?php echo $field['id'] . ($field['restrict'] == 1 ? '' : ' frm_hidden'); ?>">
             <div class="frm_field_opts_list" style="width:100%;">
                 <div class="alignleft" style="width:33% !important">
                     <?php 
                     $mcount = count($mimes);
                     $third = ceil($mcount/3);
                     $c = 0;
+                    if ( !isset($field['ftypes']) ) {
+                        $field['ftypes'] = array();
+                    }
+                    
                     foreach($mimes as $ext_preg => $mime){ 
                         if($c == $third or (($c/2) == $third)){ ?>
                     </div>
                     <div class="alignleft" style="width:33% !important">
                     <?php } ?>
-                    <label for="ftypes_<?php echo $field['id'] ?>_<?php echo $ext_preg ?>"><input type="checkbox" id="ftypes_<?php echo $field['id'] ?>_<?php echo $ext_preg ?>" name="field_options[ftypes_<?php echo $field['id'] ?>][<?php echo $ext_preg ?>]" value="<?php echo $mime ?>" <?php if(isset($field['ftypes']) and !empty($field['ftypes'])) FrmAppHelper::checked($field['ftypes'], $mime); ?> /> <span class="howto"><?php echo str_replace('|', ', ', $ext_preg); ?></span></label><br/>
+                    <label for="ftypes_<?php echo $field['id'] ?>_<?php echo sanitize_key($ext_preg) ?>"><input type="checkbox" id="ftypes_<?php echo $field['id'] ?>_<?php echo sanitize_key($ext_preg) ?>" name="field_options[ftypes_<?php echo $field['id'] ?>][<?php echo $ext_preg ?>]" value="<?php echo $mime ?>" <?php FrmAppHelper::checked($field['ftypes'], $mime); ?> /> <span class="howto"><?php echo str_replace('|', ', ', $ext_preg); ?></span></label><br/>
                     <?php 
                         $c++;
                         unset($ext_preg);
@@ -164,7 +173,7 @@ if ($display['type'] == 'select' or $field['type'] == 'data'){ ?>
             <?php _e('Show options as stars', 'formidable') ?>
         </td>
     </tr>
-<?php }else if($field['type'] == 'rte' and function_exists('wp_editor')){ ?>
+<?php } else if ( $field['type'] == 'rte' ) { ?>
 <tr><td><?php _e('Rich Text Editor', 'formidable') ?></td>
 <td>
     <select name="field_options[rte_<?php echo $field['id'] ?>]">
@@ -234,7 +243,7 @@ if(in_array($field['type'], array('text', 'number', 'textarea', 'hidden'))){ ?>
 <tr><td><?php _e('Calculations', 'formidable') ?></td>
     <td><label for="use_calc_<?php echo $field['id'] ?>"><input type="checkbox" value="1" name="field_options[use_calc_<?php echo $field['id'] ?>]" <?php checked($field['use_calc'], 1) ?> class="use_calc" id="use_calc_<?php echo $field['id'] ?>" onchange="frm_show_div('frm_calc_opts<?php echo $field['id'] ?>',this.checked,true,'#')" /> 
         <?php _e('Calculate the default value for this field', 'formidable') ?></label>
-        <div id="frm_calc_opts<?php echo $field['id'] ?>" <?php if(!$field['use_calc']) echo 'style="display:none"'; ?>>
+        <div id="frm_calc_opts<?php echo $field['id'] ?>" <?php if(!$field['use_calc']) echo 'class="frm_hidden"'; ?>>
             <select class="frm_shortcode_select frm_insert_val" data-target="frm_calc_<?php echo $field['id'] ?>">
                 <option value="">&mdash; <?php _e('Select a value to insert into the box below', 'formidable') ?> &mdash;</option>
             </select><br/>
@@ -248,8 +257,8 @@ if(in_array($field['type'], array('text', 'number', 'textarea', 'hidden'))){ ?>
 if (!in_array($field['type'], array('hidden', 'user_id'))){ ?>
 <tr><td><?php _e('Conditional Logic', 'formidable'); ?></td>
     <td>
-    <a class="frm_add_logic_row frm_add_logic_link" id="logic_<?php echo $field['id'] ?>" <?php echo (!empty($field['hide_field']) and (count($field['hide_field']) > 1 or reset($field['hide_field']) != '')) ? ' style="display:none"' : ''; ?>><?php _e('Use Conditional Logic', 'formidable') ?></a>
-    <div class="frm_logic_rows" <?php echo (!empty($field['hide_field']) and (count($field['hide_field']) > 1 or reset($field['hide_field']) != '')) ? '' : ' style="display:none"'; ?>>
+    <a id="logic_<?php echo $field['id'] ?>" class="frm_add_logic_row frm_add_logic_link <?php echo (!empty($field['hide_field']) and (count($field['hide_field']) > 1 or reset($field['hide_field']) != '')) ? ' frm_hidden' : ''; ?>"><?php _e('Use Conditional Logic', 'formidable') ?></a>
+    <div class="frm_logic_rows<?php echo (!empty($field['hide_field']) and (count($field['hide_field']) > 1 or reset($field['hide_field']) != '')) ? '' : ' frm_hidden'; ?>">
         <div id="frm_logic_row_<?php echo $field['id'] ?>">
         <select name="field_options[show_hide_<?php echo $field['id'] ?>]">
             <option value="show" <?php selected($field['show_hide'], 'show') ?>><?php echo ($field['type'] == 'break') ? __('Do not skip', 'formidable') : __('Show', 'formidable'); ?></option>

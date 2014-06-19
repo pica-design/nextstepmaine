@@ -29,7 +29,7 @@ foreach($values['fields'] as $field){
     if (apply_filters('frm_show_normal_field_type', true, $field['type']))
         echo FrmFieldsHelper::replace_shortcodes($field['custom_html'], $field, $errors, $form);
     else
-        do_action('frm_show_other_field_type', $field, $form);
+        do_action('frm_show_other_field_type', $field, $form, array('action' => $form_action));
     
     do_action('frm_get_field_scripts', $field, $form);
 }    
@@ -60,10 +60,9 @@ global $wp_filter;
 if(isset($wp_filter['frm_entries_footer_scripts']) and !empty($wp_filter['frm_entries_footer_scripts'])){ ?>
 <script type="text/javascript">
 <?php do_action('frm_entries_footer_scripts', $values['fields'], $form); ?>
-</script><?php } ?>
+</script><?php }
 
-<?php if (!$form->is_template and $form->status == 'published' and (!is_admin() or defined('DOING_AJAX'))){
+if ( !$form->is_template && $form->status == 'published' && (!is_admin() || defined('DOING_AJAX')) ) {
     unset($values['fields']);
     FrmFormsHelper::get_custom_submit($values['submit_html'], $form, $submit, $form_action, $values);
 }
-?>

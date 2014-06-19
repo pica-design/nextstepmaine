@@ -83,17 +83,16 @@ if($field['type'] == 'phone' and isset($field['format']) and !empty($field['form
     }
 }else if ($field['type'] == 'rte' and is_admin() and !defined('DOING_AJAX')){ ?>
 <div id="<?php echo (user_can_richedit()) ? 'postdivrich' : 'postdiv'; ?>" class="postarea frm_full_rte">
-<?php 
-if(function_exists('wp_editor'))
-    wp_editor(str_replace('&quot;', '"', $field['value']), $field_name, array('dfw' => true) );
-else
-    the_editor(str_replace('&quot;', '"', $field['value']), $field_name, 'title', false); ?>
+<?php
+wp_editor(str_replace('&quot;', '"', $field['value']), 'field_'. $field['field_key'], 
+    array('dfw' => true, 'textarea_name' => $field_name)
+); ?>
 </div>      
 <?php
 
 }else if ($field['type'] == 'rte'){
     
-    if(function_exists('wp_editor') and (!isset($frm_vars['ajax_edit']) or !$frm_vars['ajax_edit']) and isset($field['rte']) and $field['rte'] == 'mce'){
+    if ( (!isset($frm_vars['ajax_edit']) || !$frm_vars['ajax_edit']) && isset($field['rte']) && $field['rte'] == 'mce' ) {
         $e_args = array('media_buttons' => false, 'textarea_name' => $field_name);
         if($field['max'])
             $e_args['textarea_rows'] = $field['max'];
@@ -120,28 +119,44 @@ if(!FrmProFieldsHelper::mobile_check()){
 }
     }
 }else if ($field['type'] == 'file'){
+    
     if(isset($field['read_only']) && $field['read_only'] && (!isset($frm_vars['readonly']) || $frm_vars['readonly'] != 'disabled') ){
-        foreach((array)maybe_unserialize($field['value']) as $media_id){ ?>
+        foreach ( (array) maybe_unserialize($field['value']) as $media_id ) {
+            if ( !is_numeric($media_id) ) {
+                continue;
+            }
+?>
 <input type="hidden" name="<?php echo $field_name; if(isset($field['multiple']) and $field['multiple']) echo '[]'; ?>" value="<?php echo esc_attr($media_id) ?>" />
 <div class="frm_file_icon"><?php echo FrmProFieldsHelper::get_file_icon($media_id); ?></div>
 <?php
         }
     }else if(isset($field['multiple']) and $field['multiple']){
-        foreach((array)maybe_unserialize($field['value']) as $media_id){ 
+		$media_ids = maybe_unserialize($field['value']);
+		if ( !is_array($media_ids) && strpos($media_ids, ',') ) {
+			$media_ids = explode(',', $media_ids);
+		}
+		
+		foreach((array)$media_ids as $media_id){
+			$media_id = trim($media_id);
             if(!is_numeric($media_id))
                 continue;
+            
+            $media_id = (int) $media_id;
 ?>
 <div id="frm_uploaded_<?php echo $media_id ?>" class="frm_uploaded_files">
 <input type="hidden" name="<?php echo $field_name ?>[]" value="<?php echo esc_attr($media_id) ?>" />
 <div class="frm_file_icon"><?php echo FrmProFieldsHelper::get_file_icon($media_id); ?></div>
 <a class="frm_remove_link"><?php _e('Remove', 'formidable') ?></a>
 </div>
-<?php   } 
+<?php
+		unset($media_id);
+	}
+unset($media_ids);
 if(empty($field_value)){ ?>
 <input type="hidden" name="<?php echo $field_name ?>[]" value="" />
 <?php } ?>
-<input type="file" name="file<?php echo $field['id'] ?>[]" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?> onchange="frmNextUpload(jQuery(this),<?php echo $field['id'] ?>)" />
-<?php  
+<input type="file" multiple="multiple" name="file<?php echo $field['id'] ?>[]" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?> onchange="frmNextUpload(jQuery(this),<?php echo $field['id'] ?>)" />
+<?php
     }else{ ?>
 <input type="file" name="file<?php echo $field['id'] ?>" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?> /><br/>
 <input type="hidden" name="<?php echo $field_name ?>" value="<?php echo esc_attr(is_array($field['value']) ? reset($field['value']) : $field['value']) ?>" />

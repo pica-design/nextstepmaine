@@ -7,7 +7,12 @@
 				<div class="widget-title-action"><a class="widget-action"></a></div>
 				<div class="widget-title"><h4><?php _e('General', 'formidable') ?></h4></div>
 			</div>
-			<div class="widget-inside">
+			<div class="widget-inside" style="padding-top:10px;">
+			    <div class="clearfix">
+				<label><input type="checkbox" name="frm_important_style" id="frm_important_style" value="1" <?php checked($frmpro_settings->important_style, 1) ?> />
+					<?php _e('Override theme styling', 'formidable') ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php esc_attr_e('This will add !important to many of the lines in the Formidable styling to make sure it will be used.', 'formidable') ?>" ></span></label>
+				</div>
+				
                 <div class="field-group clearfix">
 					<label><?php _e('Align', 'formidable') ?></label>
 					<select name="frm_form_align" id="frm_form_align">
@@ -170,6 +175,11 @@
 				<div class="field-group clearfix">
 					<label><?php _e('Size', 'formidable') ?></label>
 					<input type="text" name="frm_field_font_size" id="frm_field_font_size" value="<?php echo esc_attr($frmpro_settings->field_font_size) ?>"  size="5" />
+				</div>
+				
+				<div class="field-group clearfix">
+					<label><?php _e('Height', 'formidable') ?></label>
+					<input type="text" name="frm_field_height" id="frm_field_height" value="<?php echo esc_attr($frmpro_settings->field_height) ?>"  size="5" />
 				</div>
 				
 				<div class="field-group clearfix">

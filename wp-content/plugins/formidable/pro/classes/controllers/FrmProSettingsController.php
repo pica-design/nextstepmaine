@@ -1,7 +1,7 @@
 <?php
 
 class FrmProSettingsController{
-    function FrmProSettingsController(){
+    function __construct(){
         add_action('frm_before_settings', 'FrmProSettingsController::license_box', 1);
     }
     
@@ -78,7 +78,7 @@ class FrmProSettingsController{
         global $frmpro_settings;
         $defaults = $frmpro_settings->default_options();
         
-        $exclude = array('custom_css', 'already_submitted', 'template_path', 'rte_off', 'csv_format');
+        $exclude = array('custom_css', 'already_submitted', 'rte_off', 'csv_format');
         foreach($exclude as $e){
             unset($defaults[$e]);
             unset($e);

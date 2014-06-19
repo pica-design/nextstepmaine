@@ -132,8 +132,8 @@
 
         <tr class="frm_hide_post" <?php echo $hide_post ?>>
             <td colspan="2">
-                <h3><?php _e('Taxonomies/Categories', 'formidable') ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php esc_attr_e('Select the field(s) from your form that you would like to populate with your categories, tags, or other taxonomies.', 'formidable');
-?>" ></span></h3>
+                <h4><?php _e('Taxonomies/Categories', 'formidable') ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php esc_attr_e('Select the field(s) from your form that you would like to populate with your categories, tags, or other taxonomies.', 'formidable');
+?>" ></span></h4>
                 <div id="frm_posttax_rows" style="padding-bottom:8px;">
                 <?php 
                 $tax_key = 0;
@@ -147,8 +147,8 @@
                 <p><a class="frm_add_posttax_row button">+ <?php _e('Add') ?></a></p>
 
 
-                <h3 style="margin:1em 0;"><?php _e('Custom Fields', 'formidable') ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php esc_attr_e('To set the featured image, use \'_thumbnail_id\' as the custom field name.', 'formidable');
-?>" ></span></h3>
+                <h4><?php _e('Custom Fields', 'formidable') ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php esc_attr_e('To set the featured image, use \'_thumbnail_id\' as the custom field name.', 'formidable');
+?>" ></span></h4>
 
                 <div id="frm_postmeta_rows">
                 <?php

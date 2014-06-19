@@ -10,32 +10,18 @@
             <fieldset>
             <p><label for="all"><input type="radio" value="all" id="all" <?php checked($post->frm_show_count, 'all') ?> name="show_count" onchange="javascript:frm_show_count(this.value)" /> <?php _e('All Entries &mdash; list all entries in the specified form', 'formidable'); ?>.</label></p>
             <p><label for="one"><input type="radio" value="one" id="one" <?php checked($post->frm_show_count, 'one') ?> name="show_count" onchange="javascript:frm_show_count(this.value)" /> <?php _e('Single Entry &mdash; display one entry', 'formidable'); ?>.</label>
-                <span id="entry_select_container"><br/>
-                    <?php if (is_numeric($post->frm_form_id))
+                <div id="entry_select_container" class="frm_indent_opt <?php echo ($post->frm_show_count == 'one') ? '' : 'frm_hidden'; ?>">
+					<?php if (is_numeric($post->frm_form_id))
                         _e('Select Entry', 'formidable'). ': '. FrmEntriesHelper::entries_dropdown($post->frm_form_id, 'entry_id', $post->frm_entry_id, true, __('The first one depending on the Order specified below', 'formidable'));
                     ?>
-                </span>
+				</div>
             </p>
             <p><label for="dynamic"><input type="radio" value="dynamic" id="dynamic" <?php checked($post->frm_show_count, 'dynamic') ?> name="show_count" onchange="javascript:frm_show_count(this.value)" /> <?php _e('Both (Dynamic) &mdash; list the entries that will link to a single entry page', 'formidable'); ?>.</label></p>
             <p><label for="calendar"><input type="radio" value="calendar" id="calendar" <?php checked($post->frm_show_count, 'calendar') ?> name="show_count" onchange="javascript:frm_show_count(this.value)" /> <?php _e('Calendar &mdash; insert entries into a calendar', 'formidable'); ?>.</label></p>
             </fieldset>
         
-            <div id="date_select_container">
-                <label class="frm_left_label"><?php _e('Date Field', 'formidable'); ?></label>
-                <select id="date_field_id" name="options[date_field_id]">
-                    <option value="created_at" <?php selected($post->frm_date_field_id, 'created_at') ?>><?php _e('Entry creation date', 'formidable') ?></option>
-                    <option value="updated_at" <?php selected($post->frm_date_field_id, 'updated_at') ?>><?php _e('Entry update date', 'formidable') ?></option>
-                    <?php if (is_numeric($post->frm_form_id)) FrmProFieldsHelper::get_field_options($post->frm_form_id, $post->frm_date_field_id, '', "'date'"); ?>
-                </select>
-                <br/>
-                
-                <label class="frm_left_label"><?php _e('End Date or day count', 'formidable'); ?></label>
-                <select id="date_field_id" name="options[edate_field_id]">
-                    <option value=""><?php _e('No multi-day events', 'formidable') ?></option>
-                    <option value="created_at" <?php selected($post->frm_edate_field_id, 'created_at') ?>><?php _e('Entry creation date', 'formidable') ?></option>
-                    <option value="updated_at" <?php selected($post->frm_edate_field_id, 'updated_at') ?>><?php _e('Entry update date', 'formidable') ?></option>
-                    <?php if (is_numeric($post->frm_form_id)) FrmProFieldsHelper::get_field_options($post->frm_form_id, $post->frm_edate_field_id, '', "'date','number'"); ?>
-                </select>
+            <div id="date_select_container" class="frm_indent_opt <?php echo ($post->frm_show_count == 'calendar') ? '' : 'frm_hidden'; ?>">
+                <?php include(FrmAppHelper::plugin_path() .'/pro/classes/views/displays/_calendar_options.php'); ?>
             </div>
         </td>
     </tr>

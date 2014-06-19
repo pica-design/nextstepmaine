@@ -73,7 +73,8 @@ global $frmpro_settings; ?>
     _e('This data is dynamic on change', 'formidable');
         } 
     }else if ($field['type'] == 'file'){ ?>
-    <input type="file" name="<?php echo $field_name ?>" <?php echo (isset($field['size']) and $field['size']) ? 'style="width:auto" size="'. $field['size'] .'"' : ''; ?> />
+    <input type="file"  disabled="disabled" <?php echo (isset($field['size']) and $field['size']) ? 'style="width:auto" size="'. $field['size'] .'"' : ''; ?> />
+    <input type="hidden" name="<?php echo $field_name ?>" />
 <?php }else if($field['type'] == 'form'){
     echo "FORM";
 } ?>

@@ -1,3 +1,15 @@
+<p><label class="frm_left_label"><?php _e('Edit Message', 'formidable'); ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('The default message seen when after an entry is updated.', 'formidable') ?>" ></span></label>
+    <input type="text" id="frm_edit_msg" name="frm_edit_msg" class="frm_with_left_label" value="<?php echo esc_attr($frmpro_settings->edit_msg) ?>" />
+</p>
+
+<p><label class="frm_left_label"><?php _e('Update Button', 'formidable'); ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('The label on the submit button when editing and entry.', 'formidable') ?>" ></span></label>
+    <input type="text" id="frm_update_value" name="frm_update_value" class="frm_with_left_label" value="<?php echo esc_attr($frmpro_settings->update_value) ?>" />
+</p>
+
+
+<p><label class="frm_left_label"><?php _e('Login Message', 'formidable'); ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('The message seen when a user who is not logged-in views a form only logged-in users can submit.', 'formidable') ?>" ></span></label>
+    <input type="text" id="frm_login_msg" name="frm_login_msg" class="frm_with_left_label" value="<?php echo esc_attr($frm_settings->login_msg) ?>" /></p>
+
 <p><label class="frm_left_label"><?php _e('Previously Submitted Message', 'formidable'); ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('The message seen when a user attempts to submit a form for a second time if submissions are limited.', 'formidable') ?>" ></span></label>
         <input type="text" id="frm_already_submitted" name="frm_already_submitted" class="frm_with_left_label" value="<?php echo esc_attr($frmpro_settings->already_submitted) ?>" />
 </p>
@@ -18,20 +30,6 @@
         <?php _e('Turn off the visual editor when building views.', 'formidable'); ?></label>
     </p>
 -->
-<p><label class="frm_left_label"><?php _e('Path to Extra Templates', 'formidable') ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php printf(__('If you would like to use any extra templates that are not included in Formidable, define the absolute path here. For example, the absolute path to the Formidable template folder is %1$s.', 'formidable'), FrmAppHelper::plugin_path().'/classes/templates') ?>" ></span></label>
-        <input type="text" value="<?php echo esc_attr($frmpro_settings->template_path) ?>" id="frm_template_path" name="frm_template_path" size="70" />
-        <?php if($frmpro_settings->template_path != ''){ 
-            if(!path_is_absolute($frmpro_settings->template_path)){
-                _e('The format of that path is incorrect. Please try again.', 'formidable');
-            }else{ ?>
-        <a href="javascript:frm_import_templates('frm_import_now')" id="frm_import_now" title="<?php _e('Update Imported Templates Now', 'formidable') ?>"><?php _e('Update Imported Templates Now', 'formidable') ?></a>
-        <?php } 
-            }
-        ?>
-    <br/>
-        <label class="frm_left_label">&nbsp;</label>
-        <span class="description"><?php _e('Example', 'formidable') ?>: <?php echo FrmAppHelper::plugin_path().'/classes/templates' ?></span>
-</p>
 
 <p><label class="frm_left_label"><?php _e('Date Format', 'formidable'); ?> <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('Change the format of the date used in the date field.', 'formidable') ?>" ></span></label>
         <?php $formats = array('m/d/Y', 'd/m/Y', 'd.m.Y', 'j-m-Y', 'j/m/y', 'Y/m/d', 'Y-m-d'); ?>

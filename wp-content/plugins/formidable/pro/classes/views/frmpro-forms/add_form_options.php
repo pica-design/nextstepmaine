@@ -4,7 +4,7 @@
 
 <tr>
 <td colspan="2"><label for="save_draft"><input type="checkbox" name="options[save_draft]" id="save_draft" value="1"<?php echo ($values['save_draft']) ? ' checked="checked"' : ''; ?> /> <?php _e('Allow logged-in users to save drafts', 'formidable') ?></label>
-    <div class="hide_save_draft frm_indent_opt" <?php echo $values['save_draft'] ? '' : 'style="display:none;"'; ?>>
+    <div class="hide_save_draft frm_indent_opt<?php echo $values['save_draft'] ? '' : ' frm_hidden'; ?>">
         <p><label for="draft_msg"><?php _e('Saved Draft Message', 'formidable') ?></label><br/>
         <textarea name="options[draft_msg]" id="draft_msg" cols="50" rows="2" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea($values['draft_msg']); ?></textarea></p>
 <!--
@@ -40,7 +40,7 @@
         <option value="cookie" <?php selected($values['single_entry_type'], 'cookie') ?>><?php _e('Saved Cookie', 'formidable') ?></option>
     </select>
     
-    <p id="frm_cookie_expiration" class="frm_indent_opt" <?php echo ($values['single_entry'] and $values['single_entry_type'] == 'cookie') ? '' : 'style="display:none;"' ?>>
+    <p id="frm_cookie_expiration" class="frm_indent_opt <?php echo ($values['single_entry'] && $values['single_entry_type'] == 'cookie') ? '' : 'frm_hidden' ?>">
         <label><?php _e('Cookie Expiration', 'formidable') ?></label>
         <input type="text" name="options[cookie_expiration]" value="<?php echo esc_attr($values['cookie_expiration']) ?>"/> <span class="howto"><?php _e('hours', 'formidable') ?></span>
     </p>
@@ -80,9 +80,27 @@
 
     <p><label><?php _e('Update Button Text', 'formidable') ?></label>
         <input type="text" name="options[edit_value]" value="<?php echo esc_attr($values['edit_value']); ?>" /></p>
+    
+        <p><label><?php _e('Action After Edit', 'formidable') ?></label></p>
 
-    <p><label for="edit_msg"><?php _e('Update Confirmation Message', 'formidable') ?></label><br/>
-        <textarea name="options[edit_msg]" id="edit_msg" cols="50" rows="2" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea($values['edit_msg']); ?></textarea></p>
+        <label for="edit_action_message"><input type="radio" name="options[edit_action]" id="edit_action_message" value="message" <?php checked($values['edit_action'], 'message') ?> /> <?php _e('Display a Message', 'formidable') ?> </label>
+        
+        <label for="edit_action_page"><input type="radio" name="options[edit_action]" id="edit_action_page" value="page" <?php checked($values['edit_action'], 'page') ?> /> <?php _e('Display content from another page', 'formidable') ?> </label>
+        
+        <label for="edit_action_redirect"><input type="radio" name="options[edit_action]" id="edit_action_redirect" value="redirect" <?php checked($values['edit_action'], 'redirect') ?> /> <?php _e('Redirect to URL', 'formidable') ?> </label>
+                
+        <p class="frm_indent_opt edit_action_redirect_box edit_action_box" <?php echo ($values['edit_action'] == 'redirect') ? '' : 'style="display:none;"'; ?>>
+            <input type="text" name="options[edit_url]" id="edit_url" value="<?php if (isset($values['edit_url'])) echo esc_attr($values['edit_url']); ?>" style="width:98%" placeholder="http://example.com" />
+        </p>
+        
+        <div class="frm_indent_opt edit_action_message_box edit_action_box" <?php echo ($values['edit_action'] == 'message') ? '' : 'style="display:none;"'; ?>>
+            <p><textarea name="options[edit_msg]" id="edit_msg" cols="50" rows="2" class="frm_long_input"><?php echo FrmAppHelper::esc_textarea($values['edit_msg']); ?></textarea></p>
+        </div>
+                
+        <p class="frm_indent_opt edit_action_page_box edit_action_box" <?php echo ($values['edit_action'] == 'page') ? '' : 'style="display:none;"'; ?>>
+            <label><?php _e('Use Content from Page', 'formidable') ?></label>
+            <?php FrmAppHelper::wp_pages_dropdown( 'options[edit_page_id]', $values['edit_page_id'] ) ?>
+        </p>
 </div>
 </td>
 </tr>

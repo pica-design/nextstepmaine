@@ -20,32 +20,15 @@ require($frm_path .'/pro/classes/models/FrmProSettings.php');
 
 global $frmpro_settings;
 
-$frmpro_settings = get_transient('frmpro_options');
-if(!is_object($frmpro_settings)){
-    if($frmpro_settings){ //workaround for W3 total cache conflict
-        $frmpro_settings = unserialize(serialize($frmpro_settings));
-    }else{
-        $frmpro_settings = get_option('frmpro_options');
-
-        // If unserializing didn't work
-        if(!is_object($frmpro_settings)){
-            if($frmpro_settings) //workaround for W3 total cache conflict
-                $frmpro_settings = unserialize(serialize($frmpro_settings));
-            else
-                $frmpro_settings = new FrmProSettings();
-            update_option('frmpro_options', $frmpro_settings);
-            set_transient('frmpro_options', $frmpro_settings);
-        }
-    }
-}
 $frmpro_settings = get_option('frmpro_options');
 
 // If unserializing didn't work
-if(!is_object($frmpro_settings)){
-    if($frmpro_settings) //workaround for W3 total cache conflict
+if ( !is_object($frmpro_settings) ) {
+    if ( $frmpro_settings ) { //workaround for W3 total cache conflict
         $frmpro_settings = unserialize(serialize($frmpro_settings));
-    else
+    } else {
         $frmpro_settings = new FrmProSettings();
+    }
     update_option('frmpro_options', $frmpro_settings);
 }
 
@@ -70,17 +53,8 @@ require($frm_path .'/pro/classes/models/FrmProForm.php');
 require($frm_path .'/pro/classes/models/FrmProNotification.php');
 
 global $frmpro_display;
-global $frmpro_entry;
-global $frmpro_entry_meta;
-global $frmpro_field;
-global $frmpro_form;
+$frmpro_display = new FrmProDisplay();
 
-$obj = new FrmProDb();
-$frmpro_display     = new FrmProDisplay();
-$frmpro_entry       = new FrmProEntry();
-$frmpro_entry_meta  = new FrmProEntryMeta();
-$frmpro_field       = new FrmProField();
-$frmpro_form        = new FrmProForm();
 $obj = new FrmProNotification();
 
 // Instansiate Controllers
@@ -92,29 +66,31 @@ require($frm_path .'/pro/classes/controllers/FrmProFormsController.php');
 require($frm_path .'/pro/classes/controllers/FrmProStatisticsController.php');
 
 
-$obj = new FrmProAppController();
-$obj = new FrmProDisplaysController();
-$obj = new FrmProEntriesController();
-$obj = new FrmProFieldsController();
-$obj = new FrmProFormsController();
-$obj = new FrmProStatisticsController();
+FrmProAppController::load_hooks();
+FrmProDisplaysController::load_hooks();
+FrmProEntriesController::load_hooks();
+FrmProFieldsController::load_hooks();
+FrmProFormsController::load_hooks();
+FrmProStatisticsController::load_hooks();
 
 FrmProSettingsController::load_hooks();
 
-/*if(is_admin()){
+if(is_admin()){
     require($frm_path .'/pro/classes/controllers/FrmProXMLController.php');
-    $obj = new FrmProXMLController();
-}*/
+    FrmProXMLController::load_hooks();
+}
 
 if (is_multisite()){
 //Models
 require($frm_path .'/pro/classes/models/FrmProCopy.php');
 $obj = new FrmProCopy();
-    
+ 
 //Add options to copy forms and displays
 require($frm_path .'/pro/classes/controllers/FrmProCopiesController.php');
-$obj = new FrmProCopiesController();
+FrmProCopiesController::load_hooks();
 }
+
+unset($obj);
 
 // Instansiate Helpers
 require($frm_path .'/pro/classes/helpers/FrmProAppHelper.php');
@@ -124,20 +100,5 @@ require($frm_path .'/pro/classes/helpers/FrmProEntryMetaHelper.php');
 require($frm_path .'/pro/classes/helpers/FrmProFieldsHelper.php');
 require($frm_path .'/pro/classes/helpers/FrmProFormsHelper.php');
 
-$obj = new FrmProAppHelper();
-$obj = new FrmProDisplaysHelper();
-$obj = new FrmProEntriesHelper();
-$obj = new FrmProEntryMetaHelper();
-$obj = new FrmProFieldsHelper();
-$obj = new FrmProFormsHelper();
-unset($obj);
+FrmProFieldsHelper::load_hooks();
 
-// Register Widgets
-if(class_exists('WP_Widget')){
-    // Include Widgets
-    require($frm_path .'/pro/classes/widgets/FrmListEntries.php');
-    //require($frm_path .'/pro/classes/widgets/FrmPollResults.php');
-    
-    add_action('widgets_init', create_function('', 'return register_widget("FrmListEntries");'));
-    //add_action('widgets_init', create_function('', 'return register_widget("FrmPollResults");'));
-}

@@ -1,14 +1,4 @@
 
-<p><label><?php _e('Subject', 'formidable') ?></label><br/>
-<input type="text" name="notification[<?php echo $email_key ?>][email_subject]" class="frm_not_email_subject frm_long_input" id="email_subject_<?php echo $email_key ?>" size="55" value="<?php echo esc_attr($notification['email_subject']); ?>" /></p>
-        
-<p><label><?php _e('Message', 'formidable') ?> </label><br/>
-<textarea name="notification[<?php echo $email_key ?>][email_message]" class="frm_not_email_message frm_long_input" id="email_message_<?php echo $email_key ?>" cols="50" rows="5"><?php echo FrmAppHelper::esc_textarea($notification['email_message']) ?></textarea></p>
-
-<h4><?php _e('Options', 'formidable') ?> </h4>
-    <label for="inc_user_info_<?php echo $email_key ?>"><input type="checkbox" name="notification[<?php echo $email_key ?>][inc_user_info]" class="frm_not_inc_user_info" id="inc_user_info_<?php echo $email_key ?>" value="1" <?php checked($notification['inc_user_info'], 1); ?> /> <?php _e('Append IP Address, Browser, and Referring URL to message', 'formidable') ?></label>
-        
-<p><label for="plain_text_<?php echo $email_key ?>"><input type="checkbox" name="notification[<?php echo $email_key ?>][plain_text]" id="plain_text_<?php echo $email_key ?>" value="1" <?php checked($notification['plain_text'], 1); ?> /> <?php _e('Send Emails in Plain Text', 'formidable') ?></label></p>
 
 <p><?php _e('Send this notification when entries are', 'formidable'); ?>
     <select name="notification[<?php echo $email_key ?>][update_email]">
@@ -19,23 +9,15 @@
 </p>
 <?php if(isset($notification['ar'])){ ?>
 <input type="hidden" name="notification[<?php echo $email_key ?>][ar]" value="1" <?php checked($notification['ar'], 1); ?> />
-<?php } 
-    
-$form_fields = array();
-foreach($values['fields'] as $f){
-    if(in_array($f['type'], array('select','radio','checkbox','scale','data')) or ($f['type'] == 'data' and isset($fo['data_type']) and in_array($fo['data_type'], array('select','radio','checkbox'))))
-        $form_fields[] = $f;
-    unset($f);
-}
+<?php }
 
 $show_logic = (!empty($notification['conditions']) and count($notification['conditions']) > 2) ? true : false; 
 
 if(!empty($form_fields)){ ?>
     <p class="frm_add_logic_link" id="logic_link_<?php echo $email_key ?>"><a class="frm_add_form_logic" data-emailkey="<?php echo $email_key ?>" id="email_logic_<?php echo $email_key ?>" <?php echo ($show_logic) ? ' style="display:none"' : ''; ?>><?php _e('Use Conditional Logic', 'formidable') ?></a></p>
-<?php }else{ ?>
-    <p class="howto"><?php _e('Add a radio, dropdown, or checkbox field to your form to enable conditional logic.', 'formidable') ?>    
 <?php } ?>
 <div class="frm_logic_rows" <?php echo ($show_logic) ? '' : ' style="display:none"'; ?>>
+    <h4><?php _e('Conditional Logic', 'formidable') ?></h4>
     <div id="frm_logic_row_<?php echo $email_key ?>">
         <select name="notification[<?php echo $email_key ?>][conditions][send_stop]">
             <option value="send" <?php selected($notification['conditions']['send_stop'], 'send') ?>><?php _e('Send', 'formidable') ?></option>
@@ -51,8 +33,15 @@ if(!empty($form_fields)){ ?>
 <?php 
 
 foreach($notification['conditions'] as $meta_name => $condition){
-    if(is_numeric($meta_name))
-        include(FrmAppHelper::plugin_path() .'/pro/classes/views/frmpro-forms/_logic_row.php');
+    if ( is_numeric($meta_name) ) {
+        FrmProFormsController::include_logic_row( array(
+            'meta_name' => $meta_name,
+            'condition' => $condition,
+            'key'       => $email_key,
+            'form_id'   => $values['id'],
+        ) );
+    }
+    
     unset($meta_name);
     unset($condition);
 }

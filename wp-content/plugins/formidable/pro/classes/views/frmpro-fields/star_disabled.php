@@ -16,20 +16,28 @@ $frm_vars['star_loaded'][] = $name;
 
 $field->options = maybe_unserialize($field->options);
 $max = max($field->options);
-$class = '';
 
+$d = 0;
 if($stat != floor($stat)){
-    if(!in_array('split', $frm_vars['star_loaded']))
-        $frm_vars['star_loaded'][] = 'split';
-    $factor = 4;
-    $class = " {split:$factor}";
-    $max = $max * $factor;
-    $stat = round($stat * $factor);
+    $stat = round($stat, 2);
+    list($n, $d) = explode('.', $stat);
+    if ($d < 25) {
+        $d = 0;
+    } else if ( $d < 75 ) {
+        $d = 5;
+    } else {
+        $d = 0;
+        $n++;
+    }
+    
+    $stat = (float) ($n .'.'. $d);
 }
 
 for($i=1; $i<=$max; $i++){
+    // check if this is a half
+    $class = ( $d && ($i-1) == $n ) ? ' frm_half_star' : '';
+    
     $checked = (round($stat) == $i) ? 'checked="checked"' : '';
-    ?>
-<input type="radio" name="item_meta[<?php echo $name ?>]" value="<?php echo isset($factor) ? ($i/$factor) : $i; ?>" <?php echo $checked ?> class="star<?php echo $class ?>" disabled="disabled" />
-<?php } ?>
+    ?><input type="radio" name="item_meta[<?php echo $name ?>]" value="<?php echo $i; ?>" <?php echo $checked ?> class="star<?php echo $class ?>" disabled="disabled" style="display:none;"/><?php 
+} ?>
 </div>

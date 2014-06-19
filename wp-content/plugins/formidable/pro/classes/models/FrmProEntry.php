@@ -1,112 +1,24 @@
 <?php
 class FrmProEntry{
-
-    function FrmProEntry(){
-        add_filter('frm_continue_to_new', array(&$this, 'frmpro_editing'), 10, 3);
-        add_action('frm_validate_entry', array(&$this, 'pre_validate'), 15, 2);
-        add_action('frm_validate_form_creation', array(&$this, 'validate'), 10, 5);
-        add_action('frm_after_create_entry', array(&$this, 'set_cookie'), 20, 2);
-        add_action('frm_after_create_entry', array(&$this, 'create_post'), 40, 2);
-        add_action('frm_after_update_entry', array(&$this, 'update_post'), 40, 2);
-        add_action('frm_before_destroy_entry', array(&$this, 'destroy_post'));
-        add_filter('frm_update_entry', array(&$this, 'check_draft_status'), 10, 2);
-        add_action('frm_after_create_entry', array(&$this, 'remove_draft_hooks'), 1);
-    }
     
     function frmpro_editing($continue, $form_id, $action='new'){
-        //Determine if this is a new entry or if we're editing an old one
-        $form_submitted = FrmAppHelper::get_param('form_id');
-        if ($action == 'new' or $action == 'preview')
-            $continue = true;
-        else
-            $continue = (is_numeric($form_submitted) and (int)$form_id != (int)$form_submitted) ? true : false;
-        
-        return $continue;
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProEntriesController::maybe_editing');
+        return FrmProEntriesController::maybe_editing($continue, $form_id, $action);
     }
     
     function user_can_edit($entry, $form=false){
-        if(empty($form)){
-            if(is_numeric($entry)){
-                $frm_entry = new FrmEntry();
-                $entry = $frm_entry->getOne($entry);
-            }
-            
-            if(is_object($entry))
-                $form = $entry->form_id;
-        }
-        
-        if(is_numeric($form)){
-            $frm_form = new FrmForm();
-            $form = $frm_form->getOne($form);
-        }
-        
-        $allowed = $this->user_can_edit_check($entry, $form);
-        return apply_filters('frm_user_can_edit', $allowed, compact('entry', 'form'));
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProEntriesHelper::user_can_edit' );
+        return FrmProEntriesHelper::user_can_edit($entry, $form);
     }
     
     function user_can_edit_check($entry, $form){
-        global $frm_entry, $wpdb;
-        
-        $user_ID = get_current_user_id();
-        
-        if(!$user_ID || empty($form))
-            return false;
-        
-        if(is_object($entry) && $entry->is_draft && $entry->user_id == $user_ID)
-            return true;
-        
-        //if editable and user can edit someone elses entry
-        if($entry and $form->editable and ((isset($form->options['open_editable']) and $form->options['open_editable']) or !isset($form->options['open_editable'])) and isset($form->options['open_editable_role']) and FrmAppHelper::user_has_permission($form->options['open_editable_role']))
-            return true;
-        
-        $where = $wpdb->prepare('fr.id=%d', $form->id);
-        
-        if($form->editable and !empty($form->options['editable_role']) and !FrmAppHelper::user_has_permission($form->options['editable_role']) and (!isset($form->options['open_editable_role']) or $form->options['open_editable_role'] ==  '-1' or ((isset($form->options['open_editable']) and !$form->options['open_editable']) or (isset($form->options['open_editable']) and $form->options['open_editable'] and !empty($form->options['open_editable_role']) and !FrmAppHelper::user_has_permission($form->options['open_editable_role']))))){
-            //only allow editing of drafts
-            $where .= $wpdb->prepare(" and user_id=%d and is_draft=%d", $user_ID, 1);
-        }
-        
-        // check if this user can edit entry from another user
-        if (!$form->editable || !isset($form->options['open_editable_role']) || $form->options['open_editable_role'] == '-1' || (isset($form->options['open_editable']) && empty($form->options['open_editable'])) || !FrmAppHelper::user_has_permission($form->options['open_editable_role'])) {            
-            $where .= $wpdb->prepare(" and user_id=%d", $user_ID);
-            
-            if(is_object($entry) && $entry->user_id != $user_ID) {
-                return false;
-            }
-            
-            if ( $form->editable && !FrmAppHelper::user_has_permission($form->options['open_editable_role']) && !FrmAppHelper::user_has_permission($form->options['editable_role']) ){
-                // make sure user cannot edit their own entry, even if a higher user role can unless it's a draft
-                if ( is_object($entry) && !$entry->is_draft ) {
-                    return false;
-                } else if ( !is_object($entry) ) {
-                    $where .= ' and is_draft=1';
-                }
-            }
-        }else if ($form->editable && $user_ID && empty($entry)) {
-            // make sure user is editing their own draft by default, even if they have permission to edit others' entries
-           $where .= $wpdb->prepare(" and user_id=%d", $user_ID);
-        }
-        
-        if ( !$form->editable ) {
-            $where .= ' and is_draft=1';
-
-            if(is_object($entry) && !$entry->is_draft)
-                return false;
-        }
-        
-        // If entry object, and we made it this far, then don't do another db call
-        if(is_object($entry)){
-            return true;
-        }
-        
-        if ( !empty($entry) ) {
-            if(is_numeric($entry))
-                $where .= $wpdb->prepare(" and it.id=%d", $entry);
-            else
-                $where .= $wpdb->prepare(" and item_key=%s", $entry);
-        }
-        
-        return $frm_entry->getAll( $where, ' ORDER BY created_at DESC', 1, true);
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProEntriesHelper::user_can_edit_check' );
+        return FrmProEntriesHelper::user_can_edit_check($entry, $form);
+    }
+    
+    function user_can_delete($entry, $form = false) {
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProEntriesHelper::user_can_delete' );
+        return FrmProEntriesHelper::user_can_delete($entry, $form);
     }
     
     function get_tagged_entries($term_ids, $args = array()){
@@ -138,7 +50,7 @@ class FrmProEntry{
                 add_filter('frm_continue_to_create', '__return_false');
                 $errors = array();
             }else if(FrmProFormsHelper::saving_draft($values['form_id'])){
-                $errors = array();
+                //$errors = array();
             }
             return $errors;
         }
@@ -248,78 +160,69 @@ class FrmProEntry{
     }
     
     function set_cookie($entry_id, $form_id){
-        //if form options['single] or isset($_POST['frm_single_submit']){
-        if(defined('WP_IMPORTING') or defined('DOING_AJAX')) return;
-        
-        if(isset($_POST) and isset($_POST['frm_skip_cookie'])){
-            if(!headers_sent())
-                FrmProEntriesController::set_cookie($entry_id, $form_id);
-            return;
-        }
-?>
-<script type="text/javascript">
-jQuery(document).ready(function($){
-jQuery.ajax({type:"POST",url:"<?php echo admin_url( 'admin-ajax.php' ); ?>",
-data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_id=<?php echo $form_id; ?>"
-});
-});    
-</script>
-<?php
-        //}
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProEntriesController::maybe_set_cookie');
+        return FrmProEntriesController::maybe_set_cookie($entry_id, $form_id);
     }
     
     function update_post($entry_id, $form_id){
-        if(isset($_POST['frm_wp_post'])){
-            $post_id = self::get_field('post_id', $entry_id);
-            if($post_id){
-                $post = get_post($post_id, ARRAY_A);
-                unset($post['post_content']);
-                $this->insert_post($entry_id, $post, true, $form_id);
-            }else{
-                $this->create_post($entry_id, $form_id);
-            }
+        if ( !isset($_POST['frm_wp_post']) ) {
+            return;
+        }
+        
+        $post_id = FrmProEntriesHelper::get_field('post_id', $entry_id);
+        if ( $post_id ) {
+            $post = get_post($post_id, ARRAY_A);
+            unset($post['post_content']);
+            $this->insert_post($entry_id, $post, true, $form_id);
+        } else {
+            $this->create_post($entry_id, $form_id);
         }
     }
     
     function create_post($entry_id, $form_id){
-        global $wpdb, $frmdb, $frmpro_display;
-        $post_id = NULL;
-        if(isset($_POST['frm_wp_post'])){
-            $post = array();
-            $post['post_type'] = FrmProForm::post_type($form_id);
-            if(isset($_POST['frm_user_id']) and is_numeric($_POST['frm_user_id']))
-                $post['post_author'] = $_POST['frm_user_id'];
-            
-            $status = false;
-            foreach($_POST['frm_wp_post'] as $post_data => $value){
-                if($status)
-                    continue;
-                    
-                $post_data = explode('=', $post_data);
-                
-                if($post_data[1] == 'post_status')
-                    $status = true;
-            }
-            
-            if(!$status){
-                $form_options = $frmdb->get_var($wpdb->prefix .'frm_forms', array('id' => $form_id), 'options');
-                $form_options = maybe_unserialize($form_options);
-                if(isset($form_options['post_status']) and $form_options['post_status'] == 'publish')
-                    $post['post_status'] = 'publish';
-            }
-            
-            //check for auto view and set frm_display_id
-            $display = $frmpro_display->get_auto_custom_display(compact('form_id', 'entry_id'));
-            if($display)
-                $_POST['frm_wp_post_custom']['=frm_display_id'] = $display->ID;
-
-            $post_id = $this->insert_post($entry_id, $post, false, $form_id);
+        if ( !isset($_POST['frm_wp_post']) ) {
+            return;
         }
         
-        //save post_id with the entry
-        $updated = $wpdb->update( $frmdb->entries, array('post_id' => $post_id), array( 'id' => $entry_id ) );
-        if($updated)
-            wp_cache_delete( $entry_id, 'frm_entry' );
+        global $wpdb, $frmdb, $frmpro_display;
+        $post_id = NULL;
+        
+        $post = array(
+            'post_type' => FrmProFormsHelper::post_type($form_id),
+        );
+
+        if ( isset($_POST['frm_user_id']) && is_numeric($_POST['frm_user_id']) ) {
+            $post['post_author'] = $_POST['frm_user_id'];
+        }
+            
+        $status = false;
+        foreach ( $_POST['frm_wp_post'] as $post_data => $value ) {
+            if ( $status ) {
+                continue;
+            }
+            
+            $post_data = explode('=', $post_data);
+                
+            if ( $post_data[1] == 'post_status' ) {
+                $status = true;
+            }
+        }
+        
+        if ( !$status ) {
+            $form_options = $frmdb->get_var($wpdb->prefix .'frm_forms', array('id' => $form_id), 'options');
+            $form_options = maybe_unserialize($form_options);
+            if ( isset($form_options['post_status']) && $form_options['post_status'] == 'publish' ) {
+                $post['post_status'] = 'publish';
+            }
+        }
+        
+        //check for auto view and set frm_display_id
+        $display = $frmpro_display->get_auto_custom_display(compact('form_id', 'entry_id'));
+        if ( $display ) {
+            $_POST['frm_wp_post_custom']['=frm_display_id'] = $display->ID;
+        }
+        
+        $post_id = $this->insert_post($entry_id, $post, false, $form_id);
     }
     
     function insert_post($entry_id, $post, $editing=false, $form_id=false){
@@ -327,7 +230,7 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
         
         foreach($_POST['frm_wp_post'] as $post_data => $value){
             $post_data = explode('=', $post_data);
-            $field_ids[] = $post_data[0];
+            $field_ids[] = (int) $post_data[0];
             
             if(isset($new_post[$post_data[1]]))
                 $value = array_merge((array)$value, (array)$new_post[$post_data[1]]);
@@ -343,7 +246,12 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
             $dyn_content = get_post_meta($display_id, 'frm_dyncontent', true);
             $post['post_content'] = apply_filters('frm_content', $dyn_content, $form_id, $entry_id);
         }
-
+        
+        if ( isset($post['post_date']) && !empty($post['post_date']) && ( !isset($post['post_date_gmt']) || $post['post_date_gmt'] == '0000-00-00 00:00:00' ) ) {
+            // set post date gmt if post date is set
+            $post['post_date_gmt'] = get_gmt_from_date($post['post_date']);
+		}
+        
         $post_ID = wp_insert_post( $post );
     	
     	if ( is_wp_error( $post_ID ) or empty($post_ID))
@@ -362,7 +270,7 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
     		}
         }
     	
-    	global $frm_entry_meta, $user_ID, $frm_vars;
+    	global $frm_entry_meta, $user_ID, $frm_vars, $wpdb;
 
     	$exclude_attached = array();
     	if(isset($frm_vars['media_id']) and !empty($frm_vars['media_id'])){
@@ -373,11 +281,13 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
     	        
     	        if(is_array($media_id)){
     	            $attach_string = implode( ',', array_filter($media_id) );
-    				$attached = $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_parent = %d WHERE post_type = %s AND ID IN ( $attach_string )", $post_ID, 'attachment' ) ) .'<br/>';
+    	            if ( !empty($attach_string) ){
+    				    $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_parent = %d WHERE post_type = %s AND ID IN ( $attach_string )", $post_ID, 'attachment' ) );
     				
-    	            foreach($media_id as $m){
-    	                clean_attachment_cache( $m );
-    	                unset($m);
+    	                foreach($media_id as $m){
+    	                    clean_attachment_cache( $m );
+    	                    unset($m);
+    	                }
     	            }
     	        }else{
     	            $wpdb->update( $wpdb->posts, array('post_parent' => $post_ID), array( 'ID' => $media_id, 'post_type' => 'attachment' ) );
@@ -416,6 +326,13 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
             }
         }
         
+        if ( !$editing ) {
+            //save post_id with the entry
+            if ( $wpdb->update( $wpdb->prefix .'frm_items', array('post_id' => $post_ID), array( 'id' => $entry_id ) ) ) {
+                wp_cache_delete( $entry_id, 'frm_entry' );
+            }
+        }
+        
         if(isset($dyn_content)){
             $new_content = apply_filters('frm_content', $dyn_content, $form_id, $entry_id);
             if($new_content != $post['post_content']){
@@ -424,18 +341,24 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
             }
         }
         
-        foreach($field_ids as $field_id)
-            $frm_entry_meta->delete_entry_meta($entry_id, $field_id); 
+        // delete entry meta so it won't be duplicated
+        $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}frm_item_metas WHERE item_id=%d AND field_id", $entry_id) . " IN (". implode(',', $field_ids) .")");
         
     	update_post_meta( $post_ID, '_edit_last', $user_ID );
     	return $post_ID;
     }
     
-    function destroy_post($entry_id){
-        global $frmdb;
-        $entry = $frmdb->get_one_record($frmdb->entries, array('id' => $entry_id), 'post_id');
-        if($entry and is_numeric($entry->post_id))
-          wp_delete_post($entry->post_id);
+    function destroy_post($entry_id, $entry) {
+        if ( $entry ) {
+            $post_id = $entry->post_id;
+        } else {
+            global $wpdb;
+            $post_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->prefix}frm_items WHERE id=%d", $entry_id));
+        }
+        
+        if ( $post_id ) {
+            wp_delete_post($post_id);
+        }
     }
     
     function create_comment($entry_id, $form_id){
@@ -476,9 +399,9 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
             global $current_user;
         
         	$display_name = (!empty( $current_user->display_name )) ? $current_user->display_name : $current_user->user_login;
-        	$comment_author       = $wpdb->escape($display_name);
+        	$comment_author       = $display_name;
         	$comment_author_email = ''; //get email from field
-        	$comment_author_url   = $wpdb->escape($user->user_url);
+        	$comment_author_url   = $user->user_url;
         }else{
             $comment_author       = ( isset($_POST['author']) )  ? trim(strip_tags($_POST['author'])) : '';
             $comment_author_email = ( isset($_POST['email']) )   ? trim($_POST['email']) : '';
@@ -500,44 +423,15 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
  
     }
     
+    // check if entry being updated just switched draft status
+    public function is_new_entry($entry) {
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProEntriesController::is_new_entry');
+        return FrmProEntriesHelper::is_new_entry($entry);
+    }
+    
     public function check_draft_status($values, $id){
-        if(self::get_field('is_draft', $id) or $values['is_draft']){
-            //remove update hooks if submitting for the first time or is still draft
-            remove_action('frm_after_update_entry', array(&$this, 'update_post'), 40, 2);
-            remove_action('frm_after_update_entry', 'FrmProNotification::entry_updated', 41, 2);
-        }
-        
-        //if entry was not previously draft or continues to be draft
-        if(!self::get_field('is_draft', $id) or $values['is_draft'])
-            return $values;
-        
-        //add the create hooks since the entry is switching draft status
-        add_action('frm_after_update_entry', array(&$this, 'add_published_hooks'), 2, 2);
-        
-        //change created timestamp
-        $values['created_at'] = $values['updated_at'];
-        
-        return $values;
-    }
-    
-    public function remove_draft_hooks($entry_id){
-        if(!self::get_field('is_draft', $entry_id))
-            return;
-        
-        //remove hooks if saving as draft
-        remove_action('frm_after_create_entry', array(&$this, 'set_cookie'), 20, 2);
-        remove_action('frm_after_create_entry', array(&$this, 'create_post'), 40, 2);
-        remove_action('frm_after_create_entry', 'FrmProNotification::entry_created', 41, 2);
-        remove_action('frm_after_create_entry', 'FrmProNotification::autoresponder', 41, 2);
-    }
-    
-    public function add_published_hooks($entry_id, $form_id){
-        //add the create hooks since the entry is switching draft status
-        do_action('frm_after_create_entry', $entry_id, $form_id);
-        do_action('frm_after_create_entry_'. $form_id, $entry_id);
-        remove_action('frm_after_create_entry', 'FrmProNotification::entry_created', 41, 2);
-        remove_action('frm_after_create_entry', 'FrmProNotification::autoresponder', 41, 2);
-        remove_action('frm_after_update_entry', array(&$this, 'add_published_hooks'), 2, 2);
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProEntriesController::check_draft_status');
+        return FrmProEntriesController::check_draft_status($values, $id);
     }
     
     function get_field($field='is_draft', $id){
@@ -548,5 +442,250 @@ data:"action=frm_entries_ajax_set_cookie&entry_id=<?php echo $entry_id; ?>&form_
         global $wpdb, $frmdb;
         return $wpdb->get_var($wpdb->prepare("SELECT $field FROM $frmdb->entries WHERE id=%d", $id));
     }
+	
+	//If page size is set for views, only get the current page of entries
+	function get_view_page( $current_p, $p_size, $where, $args ){
+		//Make sure values are ints for use in DB call
+		$current_p = (int) $current_p;
+		$p_size = (int) $p_size;
+		
+		//Calculate end_index and start_index
+        $end_index = $current_p * $p_size;
+        $start_index = $end_index - $p_size;
+		
+		//Set limit and pass it to get_view_results
+		$args['limit'] = " LIMIT $start_index,$p_size";
+		$results = $this->get_view_results($where, $args);
+		
+        return $results;
+    }
+	
+	//Jamie's new function for returning ordered entries for Views
+    function get_view_results($where, $args){
+        global $wpdb;
+		
+		$defaults = array(
+			'order_by_array' => array(), 'order_array' => array(),
+			'limit' 	=> '', 'posts' => array(), 'meta' => 'get_meta',
+		);
+		
+		extract(wp_parse_args($args, $defaults));
+		
+		if ( !empty($order_by_array) ) {//If order is set
 
+			//Set number of fields to zero initially
+			$numbers = 0;
+			
+			//Remove other ordering fields if created_at or updated_at is selected for first ordering field
+			if ( reset($order_by_array) == 'created_at' || reset($order_by_array) == 'updated_at' ) {
+				foreach ( $order_by_array as $o_key => $order_by_field ) {
+					if ( is_numeric($order_by_field) ) {
+						unset($order_by_array[$o_key]);
+						unset($order_array[$o_key]);
+					}
+				}
+			} else {
+			//Get number of fields in $order_by_array - this will not include created_at, updated_at, or random
+				foreach ( $order_by_array as $order_by_field ) {
+					if ( is_numeric($order_by_field) ) {
+						$numbers++;
+					}
+				}
+			}
+			
+		    if ( in_array('rand', $order_by_array) ) { //If random is set, set the order to random
+				$query_1 = "SELECT it.id, it.item_key, it.name, it.ip, it.form_id, it.post_id, it.user_id, it.updated_by,
+	            it.created_at, it.updated_at, it.is_draft FROM {$wpdb->prefix}frm_items it";
+				$query_2 = " WHERE ";
+				$query_3 = " ORDER BY RAND()";
+				
+		    } else if ( $numbers > 0 ) { //If ordering by at least one field (not just created_at or updated_at)
+		        global $frm_entry_meta, $frm_field;
+
+				$order_fields = array();
+				foreach ( $order_by_array as $o_key => $order_by_field ) {
+					if ( is_numeric($order_by_field) ) {
+						$order_fields[$o_key] = $frm_field->getOne($order_by_field);
+					} else {
+						$order_fields[$o_key] = $order_by_field;
+					}
+				}
+
+				//Get all post IDs for this form
+	            $linked_posts = array();
+	           	foreach($posts as $post_meta)
+	            	$linked_posts[$post_meta->post_id] = $post_meta->id;
+
+
+				$query_1 = '';
+				foreach($order_fields as $o_key => $o_field){
+					if(empty($query_1)){
+						$query_1 = "SELECT it.id, it.item_key, it.name, it.ip, it.form_id, it.post_id, it.user_id, it.updated_by,
+                it.created_at, it.updated_at, it.is_draft FROM {$wpdb->prefix}frm_items it";
+						if(isset($o_field->field_options['post_field']) and $o_field->field_options['post_field']){//if field is some type of post field
+							if($o_field->field_options['post_field'] == 'post_custom'){//if field is custom field					
+								$query_1 .= " LEFT JOIN {$wpdb->postmeta} pm$o_key ON pm$o_key.post_id=it.post_id AND pm$o_key.meta_key='". $o_field->field_options['custom_field']."' ";
+								$query_2 = "WHERE ";//pm$o_key.post_id in (". implode(',', array_keys($linked_posts)).") AND ";
+								$query_3 = " ORDER BY CASE when pm$o_key.meta_value IS NULL THEN 1 ELSE 0 END, pm$o_key.meta_value {$order_array[$o_key]}, ";
+							}else if($o_field->field_options['post_field'] != 'post_category'){//if field is a non-category post field
+								$query_1 .= " INNER JOIN {$wpdb->posts} p$o_key ON p$o_key.ID=it.post_id ";
+								$query_2 = "WHERE p$o_key.ID in (". implode(',', array_keys($linked_posts)).") AND ";
+								$query_3 = " ORDER BY CASE p$o_key.".$o_field->field_options['post_field']." WHEN '' THEN 1 ELSE 0 END, p$o_key.".$o_field->field_options['post_field']." {$order_array[$o_key]}, ";
+							} /*else { //First order field is a category field
+								$query_1 .= " INNER JOIN {$wpdb->prefix}term_relationships tr ON it.post_id=tr.object_id 
+											INNER JOIN {$wpdb->prefix}term_taxonomy tt ON tr.term_taxonomy_id=tt.term_taxonomy_id
+											INNER JOIN {$wpdb->prefix}terms t ON tt.term_id=t.term_id ";
+								$query_2 = "WHERE it.post_id in (". implode(',', array_keys($linked_posts)).") 
+											AND tt.taxonomy='{$o_field->field_options['taxonomy']}' 
+											AND t.term_id NOT in (" . implode(',', $o_field->field_options['exclude_cat']) . ") AND ";
+								$query_3 = " ORDER BY t.name {$order_array[$o_key]}, ";
+							}*/
+						}else{//if field is a normal, non-post field
+							//Meta value is only necessary for time field reordering and only if time field is first ordering field
+							$query_1 .= " LEFT JOIN {$wpdb->prefix}frm_item_metas em$o_key ON em$o_key.item_id=it.id AND em$o_key.field_id=$o_field->id ";
+							$query_2 = "WHERE ";
+							$query_3 = " ORDER BY CASE when em$o_key.meta_value IS NULL THEN 1 ELSE 0 END, em$o_key.meta_value".( in_array($o_field->type, array('number', 'scale')) ? ' +0 ' : '')." {$order_array[$o_key]}, ";
+							//Check if time field (for time field ordering)
+							if ( $o_field->type == 'time' ) { $time_field = $o_field; }
+						}								
+					}else{
+						if(isset($o_field->field_options['post_field']) and $o_field->field_options['post_field']){
+							if($o_field->field_options['post_field'] == 'post_custom'){//if ordering by a custom field									
+								$query_1 .= "LEFT JOIN {$wpdb->postmeta} pm$o_key ON pm$o_key.post_id=it.post_id AND pm$o_key.meta_key='". $o_field->field_options['custom_field']."' ";
+								$query_3 .= "CASE when pm$o_key.meta_value IS NULL THEN 1 ELSE 0 END, pm$o_key.meta_value {$order_array[$o_key]}, ";
+							}else if($o_field->field_options['post_field'] != 'post_category'){//if ordering by a non-category post field
+								$query_1 .= "LEFT JOIN {$wpdb->posts} p$o_key ON p$o_key.ID=it.post_id ";
+								$query_3 .= "CASE p$o_key.".$o_field->field_options['post_field']." WHEN '' THEN 1 ELSE 0 END, p$o_key.".$o_field->field_options['post_field']." {$order_array[$o_key]}, ";
+							} /*else {//if ordering by a category field
+								$query_1 .= "LEFT JOIN (SELECT tr$o_key.object_id as object_id, t$o_key.name as name FROM {$wpdb->prefix}term_relationships tr$o_key
+											INNER JOIN {$wpdb->prefix}term_taxonomy tt$o_key ON tr$o_key.term_taxonomy_id=tt$o_key.term_taxonomy_id 
+											INNER JOIN {$wpdb->prefix}terms t$o_key ON tt$o_key.term_id=t$o_key.term_id 
+											WHERE tr$o_key.object_id in (". implode(',', array_keys($linked_posts)).") AND tt$o_key.taxonomy='{$o_field->field_options['taxonomy']}' AND t$o_key.term_id NOT in (" . implode(',', $o_field->field_options['exclude_cat']) . "))
+											 as temp$o_key ON it.post_id=temp$o_key.object_id ";
+								$query_3 .= "temp$o_key.name {$order_array[$o_key]}, ";
+							}*/
+						}else{
+							if(is_numeric($order_by_array[$o_key])){//if ordering by a normal, non-post field
+								$query_1 .= "LEFT JOIN {$wpdb->prefix}frm_item_metas em$o_key ON em$o_key.item_id=it.id AND em$o_key.field_id={$o_field->id} ";
+								$query_3 .= "CASE when em$o_key.meta_value IS NULL THEN 1 ELSE 0 END, em$o_key.meta_value".( in_array($o_field->type, array('number', 'scale')) ? ' +0 ' : '')." {$order_array[$o_key]}, ";
+							}else{//if ordering by created at or updated at
+								$query_3 .= "it.".$o_field." ".$order_array[$o_key].", ";
+							}					
+						}								
+					}
+					unset($o_field);
+				}
+			} else {//If ordering by creation date and/or update date without any fields
+				$query_1 = "SELECT it.id, it.item_key, it.name, it.ip, it.form_id, it.post_id, it.user_id, it.updated_by,
+                it.created_at, it.updated_at, it.is_draft FROM {$wpdb->prefix}frm_items it";
+				$query_2 = " WHERE ";
+				$query_3 = " ORDER BY";
+				
+				foreach($order_by_array as $o_key => $order_by){
+						$query_3 .= " it." . $order_by . " " . $order_array[$o_key] . ", ";
+						unset($order_by);
+				}
+			} 
+		} else { //If no order is set
+			$query_1 = "SELECT it.id, it.item_key, it.name, it.ip, it.form_id, it.post_id, it.user_id, it.updated_by,
+            it.created_at, it.updated_at, it.is_draft FROM {$wpdb->prefix}frm_items it";
+			$query_2 = " WHERE ";
+			$query_3 = " ORDER BY it.created_at ASC";
+		}
+		$query_3 = rtrim($query_3, ', ');
+		$query = $query_1 . $query_2 . $where . $query_3 . $limit;
+        $entries = $wpdb->get_results($query, OBJECT_K);
+		
+		unset($query, $query_1, $query_2, $query_3, $where, $limit);
+		
+		//If meta is not needed or if there aren't any entries, end function
+        if ( $meta != 'get_meta' || !$entries ) {
+			return stripslashes_deep($entries);
+		}
+		
+		//Get metas
+		$get_entry_ids = array_keys($entries);
+		foreach ( $get_entry_ids as $k => $e ) {
+			if ( wp_cache_get($e, 'frm_entry') ) {
+				unset($get_entry_ids[$k]);
+			}
+			unset($k, $e);
+		}
+		
+		if ( empty($get_entry_ids) ) {
+			return stripslashes_deep($entries);
+		}
+		
+        $meta_where = "item_id in (". implode(',', array_filter($get_entry_ids, 'is_numeric')) .")";
+        
+        $query = "SELECT item_id, meta_value, field_id, field_key FROM {$wpdb->prefix}frm_item_metas it 
+            LEFT OUTER JOIN {$wpdb->prefix}frm_fields fi ON it.field_id=fi.id 
+            WHERE $meta_where and field_id != 0";
+        
+        $metas = $wpdb->get_results($query);
+        unset($query);
+		
+        if ( $metas ) {
+            foreach ( $metas as $m_key => $meta_val ) {
+                if ( !isset($entries[$meta_val->item_id]) ) {
+                    continue;
+				}   
+                if ( !isset($entries[$meta_val->item_id]->metas) ) {
+                    $entries[$meta_val->item_id]->metas = array();
+				}
+                    
+				$entries[$meta_val->item_id]->metas[$meta_val->field_id] = maybe_unserialize($meta_val->meta_value);
+				unset($m_key, $meta_val);
+            }
+            
+			//Cache each entry
+            foreach ( $entries as $entry ) {
+                wp_cache_set( $entry->id, $entry, 'frm_entry');
+                unset($entry);
+            }
+        }
+		
+		//Reorder entries if 12 hour time field is selected for first ordering field. If the $time_field variable is set, this means the first ordering field is a time field.
+		if ( isset($time_field) && ( !isset($time_field->field_options['clock']) || ($time_field->field_options['clock'] == 12) ) && is_array($entries) && !empty($entries) ) {
+	
+			//Reorder entries
+        	$new_order = array();
+			$empty_times = array();
+			foreach ( $entries as $e_key => $entry ) {
+				if ( !isset($entry->metas[$time_field->id]) ) {
+					$empty_times[$e_key] = '';
+					continue;
+				}
+            	$parts = str_replace(array(' PM',' AM'), '', $entry->metas[$time_field->id]);
+            	$parts = explode(':', $parts);
+            	if ( is_array($parts) ) {
+                	if ( ( preg_match('/PM/', $entry->metas[$time_field->id]) && ((int)$parts[0] != 12) ) || 
+                    ( ((int)$parts[0] == 12) && preg_match('/AM/', $entry->metas[$time_field->id]) ) )
+                    	$parts[0] = ((int)$parts[0] + 12);
+            	}
+
+            	$new_order[$e_key] = (int)$parts[0] . $parts[1];
+
+            	unset($e_key);
+            	unset($entry);
+			}
+
+        	//array with sorted times
+        	asort($new_order);
+
+			$new_order = $new_order + $empty_times;
+
+        	$final_order = array();
+        	foreach ( $new_order as $key => $time ) {
+            	$final_order[] = $entries[$key];
+            	unset($key, $time);
+        	}
+
+        	$entries = $final_order;
+        	unset($final_order);
+		}
+		unset($order_by_array, $order_array, $first_order_field);
+        
+        return stripslashes_deep($entries);
+    }
 }

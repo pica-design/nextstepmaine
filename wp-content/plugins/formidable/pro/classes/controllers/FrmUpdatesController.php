@@ -7,29 +7,12 @@ if(class_exists('FrmUpdatesController'))
 // Contains all the functions necessary to provide an update mechanism for FormidablePro!
 
 class FrmUpdatesController{
-    var $plugin_nicename;
-    var $plugin_name;
-    var $plugin_url;
-    var $pro_mothership;
-
-    var $pro_cred_store;
-    var $pro_auth_store;
-    var $pro_wpmu_store;
     
-    var $pro_license_str;
-
-    var $pro_error_message_str;
-
-    var $pro_check_interval;
-    var $pro_last_checked_store;
-
     var $pro_username;
     var $pro_password;
     var $license;
-    var $pro_mothership_xmlrpc_url;
-    var $timeout;
 
-    function FrmUpdatesController(){
+    function __construct(){
         // Where all the vitals are defined for this plugin
         $this->plugin_nicename      = 'formidable';
         $this->plugin_name          = 'formidable/formidable.php';
@@ -173,7 +156,7 @@ class FrmUpdatesController{
         // Yah, this is the view for the credentials form -- this class isn't a true model
         extract($this->get_pro_cred_form_vals());
         ?>
-<div id="pro_cred_form" <?php echo $frm_vars['pro_is_authorized'] ? 'style="display:none;"' : ''; ?>>
+<div id="pro_cred_form" <?php echo $frm_vars['pro_is_authorized'] ? 'class="frm_hidden"' : ''; ?>>
     <form name="cred_form" method="post" autocomplete="off">
     <input type="hidden" name="process_cred_form" value="Y" />
     <?php wp_nonce_field('frm_cred_nonce', 'frm_cred'); ?>
@@ -239,13 +222,13 @@ class FrmUpdatesController{
         $message = '';
         $errors = array();
         
-        if(!isset($_POST['hlpdsk_license']) || empty($_POST['hlpdsk_license'])){
+        if ( !isset($_POST[ $this->pro_license_str ]) || empty($_POST[ $this->pro_license_str ]) ) {
             $errors[] = __('Please enter a license number', 'formidable');
             include(FrmAppHelper::plugin_path() .'/classes/views/shared/errors.php'); 
             die();
         }
             
-        $this->license = stripslashes($_POST['hlpdsk_license']);
+        $this->license = $_POST[ $this->pro_license_str ];
         $domain = home_url();
         $args = compact('domain');
         

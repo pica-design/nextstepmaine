@@ -77,7 +77,7 @@
             $entry_shortcodes['default-plain'] = __('Default Plain', 'formidable');
         } else {
             $entry_shortcodes['detaillink'] = __('One Entry Link', 'formidable');
-            $entry_shortcodes['editlink location=&#34;front&#34; label=&#34;Edit&#34; page_id=4'] = __('Edit Entry Link', 'formidable');
+            $entry_shortcodes['editlink location=&#34;front&#34; label=&#34;Edit&#34; page_id=x'] = __('Edit Entry Link', 'formidable');
             $entry_shortcodes['evenodd'] = __('Even/Odd', 'formidable');
             $entry_shortcodes['entry_count'] = __('Entry Count', 'formidable');
         }
@@ -103,8 +103,6 @@
         }
         ?>
         </ul>
-
-        <script type="text/javascript">jQuery(document).ready(function($){ $('.frm_code_list .frmkeys').hide(); });</script>
 	</div>
 
 	<div id="frm-conditionals" class="tabs-panel" style="display:none;max-height:none;padding-right:0;">

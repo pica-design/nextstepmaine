@@ -1,7 +1,7 @@
 <?php
  
 class FrmProCopiesController{
-    function FrmProCopiesController(){
+    public static function load_hooks(){
         add_action('init', 'FrmProCopiesController::install');
         add_action('frm_after_install', 'FrmProCopiesController::install', 20);
         add_action('frm_after_uninstall', 'FrmProCopiesController::uninstall');

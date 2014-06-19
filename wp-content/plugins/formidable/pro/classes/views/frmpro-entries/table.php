@@ -9,7 +9,11 @@
     <?php } 
         if($edit_link){ ?>
     <th><?php echo $edit_link ?></th>
-    <?php } ?>
+    <?php }
+        if($delete_link){ ?>
+    <th><?php echo $delete_link ?></th>
+    <?php }
+ ?>
     </tr>
     </thead>
     <tbody>
@@ -32,8 +36,12 @@
 <?php       }
 
             if($edit_link){ ?>
-        <td><?php if($frmpro_entry->user_can_edit($entry, $form)){ ?><a href="<?php echo esc_url(add_query_arg(array('frm_action' => 'edit', 'entry' => $entry->id), $permalink) . $anchor)  ?>"><?php echo $edit_link ?></a><?php } ?></td>
-<?php       } ?>
+        <td><?php if ( FrmProEntriesHelper::user_can_edit($entry, $form) ) { ?><a href="<?php echo esc_url(add_query_arg(array('frm_action' => 'edit', 'entry' => $entry->id), $permalink) . $anchor)  ?>"><?php echo $edit_link ?></a><?php } ?></td>
+<?php       }
+            if($delete_link){ ?>
+        <td><?php if ( FrmProEntriesHelper::user_can_delete($entry) ) { ?><a href="<?php echo esc_url(add_query_arg(array('frm_action' => 'destroy', 'entry' => $entry->id))) ?>" class="frm_delete_link" onclick="return confirm('<?php echo esc_attr($confirm)?>')"><?php echo $delete_link ?></a><?php } ?></td>
+<?php       }
+ ?>
         </tr>
 <?php
     $class = ($class == 'even') ? 'odd' : 'even';
@@ -45,7 +53,14 @@
     <tr>
         <?php foreach ($form_cols as $col){ ?>
             <th><?php echo $col->name; ?></th>
-        <?php } ?>
+        <?php } 
+		if($edit_link){ ?>
+		    <th><?php echo $edit_link ?></th>
+		<?php }
+		if($delete_link){ ?>
+		    <th><?php echo $delete_link ?></th>
+		<?php } ?>
+		
     </tr>
     </tfoot>
 </table>

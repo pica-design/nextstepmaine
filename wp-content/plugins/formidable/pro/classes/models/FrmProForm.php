@@ -1,13 +1,5 @@
 <?php
 class FrmProForm{
-
-    function FrmProForm(){
-        add_filter('frm_form_options_before_update', array(&$this, 'update_options'), 10, 2);
-        add_filter('frm_update_form_field_options', array(&$this, 'update_form_field_options'), 10, 3);
-        add_action('frm_update_form', array(&$this, 'update'), 10, 2);
-        add_action('frm_after_duplicate_form', array(&$this, 'duplicate'), 10, 2);
-        add_filter('frm_validate_form', array(&$this, 'validate'), 10, 2);
-    }
     
     function update_options($options, $values){
         global $frmpro_settings;
@@ -209,37 +201,40 @@ class FrmProForm{
         }
     }
     
-    function duplicate($id, $values){
-        $new_opts = $values['options'] = maybe_unserialize($values['options']);
-        if(isset($values['options']['notification'])){
-            global $frm_duplicate_ids;
-            
-            foreach((array)$values['options']['notification'] as $n => $v){
-                foreach($v as $o => $opt){
-                    if(in_array($o, array('reply_to_name', 'reply_to')) and is_numeric($opt) and isset($frm_duplicate_ids[$opt])){
-                        $new_opts['notification'][$n][$o] = $frm_duplicate_ids[$opt];
-                    }else if(in_array($o, array('email_subject', 'email_to', 'email_message'))){
-                        $new_opts['notification'][$n][$o] = FrmProFieldsHelper::switch_field_ids($new_opts['notification'][$n][$o]);
-                    }else if($o == 'conditions'){
-                        foreach((array)$opt as $ck => $cv){
-                            if(isset($cv['hide_field']) and is_numeric($cv['hide_field']) and isset($frm_duplicate_ids[$cv['hide_field']]))
-                                $new_opts['notification'][$n]['conditions'][$ck]['hide_field'] = $frm_duplicate_ids[$cv['hide_field']];
-                            unset($ck);
-                            unset($cv);
+    function after_duplicate($new_opts, $id) {
+        if ( isset($new_opts['success_url']) ) {
+            $new_opts['success_url'] = FrmFieldsHelper::switch_field_ids($new_opts['success_url']);
+        }
+        
+        if ( !isset($new_opts['notification']) ) {
+            return $new_opts;
+        }
+        
+        global $frm_duplicate_ids;
+        
+        foreach ( (array) $new_opts['notification'] as $n => $v ) {
+            foreach ( $v as $o => $opt ) {
+                if ( in_array($o, array('reply_to_name', 'reply_to')) && is_numeric($opt) && isset($frm_duplicate_ids[$opt]) ) {
+                    $new_opts['notification'][$n][$o] = $frm_duplicate_ids[$opt];
+                } else if ( in_array($o, array('email_subject', 'email_to', 'email_message')) ) {
+                    $new_opts['notification'][$n][$o] = FrmFieldsHelper::switch_field_ids($new_opts['notification'][$n][$o]);
+                } else if ( 'conditions' == $o ) {
+                    foreach ( (array) $opt as $ck => $cv ) {
+                        if ( isset($cv['hide_field']) && is_numeric($cv['hide_field']) && isset($frm_duplicate_ids[$cv['hide_field']]) ) {
+                            $new_opts['notification'][$n]['conditions'][$ck]['hide_field'] = $frm_duplicate_ids[$cv['hide_field']];
                         }
+                        unset($ck);
+                        unset($cv);
                     }
-                    unset($o);
-                    unset($opt);
                 }
-                unset($n);
+                unset($o);
                 unset($opt);
             }
-            
-            if($new_opts != $values['options']){
-                global $wpdb;
-                $wpdb->update($wpdb->prefix .'frm_forms', array('options' => maybe_serialize($new_opts)), array('id' => $id));
-            }
+            unset($n);
+            unset($opt);
         }
+        
+        return $new_opts;
     }
 
     function validate( $errors, $values ){
@@ -254,11 +249,12 @@ class FrmProForm{
 
         }
         */
-          
-        if (isset($values['logged_in']) or isset($values['editable']) or (isset($values['single_entry']) and isset($values['options']['single_entry_type']) and $values['options']['single_entry_type'] == 'user') or (isset($values['save_draft']) and $values['save_draft'] == 1)){
+        
+        // add a user id field if the form requires one
+        if ( isset($values['logged_in']) || isset($values['editable']) || (isset($values['single_entry']) && isset($values['options']['single_entry_type']) && $values['options']['single_entry_type'] == 'user') || (isset($values['options']['save_draft']) && $values['options']['save_draft'] == 1) ) {
             $form_id = $values['id'];
             $user_field = $frm_field->getAll(array('fi.form_id' => $form_id, 'type' => 'user_id'));
-            if (!$user_field){
+            if ( !$user_field ) {
                 $new_values = FrmFieldsHelper::setup_new_vars('user_id',$form_id);
                 $new_values['name'] = __('User ID', 'formidable');
                 $frm_field->create($new_values);
@@ -276,29 +272,12 @@ class FrmProForm{
     }
     
     public static function has_field($type, $form_id, $single=true){
-        global $frmdb;
-        if($single)
-            $included = $frmdb->get_one_record($frmdb->fields, compact('form_id', 'type'));
-        else
-            $included = $frmdb->get_records($frmdb->fields, compact('form_id', 'type'));
-        return $included;
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProFormsHelper::has_field');
+        return FrmProFormsHelper::has_field($type, $form_id, $single);
     }
     
     public static function post_type($form_id){
-        if(is_numeric($form_id)){
-            global $frmdb, $wpdb;
-            $cache = wp_cache_get($form_id, 'frm_form');
-            if($cache)
-                $form_options = $cache->options;
-            else
-                $form_options = $frmdb->get_var($wpdb->prefix .'frm_forms', array('id' => $form_id), 'options');
-            $form_options = maybe_unserialize($form_options);
-            return (isset($form_options['post_type'])) ? $form_options['post_type'] : 'post';
-        }else if(is_object($form_id)){
-            return (isset($form->options['post_type'])) ? $form->options['post_type'] : 'post';
-        }else{
-            $form = (array) $form_id;
-            return (isset($form['post_type'])) ? $form['post_type'] : 'post';
-        }
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProFormsHelper::post_type');
+        return FrmProFormsHelper::post_type($form_id);
     }
 }  

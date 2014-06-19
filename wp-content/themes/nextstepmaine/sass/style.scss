@@ -10,6 +10,7 @@ $browser-icons-layout: vertical ;
 
 //Assets
 @import 'compass/css3';
+@import "compass/layout/sticky-footer";
 @import 'assets/normalize';
 @import 'assets/mixins' ;
 @import 'assets/colors';
@@ -33,6 +34,8 @@ section.website-wrapper {
 	width: 100% ;
 	min-height: 100% ;
 }//section.website-wrapper
+
+@include sticky-footer(323px, "#sticky-footer-root", "#root_footer", "#sticky-footer-footer");
 
 @import 'layout/header';
 @import 'layout/content';

@@ -7,13 +7,15 @@
         <td>
             <div id="frm_order_options" class="frm_add_remove" style="padding-bottom:8px;">
                 <a class="frm_add_order_row button" style="<?php echo empty($post->frm_order_by) ? '' : 'display:none'; ?>">+ <?php _e('Add', 'formidable') ?></a>
+                <div class="frm_logic_rows">
             <?php
              foreach($post->frm_order_by as $order_key => $order_by_field){
              	if(isset($post->frm_order[$order_key]) and isset($post->frm_order_by[$order_key]))
-                	$this->add_order_row($order_key, $post->frm_form_id, $order_by_field, $post->frm_order[$order_key]);
+                	FrmProDisplaysController::add_order_row($order_key, $post->frm_form_id, $order_by_field, $post->frm_order[$order_key]);
                 }
 
             ?>
+                </div>
             </div>
         </td>
     </tr>
@@ -25,17 +27,19 @@
         <td>
             <div id="frm_where_options" class="frm_add_remove">
                 <a class="frm_add_where_row button" style="<?php echo empty($post->frm_where) ? '' : 'display:none'; ?>">+ <?php _e('Add', 'formidable') ?></a>
+                <div class="frm_logic_rows">
             <?php
                 foreach($post->frm_where as $where_key => $where_field){
                     if(isset($post->frm_where_is[$where_key]) and isset($post->frm_where_val[$where_key]))
-                        $this->add_where_row($where_key, $post->frm_form_id, $where_field, $post->frm_where_is[$where_key], $post->frm_where_val[$where_key]);
+                        FrmProDisplaysController::add_where_row($where_key, $post->frm_form_id, $where_field, $post->frm_where_is[$where_key], $post->frm_where_val[$where_key]);
                 }
             ?>
+                </div>
             </div>
         </td>
     </tr>
     
-    <tr class="limit_container">
+    <tr class="limit_container" <?php echo ( $post->frm_show_count == 'calendar' || $post->frm_show_count == 'one' ) ? ' class="frm_hidden"' : ''; ?>>
         <td>
             <label class="frm_left_label"><?php _e('Limit', 'formidable'); ?>
             <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('If you don’t want all your entries displayed, you can insert the number limit here. Leave blank if you’d like all entries shown.', 'formidable') ?>" ></span></label>
@@ -45,7 +49,7 @@
         </td>
     </tr>
     
-    <tr class="limit_container">
+    <tr class="limit_container" <?php echo ( $post->frm_show_count == 'calendar' || $post->frm_show_count == 'one' ) ? ' class="frm_hidden"' : ''; ?>>
         <td>
             <label class="frm_left_label"><?php _e('Page Size', 'formidable'); ?>
             <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('The number of entries to show per page. Leave blank to not use pagination.', 'formidable') ?>" ></span></label>
@@ -63,17 +67,17 @@
     </tr>
     
     <tr>
-        <td><?php _e('Insert display', 'formidable'); ?></td>
+        <td><?php _e('Insert View', 'formidable'); ?></td>
         <td>
         <p>
             <select id="insert_loc" name="insert_loc" onchange="frm_show_loc(this.value)">
-                <option value="none" <?php selected($post->frm_insert_loc, 'none') ?>><?php _e('Don\'t insert automatically', 'formidable') ?></option>
+                <option value="none" <?php selected($post->frm_insert_loc, 'none') ?>><?php _e("Don't insert automatically", 'formidable') ?></option>
                 <option value="after" <?php selected($post->frm_insert_loc, 'after') ?>><?php _e('After page content', 'formidable') ?></option>
                 <option value="before" <?php selected($post->frm_insert_loc, 'before') ?>><?php _e('Before page content', 'formidable') ?></option>
                 <option value="replace" <?php selected($post->frm_insert_loc, 'replace') ?>><?php _e('Replace page content', 'formidable') ?></option>
             </select>
 
-            <span id="post_select_container">
+            <span id="post_select_container" <?php echo ($post->frm_insert_loc == 'none') ? ' class="frm_hidden"' : ''; ?>>
                 <?php _e('on page', 'formidable'); ?>
                 <?php FrmAppHelper::wp_pages_dropdown( 'post_id', $post->frm_post_id, 35 ); ?>
                 <span class="frm_help frm_icon_font frm_tooltip_icon" title="<?php _e('If you would like the content to be inserted automatically, you must then select the page in which to insert it.', 'formidable') ?>" ></span>

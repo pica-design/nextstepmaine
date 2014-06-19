@@ -2,9 +2,8 @@
     <div class="frmicon icon32"><br/></div>
     <h2><?php _e('Entries', 'formidable'); ?>
         <?php if(current_user_can('frm_create_entries')){ ?>
-        <a href="?page=formidable-entries&amp;frm_action=new<?php if($form) echo '&amp;form='. $form->id; ?>" class="add-new-h2"><?php _e('Add New') ?></a>
+        <a href="?page=formidable-entries&amp;frm_action=new<?php if($form) echo '&amp;form='. $form->id; ?>" class="add-new-h2"><?php _e('Add New', 'formidable') ?></a>
         <?php } ?>
-        <a href="?page=formidable-entries&amp;frm_action=import<?php echo ($form) ? '&amp;form_id='.$form->id : ''; ?>" class="add-new-h2"><?php _e('Import', 'formidable'); ?></a>
     </h2>
 
 <?php require(FrmAppHelper::plugin_path() .'/classes/views/shared/errors.php'); 

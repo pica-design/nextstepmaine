@@ -1,6 +1,6 @@
 <?php if(isset($field) and $field->type == 'user_id'){ ?>
 <select name="options[where_val][<?php echo $where_key; ?>]">
-<option value="current_user">Current User</option>
+<option value="current_user"><?php _e('Current User', 'formidable') ?></option>
 <?php
 $users = FrmProFieldsHelper::get_user_options();
 foreach($users as $user_id => $user_login){ 

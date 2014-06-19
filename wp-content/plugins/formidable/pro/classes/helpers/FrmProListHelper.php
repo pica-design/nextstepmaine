@@ -1,13 +1,8 @@
 <?php
 
 class FrmProListHelper extends WP_List_Table {
-    var $plural;
-    var $singular;
-    var $table_name;
-    var $page_name;
-    var $params;
     
-	function FrmProListHelper($args) {
+	function __construct($args) {
 	    $args = wp_parse_args( $args, array(
 			'plural' => '',
 			'singular' => '',
@@ -48,10 +43,9 @@ class FrmProListHelper extends WP_List_Table {
 		$per_page = $this->get_items_per_page( 'formidable_page_formidable_'. str_replace('-', '_', $this->page_name) .'_per_page');
 
 		$start = ( isset( $_REQUEST['start'] ) ) ? $_REQUEST['start'] : (( $page - 1 ) * $per_page);
-		$s = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : '';
+		$s = isset( $_REQUEST['s'] ) ? stripslashes($_REQUEST['s']) : '';
 		$fid = isset( $_REQUEST['fid'] ) ? $_REQUEST['fid'] : '';
 		if($s != ''){
-		    $s = stripslashes($s);
 		    preg_match_all('/".*?("|$)|((?<=[\\s",+])|^)[^\\s",+]+/', $s, $matches);
 		    $search_terms = array_map('trim', $matches[0]);
 		}
@@ -185,7 +179,7 @@ class FrmProListHelper extends WP_List_Table {
 		    $duplicate_link .= "&form=". $this->params['form'];
 		    $delete_link .= "&form=". $this->params['form'];
 		    $view_link = "?page=formidable-{$this->page_name}&frm_action=show&id={$item->id}";
-		    $actions['view'] = "<a href='" . wp_nonce_url( $view_link ) . "'>". __('View') ."</a>";
+		    $actions['view'] = "<a href='" . wp_nonce_url( $view_link ) . "'>". __('View', 'formidable') ."</a>";
         }
         
         $actions['duplicate'] = "<a href='" . wp_nonce_url( $duplicate_link ) . "'>". __('Duplicate', 'formidable') ."</a>";

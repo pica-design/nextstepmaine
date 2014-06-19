@@ -108,22 +108,6 @@ class FrmProDisplay{
             update_post_meta($new_values['frm_post_id'], 'frm_display_id', $id);
             
     }
-
-    function destroy( $id ){
-        global $wpdb;
-
-        $display = $this->getOne($id);
-        if (!$display) return false;
-
-        $frmprodb = new FrmProDb();
-        $query_results = $wpdb->query("DELETE FROM $frmprodb->displays WHERE id=$id");
-        if ($query_results){
-            wp_cache_delete($id, 'frm_display');
-            do_action('frm_destroy_display', $id);
-        }
-        
-        return $query_results;   
-    }
     
     function getOne( $id, $blog_id=false, $get_meta=false, $atts=array() ){
         global $wpdb;
@@ -170,8 +154,7 @@ class FrmProDisplay{
     function getAll( $where = '', $order_by = 'post_date', $limit = 99 ){
         if(!is_numeric($limit))
             $limit = (int)$limit;
-            
-        //$query = 'SELECT * FROM ' . $frmprodb->displays . FrmAppHelper::prepend_and_or_where(' WHERE ', $where) . $order_by . $limit;
+        
         $query = array(
             'numberposts'   => $limit,
             'orber_by'      => $order_by,

@@ -1,11 +1,5 @@
 <?php
 class FrmProField{
-
-    function FrmProField(){
-        add_filter('frm_before_field_created', array(&$this, 'create'));
-        add_filter('frm_update_field_options', array(&$this, 'update'), 10, 3);
-        add_filter('frm_duplicated_field', array(&$this, 'duplicate'));
-    }
     
     function create($field_data){
         global $frmpro_settings;
@@ -55,7 +49,7 @@ class FrmProField{
             case 'break':
                 global $frmdb;
                 $page_num = $frmdb->get_count($frmdb->fields, array('form_id' => $field_data['form_id'], 'type' => 'break'));
-                $field_data['name'] = __('Next');
+                $field_data['name'] = __('Next', 'formidable');
         }
         return $field_data;
     }
@@ -118,36 +112,80 @@ class FrmProField{
     
     function duplicate($values){
         global $frm_duplicate_ids;
-        if(empty($frm_duplicate_ids))
+        if ( empty($frm_duplicate_ids) || empty($values['field_options']) ) {
             return $values;
+        }
         
-        if(!empty($values['field_options'])){
-            if(isset($values['field_options']['calc']) and !empty($values['field_options']['calc'])){
-                $ids = implode(array_keys($frm_duplicate_ids), '|');
-                preg_match_all( "/\[($ids)\]/s", $values['field_options']['calc'], $matches, PREG_PATTERN_ORDER);
-                unset($ids);
-                
-                if (isset($matches[1])){
-                    foreach ($matches[1] as $val){
-                        $values['field_options']['calc'] = str_replace('['. $val .']', '['. $frm_duplicate_ids[$val] .']', $values['field_options']['calc']);
-                        unset($val);
-                    }
-                }
-                unset($matches);
+        // switch out fields from calculation or default values
+        $switch_string = array('default_value', 'calc');
+        foreach ( $switch_string as $opt ) {
+            if ( (!isset($values['field_options'][$opt]) || empty($values['field_options'][$opt])) &&
+                (!isset($values[$opt]) || empty($values[$opt])) ) {
+                continue;
             }
             
-            if(isset($values['field_options']['hide_field']) and !empty($values['field_options']['hide_field'])){
-                $values['field_options']['hide_field_cond'] = maybe_unserialize($values['field_options']['hide_field_cond']);
-                $values['field_options']['hide_opt'] = maybe_unserialize($values['field_options']['hide_opt']);
-                $values['field_options']['hide_field'] = maybe_unserialize($values['field_options']['hide_field']);
-                foreach($values['field_options']['hide_field'] as $k => $f){
-                    if(isset($frm_duplicate_ids[$f]))
-                        $values['field_options']['hide_field'][$k] = $frm_duplicate_ids[$f];
-                    unset($k);
-                    unset($f);
+            $this_val = isset($values[$opt]) ? $values[$opt] : $values['field_options'][$opt];
+            if ( is_array($this_val) ) {
+                continue;
+            }
+            
+            $ids = implode( array_keys($frm_duplicate_ids), '|' );
+            
+            preg_match_all( "/\[($ids)\]/s", $this_val, $matches, PREG_PATTERN_ORDER);
+            unset($ids);
+            
+            if ( !isset($matches[1]) ) {
+                unset($matches);
+                continue;
+            }
+            
+            foreach ( $matches[1] as $val ) {
+                $new_val = str_replace('['. $val .']', '['. $frm_duplicate_ids[$val] .']', $this_val);
+                if ( isset($values[$opt]) ) {
+                    $this_val = $values[$opt] = $new_val;
+                } else {
+                    $this_val = $values['field_options'][$opt] = $new_val;
                 }
+                unset($new_val);
+                unset($val);
+            }
+            
+            unset($this_val);
+            unset($matches);
+        }
+        
+        // switch out field ids in conditional logic
+        if ( isset($values['field_options']['hide_field']) && !empty($values['field_options']['hide_field']) ) {
+            $values['field_options']['hide_field_cond'] = maybe_unserialize($values['field_options']['hide_field_cond']);
+            $values['field_options']['hide_opt'] = maybe_unserialize($values['field_options']['hide_opt']);
+            $values['field_options']['hide_field'] = maybe_unserialize($values['field_options']['hide_field']);
+            
+            foreach ( $values['field_options']['hide_field'] as $k => $f ) {
+                if ( isset($frm_duplicate_ids[$f]) ) {
+                    $values['field_options']['hide_field'][$k] = $frm_duplicate_ids[$f];
+                }
+                unset($k);
+                unset($f);
             }
         }
+        
+        // switch out field ids if selected in a data from entries field
+        if ( 'data' == $values['type'] && isset($values['field_options']['form_select']) &&
+            !empty($values['field_options']['form_select']) && isset($frm_duplicate_ids[$values['field_options']['form_select']]) ) {
+	        $values['field_options']['form_select'] = $frm_duplicate_ids[$values['field_options']['form_select']];
+	    }
+	    
+	    // switch out ids for dependent fields
+	    if ( isset($values['field_options']['dependent_fields']) && !empty($values['field_options']['dependent_fields']) ) {
+	        foreach ( $values['field_options']['dependent_fields'] as $f => $v ) {
+	            if ( isset($frm_duplicate_ids[$f]) ) {
+	                $values['field_options']['dependent_fields'][$frm_duplicate_ids[$f]] = $v;
+	                unset($values['field_options']['dependent_fields'][$f]);
+	            }
+	            unset($v);
+	            unset($fid);
+	        }
+	    }
         
         return $values;
     }
@@ -157,101 +195,17 @@ class FrmProField{
     }
     
     function is_field_hidden($field, $values){
-        global $frm_field;
-        
-        $field->field_options = maybe_unserialize($field->field_options);
-        
-        if($field->type == 'user_id' or $field->type == 'hidden')
-            return false;
-            
-        if(!isset($field->field_options['hide_field']) or empty($field->field_options['hide_field']))
-            return false;
-
-        //TODO: check if field is included in conditional heading
-        
-        $field->field_options['hide_field'] = (array)$field->field_options['hide_field']; 
-        if(!isset($field->field_options['hide_field_cond']))
-            $field->field_options['hide_field_cond'] = array('==');   
-        $field->field_options['hide_field_cond'] = (array)$field->field_options['hide_field_cond'];
-        $field->field_options['hide_opt'] = (array)$field->field_options['hide_opt'];
-            
-        if(!isset($field->field_options['show_hide']))
-            $field->field_options['show_hide'] = 'show';
-        
-        if(!isset($field->field_options['any_all']))
-            $field->field_options['any_all'] = 'any';
-        
-        $hidden = false;
-        $hide = array();
-        
-        foreach($field->field_options['hide_field'] as $hide_key => $hide_field){
-            if($hidden and $field->field_options['any_all'] == 'any' and $field->field_options['show_hide'] == 'hide')
-                continue;
-              
-            $observed_value = stripslashes_deep((isset($values['item_meta'][$hide_field])) ? $values['item_meta'][$hide_field] : '');
-            
-            if($field->type == 'data' and empty($field->field_options['hide_opt'][$hide_key]) and (is_numeric($observed_value) or is_array($observed_value))){
-                $observed_field = $frm_field->getOne($hide_field);
-                if($observed_field->type == 'data')
-                    $field->field_options['hide_opt'][$hide_key] = $observed_value;
-
-                unset($observed_field);
-            }
-
-            $hidden = FrmProFieldsHelper::value_meets_condition($observed_value, $field->field_options['hide_field_cond'][$hide_key], $field->field_options['hide_opt'][$hide_key]); 
-            if($field->field_options['show_hide'] == 'show')
-                $hidden = ($hidden) ? false : true;
-
-            $hide[$hidden] = $hidden;
-        }
-        
-        if($field->field_options['any_all'] == 'all' and !empty($hide) and isset($hide[0]) and isset($hide[1]))
-            $hidden = ($field->field_options['show_hide'] == 'show') ? true : false;
-        else if($field->field_options['any_all'] == 'any' and $field->field_options['show_hide'] == 'show' and isset($hide[0]))
-            $hidden = false;
-        
-        return $hidden;
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProFieldsHelper::is_field_hidden');
+        return FrmProFieldsHelper::is_field_hidden($field, $values);
     }
     
     function is_visible_to_user($field){
-        $visible = true;
-        
-        if(isset($field->field_options['admin_only']) and !empty($field->field_options['admin_only'])){
-            if($field->field_options['admin_only'] == 1) $field->field_options['admin_only'] = 'administrator';
-
-            if(($field->field_options['admin_only'] == 'loggedout' and is_user_logged_in()) or
-                ($field->field_options['admin_only'] == 'loggedin' and !is_user_logged_in()) or
-                (!in_array($field->field_options['admin_only'], array('loggedout', 'loggedin', '')) and
-                !FrmAppHelper::user_has_permission($field->field_options['admin_only']))){
-                    $visible = false;
-            }
-        }
-
-        return $visible;
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProFieldsHelper::is_field_visible_to_user');
+        return FrmProFieldsHelper::is_field_visible_to_user($field);
     }
     
     function on_current_page($field){
-        global $frm_vars, $frm_field;
-        $current = true;
-        
-        $prev = 0;
-        $next = 9999;
-        if(!is_object($field))
-            $field = $frm_field->getOne($field);
-        
-        if($frm_vars['prev_page'] and is_array($frm_vars['prev_page']) and isset($frm_vars['prev_page'][$field->form_id]))
-            $prev = $frm_vars['prev_page'][$field->form_id];
-        
-        if($frm_vars['next_page'] and is_array($frm_vars['next_page']) and isset($frm_vars['next_page'][$field->form_id])){
-            $next = $frm_vars['next_page'][$field->form_id];
-            if(is_object($next))
-                $next = $next->field_order;
-        }
-        
-        if($field->field_order < $prev or $field->field_order > $next)
-            $current = false;
-        
-        $current = apply_filters('frm_show_field_on_page', $current, $field);
-        return $current;
+        _deprecated_function( __FUNCTION__, '1.07.05', 'FrmProFieldsHelper::field_on_current_page');
+        return FrmProFieldsHelper::field_on_current_page($field);
     }
 }

@@ -4,7 +4,7 @@
  */
  
 class FrmProAppController{
-    function FrmProAppController(){
+    public static function load_hooks(){
         add_action('init', 'FrmProAppController::create_taxonomies', 0 );
         add_action('frm_column_header', 'FrmProAppController::insert_header_checkbox');
         add_action('frm_first_col', 'FrmProAppController::insert_item_checkbox');

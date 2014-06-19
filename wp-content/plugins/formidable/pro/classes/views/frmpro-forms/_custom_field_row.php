@@ -48,7 +48,7 @@
     <div style="float:left;margin-left:60px;">
     <a class="hide-if-no-js frm_toggle_cf_opts">
         <span class="frm_enternew"><?php _e('Enter new'); ?></span>
-        <span class="frm_cancelnew" style="display:none;"><?php _e('Cancel'); ?></span>
+        <span class="frm_cancelnew frm_hidden"><?php _e('Cancel', 'formidable'); ?></span>
     </a>
     </div>
     <div class="clear"></div>

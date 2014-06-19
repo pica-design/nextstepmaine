@@ -3,6 +3,7 @@ section.content-wrapper {
 	padding: 30px 0 270px 0 ;
 	overflow: auto ;
 	@include centered ;
+	overflow:hidden;
 	
 	h1 {
 		color: rgb(0,174,239) ;
@@ -95,6 +96,13 @@ section.content-wrapper {
 				padding: 0 15px 0 15px ;
 				@include single-box-shadow($medium-gray, -5px, 0px , 5px, -5px, false);
 				
+				&.half{
+					width:50%;
+					padding-bottom:20px;
+					height:auto;
+					min-height:260px;
+				}
+
 				&:first-child {
 					border-left: 0px ;
 					padding: 0 ;

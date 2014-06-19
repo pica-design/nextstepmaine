@@ -1,6 +1,8 @@
             <div class="clear"></div>
             <br /><br /><br /><br />
-			<footer>
+            <div id="root_footer"></div>
+            </section>
+			<footer id="sticky-footer-footer">
             	<div class="inner">
                 	<section class="column first">
                     	<figure class="button gray gradient hover uppercase"><a href="<?php bloginfo('url') ?>/feedback" title="Give Next Step Maine Your Feedback">Feedback</a></figure>

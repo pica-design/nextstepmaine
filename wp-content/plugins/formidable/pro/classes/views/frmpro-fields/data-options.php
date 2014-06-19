@@ -1,7 +1,7 @@
 <?php
 if ($field['data_type'] == 'select'){ 
     if(!empty($field['options'])){ 
-        if($field['read_only'] && (!isset($frm_vars['readonly']) || $frm_vars['readonly'] != 'disabled') && (!is_super_admin() || !is_admin() || defined('DOING_AJAX'))){ ?>
+        if ( $field['read_only'] && (!isset($frm_vars['readonly']) || $frm_vars['readonly'] != 'disabled') && (!current_user_can('frm_edit_entries') || !is_admin() || defined('DOING_AJAX')) ) { ?>
 <select disabled="disabled" <?php do_action('frm_field_input_html', $field) ?>>
 <?php   }else{ ?>
 <select name="<?php echo $field_name ?>" id="field_<?php echo $field['field_key'] ?>" <?php do_action('frm_field_input_html', $field) ?>>
@@ -17,7 +17,7 @@ $selected = ($field['value'] == $opt_key or in_array($opt_key, (array)$field['va
 <?php 
     }
     
-    if((empty($field['options']) || ($field['read_only'] && (!isset($frm_vars['readonly']) || $frm_vars['readonly'] != 'disabled') && (!is_super_admin() || !is_admin() || defined('DOING_AJAX')))) && !empty($field['value'])){ 
+    if ( (empty($field['options']) || ($field['read_only'] && (!isset($frm_vars['readonly']) || $frm_vars['readonly'] != 'disabled') && (!current_user_can('frm_edit_entries') || !is_admin() || defined('DOING_AJAX')))) && !empty($field['value']) ) { 
         if(is_array($field['value'])){ 
             foreach($field['value'] as $v){ ?>
 <input name="<?php echo $field_name ?>" id="field_<?php echo $field['field_key'] ?>" type="hidden" value="<?php echo esc_attr($v) ?>" />

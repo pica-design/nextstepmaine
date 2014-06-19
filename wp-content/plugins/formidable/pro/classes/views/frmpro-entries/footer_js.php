@@ -118,47 +118,47 @@ global $frmdb, $frm_field;
 
 foreach($frm_vars['calc_fields'] as $result => $calc){ 
     preg_match_all("/\[(.?)\b(.*?)(?:(\/))?\]/s", $calc, $matches, PREG_PATTERN_ORDER);
-
+    
     //if (!isset($matches[0])) return $value;
     $field_keys = $calc_fields = array();
-
+    
     foreach ($matches[0] as $match_key => $val){
         $val = trim(trim($val, '['), ']');
         $calc_fields[$val] = $frm_field->getOne($val); //get field
-        if(!$calc_fields[$val]) continue;
+        if ( !$calc_fields[$val] ) {
+            unset($calc_fields[$val]);
+            continue;
+        }
         
-        if($calc_fields[$val] and in_array($calc_fields[$val]->type, array('radio', 'scale', 'checkbox'))){
+        if ( $calc_fields[$val] && in_array($calc_fields[$val]->type, array('radio', 'scale', 'checkbox')) ) {
             $field_keys[$calc_fields[$val]->id] = 'input[name^="item_meta['. $calc_fields[$val]->id .']"]';
-        }else{
+        } else {
             $field_keys[$calc_fields[$val]->id] = ($calc_fields[$val]) ? '#field_'. $calc_fields[$val]->field_key : '#field_'. $val;
         }
         
         $calc = str_replace($matches[0][$match_key], 'vals[\''.$calc_fields[$val]->id.'\']', $calc);
     }
+    
 ?>
-$(document).on('change','<?php echo implode(",", $field_keys) ?>',function(){
+$(document).on('change','<?php echo implode(",", $field_keys) ?>',function(e){
+//$('<?php echo implode(",", $field_keys) ?>').change(function(e){
+if(e.frmTriggered){return false;}
 var vals=new Array();
-<?php foreach($calc_fields as $calc_field){ 
-if($calc_field->type == 'checkbox'){
+<?php 
+
+    foreach ( $calc_fields as $calc_field ) {
+        if ( $calc_field->type == 'checkbox' ) {
 ?>$('<?php echo $field_keys[$calc_field->id] ?>:checked, <?php echo $field_keys[$calc_field->id] ?>[type=hidden]').each(function(){ 
 if(isNaN(vals['<?php echo $calc_field->id ?>'])){vals['<?php echo $calc_field->id ?>']=0;}
 var n=parseFloat($(this).val().match(/-?\d*(\.\d*)?$/));if(isNaN(n))n=0;
 vals['<?php echo $calc_field->id ?>'] += n; });
-<?php }else if($calc_field->type == 'date') { 
-?>var d=$('<?php echo $field_keys[$calc_field->id]; ?>').val();
-<?php 
-global $frmpro_settings;
-        if(in_array($frmpro_settings->date_format, array('d/m/Y', 'j/m/y'))){
-?>var darr=d.split("/");
-vals['<?php echo $calc_field->id ?>']=new Date(darr[2],darr[1],darr[0]).getTime();
-<?php   }else if($frmpro_settings->date_format == 'j-m-Y'){ 
-?>var darr=d.split("-");
-vals['<?php echo $calc_field->id ?>']=new Date(darr[2],darr[1],darr[0]).getTime();
-<?php   }else{
-?>vals['<?php echo $calc_field->id ?>']=new Date(d).getTime();
-<?php   } 
-?>vals['<?php echo $calc_field->id ?>']=Math.round(vals['<?php echo $calc_field->id ?>']/(1000*60*60*24));
-<?php }else{
+<?php
+        } else if ( $calc_field->type == 'date' ) {
+            global $frmpro_settings;
+?>var d=$.datepicker.parseDate('<?php echo $frmpro_settings->cal_date_format ?>', $('<?php echo $field_keys[$calc_field->id]; ?>').val());
+if(d!=null){vals['<?php echo $calc_field->id ?>']=Math.ceil(d/(1000*60*60*24));}
+<?php
+        } else {
 ?>vals['<?php echo $calc_field->id ?>']=$('<?php 
 echo $field_keys[$calc_field->id]; 
 if(in_array($calc_field->type, array("radio", "scale")))
@@ -167,14 +167,26 @@ else if($calc_field->type == "select")
     echo " option:selected, ". $field_keys[$calc_field->id] .":hidden";
 ?>').val();
 if(typeof(vals['<?php echo $calc_field->id ?>'])=='undefined'){vals['<?php echo $calc_field->id ?>']=0;}else{ vals['<?php echo $calc_field->id ?>']=parseFloat(vals['<?php echo $calc_field->id ?>'].match(/-?\d*(\.\d*)?$/)); }
-<?php } 
-?>if(isNaN(vals['<?php echo $calc_field->id ?>'])){vals['<?php echo $calc_field->id ?>']=0;}
-<?php }
+<?php
+        } 
+?>if(isNaN(vals['<?php echo $calc_field->id ?>'])){vals['<?php echo $calc_field->id ?>']=0;}<?php
+
+    }
 ?>var total=parseFloat(<?php echo $calc ?>);if(isNaN(total)){total=0;}
-$("#field_<?php echo $result ?>").val(total).change();
-});
-$('<?php echo reset($field_keys) ?>').change();
-<?php } 
+$("#field_<?php echo $result ?>").val(total).trigger({type:'change',frmTriggered:true,selfTriggered:true});
+});<?php
+
+    if ( !isset($frm_vars['triggered']) ) {
+        $frm_vars['triggered'] = array();
+    }
+
+    if ( !in_array(reset($field_keys), $frm_vars['triggered']) ) {
+        $frm_vars['triggered'][] = reset($field_keys);
+
+        // initialize claculations on page load
+        ?>$('<?php echo reset($field_keys) ?>').trigger({type:'change',selfTriggered:true});<?php
+    }
+}
 }
 } 
 

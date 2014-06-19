@@ -37,6 +37,7 @@ class FrmProDisplaysHelper{
             }
         }
 	    
+	    $values->frm_form_id = (int) $values->frm_form_id;
 		$values->frm_order_by = (array)$values->frm_order_by;		
 		$values->frm_order = (array)$values->frm_order;
 
@@ -47,11 +48,12 @@ class FrmProDisplaysHelper{
         
         return array(
             'name' => '', 'description' => '', 'display_key' => '', 
-            'form_id' => '', 'date_field_id' => '', 'edate_field_id' => '', 'entry_id' => '', 
+            'form_id' => 0, 'date_field_id' => '', 'edate_field_id' => '',
+			'repeat_event_field_id' => '', 'repeat_edate_field_id' => '', 'entry_id' => '',
             'post_id' => '', 'before_content' => '', 'content' => '', 
             'after_content' => '', 'dyncontent' => '', 'param' => 'entry', 
             'type' => '', 'show_count' => 'all', 'insert_loc' => 'none', 
-            'insert_pos' => 1,
+            'insert_pos' => 1, 'no_rt' => 0,
             'order_by' => array(), 'order' => array(), 'limit' => '', 'page_size' => '', 
             'empty_msg' => __('No Entries Found', 'formidable'), 'copy' => 0, 
             'where' => array(), 'where_is' => array(), 'where_val' => array()

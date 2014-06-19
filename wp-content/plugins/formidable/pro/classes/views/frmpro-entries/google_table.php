@@ -35,6 +35,11 @@ data.addColumn('string','<?php echo addslashes($edit_link) ?>');
 <?php    
 }
 
+if($delete_link){ ?>
+data.addColumn('string','<?php echo addslashes($delete_link) ?>');
+<?php    
+}
+
 if($entries){ ?>
 data.addRows(<?php echo count($entries) ?>);
 <?php
@@ -69,12 +74,12 @@ data.setCell(<?php echo $i ?>,<?php echo $c ?>,<?php echo $entry->id ?>);
 data.setCell(<?php echo $i ?>,<?php echo $c ?>,<?php echo empty($val) ? '0' : $val ?>);
 <?php   }else if($type == 'boolean'){ ?>
 data.setCell(<?php echo $i ?>,<?php echo $c ?>,<?php echo empty($val) ? 'false' : 'true' ?>);
-<?php   }else{ ?>
-data.setCell(<?php echo $i ?>,<?php echo $c ?>,"<?php 
-$val = ($val != strip_tags($val)) ? $val : esc_attr($val); //check for html
-$val = str_replace(array("\r\n", "\n"), '\r', str_replace('&#039;', "'", $val));
-$val = ($clickable and $col->type != 'file') ? make_clickable($val) : $val;
-echo $val = ($val != strip_tags($val)) ? addslashes($val) : $val; //escape html
+<?php   }else{ 
+            $val = ($val == strip_tags($val)) ? esc_attr($val) : $val; //check for html
+            $val = str_replace(array("\r\n", "\n"), '\r', str_replace('&#039;', "'", $val));
+            $val = ($clickable && $col->type != 'file') ? make_clickable($val) : $val;
+?>
+data.setCell(<?php echo $i ?>,<?php echo $c ?>,"<?php echo ($val == strip_tags($val)) ? $val : addslashes($val); //escape html
 ?>");
 <?php   }
         $c++;
@@ -82,10 +87,19 @@ echo $val = ($val != strip_tags($val)) ? addslashes($val) : $val; //escape html
         unset($col);
         unset($type);
     }
-    if($edit_link and $frmpro_entry->user_can_edit($entry, $form)){ ?>
+    if ( $edit_link ) {
+		if ( FrmProEntriesHelper::user_can_edit($entry, $form) ) { ?>
 data.setCell(<?php echo $i ?>,<?php echo $c ?>,'<a href="<?php echo esc_url(add_query_arg(array('frm_action' => 'edit', 'entry' => $entry->id), $permalink) . $anchor)  ?>"><?php echo addslashes($edit_link) ?></a>');
-<?php }
-    $i++;
+<?php
+		}
+ 		$c++;
+	}
+    
+	 if ( $delete_link && FrmProEntriesHelper::user_can_delete($entry) ) { ?>
+data.setCell(<?php echo $i ?>,<?php echo $c ?>,'<a href="<?php echo esc_url(add_query_arg(array('frm_action' => 'destroy', 'entry' => $entry->id))) ?>" class="frm_delete_link" onclick="return confirm(\'<?php echo esc_attr($confirm)?>\')"><?php echo addslashes($delete_link) ?></a>');
+<?php 
+	}	
+	$i++;
     unset($entry);
 } 
 }else{ ?>
