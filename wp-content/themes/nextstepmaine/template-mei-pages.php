@@ -1,12 +1,14 @@
 <?php 
+    /* Template Name: MEI Pages */
     get_header() ;
     the_post() ;
+    $post_ID = $post->ID
 ?>
     <section class="content-wrapper">
         <div class="page-content">
         	<?php $breadcrumbs = new Breadcrumbs ?>
-            <h2><?php echo $post->post_title; ?></h2>
-            <?php the_content() ?>
+            <h2><?php echo $post->post_title; ?></h2><br />
+            <?php the_content(); ?>
         </div>
         <div class="aside vertical">
             <?php 

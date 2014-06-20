@@ -1,26 +1,28 @@
 <?php get_header(); ?>
     <section class="content-wrapper">
-        
+        <?php 
+        	$mei_page = get_page('9221'); 
+        	$resources = get_post('9229'); 
+        ?>
+        <?php //print_r($mei_page); ?>
         <section class="aside horizontal">
 	        <?php get_sidebar('homepage') ?>
 	        <div class="clear"></div>
 
 	        <div class="line-break"></div>
-
+	
 	        <div class="widget two-thirds maine-learning-initiative">
-	        	<h3>Maine Employer Initiative</h3>
-	        	<p>
-	        		There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text... <a href="">Learn More</a>
-	        	</p>
+	        	<h3><a href="<?php echo $mei_page->guid ?>"><?php echo $mei_page->post_title; ?></a></h3>
+	        		<?php echo substr($mei_page->post_content,0, 475) . '...' . '<a href="' . $mei_page->guid . '">Learn More</a>'; ?>
 	        	<nav>
 	        		<ul>
-	        			<li class="alignleft"><a href="<?php $resources = get_post('9229'); echo $resources->guid ?>">Access to Resources</a> | </li>	
-	        			<li><a href="">&nbsp;Join the Maine Employers Initiative</a></li>	
+	        			<li class="alignleft"><a href="<?php echo $resources->guid ?>">Access to Resources</a> | </li>	
+	        			<li><a href="<?php echo get_page('9233')->guid ?>">&nbsp;Join the Maine Employers Initiative</a></li>	
 	        		</ul>
 	        	</nav>
 
-	        	<small><a href="">Already a MEI partner?</a></small>
-	        	<p class="tooltip"><a href="">Apply for a Scholarship Today!</a></p>
+	        	<small>Already a MEI partner?</small>
+	        	<p class="tooltip"><a href="<?php echo get_page('9250')->guid ?>">Apply for a Scholarship Today!</a></p>
 
 	        </div>
 	        <div class="widget one-third prior-learning-assessment">

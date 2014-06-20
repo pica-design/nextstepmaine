@@ -85,3 +85,13 @@ nav.next-step {
 		} /* ul */
 	} /* .inner */
 } /* nav.next-step */
+
+ul{
+	li{
+		&.current-page{
+			a{
+				color: rgb(0,174,239) !important;
+			}
+		}
+	}
+}
